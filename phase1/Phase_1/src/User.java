@@ -17,6 +17,37 @@ public abstract class User {
     }
 
     /**
+     * Alternative constructor of User's subclasses, mainly used when reading in from a file.
+     * @param username this User's username.
+     * @param password this User's password.
+     * @param date the date this User was created, in LocalDate format ("year-month-date")
+     */
+    public User (String username, String password, String date){
+        this.username = username;
+        this.password = password;
+
+        // Extrapolating the date from the input string, and creating a LocalDate object.
+        String[] dateParsed = date.split("-");
+        int year = Integer.parseInt(dateParsed[0]);
+        int month = Integer.parseInt(dateParsed[1]);
+        int day = Integer.parseInt(dateParsed[2]);
+        this.dateCreated = LocalDate.of(year, month, day);
+    }
+
+    /**
+     * Converts this User into String representation.
+     * @return this User's String representation.
+     */
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", dateCreated=" + dateCreated.toString() +
+                '}';
+    }
+
+    /**
      * Getter for username
      * @return this User's username
      */
