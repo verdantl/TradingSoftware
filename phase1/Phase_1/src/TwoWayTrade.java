@@ -20,7 +20,7 @@ public class TwoWayTrade extends Trade {
      * @param item2 The receiver's item
      */
 
-    public TwoWayTrade(User initiator, User receiver, LocalDate tradeDate, String location, boolean isPermanent,
+    public TwoWayTrade(Trader initiator, Trader receiver, LocalDate tradeDate, String location, boolean isPermanent,
                        Item item1, Item item2){
         super(initiator, receiver, location, tradeDate, isPermanent);
         this.item1 = item1;
