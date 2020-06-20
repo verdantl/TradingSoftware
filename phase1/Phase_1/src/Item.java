@@ -1,9 +1,9 @@
 public class Item {
-    int qualityRating;
-    String name, category;
-    Trader owner;
-    int id;
-    static int idCounter = 0;
+    private int qualityRating;
+    private String name, category;
+    private Trader owner;
+    private int id;
+    private static int idCounter = 0;
 
     public Item(String name, String category, Trader owner, int qualityRating){
         this.name = name;
@@ -32,6 +32,22 @@ public class Item {
 
     public int getQualityRating(){
         return qualityRating;
+    }
+
+    public Trader getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Trader owner) {
+        this.owner = owner;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
