@@ -1,8 +1,8 @@
 import java.time.LocalDate;
 
 public abstract class Trade {
-    private User initiator;
-    private User receiver;
+    private Trader initiator;
+    private Trader receiver;
     private LocalDate tradeDate;
     private String location;
     private boolean isPermanent;
@@ -19,7 +19,7 @@ public abstract class Trade {
      * @param tradeDate the date the Trade will occur
      * @param isPermanent whether the Trade is permanent or temporary
      */
-    public Trade(User initiator, User receiver, String location, LocalDate tradeDate, boolean isPermanent){
+    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, boolean isPermanent){
         this.initiator = initiator;
         this.receiver = receiver;
         this.location = location;
@@ -133,7 +133,7 @@ public abstract class Trade {
      * Setter for initiator
      * @param initiator the Trade's new initiator
      */
-    public void setInitiator(User initiator) {
+    public void setInitiator(Trader initiator) {
         this.initiator = initiator;
     }
 
@@ -141,7 +141,7 @@ public abstract class Trade {
      * Setter for receiver
      * @param receiver the Trade's new receiver
      */
-    public void setReceiver(User receiver) {
+    public void setReceiver(Trader receiver) {
         this.receiver = receiver;
     }
 
