@@ -53,22 +53,42 @@ public class Item {
         this.category = category;
     }
 
+    /**
+     * Gets the item's quality rating.
+     * @return the int value that represents the item's quality rating
+     */
     public int getQualityRating(){
         return qualityRating;
     }
 
+    /**
+     * Gets the item's owner.
+     * @return the instance of Trader that is this item's owner
+     */
     public Trader getOwner() {
         return owner;
     }
 
+    /**
+     * Sets the item's owner.
+     * @param owner the Trader that is to become this item's owner
+     */
     public void setOwner(Trader owner) {
         this.owner = owner;
     }
 
+    /**
+     * Gets the item's id.
+     * @return an integer that represents this item's id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the item's id.
+     * @param id the item's new id
+     */
     public void setId(int id) {
         this.id = id;
     }
