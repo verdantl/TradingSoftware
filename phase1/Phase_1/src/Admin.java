@@ -18,4 +18,17 @@ public class Admin extends User{
     public Admin(String username, String password, String date){
         super(username, password, date);
     }
+
+    /**
+     * Converts the admin to a string representation.
+     * @return a string of the admin's username, password, and date created
+     */
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "username='" + super.getUsername() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
+                ", dateCreated=" + super.getDateCreated().toString() +
+                '}';
+    }
 }

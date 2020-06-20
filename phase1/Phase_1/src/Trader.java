@@ -20,37 +20,57 @@ public class Trader extends User {
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
-        public Trader(String username, String password, String dateCreated, ArrayList<Item> wantToBorrow,
-                      ArrayList<Item> proposedItems, ArrayList<Item> wantToLend, ArrayList<Trade> trades,
-                      ArrayList<Item> borrowedItems, boolean frozen, boolean flagged, int numLent, int numBorrowed){
-            super(username, password, dateCreated);
-            this.wantToBorrow = wantToBorrow;
-            this.proposedItems = proposedItems;
-            this.wantToLend = wantToLend;
-            this.trades=trades;
-            this.frozen = frozen;
-            this.flagged = flagged;
-            this.numBorrowed=numBorrowed;
-            this.numLent=numLent;
-            this.borrowedItems = borrowedItems;
-        }
+    public Trader(String username, String password, String dateCreated, ArrayList<Item> wantToBorrow,
+                  ArrayList<Item> proposedItems, ArrayList<Item> wantToLend, ArrayList<Trade> trades,
+                  ArrayList<Item> borrowedItems, boolean frozen, boolean flagged, int numLent, int numBorrowed){
+        super(username, password, dateCreated);
+        this.wantToBorrow = wantToBorrow;
+        this.proposedItems = proposedItems;
+        this.wantToLend = wantToLend;
+        this.trades=trades;
+        this.frozen = frozen;
+        this.flagged = flagged;
+        this.numBorrowed=numBorrowed;
+        this.numLent=numLent;
+        this.borrowedItems = borrowedItems;
+    }
 
     /**
      * Constructor for the trader class when a new account is made.
      * @param username The user's username
      * @param password  The user's password
      */
-        public Trader(String username, String password){
-            super(username,password);
-            wantToBorrow = new ArrayList<>();
-            proposedItems = new ArrayList<>();
-            wantToLend = new ArrayList<>();
-            trades = new ArrayList<>();
-            frozen = false;
-            numBorrowed= 0;
-            numLent=0;
-            borrowedItems = new ArrayList<>();
-        }
+    public Trader(String username, String password){
+        super(username,password);
+        wantToBorrow = new ArrayList<>();
+        proposedItems = new ArrayList<>();
+        wantToLend = new ArrayList<>();
+        trades = new ArrayList<>();
+        frozen = false;
+        numBorrowed= 0;
+        numLent=0;
+        borrowedItems = new ArrayList<>();
+    }
+
+    /**
+     * Converts the trader to a string representation.
+     * @return a string of the admin's username, password, and date created
+     */
+    @Override
+    public String toString() {
+        return "Trader{" +
+                "username='" + super.getUsername() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
+                ", dateCreated=" + super.getDateCreated().toString() +
+                ", wishlist='" + wantToBorrow + '\'' +
+                ", lending list=" + wantToLend +
+                ", trades='" + trades + '\'' +
+                ", frozen='" + frozen + '\'' +
+                ", flagged=" + flagged +
+                ", numBorrowed=" + numBorrowed +
+                ", numLent='" + numLent + '\'' +
+                '}';
+    }
 
     /**
      * Getter for user's wantToBorrow

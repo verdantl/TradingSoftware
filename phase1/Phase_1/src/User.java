@@ -39,13 +39,7 @@ public abstract class User {
      * @return this User's String representation.
      */
     @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", dateCreated=" + dateCreated.toString() +
-                '}';
-    }
+    public abstract String toString();
 
     /**
      * Getter for username
