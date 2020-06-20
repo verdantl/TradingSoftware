@@ -20,16 +20,18 @@ public class Trader extends User {
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
-        public Trader(String username, String password, String dateCreated, ArrayList<Item> wantToBorrow, ArrayList<Item> proposedItems, ArrayList<Item> wantToLend, ArrayList<Trade> trades,ArrayList<Item> borrowedItems, boolean frozen, boolean flagged, int numLent, int numBorrowed){
+        public Trader(String username, String password, String dateCreated, ArrayList<Item> wantToBorrow,
+                      ArrayList<Item> proposedItems, ArrayList<Item> wantToLend, ArrayList<Trade> trades,
+                      ArrayList<Item> borrowedItems, boolean frozen, boolean flagged, int numLent, int numBorrowed){
             super(username, password, dateCreated);
             this.wantToBorrow = wantToBorrow;
             this.proposedItems = proposedItems;
             this.wantToLend = wantToLend;
             this.trades=trades;
             this.frozen = frozen;
+            this.flagged = flagged;
             this.numBorrowed=numBorrowed;
             this.numLent=numLent;
-            this.flagged = flagged;
             this.borrowedItems = borrowedItems;
         }
 
@@ -40,19 +42,19 @@ public class Trader extends User {
      */
         public Trader(String username, String password){
             super(username,password);
-            this.wantToBorrow = new ArrayList<Item>();
-            this.proposedItems = new ArrayList<Item>();;
-            this.wantToLend = new ArrayList<Item>();;
-            this.trades = new ArrayList<Trade>();
-            this.frozen = false;
-            this.numBorrowed= 0;
-            this.numLent=0;
-            this.borrowedItems = new ArrayList<Item>();
+            wantToBorrow = new ArrayList<>();
+            proposedItems = new ArrayList<>();
+            wantToLend = new ArrayList<>();
+            trades = new ArrayList<>();
+            frozen = false;
+            numBorrowed= 0;
+            numLent=0;
+            borrowedItems = new ArrayList<>();
         }
 
     /**
      * Getter for user's wantToBorrow
-     * @return
+     * @return an arraylist of the user's wishlist
      */
     public ArrayList<Item> getWantToBorrow() {
         return wantToBorrow;
@@ -60,7 +62,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's wantToBorrow
-     * @param wantToBorrow
+     * @param wantToBorrow an arraylist of the user's wishlist
      */
     public void setWantToBorrow(ArrayList<Item> wantToBorrow) {
         this.wantToBorrow = wantToBorrow;
@@ -68,7 +70,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's proposedItems
-     * @return
+     * @return an arraylist of the items that the user wishes to lend that need to be approved
      */
     public ArrayList<Item> getProposedItems() {
         return proposedItems;
@@ -76,7 +78,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's proposedItems
-     * @param proposedItems
+     * @param proposedItems an arraylist of the items the user wishes to lend that need to be approved
      */
     public void setProposedItems(ArrayList<Item> proposedItems) {
         this.proposedItems = proposedItems;
@@ -84,7 +86,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's wantToLend
-     * @return
+     * @return an arraylist of the user's lending list
      */
     public ArrayList<Item> getWantToLend() {
         return wantToLend;
@@ -92,7 +94,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's wantToLend
-     * @param wantToLend
+     * @param wantToLend an arraylist representing a lending list
      */
     public void setWantToLend(ArrayList<Item> wantToLend) {
         this.wantToLend = wantToLend;
@@ -100,7 +102,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's frozen boolean
-     * @return
+     * @return whether the account is frozen or not
      */
     public boolean isFrozen() {
         return frozen;
@@ -108,7 +110,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's frozen boolean
-     * @param frozen
+     * @param frozen whether the account is frozen or not
      */
     public void setFrozen(boolean frozen) {
         this.frozen = frozen;
@@ -116,7 +118,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's numLent
-     * @return
+     * @return the number of items the user has lent
      */
     public int getNumLent() {
         return numLent;
@@ -124,7 +126,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's numLent
-     * @param numLent
+     * @param numLent the number of items this user has lent
      */
     public void setNumLent(int numLent) {
         this.numLent = numLent;
@@ -132,7 +134,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's numBorrowed
-     * @return
+     * @return the number of items the user has borrowed
      */
     public int getNumBorrowed() {
         return numBorrowed;
@@ -140,7 +142,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's numBorrowed
-     * @param numBorrowed
+     * @param numBorrowed the number of items this user has borrowed
      */
     public void setNumBorrowed(int numBorrowed) {
         this.numBorrowed = numBorrowed;
@@ -148,7 +150,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's trades
-     * @return
+     * @return an arraylist of the trades the user has made
      */
     public ArrayList<Trade> getTrades() {
         return trades;
@@ -156,7 +158,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's trades
-     * @param trades
+     * @param trades an arraylist of the trades the user has made
      */
     public void setTrades(ArrayList<Trade> trades) {
         this.trades = trades;
@@ -164,7 +166,7 @@ public class Trader extends User {
 
     /**
      * Getter for user's flagged boolean
-     * @return
+     * @return whether the user is flagged
      */
     public boolean isFlagged() {
         return flagged;
@@ -172,7 +174,7 @@ public class Trader extends User {
 
     /**
      * Setter for user's flagged boolean
-     * @param flagged
+     * @param flagged whether the user is flagged
      */
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
@@ -180,7 +182,7 @@ public class Trader extends User {
 
     /**
      * Adds the given item to proposedItems
-     * @param item
+     * @param item an item that the user wishes to add to the approval list
      */
     public void addToProposedItems(Item item){
             this.proposedItems.add(item);
@@ -188,7 +190,7 @@ public class Trader extends User {
 
     /**
      * Adds the given item to wantToLend
-     * @param item
+     * @param item an item that will be added to the lending list
      */
     public void addToWantToLend(Item item){
             this.wantToLend.add(item);
@@ -196,7 +198,7 @@ public class Trader extends User {
 
     /**
      * Adds the given trade to trades
-     * @param trade
+     * @param trade a trade that the user has made
      */
     public void addToTrades(Trade trade){
             this.trades.add(trade);
@@ -204,7 +206,7 @@ public class Trader extends User {
 
     /**
      * Adds an item to wantToBorrow
-     * @param item
+     * @param item an item that will be added to the wishlist
      */
     public void addToWantToBorrow(Item item){
             this.wantToBorrow.add(item);
@@ -212,7 +214,7 @@ public class Trader extends User {
 
     /**
      * Removes the given item from wantToBorrow
-     * @param item
+     * @param item an item from the wishlist
      */
     public void removeFromWantToBorrow(Item item){
             this.wantToBorrow.remove(item);
@@ -220,7 +222,7 @@ public class Trader extends User {
 
     /**
      * Removes the given item from wantToLend
-     * @param item
+     * @param item an item from the lending list
      */
     public void removeFromWantToLend(Item item){
             this.wantToLend.remove(item);
@@ -228,7 +230,7 @@ public class Trader extends User {
 
     /**
      * Removes the given item from proposedItems
-     * @param item
+     * @param item an item from the list of proposed items for approval
      */
     public void removeFromProposedItems(Item item){
             this.proposedItems.remove(item);
@@ -236,21 +238,21 @@ public class Trader extends User {
 
     /**
      * Removes the given trade from Trades
-     * @param trade
+     * @param trade a trade from the list of trades
      */
     public void removeFromTrades(Trade trade){this.trades.remove(trade);}
 
     /**
-     * Setter for user's borrowedItems
-     * @return
+     * Getter for user's borrowedItems
+     * @return an arraylist of the items the user has borrowed
      */
     public ArrayList<Item> getBorrowedItems() {
         return borrowedItems;
     }
 
     /**
-     * Getter for user's borrowedItems
-     * @param borrowedItems
+     * Setter for user's borrowedItems
+     * @param borrowedItems an arraylist of the items the user has borrowed
      */
     public void setBorrowedItems(ArrayList<Item> borrowedItems) {
         this.borrowedItems = borrowedItems;
@@ -258,7 +260,7 @@ public class Trader extends User {
 
     /**
      * Adds the given item to the user's borrowedItems
-     * @param item
+     * @param item an item that the user has borrowed
      */
     public void addToBorrowedItems(Item item){
         this.borrowedItems.add(item);
@@ -266,7 +268,7 @@ public class Trader extends User {
 
     /**
      * Removes the given item from the user's borrowedItems
-     * @param item
+     * @param item an item from the user's list of borrowed items
      */
     public void removeFromBorrowedItems(Item item){
         this.borrowedItems.remove(item);
