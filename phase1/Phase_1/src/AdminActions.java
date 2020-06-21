@@ -99,6 +99,8 @@ public class AdminActions {
 
     }
 
+    //We don't have a place to store the limit currently, so we can store it here in the AdminActions or
+    //in some other class.
     /**
      * Changes the limit for the number of...
      * @param newLimit The new limit for the number of ...
