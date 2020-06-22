@@ -19,13 +19,12 @@ public class OneWayTrade extends Trade{
      * @param receiver the user who will receive the item in the trade.
      * @param location the location of the Trade
      * @param tradeDate the date the Trade will occur
-     * @param isPermanent whether the Trade is permanent or temporary
      * @param item the item that initiator wants to trade
      * @param tradeType store what type the trade is (lend or borrow)
      */
     public OneWayTrade(Trader initiator, Trader receiver, String location,
-                       LocalDate tradeDate, boolean isPermanent, Item item, String tradeType){
-        super(initiator, receiver, location, tradeDate, isPermanent);
+                       LocalDate tradeDate, Item item, String tradeType){
+        super(initiator, receiver, location, tradeDate);
         this.item = item;
         this.tradeType = tradeType;
     }
