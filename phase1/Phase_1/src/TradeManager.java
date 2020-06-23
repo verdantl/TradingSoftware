@@ -151,9 +151,47 @@ public class TradeManager {
         processedTrade.setReturnDate(returnDate);
     }
 
+    /**
+     * Allow the current user to edit the processedTrade's date and location
+     * If both users in processedTrade edit 3 times without agreeing,
+     * cancel the Trade
+     * @param date the new date for meeting of processedTrade
+     * @param location the new location for location of processed Trade
+     */
+    public void editTradeMeeting(LocalDate date, String location){
+        Trader receiver = processedTrade.getReceiver();
+        if((processedTrade.getNumberOfEdit(currentUser) + processedTrade.getNumberOfEdit(receiver)) == 6
+                && (!processedTrade.getIsAgreed(currentUser) || !processedTrade.getIsAgreed(receiver))){
+            processedTrade.setTradeStatus("Cancelled");
+        }
+        else{
+            processedTrade.setTradeDate(date);
+            processedTrade.setLocation(location);
+        }
+    }
 
+    /**
+     * Allow the current user to agree to the processedTrade's meeting
+     */
+    public void agreeToMeeting(){
+        processedTrade.setIsAgreed(currentUser, true);
+    }
 
+    /**
+     * Allow the current user to confirm the processedTrade has took place
+     */
+    public void confirmTrade(){
+        processedTrade.setIsConfirmed(currentUser,true);
+    }
 
-
+    /**
+     * Complete the processedTrade iff both users have confirmed trade
+     */
+    public void completeTrade(){
+        if(processedTrade.getIsConfirmed(currentUser) && processedTrade.getIsConfirmed(processedTrade.getReceiver())){
+            processedTrade.setCompleted(true);
+            processedTrade.setTradeStatus("Completed");
+        }
+    }
 
 }
