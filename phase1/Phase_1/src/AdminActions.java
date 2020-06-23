@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,6 +8,9 @@ public class AdminActions {
     //potential idea: private ArrayList<String> admins;
     private ArrayList<Admin> admins;
 
+    //temporary private static variable
+    private static int limit = 1;
+
     //I was thinking "is it necessary to store list of admin objects?"
     //because admin object only have id and password
     //and I think an admin does not need to view other admins id and password
@@ -14,9 +18,8 @@ public class AdminActions {
 
 
 
-    public AdminActions(Admin[] listOfAdmins){
-        admins = new ArrayList<>();
-        addAdmins(listOfAdmins);
+    public AdminActions(ArrayList<Admin> admins){
+        this.admins = admins;
     }
     /**
      * Freezes a given account
@@ -33,11 +36,7 @@ public class AdminActions {
         return true;
     }
 
-    /**
-     * Adds admins to the arraylist of admins
-     * @param listOfAdmins an array of admins that will be added
-     * @return true iff the admins were successfully added
-     */
+
     // Here I don't know how to use the boolean, since successfully adding an admin doesn't have
     // any contingencies
 
@@ -47,16 +46,28 @@ public class AdminActions {
     //it will be used by controller/presenter classes so that those classes can display relevant message
 
     //basically to send a confirmation message
-    public boolean addAdmins(Admin[] listOfAdmins){
-        boolean addedAll = true;
-        for (Admin admin: listOfAdmins){
-            if (!admins.contains(admin)){
-                admins.add(admin);
-            }else{
-                addedAll = false;
+    /**
+     * Adds admins to the arraylist of admins
+     * @param username the username of the admin request
+     * @param password the password of the admin request
+     * @param approved a boolean representing whether or not the admin is approved
+     * @return true iff the admins were successfully added
+     */
+    public boolean approveAdmin(String username, String password, boolean approved){
+        if (approved){
+            admins.add(new Admin(username, password));
+        }
+        return approved;
+    }
+
+    //Not sure about the array here, but just used it for now.
+    public boolean approveAllAdmins(String[] usernames, String[] passwords, boolean approved){
+        if (approved) {
+            for (int i = 0; i <  usernames.length; i++){
+                approveAdmin(usernames[i], passwords[i], approved);
             }
         }
-        return addedAll;
+        return approved;
     }
 
     //potential method
@@ -138,8 +149,6 @@ public class AdminActions {
      * @param newLimit The new limit for the number of ...
      */
     public void changeLimit(int newLimit){
-
+        limit = newLimit;
     }
-
-
 }
