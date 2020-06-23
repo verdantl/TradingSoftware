@@ -11,6 +11,8 @@ public abstract class Trade {
     private int numberOfEdits;
     private LocalDate returnDate;
 
+
+
     /**
      * Default constructor of Trade
      * @param initiator the user who started this trade.
@@ -60,7 +62,7 @@ public abstract class Trade {
      * Getter for initiator
      * @return the Trade's initiator
      */
-    public User getInitiator() {
+    public Trader getInitiator() {
         return initiator;
     }
 
@@ -68,7 +70,7 @@ public abstract class Trade {
      * Getter for receiver
      * @return the Trade's receiver
      */
-    public User getReceiver() {
+    public Trader getReceiver() {
         return receiver;
     }
 
