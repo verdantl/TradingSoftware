@@ -29,6 +29,20 @@ public class TraderActions {
         trader.removeFromWantToBorrow(item);
     }
 
+    /**
+     * Adds an item to a Trader's proposed items list.
+     * @param trader The trader whose item is to be added.
+     * @param item The item to be added.
+     */
+    public void addProposedItem(Trader trader, Item item) { trader.addToProposedItems(item); }
+
+    /**
+     * Remove an item from a Trader's proposed items list.
+     * @param trader The trader whose item is to be removed.
+     * @param item The item to be removed.
+     */
+    public void removeProposedItem(Trader trader, Item item) { trader.removeFromProposedItems(item); }
+
     /*Okay so browsing items probably works with the presenter, so this method will return a list of available items that
     can be lent, and i will leave it to the presenter class to present it to the user.
     The current way im doing it isn't efficient because we have to compute a list of all the items everytime a user wants to
@@ -54,5 +68,14 @@ public class TraderActions {
         if(!traders.contains(trader)){
             traders.add(trader);
         }
+    }
+
+    /**
+     * Adds the given trade to the list of the user's trades.
+     * @param trader The trader whose trade is to be added.
+     * @param trade The trade to be added.
+     */
+    public void addTrade(Trader trader, Trade trade){
+        trader.addToTrades(trade);
     }
 }
