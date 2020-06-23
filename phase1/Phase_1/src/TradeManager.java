@@ -86,6 +86,7 @@ public class TradeManager {
         }
         processedTrade.setPermanent(true);
         currentUser.setNumBorrowed(currentUser.getNumBorrowed() + 1);
+        item.setOwner(currentUser);
 
     }
 
@@ -95,6 +96,7 @@ public class TradeManager {
      */
     public void borrow(Item item, LocalDate returnDate){
         borrow(item);
+        item.setOwner(processedTrade.getReceiver());
         processedTrade.setPermanent(false);
         processedTrade.setReturnDate(returnDate);
     }
@@ -110,6 +112,7 @@ public class TradeManager {
         }
         processedTrade.setPermanent(true);
         currentUser.setNumLent(currentUser.getNumLent() + 1);
+        item.setOwner(processedTrade.getReceiver());
     }
 
     /**Allow the current user temporarily lend the item
@@ -118,6 +121,7 @@ public class TradeManager {
      */
     public void lend(Item item, LocalDate returnDate){
         lend(item);
+        item.setOwner(currentUser);
         processedTrade.setPermanent(false);
         processedTrade.setReturnDate(returnDate);
     }
@@ -141,6 +145,8 @@ public class TradeManager {
      */
     public void exchange(Item item1, Item item2, LocalDate returnDate){
         exchange(item1, item2);
+        item1.setOwner(currentUser);
+        item2.setOwner(processedTrade.getReceiver());
         processedTrade.setPermanent(false);
         processedTrade.setReturnDate(returnDate);
     }
