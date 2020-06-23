@@ -17,14 +17,13 @@ public abstract class Trade {
      * @param receiver the user who will receive the item in the trade.
      * @param location the location of the Trade
      * @param tradeDate the date the Trade will occur
-     * @param isPermanent whether the Trade is permanent or temporary
      */
-    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, boolean isPermanent){
+    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate){
         this.initiator = initiator;
         this.receiver = receiver;
         this.location = location;
         this.tradeDate = tradeDate;
-        this.isPermanent = isPermanent;
+        this.isPermanent = false;
         isConfirmed = false;
         isCompleted = false;
         numberOfEdits = 0;
