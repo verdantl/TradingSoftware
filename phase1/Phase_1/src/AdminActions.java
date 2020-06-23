@@ -4,7 +4,14 @@ import java.util.Arrays;
 public class AdminActions {
     // stores list of Trader objects
    // temporarily removing private Trader[] traderList;
+    //potential idea: private ArrayList<String> admins;
     private ArrayList<Admin> admins;
+
+    //I was thinking "is it necessary to store list of admin objects?"
+    //because admin object only have id and password
+    //and I think an admin does not need to view other admins id and password
+    //so I was thinking instead of storing admin object, we just store list of usernames that are admin
+
 
 
     public AdminActions(Admin[] listOfAdmins){
@@ -33,14 +40,39 @@ public class AdminActions {
      */
     // Here I don't know how to use the boolean, since successfully adding an admin doesn't have
     // any contingencies
+
+    //the reason why I made the method to return boolean was to display message
+    //like "this admin <admin> is already in the list"
+    //and the boolean will tell the User whether admins were successfully added or not
+    //it will be used by controller/presenter classes so that those classes can display relevant message
+
+    //basically to send a confirmation message
     public boolean addAdmins(Admin[] listOfAdmins){
+        boolean addedAll = true;
         for (Admin admin: listOfAdmins){
             if (!admins.contains(admin)){
                 admins.add(admin);
+            }else{
+                addedAll = false;
             }
         }
-        return true;
+        return addedAll;
     }
+
+    //potential method
+    //if we make the parameter as a list, then in the controller class, we need to ask the user to
+    // enter list of accounts
+    // and in the controller class, we need to create a list and then pass it into the method
+    // if we do that, we need to check the formatting and etc.
+    // so I think it is better to allow user to type username one by one
+
+//    public boolean addAdmins(String username){
+//        if (admins.contains(username)){
+//            return false;
+//        }
+//        admins.add(username);
+//        return true
+//    }
 
     /**
      * Unfreezes a given account
