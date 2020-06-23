@@ -60,6 +60,13 @@ public class AdminActions {
         return approved;
     }
 
+    /**
+     * Adds admins to the arraylist of admins
+     * @param usernames the usernames from the admin requests
+     * @param passwords the passwors from the admin requests
+     * @param approved a boolean representing whether or not the admins are approved
+     * @return true iff the admins were successfully added
+     */
     //Not sure about the array here, but just used it for now.
     public boolean approveAllAdmins(String[] usernames, String[] passwords, boolean approved){
         if (approved) {
@@ -99,16 +106,6 @@ public class AdminActions {
         return true;
     }
 
-    //parameter is trader's list of items that needs to be approved
-    //admin can remove item in "items" (because of aliasing, the item will also
-    // be removed in Trader's list of items)
-
-    //I changed it to two methods, approve a single item and approve all the proposed items
-    // I changed the parameter to the trader, got the items from the "want to be approved" list, and
-    // approved them one by one.
-    //In the trader class, we have an arraylist of "proposed items" and "actually lending items",
-
-    //Not sure about including boolean as a parameter, can discuss
     /**
      * Approves or rejects an item
      * @param trader The account containing the item to be approved
@@ -142,8 +139,6 @@ public class AdminActions {
 
     }
 
-    //We don't have a place to store the limit currently, so we can store it here in the AdminActions or
-    //in some other class.
     /**
      * Changes the limit for the number of...
      * @param newLimit The new limit for the number of ...
