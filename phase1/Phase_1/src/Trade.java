@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public abstract class Trade {
     private Trader initiator;
@@ -6,10 +7,13 @@ public abstract class Trade {
     private LocalDate tradeDate;
     private String location;
     private boolean isPermanent;
-    private boolean isConfirmed;
     private boolean isCompleted;
-    private int numberOfEdits;
     private LocalDate returnDate;
+    private String tradeType;
+    private HashMap<String, Boolean> isConfirmed;
+    private HashMap<String, Integer> numberOfEdits;
+    private HashMap<String, Boolean> isAgreed;
+    private String tradeStatus;
 
 
 
@@ -20,16 +24,25 @@ public abstract class Trade {
      * @param location the location of the Trade
      * @param tradeDate the date the Trade will occur
      */
-    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate){
+    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, String tradeType){
         this.initiator = initiator;
         this.receiver = receiver;
         this.location = location;
         this.tradeDate = tradeDate;
-        this.isPermanent = false;
-        isConfirmed = false;
+        isPermanent = false;
         isCompleted = false;
-        numberOfEdits = 0;
         returnDate = null;
+        isConfirmed = new HashMap<>();
+        isConfirmed.put(initiator.getUsername(), false);
+        isConfirmed.put(receiver.getUsername(), false);
+        numberOfEdits = new HashMap<>();
+        numberOfEdits.put(initiator.getUsername(), 0);
+        numberOfEdits.put(receiver.getUsername(), 0);
+        isAgreed = new HashMap<>();
+        isAgreed.put(initiator.getUsername(), false);
+        isAgreed.put(receiver.getUsername(), false);
+        this.tradeStatus = "In Progress";
+        this.tradeType = tradeType;
     }
 
     /**
@@ -41,22 +54,16 @@ public abstract class Trade {
         return "Trade{" +
                 "initiator='" + initiator.toString() + '\'' +
                 ", receiver='" + receiver.toString() + '\'' +
+                ", tradedType='" + tradeType + '\''+
                 ", tradeDate=" + tradeDate.toString() + '\'' +
                 ", location=" + location + '\'' +
                 ", permanent=" + isPermanent + '\'' +
-                ", isConfirmed=" + isConfirmed + '\'' +
                 ", isCompleted=" + isCompleted + '\'' +
-                ", numberOfEdits=" + numberOfEdits + '\'' +
+                ", tradeStatus=" + tradeStatus + '\'' +
                 ", returnDate=" + returnDate.toString() + '\'' +
                 '}';
     }
 
-    /**
-     * Increase numberOfEdits by one every time an edit occurs
-     */
-    public void increaseEdits(){
-        numberOfEdits += 1;
-    }
 
     /**
      * Getter for initiator
@@ -90,37 +97,49 @@ public abstract class Trade {
         return location;
     }
 
+    /**Getter for trade's status
+     * @return the trade's status
+     */
+    public String getTradeStatus() {return tradeStatus;}
+
+    /**Getter for the type of the trade
+     * @return the type of the trade
+     */
+    public String getTradeType() {return tradeType;}
+
+    /**Getter for isConfirmed
+     * @param trader the trader involved in this trade
+     * @return whether or not this trader confirm the trade
+     */
+    public boolean getIsConfirmed(Trader trader) {return isConfirmed.get(trader.getUsername());}
+
+    /**Getter for isAgreed
+     * @param trader the trader involved in this trade
+     * @return whether or not this trader agree the trade
+     */
+    public boolean getIsAgreed(Trader trader) {return isAgreed.get(trader.getUsername());}
+
+    /**Getter for numberOfEdit
+     * @param trader the trader involved in this trade
+     * @return the number that this trader has edited this trade
+     */
+    public int getNumberOfEdit(Trader trader) {return numberOfEdits.get(trader.getUsername());}
+
     /**
      * Getter for permanent
      * @return whether the Trade is permanent or not
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isPermanent() {
-        return isPermanent;
-    }
-
-    /**
-     * Getter for isConfirmed
-     * @return whether the Trade is confirmed or not
-     */
-    public boolean isConfirmed() {
-        return isConfirmed;
+        return this.isPermanent;
     }
 
     /**
      * Getter for isCompleted
      * @return whether the Trade is completed or not
      */
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    /**
-     * Getter for numberOfEdits
-     * @return the number of edits for the Trade
-     */
-    public int getNumberOfEdits() {
-        return numberOfEdits;
-    }
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isCompleted() { return isCompleted; }
 
     /**
      * Getter for returnDate
@@ -170,13 +189,6 @@ public abstract class Trade {
         this.isPermanent = permanent;
     }
 
-    /**
-     * Setter for isConfirmed
-     * @param confirmed whether the Trade is confirmed or not
-     */
-    public void setConfirmed(boolean confirmed) {
-        isConfirmed = confirmed;
-    }
 
     /**
      * Setter for isCompleted
@@ -192,5 +204,33 @@ public abstract class Trade {
      */
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+    /**Setter for tradeStatus
+     * @param tradeStatus the current status of the trade
+     */
+    public void setTradeStatus(String tradeStatus) {this.tradeStatus = tradeStatus;}
+
+    /**Setter for isConfirmed
+     * @param trader the trader who wants to confirm this trade
+     * @param confirm the boolean showing whether or not the trader confirm this trade
+     */
+    public void setIsConfirmed(Trader trader, Boolean confirm) {
+        isConfirmed.replace(trader.getUsername(), confirm);
+    }
+
+    /**Setter for isAgreed
+     * @param trader the trader who wants to agree the trade meeting
+     * @param agree the boolean showing whether or not the trader agree this meeting
+     */
+    public void setIsAgreed(Trader trader, Boolean agree) {
+        isAgreed.replace(trader.getUsername(), agree);
+    }
+
+    /**increase the number of edits when the user edits the trade
+     * @param trader the trader who edit this trade
+     */
+    public void increaseNumberOfEdits(Trader trader) {
+        numberOfEdits.replace(trader.getUsername(), numberOfEdits.get(trader.getUsername()) + 1);
     }
 }

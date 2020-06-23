@@ -1,17 +1,8 @@
 import java.time.LocalDate;
 
 public class OneWayTrade extends Trade{
-    private Trader initiator;
-    private Trader receiver;
-    private LocalDate tradeDate;
-    private String location;
-    private boolean isPermanent;
-    private boolean isConfirmed;
-    private boolean isCompleted;
-    private int numberOfEdits;
-    private LocalDate returnDate;
     private Item item;
-    private String tradeType;
+
 
     /**
      * Default constructor of OneWayTrade
@@ -24,9 +15,8 @@ public class OneWayTrade extends Trade{
      */
     public OneWayTrade(Trader initiator, Trader receiver, String location,
                        LocalDate tradeDate, Item item, String tradeType){
-        super(initiator, receiver, location, tradeDate);
+        super(initiator, receiver, location, tradeDate, tradeType);
         this.item = item;
-        this.tradeType = tradeType;
     }
 
 
@@ -37,17 +27,16 @@ public class OneWayTrade extends Trade{
     @Override
     public String toString() {
         return "OneWayTrade{" +
-                "initiator='" + initiator.toString() + '\'' +
-                ", receiver='" + receiver.toString() + '\'' +
+                "initiator='" + super.getInitiator().toString() + '\'' +
+                ", receiver='" + super.getReceiver().toString() + '\'' +
                 ", tradedItem='" + item.toString() + '\''+
-                ", tradedType='" + tradeType + '\''+
-                ", tradeDate=" + tradeDate.toString() + '\'' +
-                ", location=" + location + '\'' +
-                ", permanent=" + isPermanent + '\'' +
-                ", isConfirmed=" + isConfirmed + '\'' +
-                ", isCompleted=" + isCompleted + '\'' +
-                ", numberOfEdits=" + numberOfEdits + '\'' +
-                ", returnDate=" + returnDate.toString() + '\'' +
+                ", tradedType='" + super.getTradeType() + '\''+
+                ", tradeDate=" + super.getTradeDate().toString() + '\'' +
+                ", location=" + super.getLocation()  + '\'' +
+                ", permanent=" + super.isPermanent() + '\'' +
+                ", isCompleted=" + super.isCompleted()  + '\'' +
+                ", tradeStatus=" + super.getTradeStatus() + '\'' +
+                ", returnDate=" + super.getReturnDate().toString()+ '\'' +
                 '}';
     }
 

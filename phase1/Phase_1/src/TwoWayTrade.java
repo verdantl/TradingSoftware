@@ -21,7 +21,7 @@ public class TwoWayTrade extends Trade {
 
     public TwoWayTrade(Trader initiator, Trader receiver, LocalDate tradeDate, String location,
                        Item item1, Item item2){
-        super(initiator, receiver, location, tradeDate);
+        super(initiator, receiver, location, tradeDate, "Exchange");
         this.item1 = item1;
         this.item2 = item2;
     }
@@ -52,13 +52,13 @@ public class TwoWayTrade extends Trade {
     public String toString() {
         return "TwoWayTrade{" +
                 "initiator='" + super.getInitiator().toString() + " item: " +item1.toString()+ '\'' +
-                ", receiver='" + super.getInitiator().toString() + " item: " +item2.toString()+  '\'' +
+                ", receiver='" + super.getReceiver().toString() + " item: " +item2.toString()+  '\'' +
+                ", tradedType='" + super.getTradeType() + '\''+
                 ", tradeDate=" + super.getTradeDate().toString() + '\'' +
                 ", location=" + super.getLocation() + '\'' +
                 ", permanent=" + super.isPermanent() + '\'' +
-                ", isConfirmed=" + super.isConfirmed()+ '\'' +
+                ", tradeStatus=" + super.getTradeStatus()+ '\'' +
                 ", isCompleted=" + super.isCompleted() + '\'' +
-                ", numberOfEdits=" + super.getNumberOfEdits()+ '\'' +
                 ", returnDate=" + super.getReturnDate().toString() + '\'' +
                 "} ";
     }
