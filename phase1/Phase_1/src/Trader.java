@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Trader extends User {
         private ArrayList<Item> wantToBorrow,proposedItems, wantToLend, borrowedItems;
@@ -217,11 +218,12 @@ public class Trader extends User {
     }
 
     /**
-     * Adds the given trade to trades
+     * Adds the given trade to trades, ordering by tradeDate.
      * @param trade a trade that the user has made
      */
     public void addToTrades(Trade trade){
-            this.trades.add(trade);
+        this.trades.add(trade);
+        Collections.sort(trades);
     }
 
     /**

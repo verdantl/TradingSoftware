@@ -41,10 +41,18 @@ public class OneWayTrade extends Trade{
     }
 
     /**
+     * Compares the date of this Trade to another Trade.
+     * @param trade The other Trade whose date is going to be compared.
+     * @return An integer representing the result of the comparison.
+     */
+    @Override
+    public int compareTo(Trade trade) {
+        return super.compareTo(trade);
+    }
+
+    /**
      * getter for the traded item
      * @return the traded item
      */
     public Item getItem(){ return item; }
-
-
 }

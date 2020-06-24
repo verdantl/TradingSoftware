@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public abstract class Trade {
+public abstract class Trade implements Comparable<Trade> {
     private Trader initiator;
     private Trader receiver;
     private LocalDate tradeDate;
@@ -64,6 +64,22 @@ public abstract class Trade {
                 '}';
     }
 
+    /**
+     * Compares the date of this Trade to another Trade.
+     * @param trade The other Trade whose date is going to be compared.
+     * @return An integer representing the result of the comparison.
+     */
+    public int compareTo(Trade trade){
+        if (this.tradeDate.isBefore(trade.tradeDate)){
+            return -1;
+        }
+        else if (this.tradeDate.isAfter(trade.tradeDate)) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
 
     /**
      * Getter for initiator

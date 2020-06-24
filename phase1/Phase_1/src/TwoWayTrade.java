@@ -5,7 +5,7 @@ import java.time.LocalDate;
  * An object that represents two way trade between users
  * @author Junhee Jung
  */
-public class TwoWayTrade extends Trade {
+public class TwoWayTrade extends Trade implements Comparable<Trade> {
     private Item item1;
     private Item item2;
 
@@ -61,5 +61,15 @@ public class TwoWayTrade extends Trade {
                 ", isCompleted=" + super.isCompleted() + '\'' +
                 ", returnDate=" + super.getReturnDate().toString() + '\'' +
                 "} ";
+    }
+
+    /**
+     * Compares the date of this Trade to another Trade.
+     * @param trade The other Trade whose date is going to be compared.
+     * @return An integer representing the result of the comparison.
+     */
+    @Override
+    public int compareTo(Trade trade) {
+        return super.compareTo(trade);
     }
 }
