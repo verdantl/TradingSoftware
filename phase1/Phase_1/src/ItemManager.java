@@ -41,6 +41,10 @@ public class ItemManager {
         return requestedItems;
     }
 
+    public void setRequestedItems(ArrayList<Item> requestedItems) {
+        this.requestedItems = requestedItems;
+    }
+
     /**
      * adds a item to the requestedItems list
      * if the item is already in the list it returns false
@@ -57,7 +61,48 @@ public class ItemManager {
         }
     }
 
-    public void setRequestedItems(ArrayList<Item> requestedItems) {
-        this.requestedItems = requestedItems;
+    /**
+     * changes the name of a given item
+     * @param i the given item
+     * @param name the new name
+     */
+    public void changeName(Item i, String name){
+        i.setName(name);
+    }
+
+    /**
+     * changes the category of a given item
+     * @param i the given item
+     * @param category the new category
+     */
+    public void changeCategory(Item i, String category){
+        i.setCategory(category);
+    }
+
+    /**
+     * changes the description of a given item
+     * @param i the given item
+     * @param description the new description
+     */
+    public void changeDescription(Item i, String description){
+        i.setDescription(description);
+    }
+
+    /**
+     * changes the owner of a given item
+     * @param i the given item
+     * @param owner the new owner
+     */
+    public void changeOwner(Item i, Trader owner){
+        i.setOwner(owner);
+    }
+
+    /**
+     * changes the qualityRating of a given item
+     * @param i the given item
+     * @param qualityRating the new qualityRating
+     */
+    public void changeQualityRating(Item i, int qualityRating){
+        i.setQualityRating(qualityRating);
     }
 }
