@@ -79,7 +79,7 @@ public class AdminActions {
 
     /**
      * Check whether the username is valid or not
-     * @param username the usernames that needs to be checked
+     * @param username the username that needs to be checked
      * @return Return true iff the username is valid
      */
     public boolean checkUsername(String username){
