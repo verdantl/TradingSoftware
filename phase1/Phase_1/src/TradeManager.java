@@ -164,9 +164,16 @@ public class TradeManager {
                 && (!processedTrade.getIsAgreed(currentUser) || !processedTrade.getIsAgreed(receiver))){
             processedTrade.setTradeStatus("Cancelled");
         }
+        else if(processedTrade.getNumberOfEdit(currentUser) == 3){
+            System.out.println("You have run out of edit times and you cannot edit");
+        }
         else{
             processedTrade.setTradeDate(date);
             processedTrade.setLocation(location);
+            processedTrade.increaseNumberOfEdits(currentUser);
+            processedTrade.setIsAgreed(currentUser, false);
+            processedTrade.setIsAgreed(receiver, false);
+            processedTrade.setTradeStatus("In Progress");
         }
     }
 
@@ -175,6 +182,9 @@ public class TradeManager {
      */
     public void agreeToMeeting(){
         processedTrade.setIsAgreed(currentUser, true);
+        if(processedTrade.getIsAgreed(currentUser) && processedTrade.getIsAgreed(processedTrade.getReceiver())){
+            processedTrade.setTradeStatus("Agreed");
+        }
     }
 
     /**
