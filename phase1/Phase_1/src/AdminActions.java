@@ -77,6 +77,20 @@ public class AdminActions {
         return approved;
     }
 
+    /**
+     * Check whether the username is valid or not
+     * @param username the username that needs to be checked
+     * @return Return true iff the username is valid
+     */
+    public boolean checkUsername(String username){
+        for (Admin admin: admins){
+            if (admin.getUsername().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     //potential method
     //if we make the parameter as a list, then in the controller class, we need to ask the user to
     // enter list of accounts
