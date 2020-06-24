@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TraderActions {
     private ArrayList<Trader> traders;
@@ -78,4 +80,84 @@ public class TraderActions {
     public void addTrade(Trader trader, Trade trade){
         trader.addToTrades(trade);
     }
+
+    /**
+     * This returns a list of the top 3 most frequent trading partners in descending order.
+     * If there are less than 3 trading partners, it returns however many there are. If there is more than one
+     * top trading partner with the same frequency, it returns the top 3 trading partners, where the users returned are chosen at random.
+     * @param trader The trader who's partners are to be checked.
+     * @return An Arraylist of the trader's most frequent trading partners
+     */
+    // Some code was used from the following resource, just going to link it here until I can cite it later:
+    //https://stackoverflow.com/questions/19031213/java-get-most-common-element-in-a-list
+    public ArrayList<User> mostFrequentTradingPartners(Trader trader){
+
+        ArrayList<Trade> trades = trader.getTrades();
+        HashMap<User, Integer> mostFrequent = new HashMap<>();
+        for(Trade t: trades){
+            Integer num;
+            if(t.isCompleted()){
+                if(t.getInitiator().getUsername().equals(trader.getUsername())){
+                    num = mostFrequent.get(t.getReceiver());
+                    mostFrequent.put(t.getReceiver(), num == null? 1:num+1);
+                }
+                else{
+                    num = mostFrequent.get(t.getInitiator());
+                    mostFrequent.put(t.getInitiator(), num == null? 1:num+1);
+                }
+            }
+        }
+        ArrayList<User> topThree = new ArrayList<>();
+        HashMap.Entry<User, Integer> max = null;
+        Set<HashMap.Entry<User,Integer>> entrySet = mostFrequent.entrySet();
+
+        for (int i= 0; i< 3; i++){
+            for(HashMap.Entry<User,Integer> u: entrySet){
+                if(max == null || u.getValue()>max.getValue()) {
+                    max = u;
+                }
+            }
+
+            if(max!=null){
+                topThree.add(max.getKey());
+                entrySet.remove(max);
+            }
+            max = null;
+        }
+
+        return topThree;
+    }
+
+    /**
+     * Checks if the given username is taken or not.
+     * @param username The username that needs to be checked
+     * @return Returns true if the username is not taken
+     */
+    public boolean checkUsername(String username){
+        for(Trader t: traders){
+            if (username.equals(t.getUsername())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns the three most recent trades in decreasing order (Most Recent to least Recent)
+     * @param trader The trader who's trades we want
+     * @return An ArrayList of the three trades.
+     */
+    public ArrayList<Trade> getThreeRecentTrades(Trader trader){
+        ArrayList<Trade> mostRecentThreeTrades = new ArrayList<>();
+        for (int i = trader.getTrades().size(); i>0; i--){
+            if(trader.getTrades().get(i).isCompleted()){
+                mostRecentThreeTrades.add(trader.getTrades().get(i));
+            }
+            if(mostRecentThreeTrades.size()==3){
+                return mostRecentThreeTrades;
+            }
+        }
+        return mostRecentThreeTrades;
+    }
+
 }
