@@ -1,6 +1,6 @@
 public class Item {
     private int qualityRating;
-    private String name, category;
+    private String name, category, description;
     private Trader owner;
     private int id;
     private static int idCounter = 0;
@@ -9,17 +9,21 @@ public class Item {
      * The default constructor of the item class
      * @param name the string the item is called
      * @param category the string the item is called
+     * @param description the string description of the item
      * @param owner the trader that the item belongs to
      * @param qualityRating the int the represents the quality/condition of the item
      */
-    public Item(String name, String category, Trader owner, int qualityRating){
+    public Item(String name, String category, String description, Trader owner, int qualityRating){
         this.name = name;
         this.category = category;
+        this.description = description;
         this.owner = owner;
         this.qualityRating = qualityRating;
         id = idCounter;
         idCounter ++;
     }
+
+    //new constructor with a given id (when starting up the program)
 
     /**
      * Gets the item's name.
@@ -54,6 +58,22 @@ public class Item {
     }
 
     /**
+     * Gets the item's description.
+     * @return the string the item is categorized as
+     */
+    public String getDescription(){
+        return description;
+    }
+
+    /**
+     * Sets the item's description.
+     * @param description the string the item is categorized as
+     */
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    /**
      * Gets the item's quality rating.
      * @return the int value that represents the item's quality rating
      */
@@ -85,6 +105,7 @@ public class Item {
         return id;
     }
 
+    //this should be remove
     /**
      * Sets the item's id.
      * @param id the item's new id
@@ -113,6 +134,7 @@ public class Item {
         return "qualityRating=" + qualityRating +
                 ",\nname='" + name + '\'' +
                 ",\ncategory='" + category + '\'' +
+                "'\ndescription='" + description + '\'' +
                 ",\nowner=" + owner +
                 ",\nID=" + id;
     }
