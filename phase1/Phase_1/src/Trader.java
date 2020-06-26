@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.time.LocalDate;
 
 public class Trader extends User {
         private ArrayList<Item> wantToBorrow,proposedItems, wantToLend, borrowedItems;
@@ -294,5 +295,33 @@ public class Trader extends User {
      */
     public void removeFromBorrowedItems(Item item){
         this.borrowedItems.remove(item);
+    }
+
+    /**
+     * @return Return the number of transactions that are incomplete
+     */
+    public int getNumIncompleteTransactions(){
+        int numIncomplete = 0;
+        for(Trade trade: trades){
+            if (trade.getTradeDate().isBefore(LocalDate.now()) && !trade.getIsConfirmed(trade.getInitiator()) &&
+                    !trade.getIsConfirmed(trade.getReceiver())){
+                numIncomplete++;
+            }
+        }
+
+        return numIncomplete;
+    }
+
+    /**
+     * @return Return the number of transactions in this week
+     */
+    public int getNumWeeklyTransactions(){
+        int numTransactions = 0;
+
+        for(Trade trade: trades){
+            //code goes here
+        }
+
+        return numTransactions;
     }
 }
