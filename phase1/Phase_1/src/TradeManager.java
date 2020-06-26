@@ -43,7 +43,7 @@ public class TradeManager {
         if(currentUser.isFrozen()){
             System.out.println("Your account is frozen, you cannot trade");
         }else if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
-            System.out.println("Please lend an item first");
+            System.out.println("request refused: Please lend an item first");
         }else{
             this.processedTrade = new OneWayTrade(currentUser, receiver, location,
                     tradeDate, item, "Borrow");
@@ -66,7 +66,7 @@ public class TradeManager {
         if(currentUser.isFrozen()){
             System.out.println("Your account is frozen, you cannot trade");
         }else if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
-            System.out.println("Please lend an item first");
+            System.out.println("request refused: Please lend an item first");
         }else{
             this.processedTrade = new OneWayTrade(currentUser, receiver, location,
                     tradeDate, item, "Borrow");
@@ -173,6 +173,7 @@ public class TradeManager {
             currentUser.removeFromWantToBorrow(item);
         }
         currentUser.setNumBorrowed(currentUser.getNumBorrowed() + 1);
+        processedTrade.getReceiver().setNumLent(processedTrade.getReceiver().getNumLent() + 1);
 
         if(processedTrade.isPermanent()){item.setOwner(currentUser);}
 
@@ -188,6 +189,7 @@ public class TradeManager {
             processedTrade.getReceiver().removeFromWantToBorrow(item);
         }
         currentUser.setNumLent(currentUser.getNumLent() + 1);
+        processedTrade.getReceiver().setNumBorrowed(processedTrade.getReceiver().getNumBorrowed() + 1);
 
         if(processedTrade.isPermanent()){item.setOwner(processedTrade.getReceiver());}
 
@@ -200,8 +202,7 @@ public class TradeManager {
     public void exchange(Item item1, Item item2){
         lend(item1);
         borrow(item2);
-        currentUser.setNumLent(currentUser.getNumLent() - 1);
-        currentUser.setNumBorrowed(currentUser.getNumBorrowed() - 1);
+
     }
 
     /**
@@ -261,7 +262,6 @@ public class TradeManager {
             }
         }
     }
-
 
 
 }
