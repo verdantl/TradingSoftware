@@ -22,13 +22,17 @@ public class AdminActions {
     public AdminActions(ArrayList<Admin> admins){
         this.admins = admins;
     }
+    //Temporary getter for the admins in case it's needed
+    public ArrayList<Admin> getAdmins(){
+        return admins;
+    }
+
     /**
      * Freezes a given account
      * @param trader The account that has to be frozen
      * @return Return true iff the account is successfully frozen. Return false
      * if the account is already frozen
      */
-
     public boolean freezeAccount(Trader trader){
         if (trader.isFrozen()){
             return false;
