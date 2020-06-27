@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class AdminSystem implements Runnable{
+public class AdminSystem extends System{
     private boolean running;
     private AdminActions adminActions;
     private Admin currentAdmin;
@@ -43,7 +43,12 @@ public class AdminSystem implements Runnable{
 
     //This might be better off in phase 2 as a listener, but here we're updating every iteration
     //and calling other methods that will update the controller
-    private void update(){
+    protected void update(){
+
+    }
+
+    @Override
+    protected void stop() {
 
     }
 }
