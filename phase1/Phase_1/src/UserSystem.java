@@ -1,4 +1,4 @@
-public abstract class System implements Runnable {
+public abstract class UserSystem implements Runnable {
 
     public abstract void run();
 

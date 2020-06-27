@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class AdminSystem extends System{
+public class AdminSystem extends UserSystem{
     private boolean running;
     private AdminActions adminActions;
     private Admin currentAdmin;
@@ -37,6 +37,7 @@ public class AdminSystem extends System{
     public void run() {
         //this is the loop for the system
         while (running){
+            adminPrompts.display();
             //all the stuff here
         }
     }
@@ -44,11 +45,10 @@ public class AdminSystem extends System{
     //This might be better off in phase 2 as a listener, but here we're updating every iteration
     //and calling other methods that will update the controller
     protected void update(){
-
     }
 
     @Override
     protected void stop() {
-
+        running = false;
     }
 }
