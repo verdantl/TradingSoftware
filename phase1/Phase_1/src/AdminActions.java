@@ -187,4 +187,26 @@ public class AdminActions {
     public void changeLimit(int newLimit){
         limit = newLimit;
     }
+
+
+    /**
+     * Checks the given credentials and returns the user.
+     * @param username The username of the user
+     * @param password  The password of the user
+     * @return The user if the credentials match, and null otherwise.
+     */
+    public Admin checkCredentials(String username, String password){
+        for(Admin u: admins){
+            if(u.getUsername().equals(username)){
+                if(u.getPassword().equals(password)){
+                    return u;
+                }
+                else{
+                    return null;
+                }
+            }
+        }
+        return null;
+
+    }
 }

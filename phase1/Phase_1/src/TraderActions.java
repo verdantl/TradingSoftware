@@ -160,4 +160,25 @@ public class TraderActions {
         return mostRecentThreeTrades;
     }
 
+    /**
+     * Returns the trader associated with the given credentials. If the credentials don't match, returns none.
+     * @param username The user's username
+     * @param password The user's' password
+     * @return The trader with the given credentials if they match, null otherwise.
+     */
+    public Trader checkCredentials(String username, String password){
+        for(Trader u: traders){
+            if(u.getUsername().equals(username)){
+                if(u.getPassword().equals(password)){
+                    return u;
+                }
+                else{
+                    return null;
+                }
+            }
+        }
+        return null;
+
+    }
+
 }
