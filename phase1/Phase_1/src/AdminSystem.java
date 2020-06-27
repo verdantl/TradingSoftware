@@ -5,6 +5,7 @@ public class AdminSystem extends UserSystem{
     private AdminActions adminActions;
     private Admin currentAdmin;
     private AdminPrompts adminPrompts;
+    private boolean changeDisplay;
 
 
     /**
@@ -27,11 +28,14 @@ public class AdminSystem extends UserSystem{
     //This method helps set up some stuff
     private void init(){
         running = true;
+
+        //this is a temporary holder
+        adminPrompts.setOptions(new String[2]);
     }
 
 
     /**
-     * Loop for running the program
+     * Runs the program in a loop
      */
     @Override
     public void run() {
