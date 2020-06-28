@@ -14,7 +14,7 @@ public class AdminSystem extends UserSystem{
     /**
      * Constructor for the AdminSystem
      * @param admin The admin user that has logged into the system
-     * @param admins A list of all of the admins of the program
+     * @param fileName The name of the file
      */
     public AdminSystem(Admin admin, String fileName){
         //I think we should read in from files.
