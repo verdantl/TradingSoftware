@@ -11,6 +11,13 @@ public class AdminPrompts {
      */
     public AdminPrompts(){
         options = new ArrayList<>();
+
+        //for now, I manually typed in the options
+        //we can change this to reading in files using setOptions or we can just do it in here
+        options.add("Add new admin");
+        options.add("Freeze/Unfreeze accounts");
+        options.add("Approve Items");
+        options.add("Quit Program");
     }
 
     /**
