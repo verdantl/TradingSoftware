@@ -181,10 +181,32 @@ public class AdminActions {
     }
 
     /**
-     * Changes the limit for the number of...
-     * @param newLimit The new limit for the number of ...
+     * Changes the limit for the number of items required to be lent
+     * @param newLimit The new limit for the number of lent items required
      */
     public void changeLimit(int newLimit){
         limit = newLimit;
+    }
+
+
+    /**
+     * Checks the given credentials and returns the user.
+     * @param username The username of the user
+     * @param password  The password of the user
+     * @return The user if the credentials match, and null otherwise.
+     */
+    public Admin checkCredentials(String username, String password){
+        for(Admin u: admins){
+            if(u.getUsername().equals(username)){
+                if(u.getPassword().equals(password)){
+                    return u;
+                }
+                else{
+                    return null;
+                }
+            }
+        }
+        return null;
+
     }
 }
