@@ -160,4 +160,33 @@ public class TraderActions {
         return mostRecentThreeTrades;
     }
 
+    private boolean isVaildTrade(Trader trader, Trade trade){
+        //needs the global var here
+        int limitOfTradesPerWeek = 3;
+        int week = trade.getTradeDate().getDayOfYear()/7;
+        ArrayList<Trade> trades = trader.getTrades();
+        int i = Collections.binarySearch(trades, trade);
+       //what if the trades are at the same time
+       int n = 0;
+       for (int j = 0; n<limitOfTradesPerWeek; j++){
+           //add the check of if it's the same year
+           if (i+j < trades.size() && trades.get(i+j).getTradeDate().getDayOfYear()/7 == week){
+               n++;
+           }
+           else {
+               break;
+           }
+       }
+       for (int k = 1; n<limitOfTradesPerWeek; k++){
+           if (i-k >= 0 && trades.get(i-k).getTradeDate().getDayOfYear()/7 == week){
+               n++;
+           }
+           else {
+               break;
+           }
+       }
+        return n < limitOfTradesPerWeek;
+
+    }
+
 }
