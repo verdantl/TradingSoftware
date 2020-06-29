@@ -1,13 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TraderSystem extends UserSystem //if you want this system abstract class{
     //BY THE WAY BEFORE Y'ALL START take a look at my AdminSystem loop and
     //let me know in the chat if the loop works or if you want to make changes - Jeffrey
-
-
-
-    //For this class we have to instantiate its respective prompts class so i did that in the constructor.
 {
+    private TraderPrompts traderPrompts;
     private TraderActions traderActions;
     private ItemManager itemManager;
     private TradeManager tradeManager;
@@ -15,8 +13,6 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     private boolean running;
     private Scanner sc;
 
-    //This is the prompts class
-    //private TraderPrompts traderPrompts;
     //Because i assumed we get the current user as a parametre in the run class, it might be best to remove the currentTrader variable here
     /**
      * Constructor for TraderSystem.
@@ -31,12 +27,9 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         this.traderActions = traderActions;
         this.itemManager = itemManager;
         this.tradeManager = tradeManager;
+        this.traderPrompts = new TraderPrompts();
         sc = new Scanner(System.in);
         running = false;
-
-        //Trader prompts instantiated
-        //this.traderPrompts = new TraderPrompts();
-
     }
 
     private void init() {
@@ -49,22 +42,53 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         int option;
         while (running){
             // This is where the user  will be used, and where the appropriate methods will be called.
-            //This is also where the traderPrompts is used to provide the user with prompts.
-            //Its better to code this part so its dynamic, where if we add in new prompts it allows you to choose those prompts
-            //with little needed change to the code
-            // Pretend that we present the options to the user here.
+            // This is also where the traderPrompts is used to provide the user with prompts.
+            // Its better to code this part so its dynamic, where if we add in new prompts it allows you to choose those prompts
+            // with little needed change to the code
 
+            // Setting up the options available to the user by default.
+            // There will always be an option 0 to exit the program
+            int numOptions = 8;
+            ArrayList<Integer> validOptions = new ArrayList<>();
+            for (int i = 0; i < numOptions + 1; i++) {
+                validOptions.add(i);
+            }
+
+            // Present the options to the user here.
 
             option = Integer.getInteger(sc.nextLine());
+
+            // Ensuring that the user chooses a valid option.
+            while (!validOptions.contains(option)) {
+                // Present an error message to the user
+                option = Integer.getInteger(sc.nextLine());
+            }
+
             switch(option) {
+                case 0:
+                    // Exit the program
+                    running = false;
+                    break;
                 case 1:
-                    // Option 1 goes here
+                    // Propose an item to be lent
                     break;
                 case 2:
-                    // Option 2 goes here
+                    // Remove an item from their want to lend list
                     break;
                 case 3:
-                    // Option 3 goes here
+                    // Browse their inventory
+                    break;
+                case 4:
+                    // Browse list of On-Going trades
+                    break;
+                case 5:
+                    // Check most recent 3 items the user has traded
+                    break;
+                case 6:
+                    // Get the user's top 3 trading partners
+                    break;
+                case 7:
+                    // Request to unfreeze the account
                     break;
             }
         }
