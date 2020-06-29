@@ -202,8 +202,12 @@ public class TraderActions {
         return n < limitOfTradesPerWeek;
     }
 
-    //returns list of accounts
-    private StringBuilder printAccounts(){
+
+    /**
+     *
+     * @return A formatted string that has every trader's username.
+     */
+    public StringBuilder printAccounts(){
         StringBuilder accounts = new StringBuilder();
         for (int i = 0; i < traders.size(); i++){
             if (accounts.length() > 80){
