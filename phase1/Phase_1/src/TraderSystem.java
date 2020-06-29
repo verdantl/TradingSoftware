@@ -56,6 +56,9 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
             // Present the options to the user here.
 
+            //traderPrompts.displayMainMenu();
+
+
             option = Integer.getInteger(sc.nextLine());
 
             // Ensuring that the user chooses a valid option.
@@ -71,6 +74,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     break;
                 case 1:
                     // Propose an item to be lent
+                    proposeItemToLend(currentTrader);
                     break;
                 case 2:
                     // Remove an item from their want to lend list
@@ -104,5 +108,45 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     protected void stop() {
 
     }
+
+    public void proposeItemToLend(Trader trader){
+        ArrayList<String> temp = traderPrompts.getProposeItemPrompts();
+        String itemName, category, description;
+        int rating;
+        ArrayList<String> itemAttributes = new ArrayList<>();
+        Item item;
+        itemAttributes.add("itemName");
+        itemAttributes.add("category");
+        itemAttributes.add("description");
+
+        System.out.println(temp.get(0));
+        System.out.println(temp.get(1));
+        String o = sc.nextLine();
+        if(o.equals("0")){
+            System.out.println("Returning to the Main Menu..");
+        }
+        else{
+            int loopVar = 0;
+            while(!o.equals("0") && loopVar <2){
+                itemAttributes.set(loopVar, o);
+                loopVar+=1;
+                System.out.println(temp.get(loopVar+2));
+                o = sc.nextLine();
+            }
+            if(!o.equals("0")){
+                rating = Integer.parseInt(o);
+                item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), trader, rating);
+                trader.addToProposedItems(item);
+                loopVar+=1;
+                System.out.println(temp.get(loopVar+2));
+            }
+            System.out.println("Returning to the Main Menu...");
+        }
+
+    }
+    public void setCurrentTrader(Trader trader){
+        currentTrader = trader;
+    }
+
 
 }
