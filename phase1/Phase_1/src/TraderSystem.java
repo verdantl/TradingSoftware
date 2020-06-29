@@ -1,14 +1,57 @@
+import java.util.Scanner;
+
 public class TraderSystem extends UserSystem //if you want this system abstract class{
     //BY THE WAY BEFORE Y'ALL START take a look at my AdminSystem loop and
     //let me know in the chat if the loop works or if you want to make changes - Jeffrey
 {
+    private TraderActions traderActions;
+    private ItemManager itemManager;
+    private TradeManager tradeManager;
+    private Trader currentTrader;
+    private boolean running;
+    private Scanner sc;
+
+    /**
+     * Constructor for TraderSystem.
+     * @param currentTrader The trader using the TraderSystem
+     * @param traderActions The TraderActions instance that this TraderSystem will use.
+     * @param itemManager The ItemManager that this TraderSystem will use.
+     * @param tradeManager The TradeManager that this Trader System will use.
+     */
+    public TraderSystem(Trader currentTrader, TraderActions traderActions, ItemManager itemManager,
+                        TradeManager tradeManager) {
+        this.currentTrader = currentTrader;
+        this.traderActions = traderActions;
+        this.itemManager = itemManager;
+        this.tradeManager = tradeManager;
+        sc = new Scanner(System.in);
+        running = false;
+    }
+
     private void init() {
 
     }
 
     @Override
     public void run() {
-
+        running = true;
+        int option;
+        while (running){
+            // This is where the user input will be taken, and where the appropriate methods will be called.
+            // Pretend that we present the options to the user here.
+            option = Integer.getInteger(sc.nextLine());
+            switch(option) {
+                case 1:
+                    // Option 1 goes here
+                    break;
+                case 2:
+                    // Option 2 goes here
+                    break;
+                case 3:
+                    // Option 3 goes here
+                    break;
+            }
+        }
     }
 
     @Override
