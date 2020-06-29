@@ -48,8 +48,13 @@ public class AdminPrompts {
     }
 
 
+    public void setToMainMenu(){
+        System.out.println("Going back to main menu...");
+    }
 
-
+    public void commandNotRecognized(){
+        System.out.println("Command not recognized.");
+    }
     /**
      * Prints a list of messages to the screen
      * @param messages an array of strings representing the messages displayed to the
@@ -182,6 +187,11 @@ public class AdminPrompts {
 
     }
 
+    public void displayApproveOrReject(){
+
+        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
+    }
+
     public void confirmAdminApproval(boolean approved){
         System.out.println("Processing...");
         if (approved){
@@ -192,5 +202,26 @@ public class AdminPrompts {
         }
     }
 
+    public void displayTraderMenu(){
+        String message = "Please enter the username of the account you wish to view. Enter [0]" +
+                " to go back to the main menu. Enter [all] to view all trader accounts.";
+        System.out.println(message);
+    }
+
+    public void displayRestartTrader(){
+        System.out.println("Enter [0] to go back to main menu. Enter [1] to continue viewing traders.");
+    }
+
+    public void displayAllTraders(ArrayList<Trader> traders){
+        printAccounts(traders);
+    }
+
+    public void displayTrader(Trader trader){
+        try{
+            System.out.println(trader);
+        } catch (NullPointerException e){
+            System.out.println("User not found.");
+        }
+    }
 
 }

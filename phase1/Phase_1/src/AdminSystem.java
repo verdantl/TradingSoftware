@@ -265,10 +265,7 @@ public class AdminSystem extends UserSystem{
      * Allows an admin to approve or reject administrative requests.
      */
     public void adminApproval(){
-        String message = "Enter the username of the administrator you wish to approve/reject, or enter" +
-                "[all] to approve/reject all of the admin requests. Enter [0] to go back to the main menu.";
-        System.out.println(adminActions.getAdminRequests());
-        System.out.println(message);
+        adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
         String option = scanner.nextLine();
         Boolean approved = approveOrReject();
         boolean loop = false;
@@ -277,7 +274,6 @@ public class AdminSystem extends UserSystem{
         }
         else {
             if (option.equals("0")) {
-                System.out.println("Going back...");
                 setToMainMenu();
             } else if (option.equals("all")) {
                 System.out.println("Processing...");
@@ -296,17 +292,12 @@ public class AdminSystem extends UserSystem{
     }
 
     private void confirmApproval(boolean approved){
-        if (approved){
-            System.out.println("Successfully approved!");
-        }
-        else{
-            System.out.println("Successfully denied.");
-        }
+        adminPrompts.confirmAdminApproval(approved);
         adminApproval();
     }
 
     private Boolean approveOrReject(){
-        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
+        adminPrompts.displayApproveOrReject();
         String choice = scanner.nextLine();
         switch (choice) {
             case "1":
@@ -443,31 +434,20 @@ public class AdminSystem extends UserSystem{
      * Prints a trader with the input username to the screen
      */
     public void viewTraders(){
-        String message = "Please enter the username of the account you wish to view. Enter [0]" +
-                " to go back to the main menu. Enter [all] to view all trader accounts.";
-        System.out.println(message);
+        adminPrompts.displayTraderMenu();
         String user = scanner.nextLine();
         switch (user){
             case "0":
                 setToMainMenu();
             case "all":
-                printAllTraders();
+                adminPrompts.displayAllTraders(traderActions.getTraders());
                 break;
             default:
-                try{
-                    System.out.println(findTrader(user));
-                } catch (NullPointerException e){
-                    System.out.println("User not found.");
-                }
+                adminPrompts.displayTrader(findTrader(user));
         }
         restartViewTraders();
     }
 
-    private void printAllTraders(){
-        for (Trader trader: traderActions.getTraders()){
-            System.out.println(trader);
-        }
-    }
     private Trader findTrader(String user){
         for (Trader trader: traderActions.getTraders()){
             if (trader.getUsername().equals(user)){
@@ -478,23 +458,23 @@ public class AdminSystem extends UserSystem{
     }
 
     private void restartViewTraders() {
-        System.out.println("Enter [0] to go back to main menu. Enter [1] to continue viewing traders.");
+        adminPrompts.displayRestartTrader();
         String choice = scanner.nextLine();
         switch (choice){
-            case "0": //Go back to main menu
-                System.out.println("Going back...");
+            case "0":
                 setToMainMenu();
             case "1":
                 viewTraders();
                 break;
             default:
-                System.out.println("Command not recognized.");
+                adminPrompts.commandNotRecognized();
                 restartViewTraders();
                 break;
         }
     }
 
     public void setToMainMenu(){
+        adminPrompts.setToMainMenu();
         stop();
         init();
     }
