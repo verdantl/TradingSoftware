@@ -68,7 +68,7 @@ public class AdminSystem extends UserSystem{
                 adminApproval();
                 break;
             case 2:
-                adminPrompts.displayFreezeMenu();
+                freezeMenu();
                 break;
             case 3:
                 adminPrompts.displayApproveItemsMenu();
@@ -122,12 +122,9 @@ public class AdminSystem extends UserSystem{
     /**
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
-    public void displayFreezeMenu(){
+    public void freezeMenu(){
         ArrayList<Trader> traders = traderActions.getTraders();
-        System.out.println("Please enter the number for which option you want to do next:");
-        System.out.println("[1] View flagged accounts");
-        System.out.println("[2] View unfreeze requests");
-        System.out.println("[3] View all the traders");
+        adminPrompts.displayFreezeMenu();
         int option = scanner.nextInt();
         do {
             switch (option) {
@@ -139,49 +136,32 @@ public class AdminSystem extends UserSystem{
                 case 1:
                     ArrayList<Trader> flaggedAccounts =
                             adminActions.getListOfFlaggedAccounts(traders, atLeast, maxIncomplete, maxWeekly);
-                    System.out.print(printAccounts(flaggedAccounts));
-                    System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
-                            "wish to freeze.");
+                    adminPrompts.displayFreezeOptions(1, flaggedAccounts);
 //                System.out.println("(input an number from 1 to"+ flaggedAccounts.size()+")");
                     int chosenFlag = scanner.nextInt();
                     //I don't think you need to subtract 1 since your printAccounts method starts at 0
                     boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag));
-                    if (freeze) {
-                        System.out.println("You have successfully frozen the account.");
-                    } else {
-                        System.out.println("Freeze failed.");
-                    }
+                    adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
                     break;
                 case 2:
                     ArrayList<Trader> frozenAccounts = adminActions.getFreezeAccount();
-                    System.out.print(printAccounts(frozenAccounts));
-                    System.out.println("Here are all the frozen accounts, please enter the number of the account" +
-                            " you wish to unfreeze:");
+                    adminPrompts.displayFreezeOptions(2, frozenAccounts);
 //                System.out.println("(input an number from 1 to"+ frozenAccounts.size() +")");
 //                System.out.println(frozenAccounts);
                     int chosenFrozen = scanner.nextInt();
                     boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
-                    if (unfreeze) {
-                        System.out.println("You have successfully frozen the account");
-                    } else {
-                        System.out.println("Freeze failed.");
-                    }
+                    adminPrompts.displayFreezeConfirmation(unfreeze, "Unfreeze");
                     break;
                 case 3:
-                    System.out.print(printAccounts(traders));
-                    System.out.println("Here are all the accounts, please select the number of the account you wish " +
-                            "to freeze:");
+                    adminPrompts.displayFreezeOptions(3, traders);
 //                System.out.println("(input an number from 1 to"+ allTraders.size()+")");
 //                System.out.println(traders);
                     int chosenAccount = scanner.nextInt();
                     boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
-                    if (freezeGeneral) {
-                        System.out.println("You have successfully frozen the account.");
-                    } else {
-                        System.out.println("Freeze failed");
-                    }
+                    adminPrompts.displayFreezeConfirmation(freezeGeneral, "Freeze");
                     break;
                 default:
+                    //I haven't handled this part in the prompts yet
                     System.out.println("Selection not recognized.");
             }
             System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter any number return to Freeze/" +
@@ -236,7 +216,7 @@ public class AdminSystem extends UserSystem{
 
             System.out.println("[1] Approve/reject all the items this trader proposed");
             System.out.println("[2] Approve/reject a specific item this trader proposed");
-            option = scanner.nextInt();
+
 
 
         //}while(option != toMainMenu);
