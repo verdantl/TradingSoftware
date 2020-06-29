@@ -31,16 +31,12 @@ public class AdminActions {
      * @return a string version of adminRequests
      */
     public StringBuilder getAdminRequests(){
-        int counter = 0;
         StringBuilder requests = new StringBuilder();
-        for (int i = 1; i <= adminRequests.size(); i++){
-            if (counter == 80){
-                counter = 0;
+        for (int i = 0; i < adminRequests.size(); i++){
+            if (requests.length() > 80){
+                requests.append("\n");
             }
-            else{
-                counter++;
-            }
-            requests.append(i).append(". ");
+            requests.append(i + 1).append(". ");
             requests.append(adminRequests.get(i).getUsername());
         }
         return requests;
@@ -200,8 +196,8 @@ public class AdminActions {
      * @return Return list of trader accounts that needs to be frozen
      */
 
-    public List<Trader> getListOfFlaggedAccounts(List<Trader> traders, int atLeast, int maxIncomplete, int maxWeekly){
-        List<Trader> accounts = new ArrayList<>();
+    public ArrayList<Trader> getListOfFlaggedAccounts(List<Trader> traders, int atLeast, int maxIncomplete, int maxWeekly){
+        ArrayList<Trader> accounts = new ArrayList<>();
         for (Trader trader: traders){
             if (trader.getNumBorrowed() + atLeast > trader.getNumLent() && atLeast != 0){
                 accounts.add(trader);
