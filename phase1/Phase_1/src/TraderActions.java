@@ -1,3 +1,4 @@
+import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -73,12 +74,19 @@ public class TraderActions {
     }
 
     /**
-     * Adds the given trade to the list of the user's trades.
-     * @param trader The trader whose trade is to be added.
-     * @param trade The trade to be added.
+     * Adds the given trade to the list of the user's trades and returns true if the trade can be added.
+     * Otherwise it returns false
+     * @param trader trader The trader whose trade is to be added.
+     * @param trade trade The trade to be added.
+     * @return whether the trade has been added or not
      */
-    public void addTrade(Trader trader, Trade trade){
+    public boolean addTrade(Trader trader, Trade trade){
+        if(isVaildTrade(trader, trade)){
         trader.addToTrades(trade);
+        return true;
+        }
+        else {
+        return false;}
     }
 
     /**
@@ -163,14 +171,18 @@ public class TraderActions {
     private boolean isVaildTrade(Trader trader, Trade trade){
         //needs the global var here
         int limitOfTradesPerWeek = 3;
-        int week = trade.getTradeDate().getDayOfYear()/7;
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekNumber = trade.getTradeDate().get(weekFields.weekOfWeekBasedYear());
+        //int week = trade.getTradeDate().getDayOfYear()/7;
         ArrayList<Trade> trades = trader.getTrades();
         int i = Collections.binarySearch(trades, trade);
         //what if the trades are at the same time
         int n = 0;
         for (int j = 0; n<limitOfTradesPerWeek; j++){
             //add the check of if it's the same year
-            if (i+j < trades.size() && trades.get(i+j).getTradeDate().getDayOfYear()/7 == week){
+            //if (i+j < trades.size() && trades.get(i+j).getTradeDate().getDayOfYear()/7 == week){
+            if (i+j < trades.size() && trades.get(i+j).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
+                    weekNumber && trade.getTradeDate().getYear() == trades.get(i+j).getTradeDate().getYear()){
                 n++;
             }
             else {
@@ -178,7 +190,9 @@ public class TraderActions {
             }
         }
         for (int k = 1; n<limitOfTradesPerWeek; k++){
-            if (i-k >= 0 && trades.get(i-k).getTradeDate().getDayOfYear()/7 == week){
+            //if (i-k >= 0 && trades.get(i-k).getTradeDate().getDayOfYear()/7 == week){
+            if (i-k >= 0 && trades.get(i-k).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
+                    weekNumber && trade.getTradeDate().getYear() == trades.get(i-k).getTradeDate().getYear()){
                 n++;
             }
             else {
