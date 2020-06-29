@@ -203,4 +203,9 @@ public class TraderActions {
     }
 
 
+    /**Getter for the traders
+     * @return a list of traders in this system
+     */
+    public ArrayList<Trader> getTraders(){return this.traders;}
+
 }
