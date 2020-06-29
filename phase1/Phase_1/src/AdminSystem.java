@@ -59,9 +59,30 @@ public class AdminSystem extends UserSystem{
     //This method helps set up some stuff
     private void init(){
         running = true;
-
         //this is a temporary holder
-        adminPrompts.setOptions(new String[2]);
+        adminPrompts.displayOptions();
+        Scanner input = new Scanner(System.in);
+        int option = input.nextInt();
+        switch (option){
+            case 1:
+                adminApproval();
+            case 2:
+                adminPrompts.displayFreezeMenu();
+                break;
+            case 3:
+                adminPrompts.displayApproveItemsMenu();
+                break;
+            case 4:
+                viewTraders();
+            case 5:
+                changeLimit();
+                break;
+            case 6:
+                changeUserInfo();
+                break;
+            case 7:
+                running = false;
+        }
     }
 
 
@@ -70,30 +91,10 @@ public class AdminSystem extends UserSystem{
      */
     @Override
     public void run() {
+        init();
         //this is the loop for the system
         while (running){
-            adminPrompts.displayOptions();
-            Scanner input = new Scanner(System.in);
-            int option = input.nextInt();
-            switch (option){
-                case 1:
-                    adminApproval();
-                case 2:
-                    adminPrompts.displayFreezeMenu();
-                    break;
-                case 3:
-                    adminPrompts.displayApproveItemsMenu();
-                    break;
-                case 4:
-                case 5:
-                    changeLimit();
-                    break;
-                case 6:
-                    changeUserInfo();
-                    break;
-                case 7:
-                    running = false;
-            }
+
 
         }
     }
@@ -226,7 +227,7 @@ public class AdminSystem extends UserSystem{
         else {
             if (option.equals("0")) {
                 System.out.println("Going back...");
-                //We gotta go back to the main screen
+                setToMainMenu();
             } else if (option.equals("all")) {
                 System.out.println("Processing...");
                 confirmApproval(adminActions.approveAllAdmins(approved));
@@ -235,10 +236,10 @@ public class AdminSystem extends UserSystem{
                 confirmApproval(adminActions.approveAdmin(option, approved));
             } else {
                 loop = true;
+                System.out.println("Input not recognized.");
             }
         }
         if (loop){
-            System.out.println("Input not recognized.");
             adminApproval();
         }
     }
@@ -392,13 +393,14 @@ public class AdminSystem extends UserSystem{
     /**
      * Prints a trader with the input username to the screen
      */
-    public void viewTrader(){
+    public void viewTraders(){
         String message = "Please enter the username of the account you wish to view. Enter [0]" +
                 " to go back to the main menu. Enter [all] to view all trader accounts.";
+        System.out.println(message);
         String user = scanner.nextLine();
         switch (user){
             case "0":
-                //We don't do anything here because we want to go back to main menu
+                setToMainMenu();
             case "all":
                 printAllTraders();
                 break;
@@ -431,14 +433,20 @@ public class AdminSystem extends UserSystem{
         String choice = scanner.nextLine();
         switch (choice){
             case "0": //Go back to main menu
-                System.out.println("Yes");
+                System.out.println("Going back...");
+                setToMainMenu();
             case "1":
-                viewTrader();
+                viewTraders();
                 break;
             default:
                 System.out.println("Command not recognized.");
                 restartViewTraders();
                 break;
         }
+    }
+
+    public void setToMainMenu(){
+        stop();
+        init();
     }
 }
