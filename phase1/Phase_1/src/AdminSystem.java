@@ -15,6 +15,7 @@ public class AdminSystem extends UserSystem{
     private int maxWeekly;
     private TraderActions traderActions;
     private Scanner scanner;
+    private final String toMainMenu = "-1";
 
 
     /**
@@ -78,12 +79,19 @@ public class AdminSystem extends UserSystem{
                 case 1:
                 case 2:
                     adminPrompts.displayFreezeMenu();
+                    break;
                 case 3:
                     adminPrompts.displayApproveItemsMenu();
+                    break;
                 case 4:
                 case 5:
+                    changeLimit();
+                    break;
                 case 6:
-
+                    changeUserInfo();
+                    break;
+                case 7:
+                    running = false;
             }
 
         }
@@ -240,7 +248,7 @@ public class AdminSystem extends UserSystem{
         }
     }
 
-    private Boolean approveOrReject(){
+    private boolean approveOrReject(){
         System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
         String choice = scanner.nextLine();
         switch (choice) {
@@ -249,10 +257,124 @@ public class AdminSystem extends UserSystem{
             case "2":
                 return false;
             case "3":
-                return null;
+                //The method returns a boolean so
+                //for now, I changed it to false (Junhee)
+                return false;
             default:
                 System.out.println("Command not recognized.");
                 return approveOrReject();
         }
+    }
+
+    /**
+     * Change username or password of an admin.
+     */
+    public void changeUserInfo(){
+        System.out.print("Enter [1] to change username or enter [2] to change password: ");
+        String option = scanner.nextLine();
+        int succeed = -1;
+
+        do {
+            switch (option) {
+                case "1":
+                    succeed = changeUsername();
+                    break;
+                case "2":
+                    succeed = changePassword();
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    System.out.println("Try again or enter ["+toMainMenu+"] to return to the main menu");
+                    option = scanner.nextLine();
+                    break;
+            }
+
+            if (succeed != -1) {
+                if (succeed == 1) {
+                    System.out.println("Username/password successfully changed.");
+                } else {
+                    System.out.println("Failed to change username/password.");
+                }
+                System.out.println("Enter [" +toMainMenu+ "] to return to main menu.");
+                option = scanner.nextLine();
+            }
+        }while(!option.equals(toMainMenu));
+    }
+
+    /**
+     * Change limit on transactions
+     */
+    public void changeLimit(){
+        System.out.println("Enter [1] to change Weekly Transaction limit,");
+        System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
+        System.out.print("Enter [3] to change atLeast value: ");
+        String option = scanner.nextLine();
+        int succeed = -1;
+        do{
+            switch (option){
+                case "1":
+                case "2":
+                case "3":
+                    succeed = setNewLimit(option);
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    System.out.println("Try again or enter ["+toMainMenu+"] to return to the main menu");
+                    option = scanner.nextLine();
+                    break;
+            }
+            if (succeed != -1) {
+                if (succeed == 1) {
+                    System.out.println("Limit successfully changed.");
+                } else {
+                    System.out.println("Failed to change limit.");
+                }
+                System.out.println("Enter [" +toMainMenu+ "] to return to main menu.");
+                option = scanner.nextLine();
+            }
+
+        }while(option.equals(toMainMenu));
+    }
+
+    private int setNewLimit(String option){
+        System.out.print("Enter new limit: ");
+        int newValue = scanner.nextInt();
+        if (newValue < 0) {
+            return 0;
+        }else {
+            switch (option) {
+                case "1":
+                    maxWeekly = newValue;
+                    break;
+                case "2":
+                    maxIncomplete = newValue;
+                    break;
+                case "3":
+                    atLeast = newValue;
+                    break;
+            }
+            return 1;
+        }
+    }
+
+    private int changeUsername(){
+        System.out.print("Enter new username: ");
+        String newName = scanner.nextLine();
+        if (newName.equals(currentAdmin.getUsername())){
+            return 0;
+        }
+        currentAdmin.setUsername(newName);
+        return 1;
+    }
+
+    private int changePassword(){
+        System.out.print("Enter new password: ");
+        String newPassword = scanner.nextLine();
+        if (newPassword.equals(currentAdmin.getPassword())){
+            return 0;
+        }
+        currentAdmin.setPassword(newPassword);
+        return 1;
+
     }
 }
