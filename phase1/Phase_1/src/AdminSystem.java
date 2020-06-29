@@ -77,6 +77,7 @@ public class AdminSystem extends UserSystem{
             int option = input.nextInt();
             switch (option){
                 case 1:
+                    adminApproval();
                 case 2:
                     adminPrompts.displayFreezeMenu();
                     break;
@@ -207,17 +208,11 @@ public class AdminSystem extends UserSystem{
 
     }
 
-    private void confirmApproval(boolean approved){
-        if (approved){
-            System.out.println("Successfully approved!");
-        }
-        else{
-            System.out.println("Successfully denied.");
-        }
-        adminApproval();
-    }
 
-    private void adminApproval(){
+    /**
+     * Allows an admin to approve or reject administrative requests.
+     */
+    public void adminApproval(){
         String message = "Enter the username of the administrator you wish to approve/reject, or enter" +
                 "[all] to approve/reject all of the admin requests. Enter [0] to go back to the main menu.";
         System.out.println(adminActions.getAdminRequests());
@@ -248,7 +243,17 @@ public class AdminSystem extends UserSystem{
         }
     }
 
-    private boolean approveOrReject(){
+    private void confirmApproval(boolean approved){
+        if (approved){
+            System.out.println("Successfully approved!");
+        }
+        else{
+            System.out.println("Successfully denied.");
+        }
+        adminApproval();
+    }
+
+    private Boolean approveOrReject(){
         System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
         String choice = scanner.nextLine();
         switch (choice) {
@@ -259,17 +264,22 @@ public class AdminSystem extends UserSystem{
             case "3":
                 //The method returns a boolean so
                 //for now, I changed it to false (Junhee)
-                return false;
+                //I made it a reference type Boolean which has null, the null case
+                // is handled in the adminApproval method which is a bit messy rn
+                //but will fix (Jeffrey)
+                return null;
             default:
                 System.out.println("Command not recognized.");
                 return approveOrReject();
         }
     }
 
+
     /**
      * Change username or password of an admin.
      */
     public void changeUserInfo(){
+        //Maybe we want to add the option to go back to the main menu
         System.out.print("Enter [1] to change username or enter [2] to change password: ");
         String option = scanner.nextLine();
         int succeed = -1;
@@ -305,6 +315,7 @@ public class AdminSystem extends UserSystem{
      * Change limit on transactions
      */
     public void changeLimit(){
+        //Option for main menu?
         System.out.println("Enter [1] to change Weekly Transaction limit,");
         System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
         System.out.print("Enter [3] to change atLeast value: ");
@@ -376,5 +387,58 @@ public class AdminSystem extends UserSystem{
         currentAdmin.setPassword(newPassword);
         return 1;
 
+    }
+
+    /**
+     * Prints a trader with the input username to the screen
+     */
+    public void viewTrader(){
+        String message = "Please enter the username of the account you wish to view. Enter [0]" +
+                " to go back to the main menu. Enter [all] to view all trader accounts.";
+        String user = scanner.nextLine();
+        switch (user){
+            case "0":
+                //We don't do anything here because we want to go back to main menu
+            case "all":
+                printAllTraders();
+                break;
+            default:
+                try{
+                    System.out.println(findTrader(user));
+                } catch (NullPointerException e){
+                    System.out.println("User not found.");
+                }
+        }
+        restartViewTraders();
+    }
+
+    private void printAllTraders(){
+        for (Trader trader: traderActions.getTraders()){
+            System.out.println(trader);
+        }
+    }
+    private Trader findTrader(String user){
+        for (Trader trader: traderActions.getTraders()){
+            if (trader.getUsername().equals(user)){
+                return trader;
+            }
+        }
+        return null;
+    }
+
+    private void restartViewTraders() {
+        System.out.println("Enter [0] to go back to main menu. Enter [1] to continue viewing traders.");
+        String choice = scanner.nextLine();
+        switch (choice){
+            case "0": //Go back to main menu
+                System.out.println("Yes");
+            case "1":
+                viewTrader();
+                break;
+            default:
+                System.out.println("Command not recognized.");
+                restartViewTraders();
+                break;
+        }
     }
 }
