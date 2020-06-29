@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AdminSystem extends UserSystem{
     private boolean running;
@@ -62,8 +63,21 @@ public class AdminSystem extends UserSystem{
     public void run() {
         //this is the loop for the system
         while (running){
-            adminPrompts.display();
-            //all the stuff here
+            adminPrompts.displayOptions();
+            Scanner input = new Scanner(System.in);
+            int option = input.nextInt();
+            switch (option){
+                case 1:
+                case 2:
+                    adminPrompts.displayFreezeMenu();
+                case 3:
+                    adminPrompts.displayApproveItemsMenu();
+                case 4:
+                case 5:
+                case 6:
+
+            }
+
         }
     }
 

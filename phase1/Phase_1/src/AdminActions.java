@@ -8,6 +8,7 @@ public class AdminActions {
    // temporarily removing private Trader[] traderList;
     //potential idea: private ArrayList<String> admins;
     private ArrayList<Admin> admins;
+    private ArrayList<Trader> freezeAccount;
 
     //temporary private static variable
     private static int limit = 1;
@@ -38,6 +39,7 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(true);
+        freezeAccount.add(trader);
         return true;
     }
 
@@ -122,6 +124,7 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(false);
+        freezeAccount.remove(trader);
         return true;
     }
 
@@ -155,7 +158,6 @@ public class AdminActions {
             approveItem(trader, item, approved);
         }
         return approved;
-
     }
     /**
      * @param traders List of all the traders in the system
@@ -209,4 +211,9 @@ public class AdminActions {
         return null;
 
     }
+
+    /**Getter for the frozen accounts
+     * @return a list of frozen accounts in this system
+     */
+    public ArrayList<Trader> getFreezeAccount() {return this.freezeAccount;}
 }
