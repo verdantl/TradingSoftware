@@ -202,6 +202,18 @@ public class TraderActions {
         return n < limitOfTradesPerWeek;
     }
 
+    //returns list of accounts
+    private StringBuilder printAccounts(){
+        StringBuilder accounts = new StringBuilder();
+        for (int i = 0; i < traders.size(); i++){
+            if (accounts.length() > 80){
+                accounts.append("\n");
+            }
+            accounts.append(i).append(". ");
+            accounts.append(traders.get(i).getUsername());
+        }
+        return accounts;
+    }
 
     /**Getter for the traders
      * @return a list of traders in this system
