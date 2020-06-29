@@ -19,17 +19,11 @@ import java.util.ArrayList;
         //Only login Prompts is instantiated here. The other prompts are instantiated within their respective controllers
         this.loginPrompts = new LoginPrompts();
 
-        //This is where traderActions, AdminActions,ItemManager,and TradeManager are instantiated using the information in the config file.
-        this.traderActions = new TraderActions(config.getTraders());
-        this.adminActions = new AdminActions(config.getAdmins());
-        this.itemManager = new ItemManager();
-        this.tradeManager = new TradeManager();
-
         //This is where the other "Systems" are instantiated. Note that a user is not passed into the system when we're instantiating the system.
         //The constructors can change to include the other variables in this class if they're needed, i just put what i thought we need for
         //each class.
-        this.traderSystem = new TraderSystem(traderActions, itemManager, tradeManager);
-        this.adminSystem = new AdminSystem(adminActions, traderActions);
+        this.traderSystem = new TraderSystem(config.getTraderActions(), config.getItemManager(), config.getTradeManager());
+        this.adminSystem = new AdminSystem(config.getAdminActions(), config.getTraderActions);
         this.signupSystem = new SignupSystem(traderActions);
 
     }
