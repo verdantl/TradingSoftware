@@ -171,18 +171,6 @@ public class AdminSystem extends UserSystem{
         //displayFreezeMenu();
     }
 
-    private StringBuilder printAccounts(ArrayList<Trader> traders){
-        StringBuilder accounts = new StringBuilder();
-        for (int i = 0; i < traders.size(); i++){
-            if (accounts.length() > 80){
-                accounts.append("\n");
-            }
-            accounts.append(i).append(". ");
-            accounts.append(traders.get(i).getUsername());
-        }
-        return accounts;
-    }
-
     /**
      * Display the menu that allows the admin to approve items
      */
@@ -195,7 +183,7 @@ public class AdminSystem extends UserSystem{
         //i think printAccounts method should be in TraderActions class. so we can just do traderActions.printAccounts();
         //instead of passing list of traders around.
 
-        printAccounts(traderActions.getTraders());
+        System.out.println(traderActions.printAccounts());
         System.out.print("Enter the number beside trader that you want to view: ");
         int traderID = scanner.nextInt();
 
