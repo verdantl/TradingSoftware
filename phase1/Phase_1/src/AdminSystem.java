@@ -66,6 +66,7 @@ public class AdminSystem extends UserSystem{
         switch (option){
             case 1:
                 adminApproval();
+                break;
             case 2:
                 adminPrompts.displayFreezeMenu();
                 break;
@@ -74,6 +75,7 @@ public class AdminSystem extends UserSystem{
                 break;
             case 4:
                 viewTraders();
+                break;
             case 5:
                 changeLimit();
                 break;
@@ -127,57 +129,66 @@ public class AdminSystem extends UserSystem{
         System.out.println("[2] View unfreeze requests");
         System.out.println("[3] View all the traders");
         int option = scanner.nextInt();
-        switch(option){
-            //We need to decide how we're going to loop back. Will we just go back to the main menu each time?
-            // I did make a setToMainMenu method
-            case 1:
-                ArrayList<Trader> flaggedAccounts =
-                        adminActions.getListOfFlaggedAccounts(traders, atLeast, maxIncomplete, maxWeekly);
-                System.out.print(printAccounts(flaggedAccounts));
-                System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
-                        "wish to freeze.");
+        do {
+            switch (option) {
+                //We need to decide how we're going to loop back. Will we just go back to the main menu each time?
+                // I did make a setToMainMenu method
+
+                //we could have like enter [1] to change the option or enter [-1] to return to Main Menu
+                //I did that in a do while loop instead of doing it in a recursive way
+                case 1:
+                    ArrayList<Trader> flaggedAccounts =
+                            adminActions.getListOfFlaggedAccounts(traders, atLeast, maxIncomplete, maxWeekly);
+                    System.out.print(printAccounts(flaggedAccounts));
+                    System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
+                            "wish to freeze.");
 //                System.out.println("(input an number from 1 to"+ flaggedAccounts.size()+")");
-                int chosenFlag = scanner.nextInt();
-                boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
-                if(freeze){
-                    System.out.println("You have successfully frozen the account.");
-                }else{
-                    System.out.println("Freeze failed.");
-                }
-                break;
-            case 2:
-                ArrayList<Trader> frozenAccounts = adminActions.getFreezeAccount();
-                System.out.print(printAccounts(frozenAccounts));
-                System.out.println("Here are all the frozen accounts, please enter the number of the account" +
-                        " you wish to unfreeze:");
+                    int chosenFlag = scanner.nextInt();
+                    //I don't think you need to subtract 1 since your printAccounts method starts at 0
+                    boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag));
+                    if (freeze) {
+                        System.out.println("You have successfully frozen the account.");
+                    } else {
+                        System.out.println("Freeze failed.");
+                    }
+                    break;
+                case 2:
+                    ArrayList<Trader> frozenAccounts = adminActions.getFreezeAccount();
+                    System.out.print(printAccounts(frozenAccounts));
+                    System.out.println("Here are all the frozen accounts, please enter the number of the account" +
+                            " you wish to unfreeze:");
 //                System.out.println("(input an number from 1 to"+ frozenAccounts.size() +")");
 //                System.out.println(frozenAccounts);
-                int chosenFrozen = scanner.nextInt();
-                boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
-                if(unfreeze){
-                    System.out.println("You have successfully frozen the account");
-                }else{
-                    System.out.println("Freeze failed.");
-                }
-                break;
-            case 3:
-                System.out.print(printAccounts(traders));
-                System.out.println("Here are all the accounts, please select the number of the account you wish " +
-                        "to freeze:");
+                    int chosenFrozen = scanner.nextInt();
+                    boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
+                    if (unfreeze) {
+                        System.out.println("You have successfully frozen the account");
+                    } else {
+                        System.out.println("Freeze failed.");
+                    }
+                    break;
+                case 3:
+                    System.out.print(printAccounts(traders));
+                    System.out.println("Here are all the accounts, please select the number of the account you wish " +
+                            "to freeze:");
 //                System.out.println("(input an number from 1 to"+ allTraders.size()+")");
 //                System.out.println(traders);
-                int chosenAccount = scanner.nextInt();
-                boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
-                if(freezeGeneral){
-                    System.out.println("You have successfully frozen the account.");
-                }else{
-                    System.out.println("Freeze failed");
-                }
-                break;
-            default:
-                System.out.println("Selection not recognized.");
-        }
-        displayFreezeMenu();
+                    int chosenAccount = scanner.nextInt();
+                    boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
+                    if (freezeGeneral) {
+                        System.out.println("You have successfully frozen the account.");
+                    } else {
+                        System.out.println("Freeze failed");
+                    }
+                    break;
+                default:
+                    System.out.println("Selection not recognized.");
+            }
+            System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter any number return to Freeze/" +
+                    "Unfreeze Menu: ");
+            option = scanner.nextInt();
+        }while(option != -1); //if the option == -1, the execution will end
+        //displayFreezeMenu();
     }
 
     private StringBuilder printAccounts(ArrayList<Trader> traders){
@@ -195,43 +206,77 @@ public class AdminSystem extends UserSystem{
     /**
      * Display the menu that allows the admin to approve items
      */
-    public void displayApproveItemsMenu(){
-        ArrayList<Trader> allTraders = traderActions.getTraders();
-        System.out.print(printAccounts(allTraders));
-        System.out.println("Here are all the traders, please enter the number of the account you wish to view:");
-        int num = scanner.nextInt();
-        Trader chosenTrader = allTraders.get(num - 1);
-        System.out.println("Enter the number for your next selection:");
-        System.out.println("[1] approve/reject all the items this trader proposed");
-        System.out.println("[2] approve/reject a specific item this trader proposed");
-        int option = scanner.nextInt();
-        switch (option){
-            case 1:
-                System.out.println("You want to approve(true) or disapprove(false)?");
-                boolean choice1 = scanner.nextBoolean();
-                boolean approveAll = adminActions.approveAllItems(chosenTrader, choice1);
-                if(approveAll){
-                    System.out.println("You have approved all the items");
-                }else{
-                    System.out.println("You have disapproved all the items");
-                }
-                break;
-            case 2:
-                System.out.println("Here are all the items that the user proposed, please choose one");
-                System.out.println("(input a number from 1 to" + chosenTrader.getProposedItems().size()+")");
-                System.out.println(chosenTrader.getProposedItems());
-                int chosenItem = scanner.nextInt();
-                System.out.println("You want to approve(true) or disapprove(false) this item?");
-                boolean choice2 = scanner.nextBoolean();
-                Item item = chosenTrader.getProposedItems().get(chosenItem - 1);
-                boolean approve = adminActions.approveItem(chosenTrader, item, choice2);
-                if(approve){
-                    System.out.println("You have approved the item");
-                }else{
-                    System.out.println("You have disapproved the item");
-                }
-                break;
-        }
+    public void displayApproveItemsMenu() {
+
+        int option;
+        //do {
+        System.out.println("Here is the list of traders.");
+        //we can do it like this if we are going to have a class variable that stores traderActions.
+        //i think printAccounts method should be in TraderActions class. so we can just do traderActions.printAccounts();
+        //instead of passing list of traders around.
+
+        printAccounts(traderActions.getTraders());
+        System.out.print("Enter the number beside trader that you want to view: ");
+        int traderID = scanner.nextInt();
+
+        //same here, we could have a method in TraderActions class that returns a trader object based on index
+        //for now, I will just use the ArrayList method assuming that it is a valid input
+        Trader trader = traderActions.getTraders().get(traderID);
+
+        //we can have a method searchTrader(int index) that returns a trader object or null
+        //Trader trader = traderActions.searchTrader(traderId);
+        //if (trader == null){
+        //  S.o.pln("Invalid input")
+        //}else{
+        // proceed to approve/reject screen
+        //}
+        //S.o.pln("Enter -1 to return to main menu or enter anything to return to Aprrove items menu");
+        //option = scanner.nextInt();
+        //something like this
+
+            System.out.println("[1] Approve/reject all the items this trader proposed");
+            System.out.println("[2] Approve/reject a specific item this trader proposed");
+            option = scanner.nextInt();
+
+
+        //}while(option != toMainMenu);
+
+//        ArrayList<Trader> allTraders = traderActions.getTraders();
+//        System.out.print(printAccounts(allTraders));
+//        System.out.println("Here are all the traders, please enter the number of the account you wish to view:");
+//        int num = scanner.nextInt();
+//        Trader chosenTrader = allTraders.get(num - 1);
+//        System.out.println("Enter the number for your next selection:");
+//        System.out.println("[1] approve/reject all the items this trader proposed");
+//        System.out.println("[2] approve/reject a specific item this trader proposed");
+//        int option = scanner.nextInt();
+//        switch (option){
+//            case 1:
+//                System.out.println("You want to approve(true) or disapprove(false)?");
+//                boolean choice1 = scanner.nextBoolean();
+//                boolean approveAll = adminActions.approveAllItems(chosenTrader, choice1);
+//                if(approveAll){
+//                    System.out.println("You have approved all the items");
+//                }else{
+//                    System.out.println("You have disapproved all the items");
+//                }
+//                break;
+//            case 2:
+//                System.out.println("Here are all the items that the user proposed, please choose one");
+//                System.out.println("(input a number from 1 to" + chosenTrader.getProposedItems().size()+")");
+//                System.out.println(chosenTrader.getProposedItems());
+//                int chosenItem = scanner.nextInt();
+//                System.out.println("You want to approve(true) or disapprove(false) this item?");
+//                boolean choice2 = scanner.nextBoolean();
+//                Item item = chosenTrader.getProposedItems().get(chosenItem - 1);
+//                boolean approve = adminActions.approveItem(chosenTrader, item, choice2);
+//                if(approve){
+//                    System.out.println("You have approved the item");
+//                }else{
+//                    System.out.println("You have disapproved the item");
+//                }
+//                break;
+//        }
 
     }
 
@@ -307,11 +352,11 @@ public class AdminSystem extends UserSystem{
      */
     public void changeUserInfo(){
         //Maybe we want to add the option to go back to the main menu
-        System.out.print("Enter [1] to change username or enter [2] to change password: ");
-        String option = scanner.nextLine();
+        String option;
         int succeed = -1;
-
         do {
+            System.out.print("Enter [1] to change username or enter [2] to change password: ");
+            option = scanner.nextLine();
             switch (option) {
                 case "1":
                     succeed = changeUsername();
@@ -321,8 +366,6 @@ public class AdminSystem extends UserSystem{
                     break;
                 default:
                     System.out.println("Invalid input");
-                    System.out.println("Try again or enter ["+toMainMenu+"] to return to the main menu");
-                    option = scanner.nextLine();
                     break;
             }
 
@@ -332,9 +375,10 @@ public class AdminSystem extends UserSystem{
                 } else {
                     System.out.println("Failed to change username/password.");
                 }
-                System.out.println("Enter [" +toMainMenu+ "] to return to main menu.");
-                option = scanner.nextLine();
             }
+            System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to the" +
+                    "change Username/Password menu");
+            option = scanner.nextLine();
         }while(!option.equals(toMainMenu));
     }
 
@@ -343,12 +387,13 @@ public class AdminSystem extends UserSystem{
      */
     public void changeLimit(){
         //Option for main menu?
-        System.out.println("Enter [1] to change Weekly Transaction limit,");
-        System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
-        System.out.print("Enter [3] to change atLeast value: ");
-        String option = scanner.nextLine();
+        String option;
         int succeed = -1;
         do{
+            System.out.println("Enter [1] to change Weekly Transaction limit,");
+            System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
+            System.out.print("Enter [3] to change atLeast value: ");
+            option = scanner.nextLine();
             switch (option){
                 case "1":
                 case "2":
@@ -357,9 +402,6 @@ public class AdminSystem extends UserSystem{
                     break;
                 default:
                     System.out.println("Invalid input");
-                    System.out.println("Try again or enter ["+toMainMenu+"] to return to the main menu");
-                    option = scanner.nextLine();
-                    break;
             }
             if (succeed != -1) {
                 if (succeed == 1) {
@@ -367,11 +409,12 @@ public class AdminSystem extends UserSystem{
                 } else {
                     System.out.println("Failed to change limit.");
                 }
-                System.out.println("Enter [" +toMainMenu+ "] to return to main menu.");
-                option = scanner.nextLine();
             }
+            System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to" +
+                    "change limit menu: ");
+            option = scanner.nextLine();
 
-        }while(option.equals(toMainMenu));
+        }while(!option.equals(toMainMenu));
     }
 
     private int setNewLimit(String option){
