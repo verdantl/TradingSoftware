@@ -12,7 +12,7 @@ public class AdminActions {
 
     //temporary private static variable
     private static int limit = 1;
-
+    private ArrayList<Admin> adminRequests;
     //I was thinking "is it necessary to store list of admin objects?"
     //because admin object only have id and password
     //and I think an admin does not need to view other admins id and password
@@ -20,12 +20,44 @@ public class AdminActions {
 
 
 
-    public AdminActions(ArrayList<Admin> admins){
+    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
         this.admins = admins;
+        this.adminRequests = adminRequests;
     }
     //Temporary getter for the admins in case it's needed
-    public ArrayList<Admin> getAdmins(){
-        return admins;
+
+    /**
+     * A getter for a string version of all the admin requests for approval.
+     * @return a string version of adminRequests
+     */
+    public StringBuilder getAdminRequests(){
+        int counter = 0;
+        StringBuilder requests = new StringBuilder();
+        for (int i = 1; i <= adminRequests.size(); i++){
+            if (counter == 80){
+                counter = 0;
+            }
+            else{
+                counter++;
+            }
+            requests.append(i).append(". ");
+            requests.append(adminRequests.get(i).getUsername());
+        }
+        return requests;
+    }
+
+    /**
+     * Finds an admin in adminRequests by
+     * @param username the username of the admin being approved/rejected
+     * @return the admin in adminRequests whose username matches the parameter
+     */
+    private Admin findRequestByUserName(String username){
+        for (Admin admin: adminRequests){
+            if (admin.getUsername().equals(username)){
+                return admin;
+            }
+        }
+        return null;
     }
 
     /**
@@ -54,33 +86,33 @@ public class AdminActions {
 
     //basically to send a confirmation message
     /**
-     * Adds admins to the arraylist of admins
-     * @param username the username of the admin request
-     * @param password the password of the admin request
+     * Approves/rejects admins to the arraylist of admins
+     * @param username the username of the admin that is being approved/rejected
      * @param approved a boolean representing whether or not the admin is approved
      * @return true iff the admins were successfully added
      */
-    public boolean approveAdmin(String username, String password, boolean approved){
+    public boolean approveAdmin(String username, boolean approved){
+        Admin admin = findRequestByUserName(username);
         if (approved){
-            admins.add(new Admin(username, password));
+            admins.add(admin);
         }
+        adminRequests.remove(admin);
         return approved;
     }
 
     /**
-     * Adds admins to the arraylist of admins
-     * @param usernames the usernames from the admin requests
-     * @param passwords the passwors from the admin requests
-     * @param approved a boolean representing whether or not the admins are approved
-     * @return true iff the admins were successfully added
+     * Adds admins to the list of admins
+     * @param approved boolean representing whether or not the admins are approved
+     * @return true if all admins were approved, and false if all admins were rejected
      */
     //Not sure about the array here, but just used it for now.
-    public boolean approveAllAdmins(String[] usernames, String[] passwords, boolean approved){
+    public boolean approveAllAdmins(boolean approved){
         if (approved) {
-            for (int i = 0; i <  usernames.length; i++){
-                approveAdmin(usernames[i], passwords[i], approved);
+            for (Admin adminRequest : adminRequests) {
+                approveAdmin(adminRequest.getUsername(), approved);
             }
         }
+        adminRequests.clear();
         return approved;
     }
 

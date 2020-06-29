@@ -14,6 +14,7 @@ public class AdminSystem extends UserSystem{
     private int maxIncomplete;
     private int maxWeekly;
     private TraderActions traderActions;
+    private Scanner scanner;
 
 
     /**
@@ -25,8 +26,11 @@ public class AdminSystem extends UserSystem{
         //I think we should read in from files.
         this.fileName = fileName;
         currentAdmin = admin;
+        scanner = new Scanner(System.in);
 
         ArrayList<Admin> admins = new ArrayList<>();
+        //gotta read this too
+        ArrayList<Admin> adminRequests = new ArrayList<>();
         //something like this
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
@@ -41,7 +45,7 @@ public class AdminSystem extends UserSystem{
         }catch (IOException iox){
             System.out.println("File Not Found");
         }
-        adminActions = new AdminActions(admins);
+        adminActions = new AdminActions(admins, adminRequests);
         //May need to change constructor
         adminPrompts = new AdminPrompts();
         //may want to change the following
@@ -193,5 +197,62 @@ public class AdminSystem extends UserSystem{
                 break;
         }
 
+    }
+
+    private void confirmApproval(boolean approved){
+        if (approved){
+            System.out.println("Successfully approved!");
+        }
+        else{
+            System.out.println("Successfully denied.");
+        }
+        adminApproval();
+    }
+
+    private void adminApproval(){
+        String message = "Enter the username of the administrator you wish to approve/reject, or enter" +
+                "[all] to approve/reject all of the admin requests. Enter [0] to go back to the main menu.";
+        System.out.println(adminActions.getAdminRequests());
+        System.out.println(message);
+        String option = scanner.nextLine();
+        Boolean approved = approveOrReject();
+        boolean loop = false;
+        if (approved == null){
+            loop = true;
+        }
+        else {
+            if (option.equals("0")) {
+                System.out.println("Going back...");
+                //We gotta go back to the main screen
+            } else if (option.equals("all")) {
+                System.out.println("Processing...");
+                confirmApproval(adminActions.approveAllAdmins(approved));
+            } else if (adminActions.getAdminRequests().toString().contains(option)) {
+                System.out.println("Processing");
+                confirmApproval(adminActions.approveAdmin(option, approved));
+            } else {
+                loop = true;
+            }
+        }
+        if (loop){
+            System.out.println("Input not recognized.");
+            adminApproval();
+        }
+    }
+
+    private Boolean approveOrReject(){
+        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
+        String choice = scanner.nextLine();
+        switch (choice) {
+            case "1":
+                return true;
+            case "2":
+                return false;
+            case "3":
+                return null;
+            default:
+                System.out.println("Command not recognized.");
+                return approveOrReject();
+        }
     }
 }
