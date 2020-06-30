@@ -228,4 +228,12 @@ public class TraderPrompts {
         System.out.println("Type 2 to agree to the trade's meeting");
         System.out.println("Type 3 to confirm the trade happened");
     }
+
+    /**
+     * Displays a single string to screen.
+     * @param string The string that is to be displayed.
+     */
+    public void displayString(String string){
+        System.out.println(string);
+    }
 }
