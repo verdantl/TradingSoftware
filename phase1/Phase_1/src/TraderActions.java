@@ -257,4 +257,20 @@ public class TraderActions {
      */
     public ArrayList<Trader> getTraders(){return this.traders;}
 
+    /**
+     * Returns all trades from a trader that have yet to be completed.
+     * @param trader The trader whose trades are being examined.
+     * @return A list of trader's unfinished/on-going trades.
+     */
+    public ArrayList<Trade> getOnGoingTrades(Trader trader){
+        ArrayList<Trade> allTrades = trader.getTrades();
+        ArrayList<Trade> onGoingTrades = new ArrayList<>();
+        for (Trade i : allTrades){
+            if (!i.isCompleted()){
+                onGoingTrades.add(i);
+            }
+        }
+        return onGoingTrades;
+    }
+
 }

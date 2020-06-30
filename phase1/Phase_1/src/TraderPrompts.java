@@ -1,13 +1,14 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class TraderPrompts {
     ArrayList<String> mainMenuPrompts, proposeItemPrompts;
     private final String instruction = "Please enter the number of the option " +
             "you would like to select.";
+
     public TraderPrompts(){
         setUpMainMenuPrompts();
         setUpProposeItemPrompts();
-
     }
 
     /**
@@ -169,4 +170,19 @@ public class TraderPrompts {
         System.out.println("Type \"0\" to return to the main menu");
     }
 
+    /**
+     * Displays a list of a Trader's on-going trades.
+     * @param onGoingTrades The Trader's on-going trades.
+     */
+    public void browseOnGoingTrades(ArrayList<Trade> onGoingTrades){
+        System.out.println("Here is a list of all of your on-going trades:");
+        for (Trade i : onGoingTrades){
+            System.out.println(i.toString());
+        }
+        // Insert your options here, Jinesh.
+    }
+
+    public void incorrectSelection(){
+        System.out.println("That is not a valid option, please try again.");
+    }
 }
