@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Trade implements Comparable<Trade> {
@@ -249,4 +250,6 @@ public abstract class Trade implements Comparable<Trade> {
     public void increaseNumberOfEdits(Trader trader) {
         numberOfEdits.replace(trader.getUsername(), numberOfEdits.get(trader.getUsername()) + 1);
     }
+
+    public abstract ArrayList<Item> getItems();
 }

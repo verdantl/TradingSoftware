@@ -46,6 +46,15 @@ public class TraderActions {
      */
     public void removeProposedItem(Trader trader, Item item) { trader.removeFromProposedItems(item); }
 
+    /**
+     * Removes the given item from the given trader's wantToLend list
+     * @param trader The given trader.
+     * @param item The item they desire to be removed.
+     */
+    public void removeFromWantToLend(Trader trader, Item item){
+        trader.removeFromWantToLend(item);
+    }
+
     /*Okay so browsing items probably works with the presenter, so this method will return a list of available items that
     can be lent, and i will leave it to the presenter class to present it to the user.
     The current way im doing it isn't efficient because we have to compute a list of all the items everytime a user wants to
@@ -81,7 +90,7 @@ public class TraderActions {
      * @return whether the trade has been added or not
      */
     public boolean addTrade(Trader trader, Trade trade){
-        if(isValidTrade(trader, trade)){
+        if(isVaildTrade(trader, trade)){
         trader.addToTrades(trade);
         return true;
         }
@@ -98,10 +107,9 @@ public class TraderActions {
      */
     // Some code was used from the following resource, just going to link it here until I can cite it later:
     //https://stackoverflow.com/questions/19031213/java-get-most-common-element-in-a-list
-    public ArrayList<User> mostFrequentTradingPartners(Trader trader){
-
+    public ArrayList<Trader> mostFrequentTradingPartners(Trader trader){
         ArrayList<Trade> trades = trader.getTrades();
-        HashMap<User, Integer> mostFrequent = new HashMap<>();
+        HashMap<Trader, Integer> mostFrequent = new HashMap<>();
         for(Trade t: trades){
             Integer num;
             if(t.isCompleted()){
@@ -115,12 +123,12 @@ public class TraderActions {
                 }
             }
         }
-        ArrayList<User> topThree = new ArrayList<>();
-        HashMap.Entry<User, Integer> max = null;
-        Set<HashMap.Entry<User,Integer>> entrySet = mostFrequent.entrySet();
+        ArrayList<Trader> topThree = new ArrayList<>();
+        HashMap.Entry<Trader, Integer> max = null;
+        Set<HashMap.Entry<Trader,Integer>> entrySet = mostFrequent.entrySet();
 
         for (int i= 0; i< 3; i++){
-            for(HashMap.Entry<User,Integer> u: entrySet){
+            for(HashMap.Entry<Trader,Integer> u: entrySet){
                 if(max == null || u.getValue()>max.getValue()) {
                     max = u;
                 }
@@ -168,7 +176,32 @@ public class TraderActions {
         return mostRecentThreeTrades;
     }
 
-    private boolean isValidTrade(Trader trader, Trade trade){
+    /**
+     * Returns an arraylist of the three (if there are three) most recently traded items.
+     * Here by recenetly traded we assume it means any item involved in a trade.
+     * @param trader The trader whose recent items we wish to check
+     * @return The list of items the threeMostRecentItems
+     */
+    public ArrayList<Item> getMostRecentItems(Trader trader){
+        ArrayList<Item> mostRecentThreeItems = new ArrayList<>();
+        for (int i = trader.getTrades().size(); i>0; i--){
+            if(trader.getTrades().get(i).isCompleted()){
+                ArrayList<Item> temp = trader.getTrades().get(i).getItems();
+                for(Item item: temp){
+                    if(mostRecentThreeItems.size()<3){
+                        mostRecentThreeItems.add(item);
+                    }
+                }
+
+            }
+            if(mostRecentThreeItems.size()==3){
+                return mostRecentThreeItems;
+            }
+        }
+        return mostRecentThreeItems;
+    }
+
+    private boolean isVaildTrade(Trader trader, Trade trade){
         //needs the global var here
         int limitOfTradesPerWeek = 3;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
@@ -203,58 +236,25 @@ public class TraderActions {
     }
 
 
-    /** Getter for the traders
+    /**
+     *
+     * @return A formatted string that has every trader's username.
+     */
+    public StringBuilder printAccounts(){
+        StringBuilder accounts = new StringBuilder();
+        for (int i = 0; i < traders.size(); i++){
+            if (accounts.length() > 80){
+                accounts.append("\n");
+            }
+            accounts.append(i).append(". ");
+            accounts.append(traders.get(i).getUsername());
+        }
+        return accounts;
+    }
+
+    /**Getter for the traders
      * @return a list of traders in this system
      */
     public ArrayList<Trader> getTraders(){return this.traders;}
-
-    /**
-     * Getter for traders who have items awaiting approval
-     * @return a list of traders in the system with proposedItems length with more than 0 items
-     */
-    public ArrayList<Trader> getTradersNeedingApproval() {
-        ArrayList<Trader> accounts = new ArrayList<>();
-        for (Trader trader : traders) {
-            if (trader.getProposedItems().size() >= 1) {
-                accounts.add(trader);
-            }
-        }
-        return accounts;
-    }
-
-    /**
-     * @param atLeast The trader's number of borrowed items must be at least 'atLeast' less than
-     *                their number of lent items
-     * @param maxIncomplete The max number of incomplete transactions that a trader can have
-     * @param maxWeekly The max number of transactions that a trader can have in a week
-     * @return Return list of trader accounts that needs to be frozen
-     */
-
-    public ArrayList<Trader> getListOfFlaggedAccounts(int atLeast, int maxIncomplete, int maxWeekly){
-        ArrayList<Trader> accounts = new ArrayList<>();
-        for (Trader trader: traders){
-            if (trader.getNumBorrowed() + atLeast > trader.getNumLent() && atLeast != 0){
-                accounts.add(trader);
-            }else if(trader.getNumIncompleteTransactions() > maxIncomplete){
-                accounts.add(trader);
-            }else if(trader.getNumWeeklyTransactions() > maxWeekly){
-                accounts.add(trader);
-            }
-        }
-        return accounts;
-    }
-
-    /**Getter for the frozen accounts
-     * @return a list of frozen accounts in this system
-     */
-    public ArrayList<Trader> getFrozenTraders(){
-        ArrayList<Trader> accounts = new ArrayList<>();
-        for (Trader trader : traders) {
-            if (trader.isFrozen()) {
-                accounts.add(trader);
-            }
-        }
-        return accounts;
-    }
 
 }

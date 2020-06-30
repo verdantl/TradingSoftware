@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 /**
@@ -71,5 +72,13 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
     @Override
     public int compareTo(Trade trade) {
         return super.compareTo(trade);
+    }
+
+    @Override
+    public ArrayList<Item> getItems() {
+        ArrayList<Item> items= new ArrayList<>();
+        items.add(item1);
+        items.add(item2);
+        return items;
     }
 }
