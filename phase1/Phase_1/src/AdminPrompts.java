@@ -37,13 +37,21 @@ public class AdminPrompts {
     }
 
 
+    /**
+     * Displays the message to the administrator when going back to the main menu.
+     */
     public void setToMainMenu(){
         System.out.println("Going back to main menu...");
     }
 
+
+    /**
+     * Displays the message to the administrator when an option is invalid/command is not recognized.
+     */
     public void commandNotRecognized(){
         System.out.println("Command not recognized.");
     }
+
     /**
      * Prints a list of messages to the screen
      * @param messages an array of strings representing the messages displayed to the
@@ -113,6 +121,11 @@ public class AdminPrompts {
     }
 
 
+    /**
+     * Displays the account information of an arraylist of accounts passed in as a parameter
+     * @param i the option that the administrator has selected
+     * @param accounts the arraylist of accounts that are to be displayed
+     */
     public void displayFreezeOptions(int i, ArrayList<Trader> accounts){
         System.out.print(printAccounts(accounts, false));
         switch (i){
@@ -128,6 +141,11 @@ public class AdminPrompts {
         }
     }
 
+    /**
+     * Displays a confirmation message for the administrator during a freeze/unfreeze attempt
+     * @param value a boolean representing if the freeze/unfreeze was successful
+     * @param string a string representing if the admin was trying freeze or unfreeze
+     */
     public void displayFreezeConfirmation(boolean value, String string){
         if (value){
             System.out.println(string + " successful.");
@@ -136,65 +154,29 @@ public class AdminPrompts {
         }
     }
 
+    /**
+     * Displays the menu for the item approval option for administrators.
+     * @param traders an arraylist of all traders in the system who are awaiting item approval
+     */
     public void displayItemMenu(ArrayList<Trader> traders){
         System.out.println("Here is the list of all traders awaiting item approval:");
         System.out.print(printAccounts(traders, true));
     }
 
+    /**
+     * Displays the list of items awaiting approval
+     * @param items an arraylist of items awaiting approval
+     */
     public void displayTraderProposedItems(ArrayList<Item> items){
         System.out.print(printItems(items));
         System.out.println("Please enter the number for the item you wish to approve. Enter" +
                 " [all] to approve all items.");
     }
 
-
-
-    ///Below here is all Qinyu's stuff from before
-
     /**
-     * Display the menu that allows the admin to approve items
+     * Displays a list of admin requests and the approval option for the administrator
+     * @param requests a StringBuilder representing a list of all the admin requests currently in the system
      */
-    public void displayApproveItemsMenu(){
-        ArrayList<Trader> allTraders = traderActions.getTraders();
-        System.out.println("Here are all the traders, please choose one you want to approve:");
-        System.out.println("(input an number from 1 to"+ allTraders.size()+")");
-        Scanner input = new Scanner(System.in);
-        int num = input.nextInt();
-        Trader chosenTrader = allTraders.get(num - 1);
-        System.out.println("What you want to do next:");
-        System.out.println("1. approve/disapprove all the items this trader proposed");
-        System.out.println("2. approve/disapprove a specific item this trader proposed");
-        int option = input.nextInt();
-        switch (option){
-            case 1:
-                System.out.println("You want to approve(true) or disapprove(false)?");
-                boolean choice1 = input.nextBoolean();
-                boolean approveAll = adminActions.approveAllItems(chosenTrader, choice1);
-                if(approveAll){
-                    System.out.println("You have approved all the items");
-                }else{
-                    System.out.println("You have disapproved all the items");
-                }
-                break;
-            case 2:
-                System.out.println("Here are all the items that the user proposed, please choose one");
-                System.out.println("(input a number from 1 to" + chosenTrader.getProposedItems().size()+")");
-                System.out.println(chosenTrader.getProposedItems());
-                int chosenItem = input.nextInt();
-                System.out.println("You want to approve(true) or disapprove(false) this item?");
-                boolean choice2 = input.nextBoolean();
-                Item item = chosenTrader.getProposedItems().get(chosenItem - 1);
-                boolean approve = adminActions.approveItem(chosenTrader, item, choice2);
-                if(approve){
-                    System.out.println("You have approved the item");
-                }else{
-                    System.out.println("You have disapproved the item");
-                }
-                break;
-        }
-
-    }
-
     public void displayAdminApproval(StringBuilder requests){
         String message = "Enter the username of the administrator you wish to approve/reject, or enter" +
                 "[all] to approve/reject all of the admin requests. Enter [0] to go back to the main menu.";
@@ -203,10 +185,17 @@ public class AdminPrompts {
 
     }
 
+    /**
+     * Displays the option to approve or reject a given item/admin request
+     */
     public void displayApproveOrReject(){
         System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [0] Go back");
     }
 
+    /**
+     * Displays the confirmation of approval message to an administrator
+     * @param approved a boolean representing if the administrator approved or denied a request/item
+     */
     public void confirmApproval(boolean approved){
         System.out.println("Processing...");
         if (approved){
@@ -217,20 +206,34 @@ public class AdminPrompts {
         }
     }
 
+    /**
+     * Displays the submenu for viewing traders by an administrator
+     */
     public void displayTraderMenu(){
         String message = "Please enter the username of the account you wish to view. Enter [0]" +
                 " to go back to the main menu. Enter [all] to view all trader accounts.";
         System.out.println(message);
     }
 
+    /**
+     * Displays the options for restarting the trader menu
+     */
     public void displayRestartTrader(){
         System.out.println("Enter [0] to go back to main menu. Enter [1] to continue viewing traders.");
     }
 
+    /**
+     * Displays a string representation of the given traders in the system
+     * @param traders an arraylist of traders
+     */
     public void displayAllTraders(ArrayList<Trader> traders){
         printAccounts(traders, false);
     }
 
+    /**
+     * Displays the information for a trader
+     * @param trader the trader that should be displayed
+     */
     public void displayTrader(Trader trader){
         try{
             System.out.println(trader);

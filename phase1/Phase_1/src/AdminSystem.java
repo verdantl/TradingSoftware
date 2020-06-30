@@ -384,6 +384,9 @@ public class AdminSystem extends UserSystem{
         }
     }
 
+    /**
+     * Returns the administrator to the main menu for administrator options
+     */
     public void setToMainMenu(){
         adminPrompts.setToMainMenu();
         stop();
