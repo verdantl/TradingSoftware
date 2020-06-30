@@ -74,25 +74,30 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     break;
                 case 1:
                     // Propose an item to be lent
-                    proposeItemToLend(currentTrader);
+                    proposeItemToLend();
                     break;
                 case 2:
                     // Remove an item from their want to lend list
+                    removeItemFromWantToLend();
                     break;
                 case 3:
                     // Browse their inventory
+                    browseInventoryOfItems();
                     break;
                 case 4:
                     // Browse list of On-Going trades
                     break;
                 case 5:
                     // Check most recent 3 items the user has traded
+                    showThreeMostRecentItemsTraded();
                     break;
                 case 6:
                     // Get the user's top 3 trading partners
+                    showTopThreeTradingPartners();
                     break;
                 case 7:
                     // Request to unfreeze the account
+                    requestUnfreeze();
                     break;
             }
         }
@@ -109,7 +114,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
     }
 
-    public void proposeItemToLend(Trader trader){
+    /**
+     * Asks the user to enter the item's information that they want to propose to be added to currentTrader's wantToLend list.
+     */
+    private void proposeItemToLend(){
         ArrayList<String> temp = traderPrompts.getProposeItemPrompts();
         String itemName, category, description;
         int rating;
@@ -135,8 +143,8 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
             }
             if(!o.equals("0")){
                 rating = Integer.parseInt(o);
-                item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), trader, rating);
-                trader.addToProposedItems(item);
+                item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
+                traderActions.addProposedItem(currentTrader, item);
                 loopVar+=1;
                 System.out.println(temp.get(loopVar+2));
             }
@@ -144,8 +152,122 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         }
 
     }
+
+    /**
+     * A method to set the currentUser variable.
+     * @param trader The logged-in user we will manipulate.
+     */
     public void setCurrentTrader(Trader trader){
         currentTrader = trader;
+    }
+
+    /**
+     * Method that removes the chosen item from the currentTrader's list of wantToLend items.
+     */
+    private void removeItemFromWantToLend(){
+        ArrayList<Integer> availableOptions = new ArrayList<>();
+        availableOptions.add(0);
+        for (int i=0; i < currentTrader.getWantToLend().size(); i++){
+            availableOptions.add(i+1);
+        }
+
+        int o = Integer.getInteger(sc.nextLine());
+        while(!availableOptions.contains(o)){
+            System.out.println("That is not a valid option, please try again.");
+            o = Integer.getInteger(sc.nextLine());
+        }
+
+        while(o!=0){
+            traderPrompts.displayTraderItems(currentTrader);
+            availableOptions = new ArrayList<>();
+            availableOptions.add(0);
+            for (int i=0; i < currentTrader.getWantToLend().size(); i++){
+                availableOptions.add(i+1);
+            }
+            while(!availableOptions.contains(o)){
+                System.out.println("That is not a valid option, please try again.");
+                o = Integer.getInteger(sc.nextLine());
+            }
+            traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1) );
+            System.out.println("Item was removed.");
+        }
+    }
+
+    /**
+     * This is the method where the user browses the inventory, and decides if they want to add items to their wantToBorrow list or propose trades.
+     */
+    private void browseInventoryOfItems(){
+        ArrayList<Integer> availableOptions = new ArrayList<>();
+        availableOptions.add(0);
+        for (int i=0; i < traderActions.browseItems().size(); i++){
+            availableOptions.add(i+1);
+        }
+        int o;
+        int o2;
+        do{
+            traderPrompts.browseInventory(traderActions.browseItems());
+            o = Integer.getInteger(sc.nextLine());
+            while(!availableOptions.contains(o)){
+                System.out.println("That is not a valid option, please try again.");
+                o = Integer.getInteger(sc.nextLine());
+            }
+            if(o!=0){
+                traderPrompts.viewItem(traderActions.browseItems().get(o));
+                o2 = Integer.getInteger(sc.nextLine());
+                if(o2 == 1){
+                    traderActions.addToWantToBorrow(currentTrader, traderActions.browseItems().get(o));
+                }
+                else if(o2==2){
+                    //THIS IS WHERE YOU DO THE PROPOSE TRADE CODE
+                    //This might be a good place to tell the user they can't trade if their account is frozen.
+                    //If their account is frozen just don't do anything, the code should return to the browsing items loop
+                }
+            }
+
+        }while(o!=0);
+    }
+
+    /**
+     * Shows the user the three most recent items they have traded.
+     */
+    private void showThreeMostRecentItemsTraded(){
+        traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
+        int o;
+        do {
+            o = Integer.getInteger(sc.nextLine());
+            if(o!=0){
+                System.out.println("That is not a valid option, please try again.");
+            }
+        }while(o!=0);
+    }
+
+    /**
+     * Shows the user their top three most frequent trading partners.
+     */
+    private void showTopThreeTradingPartners(){
+        traderPrompts.viewListOfTradingPartners(traderActions.mostFrequentTradingPartners(currentTrader));
+        int o;
+        do {
+            o = Integer.getInteger(sc.nextLine());
+            if(o!=0){
+                System.out.println("That is not a valid option, please try again.");
+            }
+        }while(o!=0);
+    }
+
+    /**
+     * The user requests to unfreeze their account.
+     */
+    private void requestUnfreeze(){
+        //This is where i do the unfreeze thing but im not sure how we do that yet.
+        traderPrompts.requestUnfreeze();
+        int o;
+        do {
+            o = Integer.getInteger(sc.nextLine());
+            if(o!=0){
+                System.out.println("That is not a valid option, please try again.");
+            }
+        }while(o!=0);
     }
 
 

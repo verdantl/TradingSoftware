@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class OneWayTrade extends Trade{
     private Item item;
@@ -55,4 +56,11 @@ public class OneWayTrade extends Trade{
      * @return the traded item
      */
     public Item getItem(){ return item; }
+
+    @Override
+    public ArrayList<Item> getItems() {
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(item);
+        return items;
+    }
 }

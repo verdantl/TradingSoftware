@@ -9,13 +9,20 @@ public class TraderPrompts {
         setUpProposeItemPrompts();
 
     }
-    public void setUpMainMenuPrompts(){
+
+    /**
+     * Method used in the constructor to set up the main menu prompts.
+     */
+    private void setUpMainMenuPrompts(){
         mainMenuPrompts = new ArrayList<>();
         mainMenuPrompts.add(" - Exit the program.");
         mainMenuPrompts.add(" - Propose an item you want to lend.");
     }
 
-    public void setUpProposeItemPrompts(){
+    /**
+     * Method used in the constructor to set up the ProposeItemPrompts.
+     */
+    private void setUpProposeItemPrompts(){
         proposeItemPrompts = new ArrayList<>();
         proposeItemPrompts.add("Enter \"0\" to go back to the main menu at any time."); //0
         proposeItemPrompts.add("Otherwise, enter the item name:"); //1
@@ -24,23 +31,142 @@ public class TraderPrompts {
         proposeItemPrompts.add("Enter the item's quality rating from 1-10:");//4
         proposeItemPrompts.add("Your item is waiting to be reviewed by an Administrator, please check back later.");//5
     }
+
+    /**
+     * Getter for MainMenuPrompts
+     * @return the arraylist of mainMenuPrompts
+     */
     public ArrayList<String> getMainMenuPrompts(){
         return this.mainMenuPrompts;
     }
 
+    /**
+     * Getter for ProposeItemPrompts
+     * @return Arraylist of propose item prompts.
+     */
     public ArrayList<String> getProposeItemPrompts(){
         return this.proposeItemPrompts;
     }
 
+    /**
+     * This method is used to display the main menu prompts with the correct number options
+     */
     public void displayMainMenu(){
         StringBuilder selections = new StringBuilder();
         for (int i = 0; i < mainMenuPrompts.size(); i++){
             selections.append(i);
             selections.append(". ");
             selections.append(mainMenuPrompts.get(i));
-            selections.append(' ');
+            selections.append('\n');
         }
         System.out.println(instruction);
         System.out.println(selections);
     }
+
+    /**
+     * This is the method used to display a user's items by displaying the item name, category, description, and rating.
+     * @param trader The trader who's items are to be displayed.
+     */
+    public void displayTraderItems(Trader trader){
+        System.out.println("Type 0 if you would like to return to the main menu.");
+        System.out.println("Choose the item you want to remove by typing in its respective number: ");
+
+        StringBuilder items = new StringBuilder();
+        for(int i=1; i< trader.getWantToLend().size()+1; i++){
+            items.append(i);
+
+            items.append(" - Name: ");
+            items.append(trader.getWantToLend().get(i-1).getName());
+
+            items.append(". Category: ");
+            items.append(trader.getWantToLend().get(i-1).getCategory());
+
+            items.append(". Description: ");
+            items.append(trader.getWantToLend().get(i-1).getDescription());
+
+            items.append(". Rating: ");
+            items.append(trader.getWantToLend().get(i-1).getQualityRating());
+
+            items.append(".\n");
+        }
+    }
+
+    /**
+     * Method we use to display the inventory of items that are available
+     * @param items The items available in the inventory
+     */
+    public void browseInventory(ArrayList<Item> items){
+        System.out.println("Type '0 if you would like to return to the main menu.");
+        System.out.println("Type the number of the item you wish to view in more detail.");
+        StringBuilder itemsList = new StringBuilder();
+        for(int i=1; i< items.size()+1; i++){
+            itemsList.append(i);
+
+            itemsList.append(" - Name:");
+            itemsList.append(items.get(i-1).getName());
+
+            itemsList.append(". Category: ");
+            itemsList.append(items.get(i-1).getCategory());
+
+            itemsList.append(". Rating: ");
+            itemsList.append(items.get(i-1).getQualityRating());
+
+            itemsList.append(".\n");
+        }
+    }
+
+    /**
+     * Method to view the an item's details from the browse menu.
+     * @param item The item whose details we wish to view
+     */
+    public void viewItem(Item item){
+        System.out.println(item);
+        System.out.println("Type 1 if you want to add this item to your wishlist.");
+        System.out.println("Type 2 if you want to propose a trade.");
+        System.out.println("Type any other number to browsing items.");
+    }
+
+    /**
+     * Method to view the items within the given list
+     */
+    public void viewListOfRecentItems(ArrayList<Item> items){
+        System.out.println("Press 0 to return to the main menu.");
+        StringBuilder itemsList = new StringBuilder();
+        for(int i=1; i< items.size()+1; i++){
+            itemsList.append(i);
+
+            itemsList.append(" - Name:");
+            itemsList.append(items.get(i-1).getName());
+
+            itemsList.append(". Category: ");
+            itemsList.append(items.get(i-1).getCategory());
+
+            itemsList.append(". Rating: ");
+            itemsList.append(items.get(i-1).getQualityRating());
+
+            itemsList.append(".\n");
+        }
+    }
+
+    /**
+     * Displays the usernames of the given list of users.
+     * @param partners The list of users
+     */
+    public void viewListOfTradingPartners(ArrayList<Trader> partners){
+        System.out.println("Type \"0\" to return to the main menu");
+        System.out.println("Here are (if available) your top three most frequent trading partners:");
+        StringBuilder userList = new StringBuilder();
+        for(int i=1; i< partners.size()+1; i++){
+            userList.append(i);
+
+            userList.append(" - Name:");
+            userList.append(partners.get(i-1).getUsername());
+        }
+    }
+
+    public void requestUnfreeze(){
+        System.out.println("You have requested to unfreeze your account. Please wait until an adminsitrator reviews your request.");
+        System.out.println("Type \"0\" to return to the main menu");
+    }
+
 }
