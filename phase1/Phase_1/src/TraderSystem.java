@@ -70,7 +70,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
             switch(option) {
                 case 0:
                     // Exit the program
-                    running = false;
+                    this.stop();
                     break;
                 case 1:
                     // Propose an item to be lent
@@ -86,6 +86,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     break;
                 case 4:
                     // Browse list of On-Going trades
+
                     break;
                 case 5:
                     // Check most recent 3 items the user has traded
@@ -111,7 +112,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
     @Override
     protected void stop() {
-
+        running = false;
     }
 
     /**
@@ -270,5 +271,11 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         }while(o!=0);
     }
 
-
+    /**
+     * The user requests to view all of their ongoing trades.
+     */
+    private void browseOnGoingTrades(){
+        ArrayList<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
+        traderPrompts.browseOnGoingTrades(onGoingTrades);
+    }
 }
