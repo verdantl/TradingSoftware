@@ -10,6 +10,7 @@ public class AdminPrompts {
     private ArrayList<String> menuOptions;
     private AdminActions adminActions;
     private TraderActions traderActions;
+    private final String toMainMenu = "-1";
 
     /**
      * Constructor for the AdminPrompts class
@@ -236,6 +237,59 @@ public class AdminPrompts {
         } catch (NullPointerException e){
             System.out.println("User not found.");
         }
+    }
+
+    /**
+     * Display menu for change limit
+     */
+    public void displayChangeLimitMenu(){
+        System.out.println("Enter [1] to change Weekly Transaction limit,");
+        System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
+        System.out.print("Enter [3] to change atLeast value: ");
+    }
+
+    /**
+     * Display menu for change username/password
+     */
+    public void displayChangeUserInfoMenu(){
+        System.out.println("Enter [1] to change username");
+        System.out.print("Enter [2] to change password: ");
+    }
+
+    /**
+     * Display return to main menu message
+     */
+    public void displayReturnToMainMenu(){
+        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to" +
+                "previous menu: ");
+    }
+
+    /**
+     * @param successful Represents the success of the changeLimit method. 1 represents true and 0 represents false.
+     * @param subject The value that changed
+     * Display a message that tells whether the value was successfully changed
+     */
+    public void displaySuccessMessage(int successful, String subject){
+        if(successful == 1){
+            System.out.println(subject + " changed successfully");
+        }else{
+            System.out.println("Failed to change "+subject);
+        }
+    }
+
+    /**
+     * Display error message due to invalid input
+     */
+    public void displayErrorMessage(){
+        System.out.println("Invalid input");
+    }
+
+    /**
+     * @param subject The value that needs to be entered
+     * Display a message that prompts user to enter
+     */
+    public void displayEnterNewMessage(String subject){
+        System.out.print("Enter new"+subject+": ");
     }
 
 }
