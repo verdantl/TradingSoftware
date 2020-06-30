@@ -79,7 +79,7 @@ public class AdminSystem extends UserSystem{
                     freezeMenu();
                     break;
                 case 3:
-                    approveItems();
+                    approveItemsMenu();
                     break;
                 case 4:
                     viewTraders();
@@ -100,8 +100,6 @@ public class AdminSystem extends UserSystem{
         }
     }
 
-    //This might be better off in phase 2 as a listener, but here we're updating every iteration
-    //and calling other methods that will update the controller
     protected void update(){
     }
 
@@ -110,10 +108,6 @@ public class AdminSystem extends UserSystem{
         running = false;
     }
 
-
-    //I commented out his original lines and added mine in
-    //So for here I added a printAccounts function that returns a string representation of all the accounts
-    //I like being able to input the username better tbh but he didn't do that here (Jeffrey)
     /**
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
@@ -123,126 +117,71 @@ public class AdminSystem extends UserSystem{
         int option = scanner.nextInt();
         do {
             switch (option) {
-                //We need to decide how we're going to loop back. Will we just go back to the main menu each time?
-                // I did make a setToMainMenu method
-
-                //we could have like enter [1] to change the option or enter [-1] to return to Main Menu
-                //I did that in a do while loop instead of doing it in a recursive way
                 case 1:
                     ArrayList<Trader> flaggedAccounts =
-                            adminActions.getListOfFlaggedAccounts(traders, atLeast, maxIncomplete, maxWeekly);
+                            traderActions.getListOfFlaggedAccounts(atLeast, maxIncomplete, maxWeekly);
                     adminPrompts.displayFreezeOptions(1, flaggedAccounts);
-//                System.out.println("(input an number from 1 to"+ flaggedAccounts.size()+")");
                     int chosenFlag = scanner.nextInt();
-                    //I don't think you need to subtract 1 since your printAccounts method starts at 0
-                    boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag));
+                    boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
                     adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
                     break;
                 case 2:
-                    ArrayList<Trader> frozenAccounts = adminActions.getFreezeAccount();
+                    ArrayList<Trader> frozenAccounts = traderActions.getFrozenTraders();
                     adminPrompts.displayFreezeOptions(2, frozenAccounts);
-//                System.out.println("(input an number from 1 to"+ frozenAccounts.size() +")");
-//                System.out.println(frozenAccounts);
                     int chosenFrozen = scanner.nextInt();
                     boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
                     adminPrompts.displayFreezeConfirmation(unfreeze, "Unfreeze");
                     break;
                 case 3:
                     adminPrompts.displayFreezeOptions(3, traders);
-//                System.out.println("(input an number from 1 to"+ allTraders.size()+")");
-//                System.out.println(traders);
                     int chosenAccount = scanner.nextInt();
                     boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
                     adminPrompts.displayFreezeConfirmation(freezeGeneral, "Freeze");
                     break;
                 default:
-                    //I haven't handled this part in the prompts yet
-                    System.out.println("Selection not recognized.");
+                    adminPrompts.commandNotRecognized();
+                    break;
             }
             System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter any number return to Freeze/" +
                     "Unfreeze Menu: ");
             option = scanner.nextInt();
-        }while(option != -1); //if the option == -1, the execution will end
-        //displayFreezeMenu();
+        } while(option != Integer.parseInt(toMainMenu));
+        adminPrompts.setToMainMenu();
+        setToMainMenu();
     }
 
     /**
      * Display the menu that allows the admin to approve items
      */
-    public void approveItems() {
-
-        int option;
-        //do {
-        System.out.println("Here is the list of traders.");
-        //we can do it like this if we are going to have a class variable that stores traderActions.
-        //i think printAccounts method should be in TraderActions class. so we can just do traderActions.printAccounts();
-        //instead of passing list of traders around.
-
-        System.out.println(traderActions.printAccounts());
+    public void approveItemsMenu() {
+        adminPrompts.displayItemMenu(traderActions.getTradersNeedingApproval());
         System.out.print("Enter the number beside trader that you want to view: ");
-        int traderID = scanner.nextInt();
-
-        //same here, we could have a method in TraderActions class that returns a trader object based on index
-        //for now, I will just use the ArrayList method assuming that it is a valid input
-        Trader trader = traderActions.getTraders().get(traderID);
-
-        //we can have a method searchTrader(int index) that returns a trader object or null
-        //Trader trader = traderActions.searchTrader(traderId);
-        //if (trader == null){
-        //  S.o.pln("Invalid input")
-        //}else{
-        // proceed to approve/reject screen
-        //}
-        //S.o.pln("Enter -1 to return to main menu or enter anything to return to Aprrove items menu");
-        //option = scanner.nextInt();
-        //something like this
-
-            System.out.println("[1] Approve/reject all the items this trader proposed");
-            System.out.println("[2] Approve/reject a specific item this trader proposed");
-
-
-
-        //}while(option != toMainMenu);
-
-//        ArrayList<Trader> allTraders = traderActions.getTraders();
-//        System.out.print(printAccounts(allTraders));
-//        System.out.println("Here are all the traders, please enter the number of the account you wish to view:");
-//        int num = scanner.nextInt();
-//        Trader chosenTrader = allTraders.get(num - 1);
-//        System.out.println("Enter the number for your next selection:");
-//        System.out.println("[1] approve/reject all the items this trader proposed");
-//        System.out.println("[2] approve/reject a specific item this trader proposed");
-//        int option = scanner.nextInt();
-//        switch (option){
-//            case 1:
-//                System.out.println("You want to approve(true) or disapprove(false)?");
-//                boolean choice1 = scanner.nextBoolean();
-//                boolean approveAll = adminActions.approveAllItems(chosenTrader, choice1);
-//                if(approveAll){
-//                    System.out.println("You have approved all the items");
-//                }else{
-//                    System.out.println("You have disapproved all the items");
-//                }
-//                break;
-//            case 2:
-//                System.out.println("Here are all the items that the user proposed, please choose one");
-//                System.out.println("(input a number from 1 to" + chosenTrader.getProposedItems().size()+")");
-//                System.out.println(chosenTrader.getProposedItems());
-//                int chosenItem = scanner.nextInt();
-//                System.out.println("You want to approve(true) or disapprove(false) this item?");
-//                boolean choice2 = scanner.nextBoolean();
-//                Item item = chosenTrader.getProposedItems().get(chosenItem - 1);
-//                boolean approve = adminActions.approveItem(chosenTrader, item, choice2);
-//                if(approve){
-//                    System.out.println("You have approved the item");
-//                }else{
-//                    System.out.println("You have disapproved the item");
-//                }
-//                break;
-//        }
-
+        String option = scanner.nextLine();
+        do {
+            int traderID = Integer.parseInt(option);
+            if (traderID <= traderActions.getTradersNeedingApproval().size()) {
+                Trader trader = traderActions.getTradersNeedingApproval().get(traderID - 1);
+                adminPrompts.displayTraderProposedItems(trader.getProposedItems());
+                option = scanner.nextLine();
+                int itemID = Integer.parseInt(option);
+                Boolean approved = approveOrReject();
+                if (approved == null){
+                    break;
+                }
+                else if (option.equals("all")) {
+                    adminActions.approveAllItems(trader, approved);
+                }
+                else if (Integer.parseInt(option) <= trader.getProposedItems().size()){
+                    adminActions.approveItem(trader, trader.getProposedItems().get(itemID - 1), approved);
+                }
+                adminPrompts.confirmApproval(approved);
+            } else {
+                adminPrompts.commandNotRecognized();
+            }
+        }
+        while(Integer.parseInt(option) != Integer.parseInt(toMainMenu));
+        setToMainMenu();
     }
-
 
     /**
      * Allows an admin to approve or reject administrative requests.
@@ -275,7 +214,7 @@ public class AdminSystem extends UserSystem{
     }
 
     private void confirmApproval(boolean approved){
-        adminPrompts.confirmAdminApproval(approved);
+        adminPrompts.confirmApproval(approved);
         adminApproval();
     }
 
@@ -295,7 +234,7 @@ public class AdminSystem extends UserSystem{
                 //but will fix (Jeffrey)
                 return null;
             default:
-                System.out.println("Command not recognized.");
+                adminPrompts.commandNotRecognized();
                 return approveOrReject();
         }
     }

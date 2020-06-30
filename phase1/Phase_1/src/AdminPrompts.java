@@ -71,17 +71,35 @@ public class AdminPrompts {
         System.out.println(selections);
     }
 
-    private StringBuilder printAccounts(ArrayList<Trader> traders){
+    private StringBuilder printAccounts(ArrayList<Trader> traders, boolean usernameOnly){
         StringBuilder accounts = new StringBuilder();
         for (int i = 0; i < traders.size(); i++){
             if (accounts.length() > 80){
                 accounts.append("\n");
             }
-            accounts.append(i).append(". ");
-            accounts.append(traders.get(i).getUsername());
+            accounts.append(i + 1).append(". ");
+            if (usernameOnly) {
+                accounts.append(traders.get(i).getUsername());
+            }
+            else{
+                accounts.append(traders.get(i).toString());
+            }
         }
         return accounts;
     }
+
+    private StringBuilder printItems(ArrayList<Item> proposedItems){
+        StringBuilder items = new StringBuilder();
+        for (int i = 0; i < proposedItems.size(); i++){
+            if (items.length() > 80){
+                items.append("\n");
+            }
+            items.append(i + 1).append(". ");
+            items.append(proposedItems.get(i));
+        }
+        return items;
+    }
+
     /**
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
@@ -95,7 +113,7 @@ public class AdminPrompts {
 
 
     public void displayFreezeOptions(int i, ArrayList<Trader> accounts){
-        System.out.print(printAccounts(accounts));
+        System.out.print(printAccounts(accounts, false));
         switch (i){
             case 1:
                 System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
@@ -117,8 +135,15 @@ public class AdminPrompts {
         }
     }
 
-    public void displayItemMenu(){
+    public void displayItemMenu(ArrayList<Trader> traders){
+        System.out.println("Here is the list of all traders awaiting item approval:");
+        System.out.print(printAccounts(traders, true));
+    }
 
+    public void displayTraderProposedItems(ArrayList<Item> items){
+        System.out.print(printItems(items));
+        System.out.println("Please enter the number for the item you wish to approve. Enter" +
+                " [all] to approve all items.");
     }
 
 
@@ -178,11 +203,10 @@ public class AdminPrompts {
     }
 
     public void displayApproveOrReject(){
-
-        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
+        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [0] Go back");
     }
 
-    public void confirmAdminApproval(boolean approved){
+    public void confirmApproval(boolean approved){
         System.out.println("Processing...");
         if (approved){
             System.out.println("Successfully approved!");
@@ -203,7 +227,7 @@ public class AdminPrompts {
     }
 
     public void displayAllTraders(ArrayList<Trader> traders){
-        printAccounts(traders);
+        printAccounts(traders, false);
     }
 
     public void displayTrader(Trader trader){

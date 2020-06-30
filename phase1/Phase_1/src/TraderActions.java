@@ -81,7 +81,7 @@ public class TraderActions {
      * @return whether the trade has been added or not
      */
     public boolean addTrade(Trader trader, Trade trade){
-        if(isVaildTrade(trader, trade)){
+        if(isValidTrade(trader, trade)){
         trader.addToTrades(trade);
         return true;
         }
@@ -168,7 +168,7 @@ public class TraderActions {
         return mostRecentThreeTrades;
     }
 
-    private boolean isVaildTrade(Trader trader, Trade trade){
+    private boolean isValidTrade(Trader trader, Trade trade){
         //needs the global var here
         int limitOfTradesPerWeek = 3;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
@@ -203,25 +203,58 @@ public class TraderActions {
     }
 
 
-    /**
-     *
-     * @return A formatted string that has every trader's username.
+    /** Getter for the traders
+     * @return a list of traders in this system
      */
-    public StringBuilder printAccounts(){
-        StringBuilder accounts = new StringBuilder();
-        for (int i = 0; i < traders.size(); i++){
-            if (accounts.length() > 80){
-                accounts.append("\n");
+    public ArrayList<Trader> getTraders(){return this.traders;}
+
+    /**
+     * Getter for traders who have items awaiting approval
+     * @return a list of traders in the system with proposedItems length with more than 0 items
+     */
+    public ArrayList<Trader> getTradersNeedingApproval() {
+        ArrayList<Trader> accounts = new ArrayList<>();
+        for (Trader trader : traders) {
+            if (trader.getProposedItems().size() >= 1) {
+                accounts.add(trader);
             }
-            accounts.append(i).append(". ");
-            accounts.append(traders.get(i).getUsername());
         }
         return accounts;
     }
 
-    /**Getter for the traders
-     * @return a list of traders in this system
+    /**
+     * @param atLeast The trader's number of borrowed items must be at least 'atLeast' less than
+     *                their number of lent items
+     * @param maxIncomplete The max number of incomplete transactions that a trader can have
+     * @param maxWeekly The max number of transactions that a trader can have in a week
+     * @return Return list of trader accounts that needs to be frozen
      */
-    public ArrayList<Trader> getTraders(){return this.traders;}
+
+    public ArrayList<Trader> getListOfFlaggedAccounts(int atLeast, int maxIncomplete, int maxWeekly){
+        ArrayList<Trader> accounts = new ArrayList<>();
+        for (Trader trader: traders){
+            if (trader.getNumBorrowed() + atLeast > trader.getNumLent() && atLeast != 0){
+                accounts.add(trader);
+            }else if(trader.getNumIncompleteTransactions() > maxIncomplete){
+                accounts.add(trader);
+            }else if(trader.getNumWeeklyTransactions() > maxWeekly){
+                accounts.add(trader);
+            }
+        }
+        return accounts;
+    }
+
+    /**Getter for the frozen accounts
+     * @return a list of frozen accounts in this system
+     */
+    public ArrayList<Trader> getFrozenTraders(){
+        ArrayList<Trader> accounts = new ArrayList<>();
+        for (Trader trader : traders) {
+            if (trader.isFrozen()) {
+                accounts.add(trader);
+            }
+        }
+        return accounts;
+    }
 
 }
