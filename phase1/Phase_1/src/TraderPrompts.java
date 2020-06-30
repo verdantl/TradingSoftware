@@ -90,6 +90,36 @@ public class TraderPrompts {
 
             items.append(".\n");
         }
+
+        System.out.println(items);
+    }
+
+    /**
+     * This is the same method as the one above, but doesn't include the first two sysout statements to allow for more
+     * versatility. This should be replaced before the final submission.
+     * @param trader The trader who's items are to be displayed.
+     */
+    public void displayTraderItemsTwo(Trader trader){
+        StringBuilder items = new StringBuilder();
+        for(int i=1; i< trader.getWantToLend().size()+1; i++){
+            items.append(i);
+
+            items.append(" - Name: ");
+            items.append(trader.getWantToLend().get(i-1).getName());
+
+            items.append(". Category: ");
+            items.append(trader.getWantToLend().get(i-1).getCategory());
+
+            items.append(". Description: ");
+            items.append(trader.getWantToLend().get(i-1).getDescription());
+
+            items.append(". Rating: ");
+            items.append(trader.getWantToLend().get(i-1).getQualityRating());
+
+            items.append(".\n");
+        }
+
+        System.out.println(items);
     }
 
     /**
