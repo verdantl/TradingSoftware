@@ -146,8 +146,9 @@ public class AdminSystem extends UserSystem{
                     "Unfreeze Menu: ");
             option = scanner.nextInt();
         } while(option != Integer.parseInt(toMainMenu));
-        adminPrompts.setToMainMenu();
-        setToMainMenu();
+        //I don't think these two lines are needed since dowhile loop is already taking care of that
+//        adminPrompts.setToMainMenu();
+//        setToMainMenu();
     }
 
     /**
@@ -248,7 +249,7 @@ public class AdminSystem extends UserSystem{
         String option;
         int succeed = -1;
         do {
-            System.out.print("Enter [1] to change username or enter [2] to change password: ");
+            adminPrompts.displayChangeUserInfoMenu();
             option = scanner.nextLine();
             switch (option) {
                 case "1":
@@ -258,19 +259,13 @@ public class AdminSystem extends UserSystem{
                     succeed = changePassword();
                     break;
                 default:
-                    System.out.println("Invalid input");
-                    break;
+                    adminPrompts.displayErrorMessage();
             }
 
             if (succeed != -1) {
-                if (succeed == 1) {
-                    System.out.println("Username/password successfully changed.");
-                } else {
-                    System.out.println("Failed to change username/password.");
-                }
+                adminPrompts.displaySuccessMessage(succeed, "username/password");
             }
-            System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to the" +
-                    "change Username/Password menu");
+            adminPrompts.displayReturnToMainMenu();
             option = scanner.nextLine();
         }while(!option.equals(toMainMenu));
     }
@@ -283,9 +278,7 @@ public class AdminSystem extends UserSystem{
         String option;
         int succeed = -1;
         do{
-            System.out.println("Enter [1] to change Weekly Transaction limit,");
-            System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
-            System.out.print("Enter [3] to change atLeast value: ");
+            adminPrompts.displayChangeLimitMenu();
             option = scanner.nextLine();
             switch (option){
                 case "1":
@@ -294,24 +287,19 @@ public class AdminSystem extends UserSystem{
                     succeed = setNewLimit(option);
                     break;
                 default:
-                    System.out.println("Invalid input");
+                    adminPrompts.displayErrorMessage();
             }
             if (succeed != -1) {
-                if (succeed == 1) {
-                    System.out.println("Limit successfully changed.");
-                } else {
-                    System.out.println("Failed to change limit.");
-                }
+                adminPrompts.displaySuccessMessage(succeed, "limit");
             }
-            System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to" +
-                    "change limit menu: ");
+            adminPrompts.displayReturnToMainMenu();
             option = scanner.nextLine();
 
         }while(!option.equals(toMainMenu));
     }
 
     private int setNewLimit(String option){
-        System.out.print("Enter new limit: ");
+        adminPrompts.displayEnterNewMessage("limit");
         int newValue = scanner.nextInt();
         if (newValue < 0) {
             return 0;
@@ -332,7 +320,7 @@ public class AdminSystem extends UserSystem{
     }
 
     private int changeUsername(){
-        System.out.print("Enter new username: ");
+        adminPrompts.displayEnterNewMessage("username");
         String newName = scanner.nextLine();
         if (newName.equals(currentAdmin.getUsername())){
             return 0;
@@ -342,7 +330,7 @@ public class AdminSystem extends UserSystem{
     }
 
     private int changePassword(){
-        System.out.print("Enter new password: ");
+        adminPrompts.displayEnterNewMessage("password");
         String newPassword = scanner.nextLine();
         if (newPassword.equals(currentAdmin.getPassword())){
             return 0;
