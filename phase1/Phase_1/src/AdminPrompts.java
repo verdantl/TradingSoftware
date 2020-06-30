@@ -7,44 +7,32 @@ public class AdminPrompts {
     private int atLeast;
     private int maxIncomplete;
     private int maxWeekly;
-    private ArrayList<String> options;
+    private ArrayList<String> menuOptions;
     private AdminActions adminActions;
     private TraderActions traderActions;
-    private final String instruction = "Please enter the number of the option " +
-            "you would like to select.";
 
     /**
      * Constructor for the AdminPrompts class
      */
     public AdminPrompts(){
-        options = new ArrayList<>();
+        menuOptions = new ArrayList<>();
 
         //for now, I manually typed in the options
         //we can change this to reading in files using setOptions or we can just do it in here
-        options.add("Add/remove new admin");
-        options.add("Manage frozen/unfrozen accounts");
-        options.add("Approve Items");
-        options.add("View trader's status");
-        options.add("Change limit");
-        options.add("Quit Program");
+        setOptions(new String[]{"Add/remove new admin", "Manage Frozen/Unfrozen Accounts",
+        "Approve Items", "View Trader's Status", "Change Limits", "Change Account Information",
+        "Quit Program"});
+
     }
 
     /**
      * Setter for the  list of options displayed to the user
-     * @param options an arraylist of new options
+     * @param options an array of options
      */
-    //Here we have overloading, we could replace this with a single method and using Collections
-    public void setOptions(ArrayList<String> options) {
-        this.options = options;
-    }
 
-    /**
-     * Alternate setter for the list of options displayed to the user
-     * @param options an array of new options
-     */
     public void setOptions(String[] options){
-        this.options.clear();
-        this.options.addAll(Arrays.asList(options));
+        menuOptions.clear();
+        menuOptions.addAll(Arrays.asList(options));
     }
 
 
@@ -71,12 +59,14 @@ public class AdminPrompts {
      */
     public void displayOptions(){
         StringBuilder selections = new StringBuilder();
-        for (int i = 0; i < options.size(); i++){
+        for (int i = 0; i < menuOptions.size(); i++){
             selections.append(i);
             selections.append(". ");
-            selections.append(options.get(i));
+            selections.append(menuOptions.get(i));
             selections.append(' ');
         }
+        String instruction = "Please enter the number of the option " +
+                "you would like to select.";
         System.out.println(instruction);
         System.out.println(selections);
     }

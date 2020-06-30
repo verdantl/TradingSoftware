@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class AdminSystem extends UserSystem{
@@ -61,36 +60,8 @@ public class AdminSystem extends UserSystem{
         running = true;
         //this is a temporary holder
         adminPrompts.displayOptions();
-        Scanner input = new Scanner(System.in);
-        int option = input.nextInt();
-        switch (option){
-            case 1:
-                adminApproval();
-                break;
-            case 2:
-                freezeMenu();
-                break;
-            case 3:
-                adminPrompts.displayApproveItemsMenu();
-                break;
-            case 4:
-                viewTraders();
-                break;
-            case 5:
-                changeLimit();
-                break;
-            case 6:
-                changeUserInfo();
-                break;
-            case 7:
-                running = false;
-                break;
-            default:
-                System.out.println("Command not recognized. Try again.");
-                init();
-        }
-    }
 
+    }
 
     /**
      * Runs the program in a loop
@@ -98,10 +69,34 @@ public class AdminSystem extends UserSystem{
     @Override
     public void run() {
         init();
-        //this is the loop for the system
         while (running){
-
-
+            int option = scanner.nextInt();
+            switch (option){
+                case 1:
+                    adminApproval();
+                    break;
+                case 2:
+                    freezeMenu();
+                    break;
+                case 3:
+                    approveItems();
+                    break;
+                case 4:
+                    viewTraders();
+                    break;
+                case 5:
+                    changeLimit();
+                    break;
+                case 6:
+                    changeUserInfo();
+                    break;
+                case 7:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Command not recognized. Try again.");
+                    init();
+            }
         }
     }
 
@@ -174,7 +169,7 @@ public class AdminSystem extends UserSystem{
     /**
      * Display the menu that allows the admin to approve items
      */
-    public void displayApproveItemsMenu() {
+    public void approveItems() {
 
         int option;
         //do {
