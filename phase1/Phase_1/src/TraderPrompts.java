@@ -100,6 +100,8 @@ public class TraderPrompts {
      * @param trader The trader who's items are to be displayed.
      */
     public void displayTraderItemsTwo(Trader trader){
+        System.out.println("Type 0 if you would like to return to the main menu.");
+
         StringBuilder items = new StringBuilder();
         for(int i=1; i< trader.getWantToLend().size()+1; i++){
             items.append(i);
