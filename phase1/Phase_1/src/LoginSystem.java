@@ -97,13 +97,4 @@ public class LoginSystem {
         }
     }
 
-
-    public static void main(String[] args) {
-        LoginSystem ls = new LoginSystem();
-        ls.run();
-    }
-
-
-
-
 }
