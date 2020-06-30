@@ -10,6 +10,7 @@ public class AdminPrompts {
     private ArrayList<String> menuOptions;
     private AdminActions adminActions;
     private TraderActions traderActions;
+    private final String toMainMenu = "-1";
 
     /**
      * Constructor for the AdminPrompts class
@@ -71,17 +72,35 @@ public class AdminPrompts {
         System.out.println(selections);
     }
 
-    private StringBuilder printAccounts(ArrayList<Trader> traders){
+    private StringBuilder printAccounts(ArrayList<Trader> traders, boolean usernameOnly){
         StringBuilder accounts = new StringBuilder();
         for (int i = 0; i < traders.size(); i++){
             if (accounts.length() > 80){
                 accounts.append("\n");
             }
-            accounts.append(i).append(". ");
-            accounts.append(traders.get(i).getUsername());
+            accounts.append(i + 1).append(". ");
+            if (usernameOnly) {
+                accounts.append(traders.get(i).getUsername());
+            }
+            else{
+                accounts.append(traders.get(i).toString());
+            }
         }
         return accounts;
     }
+
+    private StringBuilder printItems(ArrayList<Item> proposedItems){
+        StringBuilder items = new StringBuilder();
+        for (int i = 0; i < proposedItems.size(); i++){
+            if (items.length() > 80){
+                items.append("\n");
+            }
+            items.append(i + 1).append(". ");
+            items.append(proposedItems.get(i));
+        }
+        return items;
+    }
+
     /**
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
@@ -95,13 +114,13 @@ public class AdminPrompts {
 
 
     public void displayFreezeOptions(int i, ArrayList<Trader> accounts){
-        System.out.print(printAccounts(accounts));
+        System.out.print(printAccounts(accounts, false));
         switch (i){
             case 1:
                 System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
                         "wish to freeze.");
             case 2:
-                System.out.println("Here are all the frozen accounts, please enter the number of the account" +
+                System.out.println("Here are all the unfreeze requests, please enter the number of the account" +
                         " you wish to unfreeze:");
             case 3:
                 System.out.println("Here are all the accounts, please enter the number of the account you wish " +
@@ -117,8 +136,15 @@ public class AdminPrompts {
         }
     }
 
-    public void displayItemMenu(){
+    public void displayItemMenu(ArrayList<Trader> traders){
+        System.out.println("Here is the list of all traders awaiting item approval:");
+        System.out.print(printAccounts(traders, true));
+    }
 
+    public void displayTraderProposedItems(ArrayList<Item> items){
+        System.out.print(printItems(items));
+        System.out.println("Please enter the number for the item you wish to approve. Enter" +
+                " [all] to approve all items.");
     }
 
 
@@ -178,11 +204,10 @@ public class AdminPrompts {
     }
 
     public void displayApproveOrReject(){
-
-        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [3] Go back");
+        System.out.println("Do you wish to approve or reject? [1] Approve | [2] Reject | [0] Go back");
     }
 
-    public void confirmAdminApproval(boolean approved){
+    public void confirmApproval(boolean approved){
         System.out.println("Processing...");
         if (approved){
             System.out.println("Successfully approved!");
@@ -203,7 +228,7 @@ public class AdminPrompts {
     }
 
     public void displayAllTraders(ArrayList<Trader> traders){
-        printAccounts(traders);
+        printAccounts(traders, false);
     }
 
     public void displayTrader(Trader trader){
@@ -212,6 +237,59 @@ public class AdminPrompts {
         } catch (NullPointerException e){
             System.out.println("User not found.");
         }
+    }
+
+    /**
+     * Display menu for change limit
+     */
+    public void displayChangeLimitMenu(){
+        System.out.println("Enter [1] to change Weekly Transaction limit,");
+        System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
+        System.out.print("Enter [3] to change atLeast value: ");
+    }
+
+    /**
+     * Display menu for change username/password
+     */
+    public void displayChangeUserInfoMenu(){
+        System.out.println("Enter [1] to change username");
+        System.out.print("Enter [2] to change password: ");
+    }
+
+    /**
+     * Display return to main menu message
+     */
+    public void displayReturnToMainMenu(){
+        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to" +
+                "previous menu: ");
+    }
+
+    /**
+     * @param successful Represents the success of the changeLimit method. 1 represents true and 0 represents false.
+     * @param subject The value that changed
+     * Display a message that tells whether the value was successfully changed
+     */
+    public void displaySuccessMessage(int successful, String subject){
+        if(successful == 1){
+            System.out.println(subject + " changed successfully");
+        }else{
+            System.out.println("Failed to change "+subject);
+        }
+    }
+
+    /**
+     * Display error message due to invalid input
+     */
+    public void displayErrorMessage(){
+        System.out.println("Invalid input");
+    }
+
+    /**
+     * @param subject The value that needs to be entered
+     * Display a message that prompts user to enter
+     */
+    public void displayEnterNewMessage(String subject){
+        System.out.print("Enter new"+subject+": ");
     }
 
 }

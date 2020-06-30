@@ -9,6 +9,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     private TraderActions traderActions;
     private ItemManager itemManager;
     private TradeManager tradeManager;
+    private AdminActions adminActions;
     private Trader currentTrader;
     private boolean running;
     private Scanner sc;
@@ -22,11 +23,12 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      * @param tradeManager The TradeManager that this Trader System will use.
      */
     public TraderSystem(Trader currentTrader, TraderActions traderActions, ItemManager itemManager,
-                        TradeManager tradeManager) {
+                        TradeManager tradeManager, AdminActions adminActions) {
         this.currentTrader = currentTrader;
         this.traderActions = traderActions;
         this.itemManager = itemManager;
         this.tradeManager = tradeManager;
+        this.adminActions = adminActions;
         this.traderPrompts = new TraderPrompts();
         sc = new Scanner(System.in);
         running = false;
@@ -262,6 +264,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     private void requestUnfreeze(){
         //This is where i do the unfreeze thing but im not sure how we do that yet.
         traderPrompts.requestUnfreeze();
+        adminActions.setUnfreezeRequests(currentTrader);
         int o;
         do {
             o = Integer.getInteger(sc.nextLine());

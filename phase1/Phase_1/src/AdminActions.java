@@ -8,7 +8,7 @@ public class AdminActions {
    // temporarily removing private Trader[] traderList;
     //potential idea: private ArrayList<String> admins;
     private ArrayList<Admin> admins;
-    private ArrayList<Trader> freezeAccount;
+    private ArrayList<Trader> unfreezeRequests;
 
     //temporary private static variable
     private static int limit = 1;
@@ -20,9 +20,10 @@ public class AdminActions {
 
 
 
-    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
+    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests, ArrayList<Trader> unfreezeRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
+        this.unfreezeRequests = unfreezeRequests;
     }
     //Temporary getter for the admins in case it's needed
 
@@ -67,7 +68,6 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(true);
-        freezeAccount.add(trader);
         return true;
     }
 
@@ -152,7 +152,7 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(false);
-        freezeAccount.remove(trader);
+        unfreezeRequests.remove(trader);
         return true;
     }
 
@@ -187,28 +187,8 @@ public class AdminActions {
         }
         return approved;
     }
-    /**
-     * @param traders List of all the traders in the system
-     * @param atLeast The trader's number of borrowed items must be at least 'atLeast' less than
-     *                their number of lent items
-     * @param maxIncomplete The max number of incomplete transactions that a trader can have
-     * @param maxWeekly The max number of transactions that a trader can have in a week
-     * @return Return list of trader accounts that needs to be frozen
-     */
 
-    public ArrayList<Trader> getListOfFlaggedAccounts(List<Trader> traders, int atLeast, int maxIncomplete, int maxWeekly){
-        ArrayList<Trader> accounts = new ArrayList<>();
-        for (Trader trader: traders){
-            if (trader.getNumBorrowed() + atLeast > trader.getNumLent() && atLeast != 0){
-                accounts.add(trader);
-            }else if(trader.getNumIncompleteTransactions() > maxIncomplete){
-                accounts.add(trader);
-            }else if(trader.getNumWeeklyTransactions() > maxWeekly){
-                accounts.add(trader);
-            }
-        }
-        return accounts;
-    }
+
 
     /**
      * Changes the limit for the number of items required to be lent
@@ -240,8 +220,19 @@ public class AdminActions {
 
     }
 
-    /**Getter for the frozen accounts
-     * @return a list of frozen accounts in this system
+    /**Getter for the unfreezeRequests
+     * @return the accounts requested to be unfrozen
      */
-    public ArrayList<Trader> getFreezeAccount() {return this.freezeAccount;}
+    public ArrayList<Trader> getUnfreezeRequests(){
+        return unfreezeRequests;
+    }
+
+    /**Setter for the unfreezeRequests
+     * @param trader the trader who requests to unfreeze their accounts
+     */
+    public void setUnfreezeRequests(Trader trader){
+        unfreezeRequests.add(trader);
+    }
+
+
 }

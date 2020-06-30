@@ -12,7 +12,8 @@ public class Configuration {
     ArrayList<User> users;
 
 
-    public Configuration(ArrayList<Trader> traders, ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
+    public Configuration(ArrayList<Trader> traders, ArrayList<Admin> admins,
+                         ArrayList<Admin> adminRequests, ArrayList<Trader> unfreezeRequests){
         this.traders = traders;
         this.admins = admins;
         this.users = new ArrayList<>();
@@ -20,7 +21,7 @@ public class Configuration {
         users.addAll(admins);
 
         traderActions = new TraderActions(this.traders);
-        adminActions = new AdminActions(this.admins, adminRequests);
+        adminActions = new AdminActions(this.admins, adminRequests, unfreezeRequests);
         itemManager = new ItemManager();
         tradeManager = new TradeManager();
     }
