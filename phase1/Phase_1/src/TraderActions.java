@@ -257,4 +257,53 @@ public class TraderActions {
      */
     public ArrayList<Trader> getTraders(){return this.traders;}
 
+    /**
+     * Getter for traders who have items awaiting approval
+     * @return a list of traders in the system with proposedItems length with more than 0 items
+     */
+    public ArrayList<Trader> getTradersNeedingApproval() {
+        ArrayList<Trader> accounts = new ArrayList<>();
+        for (Trader trader : traders) {
+            if (trader.getProposedItems().size() >= 1) {
+                accounts.add(trader);
+            }
+        }
+        return accounts;
+    }
+
+    /**
+     * @param atLeast The trader's number of borrowed items must be at least 'atLeast' less than
+     *                their number of lent items
+     * @param maxIncomplete The max number of incomplete transactions that a trader can have
+     * @param maxWeekly The max number of transactions that a trader can have in a week
+     * @return Return list of trader accounts that needs to be frozen
+     */
+
+    public ArrayList<Trader> getListOfFlaggedAccounts(int atLeast, int maxIncomplete, int maxWeekly){
+        ArrayList<Trader> accounts = new ArrayList<>();
+        for (Trader trader: traders){
+            if (trader.getNumBorrowed() + atLeast > trader.getNumLent() && atLeast != 0){
+                accounts.add(trader);
+            }else if(trader.getNumIncompleteTransactions() > maxIncomplete){
+                accounts.add(trader);
+            }else if(trader.getNumWeeklyTransactions() > maxWeekly){
+                accounts.add(trader);
+            }
+        }
+        return accounts;
+    }
+
+    /**Getter for the frozen accounts
+     * @return a list of frozen accounts in this system
+     */
+    public ArrayList<Trader> getFrozenTraders(){
+        ArrayList<Trader> accounts = new ArrayList<>();
+        for (Trader trader : traders) {
+            if (trader.isFrozen()) {
+                accounts.add(trader);
+            }
+        }
+        return accounts;
+    }
+
 }
