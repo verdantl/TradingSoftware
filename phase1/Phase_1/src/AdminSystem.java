@@ -32,6 +32,7 @@ public class AdminSystem extends UserSystem{
         //gotta read this too
         ArrayList<Admin> adminRequests = new ArrayList<>();
         //something like this
+        ArrayList<Trader> unfreezeRequests = new ArrayList<>();
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
             String line = in.readLine();
@@ -45,7 +46,7 @@ public class AdminSystem extends UserSystem{
         }catch (IOException iox){
             System.out.println("File Not Found");
         }
-        adminActions = new AdminActions(admins, adminRequests);
+        adminActions = new AdminActions(admins, adminRequests, unfreezeRequests);
         //May need to change constructor
         adminPrompts = new AdminPrompts();
         //may want to change the following
@@ -126,7 +127,7 @@ public class AdminSystem extends UserSystem{
                     adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
                     break;
                 case 2:
-                    ArrayList<Trader> frozenAccounts = traderActions.getFrozenTraders();
+                    ArrayList<Trader> frozenAccounts = adminActions.getUnfreezeRequests();
                     adminPrompts.displayFreezeOptions(2, frozenAccounts);
                     int chosenFrozen = scanner.nextInt();
                     boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));

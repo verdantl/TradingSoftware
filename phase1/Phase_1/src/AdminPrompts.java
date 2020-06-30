@@ -120,7 +120,7 @@ public class AdminPrompts {
                 System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
                         "wish to freeze.");
             case 2:
-                System.out.println("Here are all the frozen accounts, please enter the number of the account" +
+                System.out.println("Here are all the unfreeze requests, please enter the number of the account" +
                         " you wish to unfreeze:");
             case 3:
                 System.out.println("Here are all the accounts, please enter the number of the account you wish " +

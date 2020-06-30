@@ -8,7 +8,7 @@ public class AdminActions {
    // temporarily removing private Trader[] traderList;
     //potential idea: private ArrayList<String> admins;
     private ArrayList<Admin> admins;
-    private ArrayList<Trader> freezeAccount;
+    private ArrayList<Trader> unfreezeRequests;
 
     //temporary private static variable
     private static int limit = 1;
@@ -20,9 +20,10 @@ public class AdminActions {
 
 
 
-    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
+    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests, ArrayList<Trader> unfreezeRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
+        this.unfreezeRequests = unfreezeRequests;
     }
     //Temporary getter for the admins in case it's needed
 
@@ -67,7 +68,6 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(true);
-        freezeAccount.add(trader);
         return true;
     }
 
@@ -152,7 +152,7 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(false);
-        freezeAccount.remove(trader);
+        unfreezeRequests.remove(trader);
         return true;
     }
 
@@ -218,6 +218,20 @@ public class AdminActions {
         }
         return null;
 
+    }
+
+    /**Getter for the unfreezeRequests
+     * @return the accounts requested to be unfrozen
+     */
+    public ArrayList<Trader> getUnfreezeRequests(){
+        return unfreezeRequests;
+    }
+
+    /**Setter for the unfreezeRequests
+     * @param trader the trader who requests to unfreeze their accounts
+     */
+    public void setUnfreezeRequests(Trader trader){
+        unfreezeRequests.add(trader);
     }
 
 
