@@ -217,4 +217,15 @@ public class TraderPrompts {
     public void incorrectSelection(){
         System.out.println("That is not a valid option, please try again.");
     }
+
+    /**
+     * Displays the options for a selected trade
+     */
+    public void displayTradeOptions(){
+        System.out.println("Type 0 to return to main menu");
+        System.out.println("Here are options for the selected trade.");
+        System.out.println("Type 1 to edit the trade's meeting");
+        System.out.println("Type 2 to agree to the trade's meeting");
+        System.out.println("Type 3 to confirm the trade happened");
+    }
 }

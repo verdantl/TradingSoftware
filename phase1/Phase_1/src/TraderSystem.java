@@ -459,5 +459,45 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     private void browseOnGoingTrades(){
         ArrayList<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
         traderPrompts.browseOnGoingTrades(onGoingTrades);
+
+        // The user selects a trade from list
+        System.out.println("Type number listed with trade to select it: ");
+        int select = sc.nextInt();
+        tradeManager.setCurrentUser(currentTrader, onGoingTrades.get(select-1));
+
+        // The user selects a option for the trade
+        traderPrompts.displayTradeOptions();
+        System.out.println("Enter option:");
+        int option = sc.nextInt();
+        switch (option){
+            case 0:
+                //Type code to return to main menu
+                break;
+            case 1:
+                editMeeting();
+                break;
+            case 2:
+                tradeManager.agreeToMeeting();
+                break;
+            case 3:
+                tradeManager.confirmTrade();
+                break;
+        }
+    }
+
+    /**
+     * The user inputs a new date and location for selected trade
+     */
+    private void editMeeting(){
+        System.out.println("Enter new date and location for selected trade");
+        System.out.println("Enter year: ");
+        int year = sc.nextInt();
+        System.out.println("Enter month: ");
+        int month = sc.nextInt();
+        System.out.println("Enter day of month: ");
+        int dayOfMonth = sc.nextInt();
+        System.out.println("Enter location: ");
+        String location = sc.nextLine();
+        tradeManager.editTradeMeeting(LocalDate.of(year, month, dayOfMonth), location);
     }
 }
