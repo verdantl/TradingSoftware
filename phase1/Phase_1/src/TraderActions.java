@@ -274,4 +274,18 @@ public class TraderActions {
         return accounts;
     }
 
+    /**
+     * Returns a list of all of the users who have requested to be unfrozen.
+     * @return An arraylist of all users who have requested to be unfrozen.
+     */
+    public ArrayList<Trader> getAllRequestToUnfreeze(){
+        ArrayList<Trader> temp = new ArrayList<>();
+        for(Trader t: traders){
+            if(t.isRequestToUnfreeze()){
+                temp.add(t);
+            }
+        }
+        return temp;
+    }
+
 }
