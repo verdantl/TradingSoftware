@@ -16,12 +16,12 @@ public class SignupSystem {
     String password;
 
     //Here we instantiate traderActions so we can use it.
-    public SignupSystem(/*TraderActions traderActions*/){
+    public SignupSystem(TraderActions traderActions, AdminActions adminActions){
         //this.traderActions = traderActions;
         this.signupPrompts = new SignupPrompts();
         scanner = new Scanner(System.in);
-        traderActions = new TraderActions(new ArrayList<>());
-        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        this.traderActions = traderActions;
+        this.adminActions = adminActions;
     }
 
     private void init(){
@@ -92,9 +92,11 @@ public class SignupSystem {
         signupPrompts.displayAccountSuccessful();
         if (admin){
             Admin admin = new Admin(username, password);
+            adminActions.addAdminRequest(admin);
         }
         else{
             Trader trader = new Trader(username, password);
+            traderActions.addTrader(trader);
         }
         //Here we want to write the information
         stop();

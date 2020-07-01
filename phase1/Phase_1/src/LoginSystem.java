@@ -119,7 +119,7 @@ public class LoginSystem {
                         System.out.println(prompts.wrongPassword());
                     break;
                     case 2:
-                        SignupSystem signup = new SignupSystem();
+                        SignupSystem signup = new SignupSystem(traderActions, adminActions);
                         signup.run();
                         break;
                     default:
