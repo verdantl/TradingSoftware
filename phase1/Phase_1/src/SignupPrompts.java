@@ -26,6 +26,6 @@ public class SignupPrompts {
     }
 
     public void displayAccountSuccessful(){
-        System.out.println("Account successfully created!");
+        System.out.println("Account successfully created! Returning to login menu...");
     }
 }
