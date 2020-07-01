@@ -38,16 +38,21 @@ public class TradeManager {
      * @param tradeDate The date that current user wants the trade to happen
      * @param item The item that current user wants to borrow in the trade
      */
-    public void requestToBorrow(Trader receiver, String location,
+    public boolean requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item){
-        if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
+        if(currentUser.getTrades().size() == 0){
+            return false;
+        }else if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
             currentUser.setFlagged(true);
+            return false;
+        }else{
+            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                    tradeDate, item, "Borrow");
+            processedTrade.setPermanent(true);
+            currentUser.addToTrades(processedTrade);
+            receiver.addToTrades(processedTrade);
+            return true;
         }
-        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                tradeDate, item, "Borrow");
-        processedTrade.setPermanent(true);
-        currentUser.addToTrades(processedTrade);
-        receiver.addToTrades(processedTrade);
     }
 
     /** Request to temporarily borrow an item from another user
