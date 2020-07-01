@@ -236,4 +236,8 @@ public class TraderPrompts {
     public void displayString(String string){
         System.out.println(string);
     }
+
+    public void returnToMain(){
+        System.out.println("Returning to Main Menu...");
+    }
 }
