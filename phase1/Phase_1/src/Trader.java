@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Trader extends User {
         private ArrayList<Item> wantToBorrow,proposedItems, wantToLend, borrowedItems;
-        private boolean frozen, flagged;
+        private boolean frozen, flagged, requestToUnfreeze;
         private int numLent, numBorrowed;
         private ArrayList<Trade> trades;
 
@@ -17,14 +17,16 @@ public class Trader extends User {
      * @param proposedItems The user's items that have to be approved
      * @param wantToLend The user's items that they can lend
      * @param trades The user's list of trades
+     * @param borrowedItems The user's list of items they're borrowing.
      * @param frozen Whether the user's account is frozen
      * @param flagged Whether this user's account is flagged for review by a moderator
+     * @param requestToUnfreeze Whether this user has requested to unfreeze.
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
     public Trader(String username, String password, String dateCreated, ArrayList<Item> wantToBorrow,
                   ArrayList<Item> proposedItems, ArrayList<Item> wantToLend, ArrayList<Trade> trades,
-                  ArrayList<Item> borrowedItems, boolean frozen, boolean flagged, int numLent, int numBorrowed){
+                  ArrayList<Item> borrowedItems, boolean frozen, boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed){
         super(username, password, dateCreated);
         this.wantToBorrow = wantToBorrow;
         this.proposedItems = proposedItems;
@@ -35,6 +37,7 @@ public class Trader extends User {
         this.numBorrowed=numBorrowed;
         this.numLent=numLent;
         this.borrowedItems = borrowedItems;
+        this.requestToUnfreeze = requestToUnfreeze;
     }
 
     /**
@@ -323,5 +326,21 @@ public class Trader extends User {
         }
 
         return numTransactions;
+    }
+
+    /**
+     * Whether this user has requested to unfreeze or not.
+     * @return true if they have requested to unfreeze, false otherwise.
+     */
+    public boolean isRequestToUnfreeze() {
+        return requestToUnfreeze;
+    }
+
+    /**
+     * Sets whether this user has requested to unfreeze.
+     * @param requestToUnfreeze
+     */
+    public void setRequestToUnfreeze(boolean requestToUnfreeze) {
+        this.requestToUnfreeze = requestToUnfreeze;
     }
 }

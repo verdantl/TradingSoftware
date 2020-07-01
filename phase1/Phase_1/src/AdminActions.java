@@ -18,8 +18,6 @@ public class AdminActions {
     //and I think an admin does not need to view other admins id and password
     //so I was thinking instead of storing admin object, we just store list of usernames that are admin
 
-
-
     public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests, ArrayList<Trader> unfreezeRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
@@ -217,7 +215,6 @@ public class AdminActions {
             }
         }
         return null;
-
     }
 
     /**Getter for the unfreezeRequests
