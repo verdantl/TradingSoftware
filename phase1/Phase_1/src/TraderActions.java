@@ -347,5 +347,4 @@ public class TraderActions {
         }
         return temp;
     }
-
 }

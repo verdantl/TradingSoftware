@@ -4,24 +4,13 @@ import java.util.List;
 import java.util.Arrays;
 
 public class AdminActions {
-    // stores list of Trader objects
-   // temporarily removing private Trader[] traderList;
-    //potential idea: private ArrayList<String> admins;
     private ArrayList<Admin> admins;
-    private ArrayList<Trader> unfreezeRequests;
-
-    //temporary private static variable
     private static int limit = 1;
     private ArrayList<Admin> adminRequests;
-    //I was thinking "is it necessary to store list of admin objects?"
-    //because admin object only have id and password
-    //and I think an admin does not need to view other admins id and password
-    //so I was thinking instead of storing admin object, we just store list of usernames that are admin
 
-    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests, ArrayList<Trader> unfreezeRequests){
+    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
-        this.unfreezeRequests = unfreezeRequests;
     }
     //Temporary getter for the admins in case it's needed
 
@@ -157,7 +146,6 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(false);
-        unfreezeRequests.remove(trader);
         return true;
     }
 
@@ -223,20 +211,4 @@ public class AdminActions {
         }
         return null;
     }
-
-    /**Getter for the unfreezeRequests
-     * @return the accounts requested to be unfrozen
-     */
-    public ArrayList<Trader> getUnfreezeRequests(){
-        return unfreezeRequests;
-    }
-
-    /**Setter for the unfreezeRequests
-     * @param trader the trader who requests to unfreeze their accounts
-     */
-    public void setUnfreezeRequests(Trader trader){
-        unfreezeRequests.add(trader);
-    }
-
-
 }

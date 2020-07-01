@@ -7,7 +7,6 @@ public class AdminSystem extends UserSystem{
     private AdminActions adminActions;
     private Admin currentAdmin;
     private AdminPrompts adminPrompts;
-    private boolean changeDisplay;
     private String fileName;
     private int atLeast;
     private int maxIncomplete;
@@ -31,8 +30,7 @@ public class AdminSystem extends UserSystem{
         ArrayList<Admin> admins = new ArrayList<>();
         //gotta read this too
         ArrayList<Admin> adminRequests = new ArrayList<>();
-        //something like this
-        ArrayList<Trader> unfreezeRequests = new ArrayList<>();
+
         try {
             BufferedReader in = new BufferedReader(new FileReader(fileName));
             String line = in.readLine();
@@ -46,7 +44,8 @@ public class AdminSystem extends UserSystem{
         }catch (IOException iox){
             System.out.println("File Not Found");
         }
-        adminActions = new AdminActions(admins, adminRequests, unfreezeRequests);
+        adminActions = new AdminActions(admins, adminRequests);
+        traderActions = new TraderActions(new ArrayList<>());
         //May need to change constructor
         adminPrompts = new AdminPrompts();
         //may want to change the following
@@ -96,7 +95,7 @@ public class AdminSystem extends UserSystem{
                     break;
                 default:
                     System.out.println("Command not recognized. Try again.");
-                    init();
+                    break;
             }
         }
     }
@@ -127,7 +126,7 @@ public class AdminSystem extends UserSystem{
                     adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
                     break;
                 case 2:
-                    ArrayList<Trader> frozenAccounts = adminActions.getUnfreezeRequests();
+                    ArrayList<Trader> frozenAccounts = traderActions.getAllRequestToUnfreeze();
                     adminPrompts.displayFreezeOptions(2, frozenAccounts);
                     int chosenFrozen = scanner.nextInt();
                     boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
@@ -158,13 +157,13 @@ public class AdminSystem extends UserSystem{
     public void approveItemsMenu() {
         adminPrompts.displayItemMenu(traderActions.getTradersNeedingApproval());
         System.out.print("Enter the number beside trader that you want to view: ");
-        String option = scanner.nextLine();
+        String option = scanner.next();
         do {
             int traderID = Integer.parseInt(option);
             if (traderID <= traderActions.getTradersNeedingApproval().size()) {
                 Trader trader = traderActions.getTradersNeedingApproval().get(traderID - 1);
                 adminPrompts.displayTraderProposedItems(trader.getProposedItems());
-                option = scanner.nextLine();
+                option = scanner.next();
                 int itemID = Integer.parseInt(option);
                 Boolean approved = approveOrReject();
                 if (approved == null){
@@ -190,7 +189,7 @@ public class AdminSystem extends UserSystem{
      */
     public void adminApproval(){
         adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
-        String option = scanner.nextLine();
+        String option = scanner.next();
         Boolean approved = approveOrReject();
         boolean loop = false;
         if (approved == null){
@@ -222,7 +221,7 @@ public class AdminSystem extends UserSystem{
 
     private Boolean approveOrReject(){
         adminPrompts.displayApproveOrReject();
-        String choice = scanner.nextLine();
+        String choice = scanner.next();
         switch (choice) {
             case "1":
                 return true;
@@ -251,7 +250,7 @@ public class AdminSystem extends UserSystem{
         int succeed = -1;
         do {
             adminPrompts.displayChangeUserInfoMenu();
-            option = scanner.nextLine();
+            option = scanner.next();
             switch (option) {
                 case "1":
                     succeed = changeUsername();
@@ -267,7 +266,7 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.displaySuccessMessage(succeed, "username/password");
             }
             adminPrompts.displayReturnToMainMenu();
-            option = scanner.nextLine();
+            option = scanner.next();
         }while(!option.equals(toMainMenu));
     }
 
@@ -280,7 +279,7 @@ public class AdminSystem extends UserSystem{
         int succeed = -1;
         do{
             adminPrompts.displayChangeLimitMenu();
-            option = scanner.nextLine();
+            option = scanner.next();
             switch (option){
                 case "1":
                 case "2":
@@ -294,7 +293,7 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.displaySuccessMessage(succeed, "limit");
             }
             adminPrompts.displayReturnToMainMenu();
-            option = scanner.nextLine();
+            option = scanner.next();
 
         }while(!option.equals(toMainMenu));
     }
@@ -322,7 +321,7 @@ public class AdminSystem extends UserSystem{
 
     private int changeUsername(){
         adminPrompts.displayEnterNewMessage("username");
-        String newName = scanner.nextLine();
+        String newName = scanner.next();
         if (newName.equals(currentAdmin.getUsername())){
             return 0;
         }
@@ -332,7 +331,7 @@ public class AdminSystem extends UserSystem{
 
     private int changePassword(){
         adminPrompts.displayEnterNewMessage("password");
-        String newPassword = scanner.nextLine();
+        String newPassword = scanner.next();
         if (newPassword.equals(currentAdmin.getPassword())){
             return 0;
         }
@@ -346,7 +345,7 @@ public class AdminSystem extends UserSystem{
      */
     public void viewTraders(){
         adminPrompts.displayTraderMenu();
-        String user = scanner.nextLine();
+        String user = scanner.next();
         switch (user){
             case "0":
                 setToMainMenu();
@@ -370,7 +369,7 @@ public class AdminSystem extends UserSystem{
 
     private void restartViewTraders() {
         adminPrompts.displayRestartTrader();
-        String choice = scanner.nextLine();
+        String choice = scanner.next();
         switch (choice){
             case "0":
                 setToMainMenu();

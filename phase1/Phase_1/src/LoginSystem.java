@@ -74,7 +74,7 @@ public class LoginSystem {
         ArrayList<Trader> t = new ArrayList<>();
         t.add(new Trader("Carl", "Wu"));
         traderActions = new TraderActions(t);
-        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>());
         try {
             System.out.println(prompts.openingMessage());
             String input;
