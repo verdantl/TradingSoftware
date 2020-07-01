@@ -90,6 +90,38 @@ public class TraderPrompts {
 
             items.append(".\n");
         }
+
+        System.out.println(items);
+    }
+
+    /**
+     * This is the same method as the one above, but doesn't include the first two sysout statements to allow for more
+     * versatility. This should be replaced before the final submission.
+     * @param trader The trader who's items are to be displayed.
+     */
+    public void displayTraderItemsTwo(Trader trader){
+        System.out.println("Type 0 if you would like to return to the main menu.");
+
+        StringBuilder items = new StringBuilder();
+        for(int i=1; i< trader.getWantToLend().size()+1; i++){
+            items.append(i);
+
+            items.append(" - Name: ");
+            items.append(trader.getWantToLend().get(i-1).getName());
+
+            items.append(". Category: ");
+            items.append(trader.getWantToLend().get(i-1).getCategory());
+
+            items.append(". Description: ");
+            items.append(trader.getWantToLend().get(i-1).getDescription());
+
+            items.append(". Rating: ");
+            items.append(trader.getWantToLend().get(i-1).getQualityRating());
+
+            items.append(".\n");
+        }
+
+        System.out.println(items);
     }
 
     /**
@@ -184,5 +216,31 @@ public class TraderPrompts {
 
     public void incorrectSelection(){
         System.out.println("That is not a valid option, please try again.");
+    }
+
+    /**
+     * Displays the options for a selected trade
+     */
+    public void displayTradeOptions(){
+        System.out.println("Type 0 to return to main menu");
+        System.out.println("Here are options for the selected trade.");
+        System.out.println("Type 1 to edit the trade's meeting");
+        System.out.println("Type 2 to agree to the trade's meeting");
+        System.out.println("Type 3 to confirm the trade happened");
+    }
+
+    /**
+     * Displays a single string to screen.
+     * @param string The string that is to be displayed.
+     */
+    public void displayString(String string){
+        System.out.println(string);
+    }
+
+    /**
+     * Displays the string "Returning to Main Menu..."
+     */
+    public void returnToMain(){
+        System.out.println("Returning to Main Menu...");
     }
 }

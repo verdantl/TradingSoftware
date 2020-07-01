@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -60,12 +63,11 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
             //traderPrompts.displayMainMenu();
 
-
             option = Integer.getInteger(sc.nextLine());
 
             // Ensuring that the user chooses a valid option.
             while (!validOptions.contains(option)) {
-                // Present an error message to the user
+                traderPrompts.incorrectSelection();
                 option = Integer.getInteger(sc.nextLine());
             }
 
@@ -88,7 +90,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     break;
                 case 4:
                     // Browse list of On-Going trades
-
+                    browseOnGoingTrades();
                     break;
                 case 5:
                     // Check most recent 3 items the user has traded
@@ -176,7 +178,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
         int o = Integer.getInteger(sc.nextLine());
         while(!availableOptions.contains(o)){
-            System.out.println("That is not a valid option, please try again.");
+            traderPrompts.incorrectSelection();
             o = Integer.getInteger(sc.nextLine());
         }
 
@@ -188,7 +190,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 availableOptions.add(i+1);
             }
             while(!availableOptions.contains(o)){
-                System.out.println("That is not a valid option, please try again.");
+                traderPrompts.incorrectSelection();
                 o = Integer.getInteger(sc.nextLine());
             }
             traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1) );
@@ -201,33 +203,214 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void browseInventoryOfItems(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
+        ArrayList<Item> itemList = traderActions.browseItems();
+
         availableOptions.add(0);
-        for (int i=0; i < traderActions.browseItems().size(); i++){
+        for (int i = 0; i < itemList.size(); i++){
             availableOptions.add(i+1);
         }
         int o;
         int o2;
         do{
-            traderPrompts.browseInventory(traderActions.browseItems());
+            traderPrompts.browseInventory(itemList);
             o = Integer.getInteger(sc.nextLine());
-            while(!availableOptions.contains(o)){
-                System.out.println("That is not a valid option, please try again.");
+            while (!availableOptions.contains(o)){
+                traderPrompts.incorrectSelection();
                 o = Integer.getInteger(sc.nextLine());
             }
-            if(o!=0){
-                traderPrompts.viewItem(traderActions.browseItems().get(o));
+            if (o != 0){
+                traderPrompts.viewItem(itemList.get(o));
                 o2 = Integer.getInteger(sc.nextLine());
-                if(o2 == 1){
-                    traderActions.addToWantToBorrow(currentTrader, traderActions.browseItems().get(o));
+                if (o2 == 1){
+                    traderActions.addToWantToBorrow(currentTrader, itemList.get(o));
                 }
-                else if(o2==2){
+                else if (o2 == 2){
                     //THIS IS WHERE YOU DO THE PROPOSE TRADE CODE
                     //This might be a good place to tell the user they can't trade if their account is frozen.
                     //If their account is frozen just don't do anything, the code should return to the browsing items loop
+
+                    if (!currentTrader.isFrozen()){
+                        this.proposeTradeStart(itemList.get(o));
+                    }
+                    else{
+                        traderPrompts.displayString("Your account is frozen. You cannot trade.");
+                        traderPrompts.returnToMain();
+                    }
                 }
             }
+        } while(o != 0);
+    }
 
-        }while(o!=0);
+    /**
+     * The start of the process for a user to propose a trade. Here, the user decides between a one-way or two-way
+     * trade, and if the trade is permanent or temporary.
+     * @param item The item the user wishes to trade for.
+     */
+    private void proposeTradeStart(Item item){
+        // This is where the user decides between one-way or two-way
+
+        ArrayList<Integer> availableOptionsOne = new ArrayList<>();
+        boolean oneWay;
+        availableOptionsOne.add(0);
+        for (int i = 1; i <= 2; i++)
+        {
+            availableOptionsOne.add(i);
+        }
+
+        tradeManager.setCurrentUser(currentTrader);
+        //TODO: Move the following to TraderPrompts
+        System.out.println("Please select one of the following options:");
+        System.out.println("0. Go back");
+        System.out.println("1. Initiate a one-way trade");
+        System.out.println("2. Initiate a two-way trade");
+
+        int o1;
+        o1 = Integer.getInteger(sc.nextLine());
+
+        while(!availableOptionsOne.contains(o1)){
+            traderPrompts.incorrectSelection();
+            o1 = Integer.getInteger(sc.nextLine());
+        }
+
+        switch(o1){
+            case 1:
+                oneWay = true;
+                break;
+            case 2:
+                oneWay = false;
+                break;
+            default:
+                return;
+        }
+
+        // This is where the user decides between temporary or permanenet
+
+        ArrayList<Integer> availableOptionsTwo = new ArrayList<>();
+        boolean temporary;
+        availableOptionsTwo.add(0);
+        for (int i = 1; i <= 2; i++)
+        {
+            availableOptionsTwo.add(i);
+        }
+
+        //TODO: Move the following to TraderPrompts
+        System.out.println("Please select one of the following options:");
+        System.out.println("0. Go back");
+        System.out.println("1. Make a temporary trade");
+        System.out.println("2. Make a permanent trade");
+
+        int o2;
+        o2 = Integer.getInteger(sc.nextLine());
+
+        while(!availableOptionsTwo.contains(o2)){
+            traderPrompts.incorrectSelection();
+            o2 = Integer.getInteger(sc.nextLine());
+        }
+
+        switch(o2){
+            case 1:
+                temporary = true;
+                break;
+            case 2:
+                temporary = false;
+                break;
+            default:
+                return;
+        }
+
+        // TODO: Move this to TraderPrompts
+        System.out.println("Please enter a trade date in YYYY-MM-DD format:");
+
+        String tradeDateStr;
+        LocalDate tradeDate;
+        tradeDateStr = sc.nextLine();
+
+        // Checking if the user inputted a valid trade date
+        while(true){
+            try{
+                tradeDate = LocalDate.parse(tradeDateStr);
+                if (tradeDate.isAfter(LocalDate.now())) {
+                    break;
+                }
+                else {
+                    // TODO: Move this to TraderPrompts
+                    System.out.println("Please enter a date after today.");
+                }
+            }
+            catch (DateTimeParseException e){
+                // TODO: Move this to TraderPrompts
+                System.out.println("Please enter a string in the format YYYY-MM-DD.");
+            }
+            tradeDateStr = sc.nextLine();
+        }
+
+        // TODO: Move this to TraderPrompts
+        System.out.println("Please enter a location for the trade:");
+
+        String location;
+        location = sc.nextLine();
+
+        if (oneWay){
+            proposeOneWay(item, temporary, tradeDate, location);
+        }
+        else{
+            proposeTwoWay(item, temporary, tradeDate, location);
+        }
+    }
+
+    /**
+     * Where a new one-way trade is created depending on the choices the trader made previously.
+     * @param item The item to be traded.
+     * @param temporary Whether or not the trade is to have a return date or not.
+     * @param tradeDate The date for the trade to occur.
+     * @param location The location for the trade to occur.
+     */
+    private void proposeOneWay(Item item, boolean temporary, LocalDate tradeDate, String location){
+        if (temporary){
+            // We are assuming that the return date is the date of the trade plus one month.
+            LocalDate returnDate = tradeDate.plusMonths(1);
+            tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
+        }
+        else{
+            tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
+        }
+    }
+
+    /**
+     * Where a new two-way trade is created depending on the choices the trader made previously. Additionally, where the
+     * user decides on which item they want to give away in the exchange.
+     * @param item The item to be traded.
+     * @param tempoary Whether or not the trade is to have a return date or not.
+     * @param tradeDate The date for the trade to occur.
+     * @param location The location for the trade to occur.
+     */
+    private void proposeTwoWay(Item item, boolean tempoary, LocalDate tradeDate, String location){
+        // TODO: Move this to TraderPrompts
+        System.out.println("Here are the items you currently own. Please select one of them to trade with your trading " +
+                "partner:");
+        traderPrompts.displayTraderItemsTwo(currentTrader);
+
+        int itemChoice = Integer.parseInt(sc.nextLine());
+
+        while(itemChoice >= currentTrader.getWantToLend().size()){
+            traderPrompts.incorrectSelection();
+            itemChoice = Integer.parseInt(sc.nextLine());
+        }
+
+        if(itemChoice == 0){
+            return;
+        }
+
+        Item itemToTrade = currentTrader.getWantToLend().get(itemChoice - 1);
+
+        if (tempoary){
+            // We are assuming that the return date is the date of the trade plus one month.
+            LocalDate returnDate = tradeDate.plusMonths(1);
+            tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade, returnDate);
+        }
+        else{
+            tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade);
+        }
     }
 
     /**
@@ -238,10 +421,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         int o;
         do {
             o = Integer.getInteger(sc.nextLine());
-            if(o!=0){
-                System.out.println("That is not a valid option, please try again.");
+            if(o != 0){
+                traderPrompts.incorrectSelection();
             }
-        }while(o!=0);
+        }while(o != 0);
     }
 
     /**
@@ -253,7 +436,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         do {
             o = Integer.getInteger(sc.nextLine());
             if(o!=0){
-                System.out.println("That is not a valid option, please try again.");
+                traderPrompts.incorrectSelection();
             }
         }while(o!=0);
     }
@@ -268,10 +451,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         int o;
         do {
             o = Integer.getInteger(sc.nextLine());
-            if(o!=0){
-                System.out.println("That is not a valid option, please try again.");
+            if(o != 0){
+                traderPrompts.incorrectSelection();
             }
-        }while(o!=0);
+        } while(o != 0);
     }
 
     /**
@@ -280,5 +463,59 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     private void browseOnGoingTrades(){
         ArrayList<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
         traderPrompts.browseOnGoingTrades(onGoingTrades);
+
+        // The user selects a trade from list
+        System.out.println("Type number listed with trade to select it: ");
+        int select = sc.nextInt();
+        tradeManager.setCurrentUser(currentTrader, onGoingTrades.get(select-1));
+
+        // The user selects a option for the trade
+        traderPrompts.displayTradeOptions();
+        System.out.println("Enter option:");
+        int option = sc.nextInt();
+        switch (option){
+            case 0:
+                //Type code to return to main menu
+                break;
+            case 1:
+                editMeeting();
+                break;
+            case 2:
+                tradeManager.agreeToMeeting();
+                break;
+            case 3:
+                tradeManager.confirmTrade();
+                break;
+        }
+    }
+
+    /**
+     * The user inputs a new date and location for selected trade
+     */
+    private void editMeeting(){
+        System.out.println("Enter new date and location for trade meeting");
+        String newDateStr;
+        LocalDate newDate;
+        newDateStr = sc.nextLine();
+
+        // Checking if the user inputted a valid trade date
+        while(true){
+            try{
+                newDate = LocalDate.parse(newDateStr);
+                if (newDate.isAfter(LocalDate.now())) {
+                    break;
+                }
+                else {
+                    System.out.println("Please enter a date after today.");
+                }
+            }
+            catch (DateTimeParseException e){
+                System.out.println("Please enter a string in the format YYYY-MM-DD.");
+            }
+            newDateStr = sc.nextLine();
+        }
+        System.out.println("Enter location: ");
+        String location = sc.nextLine();
+        tradeManager.editTradeMeeting(newDate, location);
     }
 }

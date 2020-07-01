@@ -40,18 +40,14 @@ public class TradeManager {
      */
     public void requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item){
-        if(currentUser.isFrozen()){
-            System.out.println("Your account is frozen, you cannot trade");
-        }else if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
-            System.out.println("request refused: Please lend an item first");
-        }else{
-            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item, "Borrow");
-            processedTrade.setPermanent(true);
-            currentUser.addToTrades(processedTrade);
-            receiver.addToTrades(processedTrade);
+        if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
+            currentUser.setFlagged(true);
         }
-
+        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                tradeDate, item, "Borrow");
+        processedTrade.setPermanent(true);
+        currentUser.addToTrades(processedTrade);
+        receiver.addToTrades(processedTrade);
     }
 
     /** Request to temporarily borrow an item from another user
@@ -63,19 +59,15 @@ public class TradeManager {
      */
     public void requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item, LocalDate returnDate){
-        if(currentUser.isFrozen()){
-            System.out.println("Your account is frozen, you cannot trade");
-        }else if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
-            System.out.println("request refused: Please lend an item first");
-        }else{
-            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item, "Borrow");
-            processedTrade.setReturnDate(returnDate);
-            processedTrade.setPermanent(false);
-            currentUser.addToTrades(processedTrade);
-            receiver.addToTrades(processedTrade);
+        if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
+            currentUser.setFlagged(true);
         }
-
+        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                tradeDate, item, "Borrow");
+        processedTrade.setReturnDate(returnDate);
+        processedTrade.setPermanent(false);
+        currentUser.addToTrades(processedTrade);
+        receiver.addToTrades(processedTrade);
     }
 
     /**Request to permanently lend an item to another user
@@ -86,16 +78,11 @@ public class TradeManager {
      */
     public void requestToLend(Trader receiver, String location,
                               LocalDate tradeDate, Item item){
-        if(currentUser.isFrozen()){
-            System.out.println("Your account is frozen, you cannot trade");
-        }else{
-            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item, "Lend");
-            processedTrade.setPermanent(true);
-            currentUser.addToTrades(processedTrade);
-            receiver.addToTrades(processedTrade);
-        }
-
+        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                tradeDate, item, "Lend");
+        processedTrade.setPermanent(true);
+        currentUser.addToTrades(processedTrade);
+        receiver.addToTrades(processedTrade);
     }
 
     /**Request to temporarily lend an item to another user
@@ -107,16 +94,13 @@ public class TradeManager {
      */
     public void requestToLend(Trader receiver, String location,
                               LocalDate tradeDate, Item item, LocalDate returnDate){
-        if(currentUser.isFrozen()){
-            System.out.println("Your account is frozen, you cannot trade");
-        }else{
             this.processedTrade = new OneWayTrade(currentUser, receiver, location,
                     tradeDate, item, "Lend");
             processedTrade.setReturnDate(returnDate);
             processedTrade.setPermanent(false);
             currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
-        }
+
 
     }
 
@@ -129,16 +113,11 @@ public class TradeManager {
      */
     public void requestToExchange(Trader receiver, String location,
                                   LocalDate tradeDate, Item item1, Item item2){
-        if(currentUser.isFrozen()){
-            System.out.println("Your account is frozen, you cannot trade");
-        }else{
-            this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
-                    location, item1, item2);
-            processedTrade.setPermanent(true);
-            currentUser.addToTrades(processedTrade);
-            receiver.addToTrades(processedTrade);
-        }
-
+        this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
+                location, item1, item2);
+        processedTrade.setPermanent(true);
+        currentUser.addToTrades(processedTrade);
+        receiver.addToTrades(processedTrade);
     }
 
     /**Request to temporarily exchange items with another user
@@ -151,16 +130,12 @@ public class TradeManager {
      */
     public void requestToExchange(Trader receiver, String location,
                                   LocalDate tradeDate, Item item1, Item item2, LocalDate returnDate){
-        if(currentUser.isFrozen()){
-            System.out.println("Your account is frozen, you cannot trade");
-        }else{
-            this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
-                    location, item1, item2);
-            processedTrade.setPermanent(false);
-            processedTrade.setReturnDate(returnDate);
-            currentUser.addToTrades(processedTrade);
-            receiver.addToTrades(processedTrade);
-        }
+        this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
+                location, item1, item2);
+        processedTrade.setPermanent(false);
+        processedTrade.setReturnDate(returnDate);
+        currentUser.addToTrades(processedTrade);
+        receiver.addToTrades(processedTrade);
     }
 
     /**Allow the current user borrows the item
@@ -176,7 +151,6 @@ public class TradeManager {
         processedTrade.getReceiver().setNumLent(processedTrade.getReceiver().getNumLent() + 1);
 
         if(processedTrade.isPermanent()){item.setOwner(currentUser);}
-
     }
 
     /**Allow the current user lends the item
@@ -202,7 +176,6 @@ public class TradeManager {
     public void exchange(Item item1, Item item2){
         lend(item1);
         borrow(item2);
-
     }
 
     /**

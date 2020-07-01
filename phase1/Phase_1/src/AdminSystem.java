@@ -92,7 +92,7 @@ public class AdminSystem extends UserSystem{
                     changeUserInfo();
                     break;
                 case 7:
-                    running = false;
+                    stop();
                     break;
                 default:
                     System.out.println("Command not recognized. Try again.");
@@ -384,6 +384,9 @@ public class AdminSystem extends UserSystem{
         }
     }
 
+    /**
+     * Returns the administrator to the main menu for administrator options
+     */
     public void setToMainMenu(){
         adminPrompts.setToMainMenu();
         stop();
