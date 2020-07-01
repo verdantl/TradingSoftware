@@ -52,45 +52,82 @@ import java.util.ArrayList;
         LoginSystem*/
 
 
-
 public class LoginSystem {
 
-    private ArrayList<String> userInfo = new ArrayList<>();
+    TraderSystem traderSystem;
+    AdminSystem adminSystem;
+    SignupSystem signupSystem;
+    LoginPrompts prompts;
+
+    TraderActions traderActions;
+    AdminActions adminActions;
+    ItemManager itemManager;
+    TradeManager tradeManager;
+
+    private ArrayList<String> userInfo;
+    private User user;
 
 
     public void run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(java.lang.System.in));
-        LoginPrompts prompts = new LoginPrompts();
+        prompts = new LoginPrompts();
+        ArrayList<Trader> t = new ArrayList<>();
+        t.add(new Trader("Carl", "Wu"));
+        traderActions = new TraderActions(t);
+        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         try {
             System.out.println(prompts.openingMessage());
             String input;
             do {
+                userInfo = new ArrayList<>();
+                prompts.resetPrompts();
                 System.out.println(prompts.next());
                 input = br.readLine();
-                if (input.equals("1")) {
-                    System.out.println(prompts.next());
-                    input = br.readLine();
-                    userInfo.add(input);
-
-                    System.out.println(prompts.next());
-                    input = br.readLine();
-                    userInfo.add(input);
-                    if(false){}
-                    else {
+                int choice = Integer.parseInt(input);
+                switch (choice) {
+                    case 1:
                         System.out.println(prompts.next());
-                        prompts.resetPrompts();
+
+                        input = br.readLine();
+                        userInfo.add(input);
+
+                        if (!traderActions.checkUsername(userInfo.get(0))) {
+
+                            System.out.println(prompts.next());
+                            input = br.readLine();
+                            userInfo.add(input);
+
+                            user = traderActions.login(userInfo.get(0), userInfo.get(1));
+                            if (user != null) {
+                                traderSystem.run();
+                            }
+                        } else {
+                            if (!adminActions.checkUsername(userInfo.get(0))) {
+                                System.out.println(prompts.next());
+                                input = br.readLine();
+                                userInfo.add(input);
+
+                                user = adminActions.checkCredentials(userInfo.get(0), userInfo.get(1));
+                                if (user != null) {
+                                    adminSystem.run();
+                                }
+                            } else {
+                                System.out.println(prompts.wrongUser());
+                                continue;
+                            }
+                        }
+                        System.out.println(prompts.wrongPassword());
+                    break;
+                    case 2:
+                        SignupSystem signup = new SignupSystem();
+                        //signup.run();
+                        break;
+                    default:
+                        if (!input.equals("exit")) {
+                            System.out.println(prompts.invalidInput());
                     }
                 }
-                else if (input.equals("2")){
-                    SignupSystem signup = new SignupSystem();
-                    //signup.run();
-                    break;
-                }
-                else {
-                    if (!input.equals("exit")){
-                    System.out.println(prompts.invalidInput());
-                    prompts.resetPrompts();}
-                }
+
             } while (!input.equals("exit"));
         } catch (IOException e) {
             java.lang.System.out.println("Something went wrong");

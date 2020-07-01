@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Configuration {
@@ -24,6 +27,21 @@ public class Configuration {
         adminActions = new AdminActions(this.admins, adminRequests, unfreezeRequests);
         itemManager = new ItemManager();
         tradeManager = new TradeManager();
+    }
+
+    public Configuration (BufferedReader fileInput) throws IOException {
+        String line = fileInput.readLine();
+        while(!line.equals("end")) {
+            String[] input = line.split(",");
+            admins.add(new Admin(input[0], input[1]));
+            line = fileInput.readLine();
+        }
+        //adminActions = new AdminActions(admins);
+        while(!line.equals("end")) {
+            String[] input = line.split(",");
+
+            line = fileInput.readLine();
+        }
     }
 
     public ArrayList<Trader> getTraders() {

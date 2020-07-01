@@ -158,6 +158,17 @@ public class TraderActions {
         return true;
     }
 
+    public User login(String username, String password){
+        for(Trader t: traders){
+            if (username.equals(t.getUsername())){
+                if (password.equals(t.getPassword())){
+                return t;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns the three most recent trades in decreasing order (Most Recent to least Recent)
      * @param trader The trader who's trades we want

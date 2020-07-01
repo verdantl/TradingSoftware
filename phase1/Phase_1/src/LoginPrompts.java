@@ -14,7 +14,6 @@ public class LoginPrompts {
                 "Alternatively you can type \"exit\" at anytime to leave the program");
         prompts.add("Please enter your username:");
         prompts.add("Please enter you password:");
-        prompts.add("That password is incorrect please try again");
     }
 
     public String openingMessage(){
@@ -24,6 +23,14 @@ public class LoginPrompts {
     public String invalidInput(){
         return "This is a invalid input " +
                 "\nPlease try again";
+    }
+
+    public String wrongUser(){
+        return "That user does not exist within the system \nPlease try again";
+    }
+
+    public String wrongPassword(){
+        return "That is the incorrect password \nPlease try again";
     }
 
     public String next(){
