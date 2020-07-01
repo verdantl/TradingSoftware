@@ -72,6 +72,7 @@ public class ConfigReader {
             t1.addToTrades(tempTrade);
             t2.addToTrades(tempTrade);
         }
+
         line = fileInput.readLine();
         while(!line.equals("end")) {
             input = line.split(",");
