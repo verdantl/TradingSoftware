@@ -47,7 +47,7 @@ public class TradeManager {
             return false;
         }else{
             this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item, "Borrow");
+                    tradeDate, item);
             processedTrade.setPermanent(true);
             currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
@@ -62,17 +62,23 @@ public class TradeManager {
      * @param item The item that current user wants to borrow in the trade
      * @param returnDate The date that the user wants to return the item
      */
-    public void requestToBorrow(Trader receiver, String location,
+    public boolean requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item, LocalDate returnDate){
-        if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
+        if(currentUser.getTrades().size() == 0){
+            return false;
+        }else if(currentUser.getNumLent() <= currentUser.getNumBorrowed()){
             currentUser.setFlagged(true);
+            return false;
+        }else{
+            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                    tradeDate, item);
+            processedTrade.setReturnDate(returnDate);
+            processedTrade.setPermanent(false);
+            currentUser.addToTrades(processedTrade);
+            receiver.addToTrades(processedTrade);
+            return true;
         }
-        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                tradeDate, item, "Borrow");
-        processedTrade.setReturnDate(returnDate);
-        processedTrade.setPermanent(false);
-        currentUser.addToTrades(processedTrade);
-        receiver.addToTrades(processedTrade);
+
     }
 
     /**Request to permanently lend an item to another user
@@ -84,7 +90,7 @@ public class TradeManager {
     public void requestToLend(Trader receiver, String location,
                               LocalDate tradeDate, Item item){
         this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                tradeDate, item, "Lend");
+                tradeDate, item);
         processedTrade.setPermanent(true);
         currentUser.addToTrades(processedTrade);
         receiver.addToTrades(processedTrade);
@@ -100,7 +106,7 @@ public class TradeManager {
     public void requestToLend(Trader receiver, String location,
                               LocalDate tradeDate, Item item, LocalDate returnDate){
             this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item, "Lend");
+                    tradeDate, item);
             processedTrade.setReturnDate(returnDate);
             processedTrade.setPermanent(false);
             currentUser.addToTrades(processedTrade);

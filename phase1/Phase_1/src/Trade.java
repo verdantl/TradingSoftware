@@ -10,7 +10,6 @@ public abstract class Trade implements Comparable<Trade> {
     private boolean isPermanent;
     private boolean isCompleted;
     private LocalDate returnDate;
-    private String tradeType;
     private HashMap<String, Boolean> isConfirmed;
     private HashMap<String, Integer> numberOfEdits;
     private HashMap<String, Boolean> isAgreed;
@@ -25,7 +24,7 @@ public abstract class Trade implements Comparable<Trade> {
      * @param location the location of the Trade
      * @param tradeDate the date the Trade will occur
      */
-    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, String tradeType){
+    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate){
         this.initiator = initiator;
         this.receiver = receiver;
         this.location = location;
@@ -43,7 +42,6 @@ public abstract class Trade implements Comparable<Trade> {
         isAgreed.put(initiator.getUsername(), false);
         isAgreed.put(receiver.getUsername(), false);
         this.tradeStatus = "In Progress";
-        this.tradeType = tradeType;
     }
 
     /**
@@ -55,7 +53,6 @@ public abstract class Trade implements Comparable<Trade> {
         return "Trade{" +
                 "initiator='" + initiator.toString() + '\'' +
                 ", receiver='" + receiver.toString() + '\'' +
-                ", tradedType='" + tradeType + '\''+
                 ", tradeDate=" + tradeDate.toString() + '\'' +
                 ", location=" + location + '\'' +
                 ", permanent=" + isPermanent + '\'' +
@@ -119,10 +116,6 @@ public abstract class Trade implements Comparable<Trade> {
      */
     public String getTradeStatus() {return tradeStatus;}
 
-    /**Getter for the type of the trade
-     * @return the type of the trade
-     */
-    public String getTradeType() {return tradeType;}
 
     /**Getter for isConfirmed
      * @param trader the trader involved in this trade
@@ -146,7 +139,7 @@ public abstract class Trade implements Comparable<Trade> {
      * Getter for permanent
      * @return whether the Trade is permanent or not
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    
     public boolean isPermanent() {
         return this.isPermanent;
     }
@@ -155,7 +148,7 @@ public abstract class Trade implements Comparable<Trade> {
      * Getter for isCompleted
      * @return whether the Trade is completed or not
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+
     public boolean isCompleted() { return isCompleted; }
 
     /**
