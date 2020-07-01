@@ -83,22 +83,6 @@ public class TraderActions {
     }
 
     /**
-     * Adds the given trade to the list of the user's trades and returns true if the trade can be added.
-     * Otherwise it returns false
-     * @param trader trader The trader whose trade is to be added.
-     * @param trade trade The trade to be added.
-     * @return whether the trade has been added or not
-     */
-    public boolean addTrade(Trader trader, Trade trade){
-        if(isVaildTrade(trader, trade)){
-        trader.addToTrades(trade);
-        return true;
-        }
-        else {
-        return false;}
-    }
-
-    /**
      * This returns a list of the top 3 most frequent trading partners in descending order.
      * If there are less than 3 trading partners, it returns however many there are. If there is more than one
      * top trading partner with the same frequency, it returns the top 3 trading partners, where the users returned are chosen at random.
@@ -212,40 +196,6 @@ public class TraderActions {
         return mostRecentThreeItems;
     }
 
-    private boolean isVaildTrade(Trader trader, Trade trade){
-        //needs the global var here
-        int limitOfTradesPerWeek = 3;
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int weekNumber = trade.getTradeDate().get(weekFields.weekOfWeekBasedYear());
-        //int week = trade.getTradeDate().getDayOfYear()/7;
-        ArrayList<Trade> trades = trader.getTrades();
-        int i = Collections.binarySearch(trades, trade);
-        //what if the trades are at the same time
-        int n = 0;
-        for (int j = 0; n<limitOfTradesPerWeek; j++){
-            //add the check of if it's the same year
-            //if (i+j < trades.size() && trades.get(i+j).getTradeDate().getDayOfYear()/7 == week){
-            if (i+j < trades.size() && trades.get(i+j).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
-                    weekNumber && trade.getTradeDate().getYear() == trades.get(i+j).getTradeDate().getYear()){
-                n++;
-            }
-            else {
-                break;
-            }
-        }
-        for (int k = 1; n<limitOfTradesPerWeek; k++){
-            //if (i-k >= 0 && trades.get(i-k).getTradeDate().getDayOfYear()/7 == week){
-            if (i-k >= 0 && trades.get(i-k).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
-                    weekNumber && trade.getTradeDate().getYear() == trades.get(i-k).getTradeDate().getYear()){
-                n++;
-            }
-            else {
-                break;
-            }
-        }
-        return n < limitOfTradesPerWeek;
-    }
-
 
     /**
      *
@@ -300,23 +250,13 @@ public class TraderActions {
     }
 
     /**
-     * @param atLeast The trader's number of borrowed items must be at least 'atLeast' less than
-     *                their number of lent items
-     * @param maxIncomplete The max number of incomplete transactions that a trader can have
-     * @param maxWeekly The max number of transactions that a trader can have in a week
-     * @return Return list of trader accounts that needs to be frozen
+     * @return Return a list of flagged trader accounts that needs to be frozen
      */
 
-    public ArrayList<Trader> getListOfFlaggedAccounts(int atLeast, int maxIncomplete, int maxWeekly){
+    public ArrayList<Trader> getListOfFlaggedAccounts(){
         ArrayList<Trader> accounts = new ArrayList<>();
         for (Trader trader: traders){
-            if (trader.getNumBorrowed() + atLeast > trader.getNumLent() && atLeast != 0){
-                accounts.add(trader);
-            }else if(trader.getNumIncompleteTransactions() > maxIncomplete){
-                accounts.add(trader);
-            }else if(trader.getNumWeeklyTransactions() > maxWeekly){
-                accounts.add(trader);
-            }
+            if(trader.isFlagged()){accounts.add(trader);}
         }
         return accounts;
     }
