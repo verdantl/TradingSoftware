@@ -366,14 +366,17 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      * @param location The location for the trade to occur.
      */
     private void proposeOneWay(Item item, boolean temporary, LocalDate tradeDate, String location){
+        boolean tradeIsSuccess;
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
+            tradeIsSuccess = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
         }
         else{
-            tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
+            tradeIsSuccess = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
         }
+
+        if(!tradeIsSuccess){System.out.println("Request rejected: Please lend or trade first");}
     }
 
     /**
