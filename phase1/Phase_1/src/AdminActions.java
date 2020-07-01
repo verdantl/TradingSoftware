@@ -44,6 +44,13 @@ public class AdminActions {
     }
 
     /**
+     * Adds an admin request to the list
+     * @param admin an admin request
+     */
+    public void addAdminRequest(Admin admin){
+        adminRequests.add(admin);
+    }
+    /**
      * Finds an admin in adminRequests by
      * @param username the username of the admin being approved/rejected
      * @return the admin in adminRequests whose username matches the parameter
