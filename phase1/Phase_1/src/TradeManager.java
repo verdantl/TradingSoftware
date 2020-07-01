@@ -1,9 +1,15 @@
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 public class TradeManager {
     private Trader currentUser;
     private Trade processedTrade;
+    private int limitOfTradesPerWeek;
+    private int maxIncomplete;
+    private int moreLendNeeded;
 
     /**
      * constructor for the TradeManager
@@ -11,6 +17,12 @@ public class TradeManager {
     public TradeManager(){
         this.currentUser = null;
         this.processedTrade = null;
+        //Default
+        limitOfTradesPerWeek = 3;
+        //Default
+        moreLendNeeded = 0;
+        //Default
+        maxIncomplete = 3;
     }
 
     /**
@@ -38,21 +50,23 @@ public class TradeManager {
      * @param tradeDate The date that current user wants the trade to happen
      * @param item The item that current user wants to borrow in the trade
      */
-    public boolean requestToBorrow(Trader receiver, String location,
+    public int requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item){
-        if(currentUser.getTrades().size() == 0){
-            return false;
-        }else if(currentUser.getNumLent() < currentUser.getNumBorrowed()){
-            currentUser.setFlagged(true);
-            return false;
+        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                tradeDate, item);
+
+        if(!isValid()){
+            return 1;
+        }else if(currentUser.getTrades().size() == 0
+                || (currentUser.getNumLent() - currentUser.getNumBorrowed()) < moreLendNeeded){
+            return 2;
         }else{
-            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item);
             processedTrade.setPermanent(true);
             currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
-            return true;
+            return 3;
         }
+
     }
 
     /** Request to temporarily borrow an item from another user
@@ -62,21 +76,22 @@ public class TradeManager {
      * @param item The item that current user wants to borrow in the trade
      * @param returnDate The date that the user wants to return the item
      */
-    public boolean requestToBorrow(Trader receiver, String location,
+    public int requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item, LocalDate returnDate){
-        if(currentUser.getTrades().size() == 0){
-            return false;
-        }else if(currentUser.getNumLent() < currentUser.getNumBorrowed()){
-            currentUser.setFlagged(true);
-            return false;
+        this.processedTrade = new OneWayTrade(currentUser, receiver, location,
+                tradeDate, item);
+
+        if(!isValid()){
+            return 1;
+        }else if(currentUser.getTrades().size() == 0
+                || (currentUser.getNumLent() - currentUser.getNumBorrowed()) < moreLendNeeded){
+            return 2;
         }else{
-            this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    tradeDate, item);
             processedTrade.setReturnDate(returnDate);
             processedTrade.setPermanent(false);
             currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
-            return true;
+            return 3;
         }
 
     }
@@ -122,13 +137,17 @@ public class TradeManager {
      * @param item1 The item that current user owns
      * @param item2 The item that receiver owns
      */
-    public void requestToExchange(Trader receiver, String location,
+    public int requestToExchange(Trader receiver, String location,
                                   LocalDate tradeDate, Item item1, Item item2){
         this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
                 location, item1, item2);
-        processedTrade.setPermanent(true);
-        currentUser.addToTrades(processedTrade);
-        receiver.addToTrades(processedTrade);
+        if(!isValid()){return 1;}
+        else{
+            processedTrade.setPermanent(true);
+            currentUser.addToTrades(processedTrade);
+            receiver.addToTrades(processedTrade);
+            return 3;
+        }
     }
 
     /**Request to temporarily exchange items with another user
@@ -139,14 +158,18 @@ public class TradeManager {
      * @param item2 The item that receiver owns
      * @param returnDate The date that the user wants to return the item
      */
-    public void requestToExchange(Trader receiver, String location,
+    public int requestToExchange(Trader receiver, String location,
                                   LocalDate tradeDate, Item item1, Item item2, LocalDate returnDate){
         this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
                 location, item1, item2);
-        processedTrade.setPermanent(false);
-        processedTrade.setReturnDate(returnDate);
-        currentUser.addToTrades(processedTrade);
-        receiver.addToTrades(processedTrade);
+        if(!isValid()){return 1;}
+        else{
+            processedTrade.setPermanent(false);
+            processedTrade.setReturnDate(returnDate);
+            currentUser.addToTrades(processedTrade);
+            receiver.addToTrades(processedTrade);
+            return 3;
+        }
     }
 
     /**Allow the current user borrows the item
@@ -263,4 +286,61 @@ public class TradeManager {
             exchange(((TwoWayTrade) processedTrade).getItem1(), ((TwoWayTrade) processedTrade).getItem2());
         }
     }
+
+    /**check whether or not the requested trade is valid
+     * @return whether or not the trade exceeds the max number of trades that the user can conduct in one week
+     */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean isValid(){
+        Trader trader = currentUser;
+        Trade trade = processedTrade;
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekNumber = trade.getTradeDate().get(weekFields.weekOfWeekBasedYear());
+        //int week = trade.getTradeDate().getDayOfYear()/7;
+        ArrayList<Trade> trades = trader.getTrades();
+        int i = Collections.binarySearch(trades, trade);
+        //what if the trades are at the same time
+        int n = 0;
+        for (int j = 0; n<limitOfTradesPerWeek; j++){
+            //add the check of if it's the same year
+            //if (i+j < trades.size() && trades.get(i+j).getTradeDate().getDayOfYear()/7 == week){
+            if (i+j < trades.size() && trades.get(i+j).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
+                    weekNumber && trade.getTradeDate().getYear() == trades.get(i+j).getTradeDate().getYear()){
+                n++;
+            }
+            else {
+                break;
+            }
+        }
+        for (int k = 1; n<limitOfTradesPerWeek; k++){
+            //if (i-k >= 0 && trades.get(i-k).getTradeDate().getDayOfYear()/7 == week){
+            if (i-k >= 0 && trades.get(i-k).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
+                    weekNumber && trade.getTradeDate().getYear() == trades.get(i-k).getTradeDate().getYear()){
+                n++;
+            }
+            else {
+                break;
+            }
+        }
+        return n < limitOfTradesPerWeek;
+    }
+
+    /**Getter for the limitOfTradesPerWeek
+     * @return the max number of trades that the user can conduct in one week
+     */
+    public int getLimitOfTradesPerWeek(){
+        return limitOfTradesPerWeek;
+    }
+
+    /**Setter for the limitOfTradesPerWeek
+     * @param limit the limitation of trades that the user can conduct in one week
+     */
+    public void setLimitOfTradesPerWeek(int limit){
+        limitOfTradesPerWeek = limit;
+    }
+
+    private void autoFlag(){
+
+    }
+
 }

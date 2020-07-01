@@ -243,4 +243,18 @@ public class TraderPrompts {
     public void returnToMain(){
         System.out.println("Returning to Main Menu...");
     }
+
+    /**describe the process of requesting a trade
+     * @param i the integer represents different states in the process of requesting a trade
+     */
+    public void displayTradeProcess(int i){
+        switch (i){
+            case 1:
+                System.out.println("Request fails: You have achieved the max number of weekly trades");
+            case 2:
+                System.out.println("Request fails: Please lend or trade before borrowing");
+            case 3:
+                System.out.println("Request successes: Your trade is now in progress");
+        }
+    }
 }

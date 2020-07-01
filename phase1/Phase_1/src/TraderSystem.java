@@ -366,28 +366,27 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      * @param location The location for the trade to occur.
      */
     private void proposeOneWay(Item item, boolean temporary, LocalDate tradeDate, String location){
-        boolean tradeIsSuccess;
+        int i;
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            tradeIsSuccess = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
+            i = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
         }
         else{
-            tradeIsSuccess = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
+            i = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
         }
-
-        if(!tradeIsSuccess){System.out.println("Request rejected: Please lend or trade first");}
+        traderPrompts.displayTradeProcess(i);
     }
 
     /**
      * Where a new two-way trade is created depending on the choices the trader made previously. Additionally, where the
      * user decides on which item they want to give away in the exchange.
      * @param item The item to be traded.
-     * @param tempoary Whether or not the trade is to have a return date or not.
+     * @param temporary Whether or not the trade is to have a return date or not.
      * @param tradeDate The date for the trade to occur.
      * @param location The location for the trade to occur.
      */
-    private void proposeTwoWay(Item item, boolean tempoary, LocalDate tradeDate, String location){
+    private void proposeTwoWay(Item item, boolean temporary, LocalDate tradeDate, String location){
         // TODO: Move this to TraderPrompts
         System.out.println("Here are the items you currently own. Please select one of them to trade with your trading " +
                 "partner:");
@@ -406,14 +405,17 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
         Item itemToTrade = currentTrader.getWantToLend().get(itemChoice - 1);
 
-        if (tempoary){
+        int i;
+
+        if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade, returnDate);
+            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade, returnDate);
         }
         else{
-            tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade);
+            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade);
         }
+        traderPrompts.displayTradeProcess(i);
     }
 
     /**
