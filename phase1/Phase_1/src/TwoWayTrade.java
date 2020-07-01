@@ -22,7 +22,7 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
 
     public TwoWayTrade(Trader initiator, Trader receiver, LocalDate tradeDate, String location,
                        Item item1, Item item2){
-        super(initiator, receiver, location, tradeDate, "Exchange");
+        super(initiator, receiver, location, tradeDate);
         this.item1 = item1;
         this.item2 = item2;
     }
@@ -54,7 +54,6 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
         return "TwoWayTrade{" +
                 "initiator='" + super.getInitiator().toString() + " item: " +item1.toString()+ '\'' +
                 ", receiver='" + super.getReceiver().toString() + " item: " +item2.toString()+  '\'' +
-                ", tradedType='" + super.getTradeType() + '\''+
                 ", tradeDate=" + super.getTradeDate().toString() + '\'' +
                 ", location=" + super.getLocation() + '\'' +
                 ", permanent=" + super.isPermanent() + '\'' +

@@ -366,14 +366,17 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      * @param location The location for the trade to occur.
      */
     private void proposeOneWay(Item item, boolean temporary, LocalDate tradeDate, String location){
+        boolean tradeIsSuccess;
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
+            tradeIsSuccess = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
         }
         else{
-            tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
+            tradeIsSuccess = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
         }
+
+        if(!tradeIsSuccess){System.out.println("Request rejected: Please lend or trade first");}
     }
 
     /**
@@ -475,30 +478,32 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         int option = sc.nextInt();
         switch (option){
             case 0:
-                //Type code to return to main menu
+                traderPrompts.returnToMain();
                 break;
             case 1:
-                editMeeting();
+                traderPrompts.displayString(editMeeting());
                 break;
             case 2:
-                tradeManager.agreeToMeeting();
+                traderPrompts.displayString(tradeManager.agreeToMeeting());
                 break;
             case 3:
-                tradeManager.confirmTrade();
+                traderPrompts.displayString(tradeManager.confirmTrade());
                 break;
+            default:
+                traderPrompts.incorrectSelection();
         }
     }
 
     /**
      * The user inputs a new date and location for selected trade
      */
-    private void editMeeting(){
+    private String editMeeting(){
         System.out.println("Enter new date and location for trade meeting");
         String newDateStr;
         LocalDate newDate;
         newDateStr = sc.nextLine();
 
-        // Checking if the user inputted a valid trade date
+        // Check if the user inputted a valid trade date
         while(true){
             try{
                 newDate = LocalDate.parse(newDateStr);
@@ -514,8 +519,9 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
             }
             newDateStr = sc.nextLine();
         }
+        // User enters a new location
         System.out.println("Enter location: ");
         String location = sc.nextLine();
-        tradeManager.editTradeMeeting(newDate, location);
+        return tradeManager.editTradeMeeting(newDate, location);
     }
 }

@@ -12,11 +12,10 @@ public class OneWayTrade extends Trade{
      * @param location the location of the Trade
      * @param tradeDate the date the Trade will occur
      * @param item the item that initiator wants to trade
-     * @param tradeType store what type the trade is (lend or borrow)
      */
     public OneWayTrade(Trader initiator, Trader receiver, String location,
-                       LocalDate tradeDate, Item item, String tradeType){
-        super(initiator, receiver, location, tradeDate, tradeType);
+                       LocalDate tradeDate, Item item){
+        super(initiator, receiver, location, tradeDate);
         this.item = item;
     }
 
@@ -31,7 +30,6 @@ public class OneWayTrade extends Trade{
                 "initiator='" + super.getInitiator().toString() + '\'' +
                 ", receiver='" + super.getReceiver().toString() + '\'' +
                 ", tradedItem='" + item.toString() + '\''+
-                ", tradedType='" + super.getTradeType() + '\''+
                 ", tradeDate=" + super.getTradeDate().toString() + '\'' +
                 ", location=" + super.getLocation()  + '\'' +
                 ", permanent=" + super.isPermanent() + '\'' +
