@@ -232,6 +232,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     if (!currentTrader.isFrozen()){
                         this.proposeTradeStart(itemList.get(o));
                     }
+                    else{
+                        traderPrompts.displayString("Your account is frozen. You cannot trade.");
+                        traderPrompts.returnToMain();
+                    }
                 }
             }
         } while(o != 0);
