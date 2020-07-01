@@ -120,7 +120,7 @@ public class LoginSystem {
                     break;
                     case 2:
                         SignupSystem signup = new SignupSystem();
-                        //signup.run();
+                        signup.run();
                         break;
                     default:
                         if (!input.equals("exit")) {
