@@ -3,53 +3,69 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminSystem extends UserSystem{
-    private boolean running;
-    private AdminActions adminActions;
-    private Admin currentAdmin;
+
     private AdminPrompts adminPrompts;
-    private String fileName;
+
     private TraderActions traderActions;
+    private AdminActions adminActions;
     private TradeManager tradeManager;
+
+    private boolean running;
+    private Admin currentAdmin;
     private Scanner scanner;
+
     private final String toMainMenu = "-1";
 
 
     /**
-     * Constructor for the AdminSystem
-     * @param admin The admin user that has logged into the system
-     * @param fileName The name of the file
+     * Constructor for the admin system
+     * @param traderActions the actions that a user can take involving traders
+     * @param adminActions the actions a user can take involving admins
+     * @param tradeManager the manager class for trades
      */
-    public AdminSystem(Admin admin, String fileName){
+    public AdminSystem(TraderActions traderActions, AdminActions adminActions, TradeManager tradeManager){
+        adminPrompts = new AdminPrompts();
         //I think we should read in from files.
-        this.fileName = fileName;
-        currentAdmin = admin;
+        this.traderActions = traderActions;
+        this.adminActions = adminActions;
+        this.tradeManager = tradeManager;
+
+        running = false;
         scanner = new Scanner(System.in);
 
-        ArrayList<Admin> admins = new ArrayList<>();
-        //gotta read this too
-        ArrayList<Admin> adminRequests = new ArrayList<>();
+//        ArrayList<Admin> admins = new ArrayList<>();
+//        //gotta read this too
+//        ArrayList<Admin> adminRequests = new ArrayList<>();
+//
+//        try {
+//            BufferedReader in = new BufferedReader(new FileReader(fileName));
+//            String line = in.readLine();
+//            while (line != null){
+//                String[] info = line.split(",");
+//                admins.add(new Admin(info[0], info[1]));
+//                line = in.readLine();
+//            }
+//            in.close();
+//
+//        }catch (IOException iox){
+//            System.out.println("File Not Found");
+//        }
+//        adminActions = new AdminActions(admins, adminRequests);
+//        traderActions = new TraderActions(new ArrayList<>());
+//        tradeManager = new TradeManager();
+//        //May need to change constructor
+//        adminPrompts = new AdminPrompts();
+//        //may want to change the following
 
-        try {
-            BufferedReader in = new BufferedReader(new FileReader(fileName));
-            String line = in.readLine();
-            while (line != null){
-                String[] info = line.split(",");
-                admins.add(new Admin(info[0], info[1]));
-                line = in.readLine();
-            }
-            in.close();
 
-        }catch (IOException iox){
-            System.out.println("File Not Found");
-        }
-        adminActions = new AdminActions(admins, adminRequests);
-        traderActions = new TraderActions(new ArrayList<>());
-        tradeManager = new TradeManager();
-        //May need to change constructor
-        adminPrompts = new AdminPrompts();
-        //may want to change the following
+    }
 
-
+    /**
+     * Sets the current admin for the admin system
+     * @param admin the current admin
+     */
+    public void setCurrentAdmin(Admin admin){
+        currentAdmin = admin;
     }
 
 
@@ -371,7 +387,7 @@ public class AdminSystem extends UserSystem{
      */
     public void setToMainMenu(){
         adminPrompts.setToMainMenu();
-        stop();
-        init();
+//        stop();
+//        init();
     }
 }

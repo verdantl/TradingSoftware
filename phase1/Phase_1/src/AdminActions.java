@@ -1,7 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 
 public class AdminActions {
     private ArrayList<Admin> admins;
@@ -12,8 +9,6 @@ public class AdminActions {
         this.admins = admins;
         this.adminRequests = adminRequests;
     }
-    //Temporary getter for the admins in case it's needed
-
     /**
      * A getter for a string version of all the admin requests for approval.
      * @return a string version of adminRequests
