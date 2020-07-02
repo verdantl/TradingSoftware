@@ -185,6 +185,31 @@ public class ConfigReader {
             line = fileInput.readLine();
             }
             //This is as far as i got for reading in.
+            /*
+            The full example of a file would look like this:
+            * Username,Password,12-12-2020,false,false,false,2,1
+            * WantToLend:
+            * Bike,Sports,It’s a bike,10,1
+            * Book,Literature,It’s a book,9,2
+            * ProposedItems:
+            * England,Country,I’m the King,10,3
+            * Trader:
+            * user2,goodbye,2020-07-01,false,false,0,0
+            * WantToLend:
+            * Laptop,Electronics,It’s a laptop,5,4
+            * Wallet,Accessories,It’s a Wallet,9,5
+            * ProposedItems:
+            * end
+            * Wishlists:
+            * user1,4,user2
+            * user2,2,user1
+            * end
+            * BorrowedItems:
+            * user1,Car,Transportation,it’s a car,9,6,user2
+            * Trades:
+            * OneWayTrade,user2,user1,Canada,2020-07-01,false,false, null,user2,false,1,true,user1,false,1,true,On-Going
+            * end
+            * */
             //TODO Finish reading in admins and adminRequests.
 
 
