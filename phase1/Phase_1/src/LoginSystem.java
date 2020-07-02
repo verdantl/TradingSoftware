@@ -68,6 +68,9 @@ public class LoginSystem {
     private User user;
 
 
+    /**
+     * runs the the progame from the login screen allowing the user to login, sign up, or exit.
+     */
     public void run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(java.lang.System.in));
         prompts = new LoginPrompts();

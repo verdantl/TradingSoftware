@@ -1,10 +1,12 @@
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ConfigReader {
+    //TODO: make the variables public or make getter so the constructor does something
     ArrayList<Trader> traders;
     ArrayList<Admin> admins;
     ArrayList<Item> items;
@@ -14,10 +16,10 @@ public class ConfigReader {
     ItemManager itemManager;
     TradeManager tradeManager;
 
-
     ArrayList<User> users;
 
-    public ConfigReader (BufferedReader fileInput) throws IOException {
+    public ConfigReader (String fileIn) throws IOException {
+        BufferedReader fileInput = new BufferedReader(new FileReader(fileIn));
         //TODO Change buffer reader to passing in filePath and instantiating bufferedReader
         traders = new ArrayList<>();
         admins = new ArrayList<>();
@@ -169,6 +171,7 @@ public class ConfigReader {
                 receiver.addToTrades(oneWayTrade);
             }
             else{
+                //TODO: note that this else chatches end so you mant need another if check
                 line = fileInput.readLine();
                 input = line.split(",");
                 if(isInItems(Integer.parseInt(input[6]))){
@@ -182,7 +185,28 @@ public class ConfigReader {
                 initiator.addToTrades(twoWayTrade);
                 receiver.addToTrades(twoWayTrade);
             }
+
+
+            //adds approved admins
             line = fileInput.readLine();
+            while(!line.equals("end")) {
+            input = line.split(",");
+            admins.add(new Admin(input[0], input[1], input[2]));
+            line = fileInput.readLine();
+        }
+            //adds the requested ones
+            line = fileInput.readLine();
+            ArrayList<Admin> adminRequest = new ArrayList<>();
+            while(!line.equals("end")) {
+                input = line.split(",");
+                //TODO: check if this is how the requested are constructed
+                adminRequest.add(new Admin(input[0], input[1]));
+                line = fileInput.readLine();
+            }
+            adminActions = new AdminActions(admins, adminRequest);
+            users.addAll(admins);
+            //TODO: check if we want to do this
+            users.addAll(traders);
             }
             //This is as far as i got for reading in.
             /*
@@ -208,6 +232,10 @@ public class ConfigReader {
             * user1,Car,Transportation,it’s a car,9,6,user2
             * Trades:
             * OneWayTrade,user2,user1,Canada,2020-07-01,false,false, null,user2,false,1,true,user1,false,1,true,On-Going
+            * end
+            * Admin, Wordpass, 02-07-2020
+            * end
+            * Admin2, Wordpass
             * end
             * */
             //TODO Finish reading in admins and adminRequests.
