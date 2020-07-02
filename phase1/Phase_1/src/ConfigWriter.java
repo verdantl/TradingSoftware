@@ -9,6 +9,7 @@ public class ConfigWriter {
             out = new BufferedWriter(new FileWriter(fileName));
             List<Trader> traders = ta.getTraders();
             List<Admin> admins = aa.getAdmins();
+            List<Admin> reqAdmins = aa.getListOfRequestedAdmins();
 
             out.write(formatListOfTraders(traders));
             out.newLine();
@@ -20,7 +21,7 @@ public class ConfigWriter {
             out.newLine();
             out.write(formatListOfTrades(traders));
             out.newLine();
-            out.write(formatAdmins(admins));
+            out.write(formatAdmins(admins, reqAdmins));
 
             out.close();
 
@@ -57,7 +58,7 @@ public class ConfigWriter {
 
     }
 
-    private String formatAdmins(List<Admin> admins){
+    private String formatAdmins(List<Admin> admins, List<Admin> reqAdmins){
         String s = "";
 
         for (Admin a: admins){
@@ -65,7 +66,7 @@ public class ConfigWriter {
         }
         s += "end\n";
 
-        for (Admin a: admins){
+        for (Admin a: reqAdmins){
             s += formatRequestedAdmin(a)+"\n";
         }
         s += "end";
