@@ -13,10 +13,20 @@ public class ItemManager {
         this.requestedItems = requestedItems;
     }
 
+
+    /**
+     * Return an ArrayList of all items that have been approved by admins.
+     * @return the ArrayList of all approved items.
+     */
     public ArrayList<Item> getApprovedItems() {
         return approvedItems;
     }
 
+
+    /**
+     * Set the ArrayList of approved items to be the same as the parameter.
+     * @param approvedItems an ArrayList of all items you want to set as approved items.
+     */
     public void setApprovedItems(ArrayList<Item> approvedItems) {
         this.approvedItems = approvedItems;
     }
@@ -37,10 +47,20 @@ public class ItemManager {
         }
     }
 
+
+    /**
+     * Return an ArrayList of all items that are not approved by an admin yet.
+     * @return an ArrayList of all items that have pending requests for admin approval.
+     */
     public ArrayList<Item> getRequestedItems() {
         return requestedItems;
     }
 
+
+    /**
+     * Set the ArrayList of all unapproved items to be the same as the parameter.
+     * @param requestedItems an ArrayList of all items you want to set as unapproved items.
+     */
     public void setRequestedItems(ArrayList<Item> requestedItems) {
         this.requestedItems = requestedItems;
     }
