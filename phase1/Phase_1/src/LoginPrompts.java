@@ -10,8 +10,8 @@ public class LoginPrompts {
         prompts = new ArrayList<>();
 
         //add a read file later?
-        prompts.add("Please type 1 to login or 2 to register a new account \n" +
-                "Alternatively you can type \"exit\" at anytime to leave the program");
+        prompts.add("Please enter [1] to login or [2] to register a new account. \n" +
+                "Alternatively, you can type \"exit\" at anytime to leave the program.");
         prompts.add("Please enter your username:");
         prompts.add("Please enter you password:");
     }
