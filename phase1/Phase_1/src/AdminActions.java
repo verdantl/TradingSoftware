@@ -25,6 +25,14 @@ public class AdminActions {
         return requests;
     }
 
+    public ArrayList<Admin> getAdmins(){
+        return admins;
+    }
+
+    public ArrayList<Admin> getListOfRequestedAdmins(){
+        return adminRequests;
+    }
+
     /**
      * Adds an admin request to the list
      * @param admin an admin request
