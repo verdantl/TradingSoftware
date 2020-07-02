@@ -23,6 +23,16 @@ public class Item {
         idCounter ++;
     }
 
+    public Item(String name, String category, String description, Trader owner, int qualityRating, int id){
+        this.name = name;
+        this.category = category;
+        this.description = description;
+        this.owner = owner;
+        this.qualityRating = qualityRating;
+        this.id = id;
+        idCounter++;
+    }
+
     //new constructor with a given id (when starting up the program)
 
     /**

@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OneWayTrade extends Trade{
     private Item item;
@@ -16,6 +17,14 @@ public class OneWayTrade extends Trade{
     public OneWayTrade(Trader initiator, Trader receiver, String location,
                        LocalDate tradeDate, Item item){
         super(initiator, receiver, location, tradeDate);
+        this.item = item;
+    }
+
+    public OneWayTrade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, boolean isPermanent, boolean isCompleted,
+                 LocalDate returnDate, HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits,
+                 HashMap<String, Boolean> isAgreed, String tradeStatus, Item item){
+        super(initiator, receiver, location, tradeDate, isPermanent, isCompleted,
+        returnDate, isConfirmed, numberOfEdits, isAgreed, tradeStatus);
         this.item = item;
     }
 

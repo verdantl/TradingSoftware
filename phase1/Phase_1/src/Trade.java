@@ -45,6 +45,41 @@ public abstract class Trade implements Comparable<Trade> {
     }
 
     /**
+     * Constructor for trade for reading in from a file
+     * @param initiator The trade offer's initiator
+     * @param receiver The trade offer's receiver
+     * @param location  The trade's location
+     * @param tradeDate The date the trade will occur
+     * @param isPermanent Whether the trade isPermanent
+     * @param isCompleted Whether the trade is completed
+     * @param returnDate The date for the return date.
+     * @param isConfirmed Whether the trade is confirmed by the traders
+     * @param numberOfEdits The number of edits made by each trader
+     * @param isAgreed Whether the trade is agreed to by each trader
+     * @param tradeStatus The trade's status
+     */
+    public Trade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, boolean isPermanent, boolean isCompleted,
+                 LocalDate returnDate, HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits,
+                 HashMap<String, Boolean> isAgreed, String tradeStatus){
+        this.initiator = initiator;
+        this.receiver = receiver;
+        this.location = location;
+        this.tradeDate = tradeDate;
+        this.isPermanent = isPermanent;
+        this.isCompleted = isCompleted;
+        if(returnDate.getYear()==0){
+            this.returnDate = null;
+        }
+        else{
+            this.returnDate = returnDate;
+        }
+        this.isConfirmed = isConfirmed;
+        this.numberOfEdits = numberOfEdits;
+        this.isAgreed = isAgreed;
+        this.tradeStatus = tradeStatus;
+    }
+
+    /**
      * Converts this Trade into String representation.
      * @return this Trade's String representation.
      */

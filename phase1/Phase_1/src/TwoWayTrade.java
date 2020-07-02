@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -23,6 +24,15 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
     public TwoWayTrade(Trader initiator, Trader receiver, LocalDate tradeDate, String location,
                        Item item1, Item item2){
         super(initiator, receiver, location, tradeDate);
+        this.item1 = item1;
+        this.item2 = item2;
+    }
+
+    public TwoWayTrade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, boolean isPermanent, boolean isCompleted,
+                       LocalDate returnDate, HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits,
+                       HashMap<String, Boolean> isAgreed, String tradeStatus, Item item1, Item item2){
+        super(initiator, receiver, location, tradeDate, isPermanent, isCompleted,
+                returnDate, isConfirmed, numberOfEdits, isAgreed, tradeStatus);
         this.item1 = item1;
         this.item2 = item2;
     }
