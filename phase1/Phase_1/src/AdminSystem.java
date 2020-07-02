@@ -119,7 +119,7 @@ public class AdminSystem extends UserSystem{
             switch (option) {
                 case 1:
                     ArrayList<Trader> flaggedAccounts =
-                            traderActions.getListOfFlaggedAccounts(atLeast, maxIncomplete, maxWeekly);
+                            traderActions.getListOfFlaggedAccounts();
                     adminPrompts.displayFreezeOptions(1, flaggedAccounts);
                     int chosenFlag = scanner.nextInt();
                     boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
