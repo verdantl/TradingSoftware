@@ -32,6 +32,9 @@ public class TradeManager {
     public void setCurrentUser(Trader currentUser){
         this.currentUser = currentUser;
         this.processedTrade = null;
+        if(currentUser.getNumIncompleteTransactions() >= maxIncomplete){
+            currentUser.setFlagged(true);
+        }
     }
 
     /**
@@ -42,6 +45,9 @@ public class TradeManager {
     public void setCurrentUser(Trader currentUser, Trade trade){
         this.currentUser = currentUser;
         this.processedTrade = trade;
+        if(currentUser.getNumIncompleteTransactions() >= maxIncomplete){
+            currentUser.setFlagged(true);
+        }
     }
 
     /** Request to permanently borrow an item from another user
@@ -339,8 +345,35 @@ public class TradeManager {
         limitOfTradesPerWeek = limit;
     }
 
-    private void autoFlag(){
-
+    /**Getter for the moreLendNeeded
+     * @return the number of more items the user should have lent than the user have borrowed,
+     * in order to make a non-lending trade
+     */
+    public int getMoreLendNeeded(){
+        return moreLendNeeded;
     }
+
+    /**Setter for the moreLendNeeded
+     * @param num the number of more items the user should have lent than the user have borrowed,
+     * in order to make a non-lending trade
+     */
+    public void setMoreLendNeeded(int num){
+        moreLendNeeded = num;
+    }
+
+    /**Getter for the maxIncomplete
+     * @return the maximum number of incomplete trades the user can have before his/her account is frozen
+     */
+    public int getMaxIncomplete(){
+        return maxIncomplete;
+    }
+
+    /**Setter for the maxIncomplete
+     * @param num the maximum number of incomplete trades the user can have before his/her account is frozen
+     */
+    public void setMaxIncomplete(int num){
+        maxIncomplete = num;
+    }
+
 
 }

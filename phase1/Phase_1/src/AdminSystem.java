@@ -8,10 +8,8 @@ public class AdminSystem extends UserSystem{
     private Admin currentAdmin;
     private AdminPrompts adminPrompts;
     private String fileName;
-    private int atLeast;
-    private int maxIncomplete;
-    private int maxWeekly;
     private TraderActions traderActions;
+    private TradeManager tradeManager;
     private Scanner scanner;
     private final String toMainMenu = "-1";
 
@@ -46,6 +44,7 @@ public class AdminSystem extends UserSystem{
         }
         adminActions = new AdminActions(admins, adminRequests);
         traderActions = new TraderActions(new ArrayList<>());
+        tradeManager = new TradeManager();
         //May need to change constructor
         adminPrompts = new AdminPrompts();
         //may want to change the following
@@ -119,7 +118,7 @@ public class AdminSystem extends UserSystem{
             switch (option) {
                 case 1:
                     ArrayList<Trader> flaggedAccounts =
-                            traderActions.getListOfFlaggedAccounts(atLeast, maxIncomplete, maxWeekly);
+                            traderActions.getListOfFlaggedAccounts();
                     adminPrompts.displayFreezeOptions(1, flaggedAccounts);
                     int chosenFlag = scanner.nextInt();
                     boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
@@ -239,6 +238,39 @@ public class AdminSystem extends UserSystem{
                 return approveOrReject();
         }
     }
+    
+    /**
+     * Display the menu that allows the admin to change the limit
+     */
+    public void changeLimit(){
+        adminPrompts.displayChangeLimitMenu();
+        int option = scanner.nextInt();
+        do {
+            switch(option){
+                case 1:
+                    adminPrompts.displayThresholdOption(tradeManager.getMaxIncomplete());
+                    int newMaxIncomplete = scanner.nextInt();
+                    tradeManager.setMaxIncomplete(newMaxIncomplete);
+                    break;
+                case 2:
+                    adminPrompts.displayThresholdOption(tradeManager.getLimitOfTradesPerWeek());
+                    int newLimitOfTradesPerWeek = scanner.nextInt();
+                    tradeManager.setLimitOfTradesPerWeek(newLimitOfTradesPerWeek);
+                    break;
+                case 3:
+                    adminPrompts.displayThresholdOption(tradeManager.getMoreLendNeeded());
+                    int newMoreLendNeeded = scanner.nextInt();
+                    tradeManager.setMoreLendNeeded(newMoreLendNeeded);
+                    break;
+                default:
+                    adminPrompts.commandNotRecognized();
+                    break;
+            }
+            adminPrompts.displayReturnToMainMenu();
+            option = scanner.nextInt();
+        }while(option != Integer.parseInt(toMainMenu));
+        setToMainMenu();
+    }
 
 
     /**
@@ -268,55 +300,6 @@ public class AdminSystem extends UserSystem{
             adminPrompts.displayReturnToMainMenu();
             option = scanner.next();
         }while(!option.equals(toMainMenu));
-    }
-
-    /**
-     * Change limit on transactions
-     */
-    public void changeLimit(){
-        //Option for main menu?
-        String option;
-        int succeed = -1;
-        do{
-            adminPrompts.displayChangeLimitMenu();
-            option = scanner.next();
-            switch (option){
-                case "1":
-                case "2":
-                case "3":
-                    succeed = setNewLimit(option);
-                    break;
-                default:
-                    adminPrompts.displayErrorMessage();
-            }
-            if (succeed != -1) {
-                adminPrompts.displaySuccessMessage(succeed, "limit");
-            }
-            adminPrompts.displayReturnToMainMenu();
-            option = scanner.next();
-
-        }while(!option.equals(toMainMenu));
-    }
-
-    private int setNewLimit(String option){
-        adminPrompts.displayEnterNewMessage("limit");
-        int newValue = scanner.nextInt();
-        if (newValue < 0) {
-            return 0;
-        }else {
-            switch (option) {
-                case "1":
-                    maxWeekly = newValue;
-                    break;
-                case "2":
-                    maxIncomplete = newValue;
-                    break;
-                case "3":
-                    atLeast = newValue;
-                    break;
-            }
-            return 1;
-        }
     }
 
     private int changeUsername(){

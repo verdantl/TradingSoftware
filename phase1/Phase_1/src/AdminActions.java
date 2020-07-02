@@ -62,6 +62,7 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(true);
+        trader.setFlagged(false);
         return true;
     }
 
@@ -146,6 +147,7 @@ public class AdminActions {
             return false;
         }
         trader.setFrozen(false);
+        trader.setFlagged(false);
         return true;
     }
 

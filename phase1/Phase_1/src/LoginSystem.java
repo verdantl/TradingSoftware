@@ -130,7 +130,7 @@ public class LoginSystem {
 
             } while (!input.equals("exit"));
         } catch (IOException e) {
-            java.lang.System.out.println("Something went wrong");
+            java.lang.System.out.println("Something went wrong.");
         }
     }
 

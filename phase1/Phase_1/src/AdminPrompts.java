@@ -246,9 +246,9 @@ public class AdminPrompts {
      * Display menu for change limit
      */
     public void displayChangeLimitMenu(){
-        System.out.println("Enter [1] to change Weekly Transaction limit,");
-        System.out.println("Enter [2] to change Maximum Incomplete Transaction limit, or");
-        System.out.print("Enter [3] to change atLeast value: ");
+        System.out.println("Enter [1] to change Maximum Incomplete Transaction limit");
+        System.out.println("Enter [2] to change Weekly Transaction limit");
+        System.out.print("Enter [3] to change atLeast lend value: ");
     }
 
     /**
@@ -293,6 +293,15 @@ public class AdminPrompts {
      */
     public void displayEnterNewMessage(String subject){
         System.out.print("Enter new"+subject+": ");
+    }
+
+
+    /**Display the menu when admin is changing the threshold
+     * @param currentValue the current value for the threshold
+     */
+    public void displayThresholdOption(int currentValue){
+        System.out.println("The current value is" + currentValue);
+        System.out.println("Please type a value you want to change:");
     }
 
 }
