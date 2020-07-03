@@ -38,12 +38,12 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     }
 
     private void init() {
-
+        running = true;
     }
 
     @Override
     public void run() {
-        running = true;
+        init();
         int option;
         while (running){
             // This is where the user  will be used, and where the appropriate methods will be called.

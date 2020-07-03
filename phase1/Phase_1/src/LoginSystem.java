@@ -98,7 +98,12 @@ public class LoginSystem {
                 prompts.resetPrompts();
                 System.out.println(prompts.next());
                 input = br.readLine();
-                int choice = Integer.parseInt(input);
+                int choice;
+                try {
+                    choice = Integer.parseInt(input);
+                } catch (NumberFormatException e){
+                    choice = 0;
+                }
                 switch (choice) {
                     case 1:
                         System.out.println(prompts.next());
