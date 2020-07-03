@@ -181,7 +181,7 @@ public class AdminActions {
      * @return Return true iff the items are all successfully approved. Otherwise, return false.
      */
     public boolean approveAllItems(Trader trader, boolean approved){
-        ArrayList<Item> proposedItems = trader.getProposedItems();
+        ArrayList<Item> proposedItems = (ArrayList<Item>) trader.getProposedItems().clone();
         for (Item item: proposedItems){
             approveItem(trader, item, approved);
         }

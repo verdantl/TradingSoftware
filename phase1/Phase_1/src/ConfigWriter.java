@@ -120,7 +120,7 @@ public class ConfigWriter {
     }
 
     private String formatTrader(Trader t){
-        String s = t.getUsername()+","+t.getPassword()+","+t.getDateCreated()+","+t.isFrozen();
+        String s = "Trader:\n"+t.getUsername()+","+t.getPassword()+","+t.getDateCreated()+","+t.isFrozen();
         s += ","+t.isFlagged()+","+t.isRequestToUnfreeze()+
                 ","+t.getNumLent()+","+t.getNumBorrowed()+"\n";
 
@@ -147,7 +147,6 @@ public class ConfigWriter {
                 s += formatItems(t.getWantToLend());
                 s += "ProposedItems:\n";
                 s += formatItems(t.getProposedItems());
-                s += "Trader:\n";
             }
             s += formatTrader(traders.get(traders.size()-1));
             s += "WantToLend:\n";
