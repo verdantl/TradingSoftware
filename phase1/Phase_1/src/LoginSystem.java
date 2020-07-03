@@ -126,7 +126,7 @@ public class LoginSystem {
                             if (trader != null) {
                                 traderSystem = new TraderSystem(trader, traderActions, itemManager, tradeManager, adminActions);
                                 traderSystem.run();
-                                configWriter.saveFile(this.path, traderActions, adminActions);
+                                configWriter.saveFile(this.path, traderActions, adminActions, tradeManager);
                             }
                             else{
                                 System.out.println(prompts.wrongPassword());

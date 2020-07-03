@@ -14,15 +14,10 @@ public class TradeManager {
     /**
      * constructor for the TradeManager
      */
-    public TradeManager(){
-        this.currentUser = null;
-        this.processedTrade = null;
-        //Default
-        limitOfTradesPerWeek = 3;
-        //Default
-        moreLendNeeded = 0;
-        //Default
-        maxIncomplete = 3;
+    public TradeManager(int limitOfTradesPerWeek, int moreLendNeeded, int maxIncomplete){
+        this.limitOfTradesPerWeek = limitOfTradesPerWeek;
+        this.moreLendNeeded = moreLendNeeded;
+        this.maxIncomplete = maxIncomplete;
     }
 
     /**

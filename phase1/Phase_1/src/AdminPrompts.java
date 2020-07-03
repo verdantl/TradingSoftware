@@ -10,7 +10,7 @@ public class AdminPrompts {
     private ArrayList<String> menuOptions;
     private AdminActions adminActions;
     private TraderActions traderActions;
-    private final String toMainMenu = "-1";
+    private final String toMainMenu = "0";
 
     /**
      * Constructor for the AdminPrompts class

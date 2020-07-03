@@ -25,7 +25,6 @@ public class ConfigReader {
         traders = new ArrayList<>();
         admins = new ArrayList<>();
         users = new ArrayList<>();
-        tradeManager = new TradeManager();
         items = new ArrayList<>();
         String[] input;
         String line = fileInput.readLine();
@@ -227,6 +226,18 @@ public class ConfigReader {
             users.addAll(admins);
             //TODO: check if we want to do this
             users.addAll(traders);
+
+         //add limits
+             line = fileInput.readLine();
+             while(!line.equals("end")){
+                 input = line.split(",");
+                 int limitOfTradesPerWeek = Integer.parseInt(input[1]);
+                 int moreLendNeeded = Integer.parseInt(input[3]);
+                 int maxIncomplete = Integer.parseInt(input[5]);
+                 tradeManager = new TradeManager(limitOfTradesPerWeek, moreLendNeeded, maxIncomplete);
+                 line = fileInput.readLine();
+             }
+
             }
             //This is as far as i got for reading in.
             /*
