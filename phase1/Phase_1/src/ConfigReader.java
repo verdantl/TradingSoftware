@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class ConfigReader {
@@ -136,7 +137,14 @@ public class ConfigReader {
         // 11isAgreed(for initiator), 12receiver's username, 13isConfirmed(for reciever),
         // 14numberOfEdits(for receiver), 15isAgreed(for receiver), 16TradeStatus.
         while(!line.equals("end")){
-
+        //Note that the format for reading in items is the following: If there is a oneway trade, the item is the receiver's item
+        //If its a twoway trade, the first item is item1 of the trade, and the second item is item2 of the trade.
+        // Therefore the format should be (oneway trade):
+        // Initiator's username, ItemName, Category, Description, rating, itemID, owner's Username
+        // TowWayTrade:
+        // Initiator's username, ItemName, Category, Description, rating, itemID, owner's Username
+        // Receiver's username, itemName, category, description, rating, itemID, owner's username
+        //ItemName, Category, description, rating, itemID, owner's username
             input = line.split(",");
             HashMap<String, Boolean> isConfirmed, isAgreed;
             HashMap<String, Integer> numberOfEdits;
@@ -186,7 +194,7 @@ public class ConfigReader {
                 if (isInItems(Integer.parseInt(input[6]))) {
                     item2 = getInItems(Integer.parseInt(input[6]));
                 } else {
-                    item2 = new Item(input[0], input[1], input[2], findTrader(input[5]), Integer.parseInt(input[3]), Integer.parseInt(input[4]));
+                    item2 = new Item(input[1], input[2], input[3], findTrader(input[6]), Integer.parseInt(input[4]), Integer.parseInt(input[5]));
                 }
                 twoWayTrade = new TwoWayTrade(initiator, receiver, location, tradeDate, isPermanent,
                         isCompleted, returnDate, isConfirmed, numberOfEdits, isAgreed, tradeStatus, item1, item2);
