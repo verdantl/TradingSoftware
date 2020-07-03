@@ -180,8 +180,8 @@ public class TraderActions {
     public ArrayList<Item> getMostRecentItems(Trader trader){
         ArrayList<Item> mostRecentThreeItems = new ArrayList<>();
         for (int i = trader.getTrades().size(); i>0; i--){
-            if(trader.getTrades().get(i).isCompleted()){
-                ArrayList<Item> temp = trader.getTrades().get(i).getItems();
+            if(trader.getTrades().get(i-1).isCompleted()){
+                ArrayList<Item> temp = trader.getTrades().get(i-1).getItems();
                 for(Item item: temp){
                     if(mostRecentThreeItems.size()<3){
                         mostRecentThreeItems.add(item);
