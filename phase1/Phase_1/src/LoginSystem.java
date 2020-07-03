@@ -77,10 +77,10 @@ public class LoginSystem {
         configReader = new ConfigReader(this.path);
         configWriter = new ConfigWriter();
 
-        traderActions = configReader.traderActions;
-        adminActions = configReader.adminActions;
-        itemManager = configReader.itemManager;
-        tradeManager = configReader.tradeManager;
+        traderActions = configReader.getTraderActions();
+        adminActions = configReader.getAdminActions();
+        itemManager = configReader.getItemManager();
+        tradeManager = configReader.getTradeManager();
 
         prompts = new LoginPrompts();
         signupSystem = new SignupSystem(traderActions, adminActions);
@@ -152,7 +152,6 @@ public class LoginSystem {
                                 continue;
                             }
                         }
-                        System.out.println(prompts.wrongPassword());
                     break;
                     case 2:
                         signupSystem.run();

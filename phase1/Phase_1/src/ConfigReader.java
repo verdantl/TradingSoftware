@@ -251,7 +251,6 @@ public class ConfigReader {
             * Admin2, Wordpass
             * end
             * */
-            //TODO Finish reading in admins and adminRequests.
 
 
 
@@ -330,6 +329,11 @@ public class ConfigReader {
 //        }
 //    }
 
+    /**
+     * given the trader's username returns that trader
+     * @param username the string representing the trader
+     * @return the Trader with the given username
+     */
     private Trader findTrader(String username){
         for (Trader t: traders){
             if(username.equals(t.getUsername())){
@@ -338,6 +342,13 @@ public class ConfigReader {
         }
         return null;
     }
+
+    /**
+     * given the trader and a item ID returns that item
+     * @param trader the Trader with the item
+     * @param ID the item's id
+     * @return the Item with the given id and owner
+     */
     private Item findItem(Trader trader, int ID){
         for(Item t: trader.getWantToLend()){
             if(t.getId() == ID){
@@ -347,6 +358,11 @@ public class ConfigReader {
         return null;
     }
 
+    /**
+     * checks to see if a given item id is in the config's items arraylist
+     * @param id the item's id
+     * @return a boolean of if the item is in the config's items arraylist
+     */
     private boolean isInItems(int id){
         for(Item i: items){
             if(i.getId()==id){
@@ -355,6 +371,12 @@ public class ConfigReader {
         }
         return false;
     }
+
+    /**
+     * gets the item in the  config's items arraylist with the given item id
+     * @param id the item's id
+     * @return the Item with the given id
+     */
     private Item getInItems(int id){
         for(Item i: items){
             if(i.getId()==id){
@@ -363,5 +385,38 @@ public class ConfigReader {
         }
         return null;
     }
+
+    /**
+     * a getter for traderActions
+     * @return the TraderActions class made by the config constructor
+     */
+    public TraderActions getTraderActions(){
+        return traderActions;
+    }
+
+    /**
+     * a getter for adminActions
+     * @return the AdminActions class made by the config constructor
+     */
+    public AdminActions getAdminActions(){
+        return adminActions;
+    }
+
+    /**
+     * a getter for itemManager
+     * @return the ItemManager class made by the config constructor
+     */
+    public ItemManager getItemManager(){
+        return itemManager;
+    }
+
+    /**
+     * a getter for tradeManager
+     * @return the TradeManager class made by the config constructor
+     */
+    public TradeManager getTradeManager(){
+        return tradeManager;
+    }
+
 }
 
