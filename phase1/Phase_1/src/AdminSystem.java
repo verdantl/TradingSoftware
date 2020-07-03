@@ -85,8 +85,8 @@ public class AdminSystem extends UserSystem {
      */
     @Override
     public void run() {
-        init();
         while (running) {
+            init();
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
@@ -307,7 +307,6 @@ public class AdminSystem extends UserSystem {
     }
     private void confirmApproval(boolean approved){
         adminPrompts.confirmApproval(approved);
-        adminApproval();
     }
 
     private Boolean approveOrReject(){
