@@ -221,14 +221,18 @@ public class AdminSystem extends UserSystem{
             else {
                 confirmApproval(adminActions.approveAllAdmins(approved));
             }
-        } else if (adminActions.getAdminRequests().toString().contains(option)) {
+        }
+        else if (adminActions.getAdminRequests().toString().contains(option)) {
+            //TODO FIX THIS PART AND THE APPROVAL FUNCTION IS DONE
+            String username = option.replaceFirst("(\\d+)(\\.{1})", "");
+            System.out.println(username);
             System.out.println("Processing");
             approved = approveOrReject();
             if (approved == null){
                 adminApproval();
             }
             else {
-                confirmApproval(adminActions.approveAdmin(option, approved));
+                confirmApproval(adminActions.approveAdmin(username, approved));
             }
         } else {
                 System.out.println("Input not recognized.");

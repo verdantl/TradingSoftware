@@ -103,6 +103,7 @@ public class ConfigWriter {
         }
         //TradeType,initator's username,receiver's username,location,the date the trade will occur,isPermanent,isCompleted,returnDate(note that if a trade is permanent the date here is recorded as 0000-00-00),Initiator's username,isConfirmed(for initiator),numberOfEdits(for initiator), isAgreed(for initiator),receiver's username,isConfirmed(for reciever),numberOfEdits(for receiver),isAgreed(for receiver),TradeStatus.
         s += t.getInitiator().getUsername()+","+t.getReceiver().getUsername()+","+t.getLocation()+","+t.getTradeDate().toString();
+        //TODO We need to add something that will catch if the return date is null or not
         s += ","+t.isPermanent()+","+t.isCompleted()+","+t.getReturnDate().toString();
         s += ","+t.getInitiator().getUsername()+","+t.getIsConfirmed(t.getInitiator())+","+
                 t.getNumberOfEdit(t.getInitiator())+","+t.getIsAgreed(t.getInitiator())+","+t.getReceiver().getUsername()+","+
