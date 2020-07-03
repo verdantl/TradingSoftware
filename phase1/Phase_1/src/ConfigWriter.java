@@ -3,6 +3,12 @@ import java.io.*;
 
 public class ConfigWriter {
 
+    /**
+     * Saves program data to fileName
+     * @param fileName
+     * @param ta
+     * @param aa
+     */
     public void saveFile(String fileName, TraderActions ta, AdminActions aa){
         BufferedWriter out;
         try {
