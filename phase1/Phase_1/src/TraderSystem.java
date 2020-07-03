@@ -219,7 +219,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 o = Integer.parseInt(sc.nextLine());
             }
             if (o != 0){
-                traderPrompts.viewItem(itemList.get(o));
+                traderPrompts.viewItem(itemList.get(o - 1));
                 o2 = Integer.parseInt(sc.nextLine());
                 if (o2 == 1){
                     traderActions.addToWantToBorrow(currentTrader, itemList.get(o));
@@ -230,7 +230,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     //If their account is frozen just don't do anything, the code should return to the browsing items loop
 
                     if (!currentTrader.isFrozen()){
-                        this.proposeTradeStart(itemList.get(o));
+                        this.proposeTradeStart(itemList.get(o - 1));
                     }
                     else{
                         traderPrompts.displayString("Your account is frozen. You cannot trade.");
