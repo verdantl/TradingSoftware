@@ -241,7 +241,7 @@ public class AdminPrompts {
      * @param traders an arraylist of traders
      */
     public void displayAllTraders(ArrayList<Trader> traders){
-        printAccounts(traders, false);
+        System.out.print(printAccounts(traders, false));
     }
 
     /**
