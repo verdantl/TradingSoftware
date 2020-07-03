@@ -152,7 +152,7 @@ public class LoginSystem {
                                 continue;
                             }
                         }
-                        System.out.println(prompts.wrongPassword());
+                        //System.out.println(prompts.wrongPassword());
                     break;
                     case 2:
                         signupSystem.run();
