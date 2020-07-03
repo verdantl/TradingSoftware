@@ -449,6 +449,7 @@ public class AdminSystem extends UserSystem {
         switch (choice){
             case "0":
                 setToMainMenu();
+                break;
             case "1":
                 viewTraders();
                 break;
