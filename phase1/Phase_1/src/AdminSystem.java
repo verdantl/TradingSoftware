@@ -423,11 +423,13 @@ public class AdminSystem extends UserSystem {
         switch (user){
             case "0":
                 setToMainMenu();
+                break;
             case "all":
                 adminPrompts.displayAllTraders(traderActions.getTraders());
                 break;
             default:
                 adminPrompts.displayTrader(findTrader(user));
+                break;
         }
         restartViewTraders();
     }
@@ -447,6 +449,7 @@ public class AdminSystem extends UserSystem {
         switch (choice){
             case "0":
                 setToMainMenu();
+                break;
             case "1":
                 viewTraders();
                 break;
