@@ -61,14 +61,14 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
             // Present the options to the user here.
 
-            //traderPrompts.displayMainMenu();
+            traderPrompts.displayMainMenu();
 
-            option = Integer.getInteger(sc.nextLine());
+            option = Integer.parseInt(sc.next());
 
             // Ensuring that the user chooses a valid option.
             while (!validOptions.contains(option)) {
                 traderPrompts.incorrectSelection();
-                option = Integer.getInteger(sc.nextLine());
+                option = Integer.parseInt(sc.next());
             }
 
             switch(option) {
@@ -132,28 +132,28 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         itemAttributes.add("category");
         itemAttributes.add("description");
 
-        System.out.println(temp.get(0));
-        System.out.println(temp.get(1));
-        String o = sc.nextLine();
+        traderPrompts.displayString(temp.get(0));
+        traderPrompts.displayString(temp.get(1));
+        String o = sc.next();
         if(o.equals("0")){
-            System.out.println("Returning to the Main Menu..");
+            traderPrompts.displayString("Returning to the Main Menu..");
         }
         else{
             int loopVar = 0;
             while(!o.equals("0") && loopVar <2){
                 itemAttributes.set(loopVar, o);
                 loopVar+=1;
-                System.out.println(temp.get(loopVar+2));
-                o = sc.nextLine();
+                traderPrompts.displayString(temp.get(loopVar+2));
+                o = sc.next();
             }
             if(!o.equals("0")){
                 rating = Integer.parseInt(o);
                 item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
                 traderActions.addProposedItem(currentTrader, item);
                 loopVar+=1;
-                System.out.println(temp.get(loopVar+2));
+                traderPrompts.displayString(temp.get(loopVar+2));
             }
-            System.out.println("Returning to the Main Menu...");
+            traderPrompts.displayString("Returning to the Main Menu...");
         }
 
     }
@@ -176,10 +176,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
             availableOptions.add(i+1);
         }
 
-        int o = Integer.getInteger(sc.nextLine());
+        int o = Integer.parseInt(sc.next());
         while(!availableOptions.contains(o)){
             traderPrompts.incorrectSelection();
-            o = Integer.getInteger(sc.nextLine());
+            o = Integer.parseInt(sc.next());
         }
 
         while(o!=0){
@@ -191,10 +191,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
             }
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.getInteger(sc.nextLine());
+                o = Integer.parseInt(sc.next());
             }
             traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1) );
-            System.out.println("Item was removed.");
+            traderPrompts.displayString("Item was removed.");
         }
     }
 
@@ -213,14 +213,14 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         int o2;
         do{
             traderPrompts.browseInventory(itemList);
-            o = Integer.getInteger(sc.nextLine());
+            o = Integer.parseInt(sc.next());
             while (!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.getInteger(sc.nextLine());
+                o = Integer.parseInt(sc.next());
             }
             if (o != 0){
                 traderPrompts.viewItem(itemList.get(o));
-                o2 = Integer.getInteger(sc.nextLine());
+                o2 = Integer.parseInt(sc.next());
                 if (o2 == 1){
                     traderActions.addToWantToBorrow(currentTrader, itemList.get(o));
                 }
@@ -265,11 +265,11 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         System.out.println("2. Initiate a two-way trade");
 
         int o1;
-        o1 = Integer.getInteger(sc.nextLine());
+        o1 = Integer.parseInt(sc.next());
 
         while(!availableOptionsOne.contains(o1)){
             traderPrompts.incorrectSelection();
-            o1 = Integer.getInteger(sc.nextLine());
+            o1 = Integer.parseInt(sc.next());
         }
 
         switch(o1){
@@ -300,11 +300,11 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         System.out.println("2. Make a permanent trade");
 
         int o2;
-        o2 = Integer.getInteger(sc.nextLine());
+        o2 = Integer.parseInt(sc.next());
 
         while(!availableOptionsTwo.contains(o2)){
             traderPrompts.incorrectSelection();
-            o2 = Integer.getInteger(sc.nextLine());
+            o2 = Integer.parseInt(sc.next());
         }
 
         switch(o2){
@@ -319,11 +319,11 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         }
 
         // TODO: Move this to TraderPrompts
-        System.out.println("Please enter a trade date in YYYY-MM-DD format:");
+        traderPrompts.displayString("Please enter a trade date in YYYY-MM-DD format:");
 
         String tradeDateStr;
         LocalDate tradeDate;
-        tradeDateStr = sc.nextLine();
+        tradeDateStr = sc.next();
 
         // Checking if the user inputted a valid trade date
         while(true){
@@ -334,21 +334,21 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 }
                 else {
                     // TODO: Move this to TraderPrompts
-                    System.out.println("Please enter a date after today.");
+                    traderPrompts.displayString("Please enter a date after today.");
                 }
             }
             catch (DateTimeParseException e){
                 // TODO: Move this to TraderPrompts
-                System.out.println("Please enter a string in the format YYYY-MM-DD.");
+                traderPrompts.displayString("Please enter a string in the format YYYY-MM-DD.");
             }
-            tradeDateStr = sc.nextLine();
+            tradeDateStr = sc.next();
         }
 
         // TODO: Move this to TraderPrompts
-        System.out.println("Please enter a location for the trade:");
+        traderPrompts.displayString("Please enter a location for the trade:");
 
         String location;
-        location = sc.nextLine();
+        location = sc.next();
 
         if (oneWay){
             proposeOneWay(item, temporary, tradeDate, location);
@@ -388,15 +388,15 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void proposeTwoWay(Item item, boolean temporary, LocalDate tradeDate, String location){
         // TODO: Move this to TraderPrompts
-        System.out.println("Here are the items you currently own. Please select one of them to trade with your trading " +
+        traderPrompts.displayString("Here are the items you currently own. Please select one of them to trade with your trading " +
                 "partner:");
         traderPrompts.displayTraderItemsTwo(currentTrader);
 
-        int itemChoice = Integer.parseInt(sc.nextLine());
+        int itemChoice = Integer.parseInt(sc.next());
 
         while(itemChoice >= currentTrader.getWantToLend().size()){
             traderPrompts.incorrectSelection();
-            itemChoice = Integer.parseInt(sc.nextLine());
+            itemChoice = Integer.parseInt(sc.next());
         }
 
         if(itemChoice == 0){
@@ -425,7 +425,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
         int o;
         do {
-            o = Integer.getInteger(sc.nextLine());
+            o = Integer.parseInt(sc.next());
             if(o != 0){
                 traderPrompts.incorrectSelection();
             }
@@ -439,7 +439,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         traderPrompts.viewListOfTradingPartners(traderActions.mostFrequentTradingPartners(currentTrader));
         int o;
         do {
-            o = Integer.getInteger(sc.nextLine());
+            o = Integer.parseInt(sc.next());
             if(o!=0){
                 traderPrompts.incorrectSelection();
             }
@@ -458,7 +458,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         currentTrader.setRequestToUnfreeze(true);
         int o;
         do {
-            o = Integer.getInteger(sc.nextLine());
+            o = Integer.parseInt(sc.next());
             if(o != 0){
                 traderPrompts.incorrectSelection();
             }
@@ -473,13 +473,13 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         traderPrompts.browseOnGoingTrades(onGoingTrades);
 
         // The user selects a trade from list
-        System.out.println("Type number listed with trade to select it: ");
+        traderPrompts.displayString("Type number listed with trade to select it: ");
         int select = sc.nextInt();
         tradeManager.setCurrentUser(currentTrader, onGoingTrades.get(select-1));
 
         // The user selects a option for the trade
         traderPrompts.displayTradeOptions();
-        System.out.println("Enter option:");
+        traderPrompts.displayString("Enter option:");
         int option = sc.nextInt();
         switch (option){
             case 0:
@@ -503,10 +503,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      * The user inputs a new date and location for selected trade
      */
     private String editMeeting(){
-        System.out.println("Enter new date and location for trade meeting");
+        traderPrompts.displayString("Enter new date and location for trade meeting");
         String newDateStr;
         LocalDate newDate;
-        newDateStr = sc.nextLine();
+        newDateStr = sc.next();
 
         // Check if the user inputted a valid trade date
         while(true){
@@ -516,17 +516,17 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     break;
                 }
                 else {
-                    System.out.println("Please enter a date after today.");
+                    traderPrompts.displayString("Please enter a date after today.");
                 }
             }
             catch (DateTimeParseException e){
-                System.out.println("Please enter a string in the format YYYY-MM-DD.");
+                traderPrompts.displayString("Please enter a string in the format YYYY-MM-DD.");
             }
-            newDateStr = sc.nextLine();
+            newDateStr = sc.next();
         }
         // User enters a new location
-        System.out.println("Enter location: ");
-        String location = sc.nextLine();
+        traderPrompts.displayString("Enter location: ");
+        String location = sc.next();
         return tradeManager.editTradeMeeting(newDate, location);
     }
 }
