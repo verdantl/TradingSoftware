@@ -60,16 +60,17 @@ public class TradeManager {
                                 LocalDate tradeDate, Item item){
         this.processedTrade = new OneWayTrade(currentUser, receiver, location,
                 tradeDate, item);
+        currentUser.addToTrades(processedTrade);
 
         if(!isValid()){
             currentUser.removeFromTrades(processedTrade);
             return 1;
         }else if(currentUser.getTrades().size() == 0
                 || (currentUser.getNumLent() - currentUser.getNumBorrowed()) < moreLendNeeded){
+            currentUser.removeFromTrades(processedTrade);
             return 2;
         }else{
             processedTrade.setPermanent(true);
-            currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
             return 3;
         }
@@ -87,17 +88,18 @@ public class TradeManager {
                                 LocalDate tradeDate, Item item, LocalDate returnDate){
         this.processedTrade = new OneWayTrade(currentUser, receiver, location,
                 tradeDate, item);
+        currentUser.addToTrades(processedTrade);
 
         if(!isValid()){
             currentUser.removeFromTrades(processedTrade);
             return 1;
         }else if(currentUser.getTrades().size() == 0
                 || (currentUser.getNumLent() - currentUser.getNumBorrowed()) < moreLendNeeded){
+            currentUser.removeFromTrades(processedTrade);
             return 2;
         }else{
             processedTrade.setReturnDate(returnDate);
             processedTrade.setPermanent(false);
-            currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
             return 3;
         }
@@ -149,10 +151,14 @@ public class TradeManager {
                                   LocalDate tradeDate, Item item1, Item item2){
         this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
                 location, item1, item2);
-        if(!isValid()){return 1;}
+        currentUser.addToTrades(processedTrade);
+
+        if(!isValid()){
+            currentUser.removeFromTrades(processedTrade);
+            return 1;
+        }
         else{
             processedTrade.setPermanent(true);
-            currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
             return 3;
         }
@@ -170,11 +176,14 @@ public class TradeManager {
                                   LocalDate tradeDate, Item item1, Item item2, LocalDate returnDate){
         this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
                 location, item1, item2);
-        if(!isValid()){return 1;}
+        currentUser.addToTrades(processedTrade);
+        if(!isValid()){
+            currentUser.removeFromTrades(processedTrade);
+            return 1;
+        }
         else{
             processedTrade.setPermanent(false);
             processedTrade.setReturnDate(returnDate);
-            currentUser.addToTrades(processedTrade);
             receiver.addToTrades(processedTrade);
             return 3;
         }
@@ -228,6 +237,11 @@ public class TradeManager {
      * @param location the new location for location of processed Trade
      */
     public String editTradeMeeting(LocalDate date, String location){
+        processedTrade.setTradeDate(date);
+        if(!isValid()){
+            return "You have reached the trade limit in that week, please choose another week";
+        }
+
         Trader receiver = processedTrade.getReceiver();
         if((processedTrade.getNumberOfEdit(currentUser) + processedTrade.getNumberOfEdit(receiver)) == 6
                 && (!processedTrade.getIsAgreed(currentUser) || !processedTrade.getIsAgreed(receiver))){
@@ -304,15 +318,10 @@ public class TradeManager {
         Trade trade = processedTrade;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int weekNumber = trade.getTradeDate().get(weekFields.weekOfWeekBasedYear());
-        //int week = trade.getTradeDate().getDayOfYear()/7;
         ArrayList<Trade> trades = trader.getTrades();
-        trader.addToTrades(trade);
         int i = Collections.binarySearch(trades, trade);
-        //what if the trades are at the same time
         int n = 0;
         for (int j = 0; n<limitOfTradesPerWeek; j++){
-            //add the check of if it's the same year
-            //if (i+j < trades.size() && trades.get(i+j).getTradeDate().getDayOfYear()/7 == week){
             if (i+j < trades.size() && trades.get(i+j).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
                     weekNumber && trade.getTradeDate().getYear() == trades.get(i+j).getTradeDate().getYear()){
                 n++;
@@ -322,7 +331,6 @@ public class TradeManager {
             }
         }
         for (int k = 1; n<limitOfTradesPerWeek; k++){
-            //if (i-k >= 0 && trades.get(i-k).getTradeDate().getDayOfYear()/7 == week){
             if (i-k >= 0 && trades.get(i-k).getTradeDate().get(weekFields.weekOfWeekBasedYear()) ==
                     weekNumber && trade.getTradeDate().getYear() == trades.get(i-k).getTradeDate().getYear()){
                 n++;
