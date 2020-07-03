@@ -62,6 +62,7 @@ public class TradeManager {
                 tradeDate, item);
 
         if(!isValid()){
+            currentUser.removeFromTrades(processedTrade);
             return 1;
         }else if(currentUser.getTrades().size() == 0
                 || (currentUser.getNumLent() - currentUser.getNumBorrowed()) < moreLendNeeded){
@@ -88,6 +89,7 @@ public class TradeManager {
                 tradeDate, item);
 
         if(!isValid()){
+            currentUser.removeFromTrades(processedTrade);
             return 1;
         }else if(currentUser.getTrades().size() == 0
                 || (currentUser.getNumLent() - currentUser.getNumBorrowed()) < moreLendNeeded){
@@ -304,6 +306,7 @@ public class TradeManager {
         int weekNumber = trade.getTradeDate().get(weekFields.weekOfWeekBasedYear());
         //int week = trade.getTradeDate().getDayOfYear()/7;
         ArrayList<Trade> trades = trader.getTrades();
+        trader.addToTrades(trade);
         int i = Collections.binarySearch(trades, trade);
         //what if the trades are at the same time
         int n = 0;
