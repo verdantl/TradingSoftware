@@ -142,7 +142,7 @@ public class LoginSystem {
                                     adminSystem = new AdminSystem(traderActions, adminActions, tradeManager);
                                     adminSystem.setCurrentAdmin(admin);
                                     adminSystem.run();
-                                    configWriter.saveFile(this.path, traderActions, adminActions);
+//                                    configWriter.saveFile(this.path, traderActions, adminActions);
                                 }
                                 else{
                                     System.out.println(prompts.wrongPassword());
@@ -152,6 +152,7 @@ public class LoginSystem {
                                 continue;
                             }
                         }
+                        System.out.println(prompts.wrongPassword());
                     break;
                     case 2:
                         signupSystem.run();

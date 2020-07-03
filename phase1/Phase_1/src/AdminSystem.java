@@ -76,7 +76,6 @@ public class AdminSystem extends UserSystem {
     private void init() {
         running = true;
         //this is a temporary holder
-        adminPrompts.displayOptions();
 
     }
 
@@ -85,8 +84,9 @@ public class AdminSystem extends UserSystem {
      */
     @Override
     public void run() {
+        init();
         while (running) {
-            init();
+            adminPrompts.displayOptions();
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
