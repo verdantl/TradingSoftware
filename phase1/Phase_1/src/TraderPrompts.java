@@ -19,7 +19,7 @@ public class TraderPrompts {
         mainMenuPrompts.add(" - Exit the program.");
         mainMenuPrompts.add(" - Propose an item you want to lend.");
         mainMenuPrompts.add(" - Remove an item from your wishlist.");
-        mainMenuPrompts.add(" - Browse your inventory.");
+        mainMenuPrompts.add(" - Browse all available items.");
         mainMenuPrompts.add(" - Browse your on-going trades.");
         mainMenuPrompts.add(" - Browse your three most recently traded items.");
         mainMenuPrompts.add(" - Browse your three most traded with trading partners.");
@@ -152,6 +152,7 @@ public class TraderPrompts {
 
             itemsList.append(".\n");
         }
+        System.out.println(itemsList);
     }
 
     /**
@@ -185,6 +186,7 @@ public class TraderPrompts {
 
             itemsList.append(".\n");
         }
+        System.out.println(itemsList);
     }
 
     /**
@@ -201,6 +203,7 @@ public class TraderPrompts {
             userList.append(" - Name:");
             userList.append(partners.get(i-1).getUsername());
         }
+        System.out.println(userList);
     }
 
     public void requestUnfreeze(){
@@ -215,9 +218,8 @@ public class TraderPrompts {
     public void browseOnGoingTrades(ArrayList<Trade> onGoingTrades){
         System.out.println("Here is a list of all of your on-going trades:");
         for (Trade i : onGoingTrades){
-            System.out.println(i.toString());
+            System.out.println((onGoingTrades.indexOf(i) + 1) + " - " + i.toString());
         }
-        // Insert your options here, Jinesh.
     }
 
     public void incorrectSelection(){

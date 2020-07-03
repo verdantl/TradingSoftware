@@ -76,7 +76,6 @@ public class AdminSystem extends UserSystem {
     private void init() {
         running = true;
         //this is a temporary holder
-        adminPrompts.displayOptions();
 
     }
 
@@ -87,6 +86,7 @@ public class AdminSystem extends UserSystem {
     public void run() {
         init();
         while (running) {
+            adminPrompts.displayOptions();
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
@@ -307,7 +307,6 @@ public class AdminSystem extends UserSystem {
     }
     private void confirmApproval(boolean approved){
         adminPrompts.confirmApproval(approved);
-        adminApproval();
     }
 
     private Boolean approveOrReject(){
@@ -424,11 +423,13 @@ public class AdminSystem extends UserSystem {
         switch (user){
             case "0":
                 setToMainMenu();
+                break;
             case "all":
                 adminPrompts.displayAllTraders(traderActions.getTraders());
                 break;
             default:
                 adminPrompts.displayTrader(findTrader(user));
+                break;
         }
         restartViewTraders();
     }
@@ -448,6 +449,7 @@ public class AdminSystem extends UserSystem {
         switch (choice){
             case "0":
                 setToMainMenu();
+                break;
             case "1":
                 viewTraders();
                 break;

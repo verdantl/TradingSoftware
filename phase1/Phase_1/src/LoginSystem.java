@@ -128,6 +128,9 @@ public class LoginSystem {
                                 traderSystem.run();
                                 configWriter.saveFile(this.path, traderActions, adminActions);
                             }
+                            else{
+                                System.out.println(prompts.wrongPassword());
+                            }
                         } else {
                             if (!adminActions.checkUsername(userInfo.get(0))) {
                                 System.out.println(prompts.next());
@@ -139,7 +142,10 @@ public class LoginSystem {
                                     adminSystem = new AdminSystem(traderActions, adminActions, tradeManager);
                                     adminSystem.setCurrentAdmin(admin);
                                     adminSystem.run();
-                                    configWriter.saveFile(this.path, traderActions, adminActions);
+//                                    configWriter.saveFile(this.path, traderActions, adminActions);
+                                }
+                                else{
+                                    System.out.println(prompts.wrongPassword());
                                 }
                             } else {
                                 System.out.println(prompts.wrongUser());

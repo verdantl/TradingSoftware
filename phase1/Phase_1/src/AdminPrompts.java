@@ -233,7 +233,7 @@ public class AdminPrompts {
      * Displays the options for restarting the trader menu
      */
     public void displayRestartTrader(){
-        System.out.println("Enter [0] to go back to main menu. Enter [1] to continue viewing traders.");
+        System.out.println("\nEnter [0] to go back to main menu. Enter [1] to continue viewing traders.");
     }
 
     /**
@@ -241,7 +241,7 @@ public class AdminPrompts {
      * @param traders an arraylist of traders
      */
     public void displayAllTraders(ArrayList<Trader> traders){
-        printAccounts(traders, false);
+        System.out.print(printAccounts(traders, false));
     }
 
     /**
@@ -314,7 +314,7 @@ public class AdminPrompts {
      * @param currentValue the current value for the threshold
      */
     public void displayThresholdOption(int currentValue){
-        System.out.println("The current value is" + currentValue);
+        System.out.println("The current value is " + currentValue);
         System.out.println("Please type a value you want to change:");
     }
 
