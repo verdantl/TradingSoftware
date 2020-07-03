@@ -18,6 +18,12 @@ public class TraderPrompts {
         mainMenuPrompts = new ArrayList<>();
         mainMenuPrompts.add(" - Exit the program.");
         mainMenuPrompts.add(" - Propose an item you want to lend.");
+        mainMenuPrompts.add(" - Remove an item from your wishlist.");
+        mainMenuPrompts.add(" - Browse your inventory.");
+        mainMenuPrompts.add(" - Browse your on-going trades.");
+        mainMenuPrompts.add(" - Browse your three most recently traded items.");
+        mainMenuPrompts.add(" - Browse your three most traded with trading partners.");
+        mainMenuPrompts.add(" - Request to unfreeze your account.");
     }
 
     /**
