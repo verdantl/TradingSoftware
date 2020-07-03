@@ -145,7 +145,7 @@ public class Item {
                 ",\nname='" + name + '\'' +
                 ",\ncategory='" + category + '\'' +
                 "'\ndescription='" + description + '\'' +
-                ",\nowner=" + owner +
+                ",\nowner=" + owner.getUsername() +
                 ",\nID=" + id;
     }
 }

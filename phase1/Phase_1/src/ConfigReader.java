@@ -29,13 +29,14 @@ public class ConfigReader {
         String[] input;
         String line = fileInput.readLine();
         while(!line.equals("end")) {
+            line = fileInput.readLine();
             //Example entry for a trader:
             //Format: username, password, creationDate, isFrozen, isFlagged,requestedtounfreeze,numlent,numborrowed
             //eg. Username,Password,12-12-2020,false,false,false,2,1
             //    Username2,Password2,12-12-2020,true,false,false,2,1
             input = line.split(",");
             //makes and adds the empty trader to traders
-            Trader tempTrader = new Trader(input[0], input[1], input[2], new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                Trader tempTrader = new Trader(input[0], input[1], input[2], new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                     new ArrayList<>(), new ArrayList<>(), Boolean.parseBoolean(input[3]), Boolean.parseBoolean(input[4]),Boolean.parseBoolean(input[5]),
                     Integer.parseInt(input[6]), Integer.parseInt(input[7]));
 
@@ -43,7 +44,8 @@ public class ConfigReader {
             //Entry format for trader's wantToLend:
             //itemName, category,description,rating, itemID
             line = fileInput.readLine();
-            if(line.equals("wantToLend:")){
+
+            if(line.equals("WantToLend:")){
                 line = fileInput.readLine();
                 Item tempItem;
                 while(!line.equals("ProposedItems:")){
@@ -56,7 +58,8 @@ public class ConfigReader {
                 //Goes through the trader's proposedItems. The entry format is:
                 //itemName, category,description,rating, itemID
                 line = fileInput.readLine();
-                while(!line.equals("Trader") && !line.equals("end")){
+
+                while(!line.equals("Trader:") && !line.equals("end")){
                     input = line.split(",");
                     tempItem = new Item(input[0], input[1], input[2], tempTrader, Integer.parseInt(input[3]), Integer.parseInt(input[4]));
                     tempTrader.addToProposedItems(tempItem);
@@ -84,6 +87,7 @@ public class ConfigReader {
         }
 
         line=fileInput.readLine();
+
         Trader tempTrader;
         Trader tempOwner;
         Item tempItem;
@@ -91,13 +95,16 @@ public class ConfigReader {
         //Entry format for this part is:
         //Users who's wishlist we want to add items to, item1's ID, item1's owner's username, item2's id, item2's user's username, ....
         if(line.equals("Wishlists:")){
+            line = fileInput.readLine();
             while(!line.equals("BorrowedItems:")){
                 input = line.split(",");
 
                 tempTrader = findTrader(input[0]);
                 for(int i = 1; i < input.length-1;i+=2) {
                     tempOwner = findTrader(input[i+1]);
+                    assert tempOwner != null;
                     tempItem = findItem(tempOwner, Integer.parseInt(input[i]));
+                    assert tempTrader != null;
                     tempTrader.addToWantToBorrow(tempItem);
                 }
                 line = fileInput.readLine();
@@ -114,6 +121,7 @@ public class ConfigReader {
             tempTrader = findTrader(input[0]);
             tempOwner = findTrader(input[6]);
             tempItem = new Item(input[1],input[2],input[3], tempOwner, Integer.parseInt(input[4]));
+            assert tempTrader != null;
             tempTrader.addToBorrowedItems(tempItem);
             items.add(tempItem);
             line = fileInput.readLine();
@@ -121,8 +129,14 @@ public class ConfigReader {
         line = fileInput.readLine();
         //This is the part we add in trades.
         //The entry format for trades would be the following:
-        //TradeType(OneWay or TwoWay), initator's username, receiver's username, location, the date the trade will occur, isPermanent, isCompleted, returnDate(note that if a trade is permanent the date here is recorded as 0000-00-00),Initiator's username, isConfirmed(for initiator), numberOfEdits(for initiator), isAgreed(for initiator), receiver's username, isConfirmed(for reciever), numberOfEdits(for receiver), isAgreed(for receiver), TradeStatus.
+        //0 TradeType(OneWay or TwoWay), 1initator's username, 2receiver's username, 3location,
+        // 4the date the trade will occur, 5isPermanent, 6isCompleted,
+        // 7returnDate(note that if a trade is permanent the date here is recorded as 0000-00-00),
+        // 8Initiator's username, 9isConfirmed(for initiator), 10numberOfEdits(for initiator),
+        // 11isAgreed(for initiator), 12receiver's username, 13isConfirmed(for reciever),
+        // 14numberOfEdits(for receiver), 15isAgreed(for receiver), 16TradeStatus.
         while(!line.equals("end")){
+
             input = line.split(",");
             HashMap<String, Boolean> isConfirmed, isAgreed;
             HashMap<String, Integer> numberOfEdits;
@@ -135,59 +149,62 @@ public class ConfigReader {
             boolean isPermanent = Boolean.parseBoolean(input[5]);
             boolean isCompleted = Boolean.parseBoolean(input[6]);
             LocalDate returnDate;
-            if(!input[7].equals("null")) {
+            if (!input[7].equals("null")) {
                 returnDate = LocalDate.parse(input[7]);
+            } else {
+                returnDate = LocalDate.parse("0000-01-01");
             }
-            else{
-                returnDate = LocalDate.parse("0000-00-00");
-            }
-            String tradeStatus = input[18];
+            String tradeStatus = input[16];
             isAgreed = new HashMap<>();
             numberOfEdits = new HashMap<>();
             //InitiatorUsername
-            isConfirmed.put(input[10], Boolean.parseBoolean(input[11]));
-            numberOfEdits.put(input[10], Integer.parseInt(input[12]));
-            isAgreed.put(input[10], Boolean.parseBoolean(input[13]));
+            isConfirmed.put(input[8], Boolean.parseBoolean(input[9]));
+            numberOfEdits.put(input[8], Integer.parseInt(input[10]));
+            isAgreed.put(input[8], Boolean.parseBoolean(input[11]));
             //ReceiverUsername
-            isConfirmed.put(input[14], Boolean.parseBoolean(input[15]));
-            numberOfEdits.put(input[14], Integer.parseInt(input[16]));
-            isAgreed.put(input[14], Boolean.parseBoolean(input[17]));
+            isConfirmed.put(input[12], Boolean.parseBoolean(input[13]));
+            numberOfEdits.put(input[12], Integer.parseInt(input[14]));
+            isAgreed.put(input[12], Boolean.parseBoolean(input[15]));
+
             Item item1;
             Item item2;
             OneWayTrade oneWayTrade;
             TwoWayTrade twoWayTrade;
             line = fileInput.readLine();
             input = line.split(",");
-            if(isInItems(Integer.parseInt(input[6]))){
-                item1 = getInItems(Integer.parseInt(input[6]));
+            if (isInItems(Integer.parseInt(input[5]))) {
+                item1 = getInItems(Integer.parseInt(input[5]));
+            } else {
+                item1 = new Item(input[1], input[2], input[3], findTrader(input[6]), Integer.parseInt(input[4]), Integer.parseInt(input[5]));
             }
-            else{
-                item1 = new Item(input[0], input[1], input[2], findTrader(input[5]), Integer.parseInt(input[3]), Integer.parseInt(input[4]));
-            }
-            if(tradeType.equals("OneWay")) {
+            if (tradeType.equals("OneWayTrade")) {
                 oneWayTrade = new OneWayTrade(initiator, receiver, location, tradeDate, isPermanent,
                         isCompleted, returnDate, isConfirmed, numberOfEdits, isAgreed, tradeStatus, item1);
+                assert initiator != null;
                 initiator.addToTrades(oneWayTrade);
+                assert receiver != null;
                 receiver.addToTrades(oneWayTrade);
-            }
-            else{
-                //TODO: note that this else chatches end so you mant need another if check
+            } else {
+                //TODO: note that this else catches end so you want need another if check
                 line = fileInput.readLine();
                 input = line.split(",");
-                if(isInItems(Integer.parseInt(input[6]))){
+                if (isInItems(Integer.parseInt(input[6]))) {
                     item2 = getInItems(Integer.parseInt(input[6]));
-                }
-                else{
-                    item2 = new Item(input[0], input[1], input[2], findTrader(input[5]), Integer.parseInt(input[3]), Integer.parseInt(input[4])) ;
+                } else {
+                    item2 = new Item(input[0], input[1], input[2], findTrader(input[5]), Integer.parseInt(input[3]), Integer.parseInt(input[4]));
                 }
                 twoWayTrade = new TwoWayTrade(initiator, receiver, location, tradeDate, isPermanent,
-                        isCompleted, returnDate, isConfirmed, numberOfEdits, isAgreed, tradeStatus, item1,item2);
+                        isCompleted, returnDate, isConfirmed, numberOfEdits, isAgreed, tradeStatus, item1, item2);
+                assert initiator != null;
                 initiator.addToTrades(twoWayTrade);
+                assert receiver != null;
                 receiver.addToTrades(twoWayTrade);
             }
+            line = fileInput.readLine();
+        }
 
-
-            //adds approved admins
+        traderActions = new TraderActions(this.traders);
+        //adds approved admins
             line = fileInput.readLine();
             while(!line.equals("end")) {
             input = line.split(",");
@@ -241,7 +258,7 @@ public class ConfigReader {
             //TODO Finish reading in admins and adminRequests.
 
 
-//        traderActions = new TraderActions(this.traders);
+
 //        //adds to users
 //        users.addAll(traders);
 //
@@ -294,7 +311,6 @@ public class ConfigReader {
 //            line = fileInput.readLine();
 //        }
 //        //adminActions = new AdminActions(admins, null, null);
-    }
 //
 //    private Trader getByUsername(String username){
 //        for (Trader t : traders){

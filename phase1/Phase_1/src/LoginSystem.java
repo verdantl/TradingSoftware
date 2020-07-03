@@ -15,7 +15,7 @@ import java.util.ArrayList;
     ItemManager itemManager;
     TradeManager tradeManager;
 
-    public LoginSystem(Configuration config){
+    public LoginSystem(Configuration.csv config){
         //Only login Prompts is instantiated here. The other prompts are instantiated within their respective controllers
         this.loginPrompts = new LoginPrompts();
 
@@ -46,13 +46,14 @@ import java.util.ArrayList;
         If u guys want now is the time to look at AdminSystem and TraderSystem's comments. But before that take a look at user System.
         Now once the admin system is finished, its run method ends and we continue
         We return to the login screen and the loop goes on UNTIL they decide to close the program.
-        If they choose to close the program, the RUN method of this program ends and we return to the gateway class where the Modified Configuration
+        If they choose to close the program, the RUN method of this program ends and we return to the gateway class where the Modified Configuration.csv
         file is written to a file, before the program ends. (Here im not sure if aliasing would allow that but i think it will)
         Note that UserSystem would only be a parent for AdminSystem and TraderSystem since we use different parameters for the SignUpSystem and
         LoginSystem*/
 
 
 public class LoginSystem {
+    ConfigReader configReader;
 
     TraderSystem traderSystem;
     AdminSystem adminSystem;
@@ -65,19 +66,30 @@ public class LoginSystem {
     TradeManager tradeManager;
 
     private ArrayList<String> userInfo;
-    private User user;
+    private Trader trader;
+    private Admin admin;
 
+
+    public LoginSystem(String path) throws IOException {
+        configReader = new ConfigReader(path);
+        traderActions = configReader.traderActions;
+        adminActions = configReader.adminActions;
+        itemManager = configReader.itemManager;
+        tradeManager = configReader.tradeManager;
+
+        prompts = new LoginPrompts();
+        signupSystem = new SignupSystem(traderActions, adminActions);
+    }
 
     /**
-     * runs the the progame from the login screen allowing the user to login, sign up, or exit.
+     * runs the the program from the login screen allowing the user to login, sign up, or exit.
      */
     public void run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(java.lang.System.in));
-        prompts = new LoginPrompts();
-        ArrayList<Trader> t = new ArrayList<>();
-        t.add(new Trader("Carl", "Wu"));
-        traderActions = new TraderActions(t);
-        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>());
+//        ArrayList<Trader> t = new ArrayList<>();
+//        t.add(new Trader("Carl", "Wu"));
+//        traderActions = new TraderActions(t);
+//        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>());
         try {
             System.out.println(prompts.openingMessage());
             String input;
@@ -100,8 +112,9 @@ public class LoginSystem {
                             input = br.readLine();
                             userInfo.add(input);
 
-                            user = traderActions.login(userInfo.get(0), userInfo.get(1));
-                            if (user != null) {
+                            trader = traderActions.login(userInfo.get(0), userInfo.get(1));
+                            if (trader != null) {
+                                traderSystem = new TraderSystem(trader, traderActions, itemManager, tradeManager, adminActions);
                                 traderSystem.run();
                             }
                         } else {
@@ -110,8 +123,10 @@ public class LoginSystem {
                                 input = br.readLine();
                                 userInfo.add(input);
 
-                                user = adminActions.checkCredentials(userInfo.get(0), userInfo.get(1));
-                                if (user != null) {
+                                admin = adminActions.checkCredentials(userInfo.get(0), userInfo.get(1));
+                                if (admin != null) {
+                                    adminSystem = new AdminSystem(traderActions, adminActions, tradeManager);
+                                    adminSystem.setCurrentAdmin(admin);
                                     adminSystem.run();
                                 }
                             } else {
@@ -122,8 +137,7 @@ public class LoginSystem {
                         System.out.println(prompts.wrongPassword());
                     break;
                     case 2:
-                        SignupSystem signup = new SignupSystem(traderActions, adminActions);
-                        signup.run();
+                        signupSystem.run();
                         break;
                     default:
                         if (!input.equals("exit")) {

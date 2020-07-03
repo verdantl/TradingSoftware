@@ -142,7 +142,7 @@ public class TraderActions {
         return true;
     }
 
-    public User login(String username, String password){
+    public Trader login(String username, String password){
         for(Trader t: traders){
             if (username.equals(t.getUsername())){
                 if (password.equals(t.getPassword())){
