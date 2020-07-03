@@ -111,11 +111,9 @@ public class ConfigWriter {
         s += t.getInitiator().getUsername()+","+t.getReceiver().getUsername()+","+t.getLocation()+","+t.getTradeDate().toString();
         //TODO We need to add something that will catch if the return date is null or not
         s += ","+t.isPermanent()+","+t.isCompleted()+",";
-        if (t.getReturnDate() == null){
-            s += "null";
-        }else{
-            s += t.returnDateString();
-        }
+
+        s += t.getReturnDate().toString();
+
         s += ","+t.getInitiator().getUsername()+","+t.getIsConfirmed(t.getInitiator())+","+
                 t.getNumberOfEdit(t.getInitiator())+","+t.getIsAgreed(t.getInitiator())+",";
         s += t.getReceiver().getUsername()+","+
