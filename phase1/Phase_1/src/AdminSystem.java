@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminSystem extends UserSystem{
+public class AdminSystem extends UserSystem {
 
     private AdminPrompts adminPrompts;
 
@@ -19,11 +19,12 @@ public class AdminSystem extends UserSystem{
 
     /**
      * Constructor for the admin system
+     *
      * @param traderActions the actions that a user can take involving traders
-     * @param adminActions the actions a user can take involving admins
-     * @param tradeManager the manager class for trades
+     * @param adminActions  the actions a user can take involving admins
+     * @param tradeManager  the manager class for trades
      */
-    public AdminSystem(TraderActions traderActions, AdminActions adminActions, TradeManager tradeManager){
+    public AdminSystem(TraderActions traderActions, AdminActions adminActions, TradeManager tradeManager) {
         adminPrompts = new AdminPrompts();
         //I think we should read in from files.
         this.traderActions = traderActions;
@@ -62,16 +63,17 @@ public class AdminSystem extends UserSystem{
 
     /**
      * Sets the current admin for the admin system
+     *
      * @param admin the current admin
      */
-    public void setCurrentAdmin(Admin admin){
+    public void setCurrentAdmin(Admin admin) {
         currentAdmin = admin;
     }
 
 
     //Everything below here right now is part of the loop
     //This method helps set up some stuff
-    private void init(){
+    private void init() {
         running = true;
         //this is a temporary holder
         adminPrompts.displayOptions();
@@ -84,9 +86,9 @@ public class AdminSystem extends UserSystem{
     @Override
     public void run() {
         init();
-        while (running){
+        while (running) {
             int option = scanner.nextInt();
-            switch (option){
+            switch (option) {
                 case 1:
                     adminApproval();
                     break;
@@ -115,7 +117,7 @@ public class AdminSystem extends UserSystem{
         }
     }
 
-    protected void update(){
+    protected void update() {
     }
 
     @Override
@@ -140,13 +142,13 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.displayFreezeOptions(1, flaggedAccounts);
                 option = scanner.next();
                 int chosenFlag;
-                try{
+                try {
                     chosenFlag = Integer.parseInt(option);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     adminPrompts.commandNotRecognized();
                     break;
                 }
-                if (chosenFlag == 0){
+                if (chosenFlag == 0) {
                     break;
                 }
                 boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
@@ -157,13 +159,13 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.displayFreezeOptions(2, frozenAccounts);
                 option = scanner.next();
                 int chosenFrozen;
-                try{
+                try {
                     chosenFrozen = Integer.parseInt(option);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     adminPrompts.commandNotRecognized();
                     break;
                 }
-                if (chosenFrozen == 0){
+                if (chosenFrozen == 0) {
                     break;
                 }
                 boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
@@ -173,13 +175,13 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.displayFreezeOptions(3, traders);
                 option = scanner.next();
                 int chosenAccount;
-                try{
+                try {
                     chosenAccount = Integer.parseInt(option);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     adminPrompts.commandNotRecognized();
                     break;
                 }
-                if (chosenAccount == 0){
+                if (chosenAccount == 0) {
                     break;
                 }
                 boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
@@ -193,14 +195,14 @@ public class AdminSystem extends UserSystem{
         freezeMenuHelper();
     }
 
-        private void freezeMenuHelper(){
-            adminPrompts.displayFreezeHelper(toMainMenu);
-            String option = scanner.next();
-            if (toMainMenu.equals(option)) {
-                setToMainMenu();
-            } else {
-                freezeMenu();
-            }
+    private void freezeMenuHelper() {
+        adminPrompts.displayFreezeHelper(toMainMenu);
+        String option = scanner.next();
+        if (toMainMenu.equals(option)) {
+            setToMainMenu();
+        } else {
+            freezeMenu();
+        }
 
         //I don't think these two lines are needed since dowhile loop is already taking care of that
 //        adminPrompts.setToMainMenu();
@@ -211,36 +213,61 @@ public class AdminSystem extends UserSystem{
      * Display the menu that allows the admin to approve items
      */
     public void approveItemsMenu() {
-        adminPrompts.displayItemMenu(traderActions.getTradersNeedingApproval());
-        String option = scanner.next();
-        do {
-            int traderID = Integer.parseInt(option);
-            if (option.equals(toMainMenu)){
+        while (true) {
+            adminPrompts.displayItemMenu(traderActions.getTradersNeedingApproval());
+            String option = scanner.next();
+            int traderID;
+            try {
+                traderID = Integer.parseInt(option);
+            } catch (NumberFormatException e) {
+                adminPrompts.commandNotRecognized();
                 break;
             }
-            else if (traderID <= traderActions.getTradersNeedingApproval().size()) {
+            if (traderID == 0) {
+                setToMainMenu();
+                break;
+            } else if (traderID <= traderActions.getTradersNeedingApproval().size()) {
                 Trader trader = traderActions.getTradersNeedingApproval().get(traderID - 1);
                 adminPrompts.displayTraderProposedItems(trader.getProposedItems());
-                option = scanner.next();
-                int itemID = Integer.parseInt(option);
-                Boolean approved = approveOrReject();
-                if (approved == null){
-                    break;
-                }
-                else if (option.equals("all")) {
-                    adminActions.approveAllItems(trader, approved);
-                }
-                else if (Integer.parseInt(option) <= trader.getProposedItems().size()){
-                    adminActions.approveItem(trader, trader.getProposedItems().get(itemID - 1), approved);
-                }
-                adminPrompts.confirmApproval(approved);
+                itemSubMenu(trader);
             } else {
                 adminPrompts.commandNotRecognized();
             }
-        }while(Integer.parseInt(option) != Integer.parseInt(toMainMenu));
-        setToMainMenu();
+        }
     }
 
+    private void itemSubMenu(Trader trader) {
+        String option = scanner.next();
+        Boolean approved;
+        if (option.equals("all")) {
+            approved = approveOrReject();
+            if (approved != null) {
+                adminActions.approveAllItems(trader, approved);
+                adminPrompts.confirmApproval(approved);
+            }
+        }
+        else {
+            int itemID;
+            try {
+                itemID = Integer.parseInt(option);
+            } catch (NumberFormatException e) {
+                adminPrompts.commandNotRecognized();
+                return;
+            }
+            if (itemID == 0) {
+                return;
+            } else if (Integer.parseInt(option) <= trader.getProposedItems().size()) {
+                approved = approveOrReject();
+                if (approved!= null) {
+                    adminActions.approveItem(trader, trader.getProposedItems().get(itemID - 1), approved);
+                    confirmApproval(approved);
+                }
+            } else {
+                adminPrompts.commandNotRecognized();
+                return;
+            }
+        }
+    }
     /**
      * Allows an admin to approve or reject administrative requests.
      */
