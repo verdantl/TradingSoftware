@@ -62,8 +62,8 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
     @Override
     public String toString() {
         return "TwoWayTrade{" +
-                "initiator='" + super.getInitiator().toString() + " item: " +item1.toString()+ '\'' +
-                ", receiver='" + super.getReceiver().toString() + " item: " +item2.toString()+  '\'' +
+                "initiator='" + super.getInitiator().getUsername() + " item: " + item1.toString()+ '\'' +
+                ", receiver='" + super.getReceiver().getUsername() + " item: " + item2.toString()+  '\'' +
                 ", tradeDate=" + super.getTradeDate().toString() + '\'' +
                 ", location=" + super.getLocation() + '\'' +
                 ", permanent=" + super.isPermanent() + '\'' +

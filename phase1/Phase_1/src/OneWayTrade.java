@@ -36,8 +36,8 @@ public class OneWayTrade extends Trade{
     @Override
     public String toString() {
         return "OneWayTrade{" +
-                "initiator='" + super.getInitiator().toString() + '\'' +
-                ", receiver='" + super.getReceiver().toString() + '\'' +
+                "initiator='" + super.getInitiator().getUsername() + '\'' +
+                ", receiver='" + super.getReceiver().getUsername() + '\'' +
                 ", tradedItem='" + item.toString() + '\''+
                 ", tradeDate=" + super.getTradeDate().toString() + '\'' +
                 ", location=" + super.getLocation()  + '\'' +

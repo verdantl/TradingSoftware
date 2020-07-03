@@ -19,8 +19,10 @@ public class AdminActions {
             if (requests.length() > 80){
                 requests.append("\n");
             }
-            requests.append(i + 1).append(". ");
             requests.append(adminRequests.get(i).getUsername());
+            if (i != adminRequests.size() - 1) {
+                requests.append(" | ");
+            }
         }
         return requests;
     }

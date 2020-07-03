@@ -126,41 +126,82 @@ public class AdminSystem extends UserSystem{
     /**
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
-    public void freezeMenu(){
+    public void freezeMenu() {
         ArrayList<Trader> traders = traderActions.getTraders();
         adminPrompts.displayFreezeMenu();
-        int option = scanner.nextInt();
-        do {
-            switch (option) {
-                case 1:
-                    ArrayList<Trader> flaggedAccounts =
-                            traderActions.getListOfFlaggedAccounts();
-                    adminPrompts.displayFreezeOptions(1, flaggedAccounts);
-                    int chosenFlag = scanner.nextInt();
-                    boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
-                    adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
-                    break;
-                case 2:
-                    ArrayList<Trader> frozenAccounts = traderActions.getAllRequestToUnfreeze();
-                    adminPrompts.displayFreezeOptions(2, frozenAccounts);
-                    int chosenFrozen = scanner.nextInt();
-                    boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
-                    adminPrompts.displayFreezeConfirmation(unfreeze, "Unfreeze");
-                    break;
-                case 3:
-                    adminPrompts.displayFreezeOptions(3, traders);
-                    int chosenAccount = scanner.nextInt();
-                    boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
-                    adminPrompts.displayFreezeConfirmation(freezeGeneral, "Freeze");
-                    break;
-                default:
+        String option = scanner.next();
+        switch (option) {
+            case "0":
+                setToMainMenu();
+                break;
+            case "1":
+                ArrayList<Trader> flaggedAccounts =
+                        traderActions.getListOfFlaggedAccounts();
+                adminPrompts.displayFreezeOptions(1, flaggedAccounts);
+                option = scanner.next();
+                int chosenFlag;
+                try{
+                    chosenFlag = Integer.parseInt(option);
+                } catch (NumberFormatException e){
                     adminPrompts.commandNotRecognized();
                     break;
+                }
+                if (chosenFlag == 0){
+                    break;
+                }
+                boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
+                adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
+                break;
+            case "2":
+                ArrayList<Trader> frozenAccounts = traderActions.getAllRequestToUnfreeze();
+                adminPrompts.displayFreezeOptions(2, frozenAccounts);
+                option = scanner.next();
+                int chosenFrozen;
+                try{
+                    chosenFrozen = Integer.parseInt(option);
+                } catch (NumberFormatException e){
+                    adminPrompts.commandNotRecognized();
+                    break;
+                }
+                if (chosenFrozen == 0){
+                    break;
+                }
+                boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
+                adminPrompts.displayFreezeConfirmation(unfreeze, "Unfreeze");
+                break;
+            case "3":
+                adminPrompts.displayFreezeOptions(3, traders);
+                option = scanner.next();
+                int chosenAccount;
+                try{
+                    chosenAccount = Integer.parseInt(option);
+                } catch (NumberFormatException e){
+                    adminPrompts.commandNotRecognized();
+                    break;
+                }
+                if (chosenAccount == 0){
+                    break;
+                }
+                boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
+                adminPrompts.displayFreezeConfirmation(freezeGeneral, "Freeze");
+                break;
+            default:
+                adminPrompts.commandNotRecognized();
+                break;
+
+        }
+        freezeMenuHelper();
+    }
+
+        private void freezeMenuHelper(){
+            adminPrompts.displayFreezeHelper(toMainMenu);
+            String option = scanner.next();
+            if (toMainMenu.equals(option)) {
+                setToMainMenu();
+            } else {
+                freezeMenu();
             }
-            System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter any number return to Freeze/" +
-                    "Unfreeze Menu: ");
-            option = scanner.nextInt();
-        } while(option != Integer.parseInt(toMainMenu));
+
         //I don't think these two lines are needed since dowhile loop is already taking care of that
 //        adminPrompts.setToMainMenu();
 //        setToMainMenu();
@@ -171,12 +212,11 @@ public class AdminSystem extends UserSystem{
      */
     public void approveItemsMenu() {
         adminPrompts.displayItemMenu(traderActions.getTradersNeedingApproval());
-        System.out.print("Enter the number beside trader that you want to view: ");
         String option = scanner.next();
         do {
             int traderID = Integer.parseInt(option);
             if (option.equals(toMainMenu)){
-                setToMainMenu();
+                break;
             }
             else if (traderID <= traderActions.getTradersNeedingApproval().size()) {
                 Trader trader = traderActions.getTradersNeedingApproval().get(traderID - 1);
@@ -197,8 +237,7 @@ public class AdminSystem extends UserSystem{
             } else {
                 adminPrompts.commandNotRecognized();
             }
-        }
-        while(Integer.parseInt(option) != Integer.parseInt(toMainMenu));
+        }while(Integer.parseInt(option) != Integer.parseInt(toMainMenu));
         setToMainMenu();
     }
 
@@ -224,22 +263,21 @@ public class AdminSystem extends UserSystem{
         }
         else if (adminActions.getAdminRequests().toString().contains(option)) {
             //TODO FIX THIS PART AND THE APPROVAL FUNCTION IS DONE
-            String username = option.replaceFirst("(\\d+)(\\.{1})", "");
-            System.out.println(username);
+            //            String username = option.replaceFirst("(\\d+)(\\.{1})", "");
+            System.out.println(option);
             System.out.println("Processing");
             approved = approveOrReject();
             if (approved == null){
                 adminApproval();
             }
             else {
-                confirmApproval(adminActions.approveAdmin(username, approved));
+                confirmApproval(adminActions.approveAdmin(option, approved));
             }
         } else {
                 System.out.println("Input not recognized.");
                 adminApproval();
         }
     }
-
     private void confirmApproval(boolean approved){
         adminPrompts.confirmApproval(approved);
         adminApproval();

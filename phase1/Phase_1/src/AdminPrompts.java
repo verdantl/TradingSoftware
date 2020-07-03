@@ -120,6 +120,15 @@ public class AdminPrompts {
         System.out.println("[3] View all the traders");
     }
 
+    /**
+     * Displays the message to the admin in the freeze menu to return to main menu
+     * @param mainMenu the main menu option from AdminSystem
+     */
+    public void displayFreezeHelper(String mainMenu){
+        System.out.println("Enter ["+mainMenu+"] to return to the main menu or enter any number return to Freeze/" +
+                "Unfreeze Menu: ");
+    }
+
 
     /**
      * Displays the account information of an arraylist of accounts passed in as a parameter
@@ -130,14 +139,17 @@ public class AdminPrompts {
         System.out.print(printAccounts(accounts, false));
         switch (i){
             case 1:
-                System.out.println("Here are all the flagged accounts, please enter the number of the account you " +
-                        "wish to freeze.");
+                System.out.println("Here are all the flagged accounts. Enter [0] to go back, or enter the number of the account you " +
+                        "wish to freeze:");
+                break;
             case 2:
-                System.out.println("Here are all the unfreeze requests, please enter the number of the account" +
+                System.out.println("Here are all the unfreeze requests. Enter [0] to go back, or enter the number of the account" +
                         " you wish to unfreeze:");
+                break;
             case 3:
-                System.out.println("Here are all the accounts, please enter the number of the account you wish " +
+                System.out.println("Here are all the accounts. Enter [0] to go back, or enter the number of the account you wish " +
                         "to freeze:");
+                break;
         }
     }
 
@@ -161,6 +173,7 @@ public class AdminPrompts {
     public void displayItemMenu(ArrayList<Trader> traders){
         System.out.println("Here is the list of all traders awaiting item approval:");
         System.out.print(printAccounts(traders, true));
+        System.out.println("\nEnter the number beside trader that you want to view: ");
     }
 
     /**
@@ -169,7 +182,7 @@ public class AdminPrompts {
      */
     public void displayTraderProposedItems(ArrayList<Item> items){
         System.out.print(printItems(items));
-        System.out.println("Please enter the number for the item you wish to approve. Enter" +
+        System.out.println("\nPlease enter the number for the item you wish to approve. Enter" +
                 " [all] to approve all items.");
     }
 
@@ -178,11 +191,12 @@ public class AdminPrompts {
      * @param requests a StringBuilder representing a list of all the admin requests currently in the system
      */
     public void displayAdminApproval(StringBuilder requests){
-        String message = "Enter the username of the administrator you wish to approve/reject, or enter" +
+        String message = "This is the list of admins awaiting approval:";
+        String instructions = "Enter the username of the administrator you wish to approve/reject, or enter" +
                 "[all] to approve/reject all of the admin requests. Enter [0] to go back to the main menu.";
-        System.out.println(requests);
         System.out.println(message);
-
+        System.out.println(requests);
+        System.out.println(instructions);
     }
 
     /**
