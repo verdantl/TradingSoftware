@@ -14,7 +14,7 @@ public class AdminSystem extends UserSystem{
     private Admin currentAdmin;
     private Scanner scanner;
 
-    private final String toMainMenu = "-1";
+    private final String toMainMenu = "0";
 
 
     /**
@@ -175,7 +175,10 @@ public class AdminSystem extends UserSystem{
         String option = scanner.next();
         do {
             int traderID = Integer.parseInt(option);
-            if (traderID <= traderActions.getTradersNeedingApproval().size()) {
+            if (option.equals(toMainMenu)){
+                setToMainMenu();
+            }
+            else if (traderID <= traderActions.getTradersNeedingApproval().size()) {
                 Trader trader = traderActions.getTradersNeedingApproval().get(traderID - 1);
                 adminPrompts.displayTraderProposedItems(trader.getProposedItems());
                 option = scanner.next();
@@ -205,27 +208,31 @@ public class AdminSystem extends UserSystem{
     public void adminApproval(){
         adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
         String option = scanner.next();
-        Boolean approved = approveOrReject();
-        boolean loop = false;
-        if (approved == null){
-            loop = true;
+        Boolean approved;
+        if (option.equals(toMainMenu)){
+            setToMainMenu();
         }
-        else {
-            if (option.equals("0")) {
-                setToMainMenu();
-            } else if (option.equals("all")) {
-                System.out.println("Processing...");
-                confirmApproval(adminActions.approveAllAdmins(approved));
-            } else if (adminActions.getAdminRequests().toString().contains(option)) {
-                System.out.println("Processing");
-                confirmApproval(adminActions.approveAdmin(option, approved));
-            } else {
-                loop = true;
-                System.out.println("Input not recognized.");
+        else if (option.equals("all")) {
+            System.out.println("Processing...");
+            approved = approveOrReject();
+            if (approved == null){
+                adminApproval();
             }
-        }
-        if (loop){
-            adminApproval();
+            else {
+                confirmApproval(adminActions.approveAllAdmins(approved));
+            }
+        } else if (adminActions.getAdminRequests().toString().contains(option)) {
+            System.out.println("Processing");
+            approved = approveOrReject();
+            if (approved == null){
+                adminApproval();
+            }
+            else {
+                confirmApproval(adminActions.approveAdmin(option, approved));
+            }
+        } else {
+                System.out.println("Input not recognized.");
+                adminApproval();
         }
     }
 
@@ -242,7 +249,7 @@ public class AdminSystem extends UserSystem{
                 return true;
             case "2":
                 return false;
-            case "3":
+            case "0":
                 //The method returns a boolean so
                 //for now, I changed it to false (Junhee)
                 //I made it a reference type Boolean which has null, the null case
@@ -387,7 +394,7 @@ public class AdminSystem extends UserSystem{
      */
     public void setToMainMenu(){
         adminPrompts.setToMainMenu();
-//        stop();
-//        init();
+        stop();
+        init();
     }
 }

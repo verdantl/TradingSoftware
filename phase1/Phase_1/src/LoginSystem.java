@@ -53,7 +53,9 @@ import java.util.ArrayList;
 
 
 public class LoginSystem {
+    String path;
     ConfigReader configReader;
+    ConfigWriter configWriter;
 
     TraderSystem traderSystem;
     AdminSystem adminSystem;
@@ -71,7 +73,10 @@ public class LoginSystem {
 
 
     public LoginSystem(String path) throws IOException {
-        configReader = new ConfigReader(path);
+        this.path = path;
+        configReader = new ConfigReader(this.path);
+        configWriter = new ConfigWriter();
+
         traderActions = configReader.traderActions;
         adminActions = configReader.adminActions;
         itemManager = configReader.itemManager;
@@ -121,6 +126,7 @@ public class LoginSystem {
                             if (trader != null) {
                                 traderSystem = new TraderSystem(trader, traderActions, itemManager, tradeManager, adminActions);
                                 traderSystem.run();
+                                configWriter.saveFile(this.path, traderActions, adminActions);
                             }
                         } else {
                             if (!adminActions.checkUsername(userInfo.get(0))) {
@@ -133,6 +139,7 @@ public class LoginSystem {
                                     adminSystem = new AdminSystem(traderActions, adminActions, tradeManager);
                                     adminSystem.setCurrentAdmin(admin);
                                     adminSystem.run();
+                                    configWriter.saveFile(this.path, traderActions, adminActions);
                                 }
                             } else {
                                 System.out.println(prompts.wrongUser());

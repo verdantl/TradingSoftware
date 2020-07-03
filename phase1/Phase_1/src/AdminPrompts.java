@@ -69,7 +69,7 @@ public class AdminPrompts {
     public void displayOptions(){
         StringBuilder selections = new StringBuilder();
         for (int i = 0; i < menuOptions.size(); i++){
-            selections.append(i);
+            selections.append(i + 1);
             selections.append(". ");
             selections.append(menuOptions.get(i));
             selections.append(' ');
