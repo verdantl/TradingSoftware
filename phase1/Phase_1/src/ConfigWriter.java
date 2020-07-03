@@ -147,7 +147,6 @@ public class ConfigWriter {
                 s += formatItems(t.getWantToLend());
                 s += "ProposedItems:\n";
                 s += formatItems(t.getProposedItems());
-                s += "Trader:\n";
             }
             s += formatTrader(traders.get(traders.size()-1));
             s += "WantToLend:\n";
