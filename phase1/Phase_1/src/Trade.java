@@ -67,12 +67,7 @@ public abstract class Trade implements Comparable<Trade> {
         this.tradeDate = tradeDate;
         this.isPermanent = isPermanent;
         this.isCompleted = isCompleted;
-        if(returnDate.getYear()==0){
-            this.returnDate = null;
-        }
-        else{
-            this.returnDate = returnDate;
-        }
+        this.returnDate = returnDate;
         this.isConfirmed = isConfirmed;
         this.numberOfEdits = numberOfEdits;
         this.isAgreed = isAgreed;
@@ -93,7 +88,7 @@ public abstract class Trade implements Comparable<Trade> {
                 ", permanent=" + isPermanent + '\'' +
                 ", isCompleted=" + isCompleted + '\'' +
                 ", tradeStatus=" + tradeStatus + '\'' +
-                ", returnDate=" + returnDate.toString() + '\'' +
+                ", returnDate=" + returnDateString() + '\'' +
                 '}';
     }
 
@@ -111,6 +106,19 @@ public abstract class Trade implements Comparable<Trade> {
         }
         else {
             return 0;
+        }
+    }
+
+    /**
+     * Processes the string version of the return date
+     * @return a string version of the return date
+     */
+    public String returnDateString(){
+        if (returnDate.getYear() == 0){
+            return "No Return Date";
+        }
+        else{
+            return returnDate.toString();
         }
     }
 

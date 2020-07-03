@@ -44,7 +44,7 @@ public class OneWayTrade extends Trade{
                 ", permanent=" + super.isPermanent() + '\'' +
                 ", isCompleted=" + super.isCompleted()  + '\'' +
                 ", tradeStatus=" + super.getTradeStatus() + '\'' +
-                ", returnDate=" + super.getReturnDate().toString()+ '\'' +
+                ", returnDate=" + super.returnDateString() + '\'' +
                 '}';
     }
 

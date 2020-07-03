@@ -69,7 +69,7 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
                 ", permanent=" + super.isPermanent() + '\'' +
                 ", tradeStatus=" + super.getTradeStatus()+ '\'' +
                 ", isCompleted=" + super.isCompleted() + '\'' +
-                ", returnDate=" + super.getReturnDate().toString() + '\'' +
+                ", returnDate=" + super.returnDateString() + '\'' +
                 "} ";
     }
 
