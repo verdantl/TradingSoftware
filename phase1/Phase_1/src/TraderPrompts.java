@@ -152,6 +152,7 @@ public class TraderPrompts {
 
             itemsList.append(".\n");
         }
+        System.out.println(itemsList);
     }
 
     /**
@@ -185,6 +186,7 @@ public class TraderPrompts {
 
             itemsList.append(".\n");
         }
+        System.out.println(itemsList);
     }
 
     /**
@@ -201,6 +203,7 @@ public class TraderPrompts {
             userList.append(" - Name:");
             userList.append(partners.get(i-1).getUsername());
         }
+        System.out.println(userList);
     }
 
     public void requestUnfreeze(){
