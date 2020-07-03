@@ -148,12 +148,7 @@ public class ConfigReader {
             LocalDate tradeDate = LocalDate.parse(input[4]);
             boolean isPermanent = Boolean.parseBoolean(input[5]);
             boolean isCompleted = Boolean.parseBoolean(input[6]);
-            LocalDate returnDate;
-            if (!input[7].equals("null")) {
-                returnDate = LocalDate.parse(input[7]);
-            } else {
-                returnDate = LocalDate.parse("0000-01-01");
-            }
+            LocalDate returnDate = LocalDate.parse(input[7]);
             String tradeStatus = input[16];
             isAgreed = new HashMap<>();
             numberOfEdits = new HashMap<>();
@@ -249,6 +244,7 @@ public class ConfigReader {
             * user1,Car,Transportation,it’s a car,9,6,user2
             * Trades:
             * OneWayTrade,user2,user1,Canada,2020-07-01,false,false, null,user2,false,1,true,user1,false,1,true,On-Going
+            *
             * end
             * Admin, Wordpass, 02-07-2020
             * end
