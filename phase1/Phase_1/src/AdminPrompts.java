@@ -125,7 +125,7 @@ public class AdminPrompts {
      * @param mainMenu the main menu option from AdminSystem
      */
     public void displayFreezeHelper(String mainMenu){
-        System.out.println("Enter ["+mainMenu+"] to return to the main menu or enter any number return to Freeze/" +
+        System.out.println("Enter ["+mainMenu+"] to return to the main menu or enter any number to return to Freeze/" +
                 "Unfreeze Menu: ");
     }
 

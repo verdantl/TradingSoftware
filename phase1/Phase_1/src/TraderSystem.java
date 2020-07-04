@@ -494,6 +494,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void requestUnfreeze(){
         //This is where i do the unfreeze thing but im not sure how we do that yet.
+        if(!currentTrader.isFrozen()){
+            traderPrompts.displayString("Only frozen users can request to unfreeze.");
+            return;
+        }
         traderPrompts.requestUnfreeze();
         if(currentTrader.isRequestToUnfreeze()){
             traderPrompts.displayString("You have already requested to unfreeze your account. Please wait.");

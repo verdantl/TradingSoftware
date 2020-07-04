@@ -11,13 +11,17 @@ WantToLend:
 Laptop,Electronics,It’s a laptop,5,4
 Wallet,Accessories,It’s a Wallet,9,5
 ProposedItems:
+Trader:
+yyluio,12345,2020-07-04,false,false,false,0,0
+WantToLend:
+ProposedItems:
 end
 Wishlists:
 user1,4,user2
 user2,2,user1
 end
 BorrowedItems:
-user1,Car,Transportation,it’s a car,9,6,user2
+user1,Car,Transportation,it’s a car,9,5,user2
 Trades:
 OneWayTrade,user2,user1,Canada,2020-07-01,false,false,0000-01-01,user2,false,1,true,user1,false,1,true,On-Going
 user1,Car,Transportation,it’s a car,9,6,user2
