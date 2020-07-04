@@ -18,7 +18,8 @@ public class TraderPrompts {
         mainMenuPrompts = new ArrayList<>();
         mainMenuPrompts.add(" - Exit the program.");
         mainMenuPrompts.add(" - Propose an item you want to lend.");
-        mainMenuPrompts.add(" - Remove an item from your wishlist.");
+        mainMenuPrompts.add(" - Remove items from your lending list.");
+        mainMenuPrompts.add(" - Remove items from your wishlist");
         mainMenuPrompts.add(" - Browse all available items.");
         mainMenuPrompts.add(" - Browse your on-going trades.");
         mainMenuPrompts.add(" - Browse your three most recently traded items.");
@@ -93,13 +94,40 @@ public class TraderPrompts {
 
             items.append(". Rating: ");
             items.append(trader.getWantToLend().get(i-1).getQualityRating());
-
-            items.append(".\n");
+            if(i!=trader.getWantToLend().size()) {
+                items.append(".\n");
+            }
         }
 
         System.out.println(items);
     }
 
+    /**
+     * Method that prints the give list of items.
+     * @param itemsList The list of items to be printed.
+     */
+    public void displayItems(ArrayList<Item> itemsList){
+        StringBuilder items = new StringBuilder();
+        for(int i=1; i< itemsList.size()+1; i++) {
+            items.append(i);
+
+            items.append(" - Name: ");
+            items.append(itemsList.get(i - 1).getName());
+
+            items.append(". Category: ");
+            items.append(itemsList.get(i - 1).getCategory());
+
+            items.append(". Description: ");
+            items.append(itemsList.get(i - 1).getDescription());
+
+            items.append(". Rating: ");
+            items.append(itemsList.get(i - 1).getQualityRating());
+            if (i != itemsList.size()) {
+                items.append(".\n");
+            }
+        }
+        System.out.println(items);
+    }
     /**
      * This is the same method as the one above, but doesn't include the first two sysout statements to allow for more
      * versatility. This should be replaced before the final submission.

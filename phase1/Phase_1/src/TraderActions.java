@@ -71,6 +71,19 @@ public class TraderActions {
         }
         return availableItems;
     }
+    /**
+     * Returns a list of items that are available for borrowing/trading for the given trader
+     * @return The list of items that are available for borrowing for the given trader.
+     */
+    public ArrayList<Item> browseItems(Trader trader){
+        ArrayList<Item> availableItems = new ArrayList<>();
+        for(Trader t: traders){
+            if(!t.getUsername().equals(trader.getUsername())){
+                availableItems.addAll(t.getWantToLend());
+            }
+        }
+        return availableItems;
+    }
 
     /**
      * Adds the given trader to the list of traders.

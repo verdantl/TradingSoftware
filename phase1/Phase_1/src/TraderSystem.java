@@ -53,7 +53,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
             // Setting up the options available to the user by default.
             // There will always be an option 0 to exit the program
-            int numOptions = 8;
+            int numOptions = 9;
             ArrayList<Integer> validOptions = new ArrayList<>();
             for (int i = 0; i < numOptions + 1; i++) {
                 validOptions.add(i);
@@ -85,22 +85,27 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     removeItemFromWantToLend();
                     break;
                 case 3:
+                    //Remove an item from their wishlist
+                    removeItemFromWishlist();
+                    break;
+
+                case 4:
                     // Browse their inventory
                     browseInventoryOfItems();
                     break;
-                case 4:
+                case 5:
                     // Browse list of On-Going trades
                     browseOnGoingTrades();
                     break;
-                case 5:
+                case 6:
                     // Check most recent 3 items the user has traded
                     showThreeMostRecentItemsTraded();
                     break;
-                case 6:
+                case 7:
                     // Get the user's top 3 trading partners
                     showTopThreeTradingPartners();
                     break;
-                case 7:
+                case 8:
                     // Request to unfreeze the account
                     requestUnfreeze();
                     break;
@@ -175,26 +180,64 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         for (int i=0; i < currentTrader.getWantToLend().size(); i++){
             availableOptions.add(i+1);
         }
-
+        traderPrompts.displayTraderItems(currentTrader);
         int o = Integer.parseInt(sc.nextLine());
-        while(!availableOptions.contains(o)){
-            traderPrompts.incorrectSelection();
-            o = Integer.parseInt(sc.nextLine());
-        }
-
+//        while(!availableOptions.contains(o)){
+//            traderPrompts.incorrectSelection();
+//            o = Integer.parseInt(sc.nextLine());
+//        }
         while(o!=0){
-            traderPrompts.displayTraderItems(currentTrader);
-            availableOptions = new ArrayList<>();
-            availableOptions.add(0);
-            for (int i=0; i < currentTrader.getWantToLend().size(); i++){
-                availableOptions.add(i+1);
-            }
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
                 o = Integer.parseInt(sc.nextLine());
             }
-            traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1) );
+            if(o==0){
+                System.out.println("break");
+                break;
+            }
+            traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1));
             traderPrompts.displayString("Item was removed.");
+            availableOptions.remove(availableOptions.size()-1);
+            traderPrompts.displayTraderItems(currentTrader);
+            o = Integer.parseInt(sc.nextLine());
+
+        }
+    }
+
+    /**
+     * Method that removes the chosen items from currentTrader's wishlist.
+     */
+    private void removeItemFromWishlist(){
+        ArrayList<Integer> availableOptions = new ArrayList<>();
+        availableOptions.add(0);
+        for (int i=0; i < currentTrader.getWantToBorrow().size(); i++){
+            availableOptions.add(i+1);
+        }
+        //System.out.println(currentTrader.getWantToBorrow());
+        traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
+        traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
+        traderPrompts.displayItems(currentTrader.getWantToBorrow());
+        int o = Integer.parseInt(sc.nextLine());
+//        while(!availableOptions.contains(o)){
+//            traderPrompts.incorrectSelection();
+//            o = Integer.parseInt(sc.nextLine());
+//        }
+        while(o!=0){
+            while(!availableOptions.contains(o)){
+                traderPrompts.incorrectSelection();
+                o = Integer.parseInt(sc.nextLine());
+            }
+            if(o==0){
+                //System.out.println("break");
+                break;
+            }
+            traderActions.removeFromWantToBorrow(currentTrader, currentTrader.getWantToBorrow().get(o-1));
+            traderPrompts.displayString("Item was removed.");
+            availableOptions.remove(availableOptions.size()-1);
+            traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
+            traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
+            traderPrompts.displayItems(currentTrader.getWantToBorrow());
+            o = Integer.parseInt(sc.nextLine());
         }
     }
 
@@ -203,7 +246,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void browseInventoryOfItems(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
-        ArrayList<Item> itemList = traderActions.browseItems();
+        ArrayList<Item> itemList = traderActions.browseItems(currentTrader);
 
         availableOptions.add(0);
         for (int i = 0; i < itemList.size(); i++){
