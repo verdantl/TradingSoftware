@@ -9,13 +9,16 @@ public class ConfigWriter {
      * @param ta TraderActions Data that need to be stored
      * @param aa AdminActions Data that need to be stored
      */
-    public void saveFile(String fileName, TraderActions ta, AdminActions aa){
+    public void saveFile(String fileName, TraderActions ta, AdminActions aa, TradeManager tm){
         BufferedWriter out;
         try {
             out = new BufferedWriter(new FileWriter(fileName));
             List<Trader> traders = ta.getTraders();
             List<Admin> admins = aa.getAdmins();
             List<Admin> reqAdmins = aa.getListOfRequestedAdmins();
+            int limitOfTradesPerWeek = tm.getLimitOfTradesPerWeek();
+            int moreLendNeeded = tm.getMoreLendNeeded();
+            int maxIncomplete = tm.getMaxIncomplete();
 
             out.write(formatListOfTraders(traders));
             out.newLine();
@@ -29,6 +32,8 @@ public class ConfigWriter {
             out.write("end");
             out.newLine();
             out.write(formatAdmins(admins, reqAdmins));
+            out.newLine();
+            out.write(formatLimits(limitOfTradesPerWeek, moreLendNeeded, maxIncomplete));
 
             out.close();
 
@@ -250,5 +255,12 @@ public class ConfigWriter {
         s += name+","+formatItem(i)+","+i.getOwner().getUsername();
         return s;
     }
+
+    private String formatLimits(int limitOfTradesPerWeek, int moreLendNeeded, int maxIncomplete){
+        return "limitOfTradesPerWeek," + limitOfTradesPerWeek + "moreLendNeeded,"
+                + moreLendNeeded + "maxIncomplete," + maxIncomplete + "\n" + "end";
+    }
+
+
 
 }

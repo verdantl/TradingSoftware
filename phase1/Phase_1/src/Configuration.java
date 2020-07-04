@@ -17,7 +17,8 @@ public class Configuration {
 
 
     public Configuration(ArrayList<Trader> traders, ArrayList<Admin> admins,
-                         ArrayList<Admin> adminRequests){
+                         ArrayList<Admin> adminRequests, int limitOfTradesPerWeek,
+                         int moreLendNeeded, int maxIncomplete){
         this.traders = traders;
         this.admins = admins;
         this.users = new ArrayList<>();
@@ -27,7 +28,7 @@ public class Configuration {
         traderActions = new TraderActions(this.traders);
         adminActions = new AdminActions(this.admins, adminRequests);
         itemManager = new ItemManager();
-        tradeManager = new TradeManager();
+        tradeManager = new TradeManager(limitOfTradesPerWeek, moreLendNeeded, maxIncomplete);
     }
 
     public ArrayList<Trader> getTraders() {
