@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
@@ -25,11 +26,9 @@ public class ConfigWriter {
             out.write("Wishlists:");
             out.newLine();
             out.write(formatListOfItems(traders));
-            out.newLine();
             out.write("Trades:");
             out.newLine();
             out.write(formatListOfTrades(traders));
-            out.write("end");
             out.newLine();
             out.write(formatAdmins(admins, reqAdmins));
             out.newLine();
@@ -111,11 +110,11 @@ public class ConfigWriter {
         String s = "";
         if(t instanceof OneWayTrade){
             s += "OneWayTrade"+","+formatTradeInfo(t);
-            s += "\n"+formatBorrowedItem(((OneWayTrade) t).getItem(), t.getInitiator().getUsername());
+            s += "\n"+formatBorrowedItem(((OneWayTrade) t).getItem(), t.getReceiver().getUsername());
         }else{
             s += "TwoWayTrade"+","+formatTradeInfo(t);
-            s += "\n"+formatBorrowedItem(t.getItems().get(0), t.getInitiator().getUsername());
-            s += "\n"+formatBorrowedItem(t.getItems().get(1), t.getInitiator().getUsername());
+            s += "\n"+formatBorrowedItem(t.getItems().get(0), t.getReceiver().getUsername());
+            s += "\n"+formatBorrowedItem(t.getItems().get(1), t.getReceiver().getUsername());
 
         }
         return s;
@@ -196,16 +195,24 @@ public class ConfigWriter {
         for(Trader t: traders){
             s += formatBorrowedItems(t.getBorrowedItems(), t.getUsername());
         }
-        s += "end";
 
         return s;
     }
 
     private String formatListOfTrades(List<Trader> traders){
         String s = "";
+        List<Trade> trades = new ArrayList<>();
+
+
         for(Trader t: traders){
-            s += formatTrades(t.getTrades());
+            List<Trade> userTrades = t.getTrades();
+            for (Trade tr: userTrades){
+                if (!trades.contains(tr)){
+                    trades.add(tr);
+                }
+            }
         }
+        s += formatTrades(trades);
         s += "end";
         return s;
     }
@@ -257,8 +264,8 @@ public class ConfigWriter {
     }
 
     private String formatLimits(int limitOfTradesPerWeek, int moreLendNeeded, int maxIncomplete){
-        return "limitOfTradesPerWeek," + limitOfTradesPerWeek + "moreLendNeeded,"
-                + moreLendNeeded + "maxIncomplete," + maxIncomplete + "\n" + "end";
+        return "limitOfTradesPerWeek," + limitOfTradesPerWeek + ",moreLendNeeded,"
+                + moreLendNeeded + ",maxIncomplete," + maxIncomplete + "\n" + "end";
     }
 
 
