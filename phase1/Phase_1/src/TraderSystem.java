@@ -523,8 +523,8 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         // The user selects a trade from list
         int select;
         do {
-            traderPrompts.displayString("Type number listed with trade to select it: ");
-            select = sc.nextInt();
+            traderPrompts.displayString("Type number listed with trade to select it:");
+            select = Integer.parseInt(sc.nextLine());
             // If user enters number greater than number of trades or less than or equal to 0
             // display incorrect selection prompt and ask to enter again
             if (select > onGoingTrades.size() || select <= 0){
@@ -536,7 +536,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         // The user selects a option for the trade
         traderPrompts.displayTradeOptions();
         traderPrompts.displayString("Enter option:");
-        int option = sc.nextInt();
+        int option = Integer.parseInt(sc.nextLine());
         switch (option){
             case 0:
                 traderPrompts.returnToMain();
@@ -560,6 +560,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private String editMeeting(){
         traderPrompts.displayString("Enter new date and location for trade meeting");
+        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
         String newDateStr;
         LocalDate newDate;
         newDateStr = sc.nextLine();
@@ -576,12 +577,12 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 }
             }
             catch (DateTimeParseException e){
-                traderPrompts.displayString("Please enter a string in the format YYYY-MM-DD.");
+                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
             }
             newDateStr = sc.nextLine();
         }
         // User enters a new location
-        traderPrompts.displayString("Enter location: ");
+        traderPrompts.displayString("Enter location:");
         String location = sc.nextLine();
         return tradeManager.editTradeMeeting(newDate, location);
     }

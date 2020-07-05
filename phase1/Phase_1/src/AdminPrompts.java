@@ -75,7 +75,7 @@ public class AdminPrompts {
             selections.append(' ');
         }
         String instruction = "Please enter the number of the option " +
-                "you would like to select.";
+                "you would like to select. Enter [0] at any point to return to this menu.";
         System.out.println(instruction);
         System.out.println(selections);
     }
@@ -269,7 +269,7 @@ public class AdminPrompts {
      * Display menu for change username/password
      */
     public void displayChangeUserInfoMenu(){
-        System.out.println("Enter [1] to change username");
+        System.out.println("Enter [1] to change username.");
         System.out.print("Enter [2] to change password: ");
     }
 
@@ -277,7 +277,7 @@ public class AdminPrompts {
      * Display return to main menu message
      */
     public void displayReturnToMainMenu(){
-        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to" +
+        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to the " +
                 "previous menu: ");
     }
 
@@ -306,7 +306,7 @@ public class AdminPrompts {
      * Display a message that prompts user to enter
      */
     public void displayEnterNewMessage(String subject){
-        System.out.print("Enter new"+subject+": ");
+        System.out.print("Enter new "+subject+": ");
     }
 
 

@@ -67,8 +67,6 @@ public class LoginSystem {
     ItemManager itemManager;
     TradeManager tradeManager;
 
-    private ArrayList<String> userInfo;
-    private Trader trader;
     private Admin admin;
 
 
@@ -91,15 +89,11 @@ public class LoginSystem {
      */
     public void run() {
         BufferedReader br = new BufferedReader(new InputStreamReader(java.lang.System.in));
-//        ArrayList<Trader> t = new ArrayList<>();
-//        t.add(new Trader("Carl", "Wu"));
-//        traderActions = new TraderActions(t);
-//        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>());
         try {
             System.out.println(prompts.openingMessage());
             String input;
             do {
-                userInfo = new ArrayList<>();
+                ArrayList<String> userInfo = new ArrayList<>();
                 prompts.resetPrompts();
                 System.out.println(prompts.next());
                 input = br.readLine();
@@ -122,7 +116,7 @@ public class LoginSystem {
                             input = br.readLine();
                             userInfo.add(input);
 
-                            trader = traderActions.login(userInfo.get(0), userInfo.get(1));
+                            Trader trader = traderActions.login(userInfo.get(0), userInfo.get(1));
                             if (trader != null) {
                                 traderSystem = new TraderSystem(trader, traderActions, itemManager, tradeManager, adminActions);
                                 traderSystem.run();
@@ -152,7 +146,7 @@ public class LoginSystem {
                                 continue;
                             }
                         }
-                    break;
+                        break;
                     case 2:
                         signupSystem.run();
                         break;
