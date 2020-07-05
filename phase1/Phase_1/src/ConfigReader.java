@@ -202,6 +202,9 @@ public class ConfigReader {
                 assert receiver != null;
                 receiver.addToTrades(twoWayTrade);
             }
+            Collections.sort(initiator.getTrades());
+            Collections.sort(receiver.getTrades());
+
             line = fileInput.readLine();
         }
 
