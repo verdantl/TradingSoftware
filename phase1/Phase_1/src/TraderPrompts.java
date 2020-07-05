@@ -18,8 +18,8 @@ public class TraderPrompts {
         mainMenuPrompts = new ArrayList<>();
         mainMenuPrompts.add(" - Exit the program.");
         mainMenuPrompts.add(" - Propose an item you want to lend.");
-        mainMenuPrompts.add(" - Remove items from your lending list.");
-        mainMenuPrompts.add(" - Remove items from your wishlist");
+        mainMenuPrompts.add(" - View/remove items from your lending list.");
+        mainMenuPrompts.add(" - View/remove items from your wishlist");
         mainMenuPrompts.add(" - Browse all available items.");
         mainMenuPrompts.add(" - Browse your on-going trades.");
         mainMenuPrompts.add(" - Browse your three most recently traded items.");
@@ -190,7 +190,7 @@ public class TraderPrompts {
      * @param item The item whose details we wish to view
      */
     public void viewItem(Item item){
-        System.out.println(item);
+        System.out.println("Name: "+ item.getName()+ " | Category: "+ item.getCategory()+ " | Description: " + item.getDescription() + " | Rating: "+ item.getQualityRating());
         System.out.println("Type 1 if you want to add this item to your wishlist.");
         System.out.println("Type 2 if you want to propose a trade.");
         System.out.println("Type any other number to browsing items.");

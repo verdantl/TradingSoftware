@@ -265,7 +265,13 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 traderPrompts.viewItem(itemList.get(o - 1));
                 o2 = Integer.parseInt(sc.nextLine());
                 if (o2 == 1){
-                    traderActions.addToWantToBorrow(currentTrader, itemList.get(o));
+                    if(!currentTrader.getWantToBorrow().contains(itemList.get(o-1))) {
+                        traderActions.addToWantToBorrow(currentTrader, itemList.get(o-1));
+                        traderPrompts.displayString("Item was added to your wishlist.");
+                    }
+                    else{
+                        traderPrompts.displayString("Item is already in your wishlist.");
+                    }
                 }
                 else if (o2 == 2){
                     //THIS IS WHERE YOU DO THE PROPOSE TRADE CODE
