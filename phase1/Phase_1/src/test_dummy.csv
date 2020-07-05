@@ -17,7 +17,7 @@ user1,4,user2
 user2,2,user1
 end
 BorrowedItems:
-user1,Car,Transportation,it’s a car,9,6,user2
+user1,Car,Transportation,it’s a car,9,5,user2
 Trades:
 OneWayTrade,user2,user1,Canada,2020-07-01,false,false,0000-01-01,user2,false,1,true,user1,false,1,true,On-Going
 user1,Car,Transportation,it’s a car,9,6,user2
@@ -26,5 +26,5 @@ Admin,Wordpass,2020-07-02
 end
 Admin2,Wordpass
 end
-limitOfTradesPerWeek,3,moreLendNeeded,0,maxIncomplete,3
+limitOfTradesPerWeek,3,moreLendNeeded,2,maxIncomplete,3
 end

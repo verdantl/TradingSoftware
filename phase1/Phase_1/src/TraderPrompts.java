@@ -18,7 +18,8 @@ public class TraderPrompts {
         mainMenuPrompts = new ArrayList<>();
         mainMenuPrompts.add(" - Exit the program.");
         mainMenuPrompts.add(" - Propose an item you want to lend.");
-        mainMenuPrompts.add(" - Remove an item from your wishlist.");
+        mainMenuPrompts.add(" - View/remove items from your lending list.");
+        mainMenuPrompts.add(" - View/remove items from your wishlist");
         mainMenuPrompts.add(" - Browse all available items.");
         mainMenuPrompts.add(" - Browse your on-going trades.");
         mainMenuPrompts.add(" - Browse your three most recently traded items.");
@@ -93,10 +94,10 @@ public class TraderPrompts {
 
             items.append(". Rating: ");
             items.append(trader.getWantToLend().get(i-1).getQualityRating());
-
-            items.append(".\n");
+            if(i!=trader.getWantToLend().size()) {
+                items.append(".\n");
+            }
         }
-
         System.out.println(items);
     }
 
@@ -123,8 +124,37 @@ public class TraderPrompts {
 
             items.append(". Rating: ");
             items.append(trader.getWantToLend().get(i-1).getQualityRating());
+            if(i!=trader.getWantToLend().size()) {
+                items.append(".\n");
+            }
+        }
 
-            items.append(".\n");
+        System.out.println(items);
+    }
+
+    /**
+     * Method that prints the give list of items.
+     * @param itemsList The list of items to be printed.
+     */
+    public void displayItems(ArrayList<Item> itemsList){
+        StringBuilder items = new StringBuilder();
+        for(int i=1; i< itemsList.size()+1; i++) {
+            items.append(i);
+
+            items.append(" - Name: ");
+            items.append(itemsList.get(i - 1).getName());
+
+            items.append(". Category: ");
+            items.append(itemsList.get(i - 1).getCategory());
+
+            items.append(". Description: ");
+            items.append(itemsList.get(i - 1).getDescription());
+
+            items.append(". Rating: ");
+            items.append(itemsList.get(i - 1).getQualityRating());
+            if (i != itemsList.size()) {
+                items.append(".\n");
+            }
         }
 
         System.out.println(items);
@@ -160,7 +190,7 @@ public class TraderPrompts {
      * @param item The item whose details we wish to view
      */
     public void viewItem(Item item){
-        System.out.println(item);
+        System.out.println("Name: "+ item.getName()+ " | Category: "+ item.getCategory()+ " | Description: " + item.getDescription() + " | Rating: "+ item.getQualityRating());
         System.out.println("Type 1 if you want to add this item to your wishlist.");
         System.out.println("Type 2 if you want to propose a trade.");
         System.out.println("Type any other number to browsing items.");
@@ -217,9 +247,52 @@ public class TraderPrompts {
      */
     public void browseOnGoingTrades(ArrayList<Trade> onGoingTrades){
         System.out.println("Here is a list of all of your on-going trades:");
-        for (Trade i : onGoingTrades){
-            System.out.println((onGoingTrades.indexOf(i) + 1) + " - " + i.toString());
+        System.out.println("Type [0] if you would like to return to the main menu.");
+
+        StringBuilder trades = new StringBuilder();
+        int i = 1;
+        for(Trade trade : onGoingTrades){
+            trades.append(i);
+
+            trades.append(" - Initiator: ");
+            trades.append(trade.getInitiator().getUsername());
+
+            trades.append(". Receiver: ");
+            trades.append(trade.getReceiver().getUsername());
+
+            trades.append(". Item[s]: ");
+            trades.append(trade.getItems().get(0).getName());
+
+            if(trade.getItems().size() == 2){
+                trades.append(", ");
+                trades.append(trade.getItems().get(1).getName());
+            }
+
+            trades.append(". Is Permanent: ");
+            trades.append(trade.isPermanent());
+
+            trades.append(". Trade date: ");
+            trades.append(trade.getTradeDate().toString());
+
+            if(!trade.isPermanent()){
+                trades.append(". Return date:");
+                trades.append(trade.getReturnDate().toString());
+            }
+
+            trades.append(". Location: ");
+            trades.append(trade.getLocation());
+
+            trades.append(". Number of edits from initiator: ");
+            trades.append(trade.getNumberOfEdit(trade.getInitiator()));
+
+            trades.append(". Number of edits from receiver: ");
+            trades.append(trade.getNumberOfEdit(trade.getReceiver()));
+
+            trades.append(" tradeStatus: ");
+            trades.append(trade.getTradeStatus());
         }
+
+        System.out.println(trades);
     }
 
     public void incorrectSelection(){

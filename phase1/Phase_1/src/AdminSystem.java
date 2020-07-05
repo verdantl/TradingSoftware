@@ -257,7 +257,6 @@ public class AdminSystem extends UserSystem {
                 return;
             }
             if (itemID == 0) {
-                return;
             } else if (Integer.parseInt(option) <= trader.getProposedItems().size()) {
                 approved = approveOrReject();
                 if (approved!= null) {
@@ -266,7 +265,6 @@ public class AdminSystem extends UserSystem {
                 }
             } else {
                 adminPrompts.commandNotRecognized();
-                return;
             }
         }
     }
@@ -347,19 +345,23 @@ public class AdminSystem extends UserSystem {
                     adminPrompts.displayThresholdOption(tradeManager.getMaxIncomplete());
                     int newMaxIncomplete = scanner.nextInt();
                     tradeManager.setMaxIncomplete(newMaxIncomplete);
+                    adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "2":
                     adminPrompts.displayThresholdOption(tradeManager.getLimitOfTradesPerWeek());
                     int newLimitOfTradesPerWeek = scanner.nextInt();
                     tradeManager.setLimitOfTradesPerWeek(newLimitOfTradesPerWeek);
+                    adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "3":
                     adminPrompts.displayThresholdOption(tradeManager.getMoreLendNeeded());
                     int newMoreLendNeeded = scanner.nextInt();
                     tradeManager.setMoreLendNeeded(newMoreLendNeeded);
+                    adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 default:
                     adminPrompts.commandNotRecognized();
+                    adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
             }
             //to remove dummy line
