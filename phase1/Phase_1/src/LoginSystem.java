@@ -149,6 +149,7 @@ public class LoginSystem {
                         break;
                     case 2:
                         signupSystem.run();
+                        configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
                         break;
                     default:
                         if (!input.equals("exit")) {
