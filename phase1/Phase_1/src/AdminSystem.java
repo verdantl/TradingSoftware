@@ -88,6 +88,8 @@ public class AdminSystem extends UserSystem {
         while (running) {
             adminPrompts.displayOptions();
             int option = scanner.nextInt();
+            //to remove dummy line
+            //scanner.nextLine();
             switch (option) {
                 case 1:
                     adminApproval();
@@ -332,23 +334,26 @@ public class AdminSystem extends UserSystem {
      * Display the menu that allows the admin to change the limit
      */
     public void changeLimit(){
-        adminPrompts.displayChangeLimitMenu();
-        int option = scanner.nextInt();
+        //to remove dummy line
+        String option;
+        scanner.nextLine();
         do {
+            adminPrompts.displayChangeLimitMenu();
+            option = scanner.nextLine();
             switch(option){
-                case 1:
+                case "1":
                     adminPrompts.displayThresholdOption(tradeManager.getMaxIncomplete());
                     int newMaxIncomplete = scanner.nextInt();
                     tradeManager.setMaxIncomplete(newMaxIncomplete);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
-                case 2:
+                case "2":
                     adminPrompts.displayThresholdOption(tradeManager.getLimitOfTradesPerWeek());
                     int newLimitOfTradesPerWeek = scanner.nextInt();
                     tradeManager.setLimitOfTradesPerWeek(newLimitOfTradesPerWeek);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
-                case 3:
+                case "3":
                     adminPrompts.displayThresholdOption(tradeManager.getMoreLendNeeded());
                     int newMoreLendNeeded = scanner.nextInt();
                     tradeManager.setMoreLendNeeded(newMoreLendNeeded);
@@ -359,10 +364,12 @@ public class AdminSystem extends UserSystem {
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
             }
+            //to remove dummy line
+            scanner.nextLine();
             adminPrompts.displayReturnToMainMenu();
-            option = scanner.nextInt();
-        }while(option != Integer.parseInt(toMainMenu));
-        setToMainMenu();
+            option = scanner.nextLine();
+        }while(!option.equals(toMainMenu));
+        //setToMainMenu();
     }
 
 
