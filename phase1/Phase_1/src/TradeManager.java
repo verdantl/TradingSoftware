@@ -250,7 +250,7 @@ public class TradeManager {
             processedTrade.setTradeDate(date);
             processedTrade.setLocation(location);
             processedTrade.increaseNumberOfEdits(currentUser);
-            processedTrade.setIsAgreed(currentUser, false);
+            processedTrade.setIsAgreed(processedTrade.getInitiator(), false);
             processedTrade.setIsAgreed(receiver, false);
             processedTrade.setTradeStatus("In Progress");
             return "New date and location has been set. Trade in Progress";
@@ -267,7 +267,8 @@ public class TradeManager {
         }else{
             processedTrade.setIsAgreed(currentUser, true);
 
-            if(processedTrade.getIsAgreed(currentUser) && processedTrade.getIsAgreed(processedTrade.getReceiver())){
+            if(processedTrade.getIsAgreed(processedTrade.getInitiator())
+                    && processedTrade.getIsAgreed(processedTrade.getReceiver())){
                 processedTrade.setTradeStatus("Agreed, Waiting to be confirmed");
                 return "Both users have agreed to the trade meeting. Waiting to be confirmed.";
             }
@@ -284,7 +285,8 @@ public class TradeManager {
             return "Request refused: The trade should not take place before the meeting";
         }else{
             processedTrade.setIsConfirmed(currentUser,true);
-            if(processedTrade.getIsConfirmed(currentUser) && processedTrade.getIsConfirmed(processedTrade.getReceiver())){
+            if(processedTrade.getIsConfirmed(processedTrade.getInitiator())
+                    && processedTrade.getIsConfirmed(processedTrade.getReceiver())){
                 processedTrade.setCompleted(true);
                 processedTrade.setTradeStatus("Completed");
                 completeTrade();
