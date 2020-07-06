@@ -255,40 +255,53 @@ public class TraderPrompts {
 
             trades.append(" - Initiator: ");
             trades.append(trade.getInitiator().getUsername());
+            trades.append("\n");
 
             trades.append(". Receiver: ");
             trades.append(trade.getReceiver().getUsername());
+            trades.append("\n");
 
             trades.append(". Item[s]: ");
             trades.append(trade.getItems().get(0).getName());
+            trades.append("\n");
 
             if(trade.getItems().size() == 2){
                 trades.append(", ");
                 trades.append(trade.getItems().get(1).getName());
+                trades.append("\n");
             }
 
             trades.append(". Is Permanent: ");
             trades.append(trade.isPermanent());
+            trades.append("\n");
 
             trades.append(". Trade date: ");
             trades.append(trade.getTradeDate().toString());
+            trades.append("\n");
 
             if(!trade.isPermanent()){
                 trades.append(". Return date:");
                 trades.append(trade.getReturnDate().toString());
+                trades.append("\n");
             }
 
             trades.append(". Location: ");
             trades.append(trade.getLocation());
+            trades.append("\n");
 
             trades.append(". Number of edits from initiator: ");
             trades.append(trade.getNumberOfEdit(trade.getInitiator()));
+            trades.append("\n");
 
             trades.append(". Number of edits from receiver: ");
             trades.append(trade.getNumberOfEdit(trade.getReceiver()));
+            trades.append("\n");
 
             trades.append(" tradeStatus: ");
             trades.append(trade.getTradeStatus());
+            trades.append("\n");
+
+            i++;
         }
 
         System.out.println(trades);
