@@ -561,22 +561,25 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         traderPrompts.displayTradeOptions();
         traderPrompts.displayString("Enter option:");
         int option = Integer.parseInt(sc.nextLine());
-        switch (option){
-            case 0:
-                traderPrompts.returnToMain();
-                break;
-            case 1:
-                traderPrompts.displayString(editMeeting());
-                break;
-            case 2:
-                traderPrompts.displayString(tradeManager.agreeToMeeting());
-                break;
-            case 3:
-                traderPrompts.displayString(tradeManager.confirmTrade());
-                break;
-            default:
-                traderPrompts.incorrectSelection();
-        }
+        do{
+            switch (option){
+                case 1:
+                    traderPrompts.displayString(editMeeting());
+                    break;
+                case 2:
+                    traderPrompts.displayString(tradeManager.agreeToMeeting());
+                    break;
+                case 3:
+                    traderPrompts.displayString(tradeManager.confirmTrade());
+                    break;
+                default:
+                    traderPrompts.incorrectSelection();
+            }
+            traderPrompts.displayString("Enter [0] to return to the main menu" +
+                    "\n Or enter the option you still want to modify:");
+            option = Integer.parseInt(sc.nextLine());
+        }while(option != 0);
+
     }
 
     /**
