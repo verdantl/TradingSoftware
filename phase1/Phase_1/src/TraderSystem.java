@@ -443,7 +443,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
         int itemChoice = Integer.parseInt(sc.nextLine());
 
-        while(itemChoice >= currentTrader.getWantToLend().size()){
+        while(itemChoice > currentTrader.getWantToLend().size() || itemChoice < 0){
             traderPrompts.incorrectSelection();
             itemChoice = Integer.parseInt(sc.nextLine());
         }
