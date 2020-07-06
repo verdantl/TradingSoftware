@@ -247,7 +247,6 @@ public class TraderPrompts {
      */
     public void browseOnGoingTrades(ArrayList<Trade> onGoingTrades){
         System.out.println("Here is a list of all of your on-going trades:");
-        System.out.println("Type [0] if you would like to return to the main menu.");
 
         StringBuilder trades = new StringBuilder();
         int i = 1;

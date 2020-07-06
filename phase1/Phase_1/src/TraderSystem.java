@@ -524,19 +524,37 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void browseOnGoingTrades(){
         ArrayList<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
+
+        // The user returns to main menu if no ongoing trades
+        if (onGoingTrades.size() == 0){
+            int type;
+            traderPrompts.displayString("You have no ongoing trades.");
+            do {
+                traderPrompts.displayString("Enter [0] to return to main menu.");
+                type = Integer.parseInt(sc.nextLine());
+                if (type != 0){
+                    traderPrompts.incorrectSelection();
+                }
+            }while(type != 0);
+            return;
+        }
         traderPrompts.browseOnGoingTrades(onGoingTrades);
+
 
         // The user selects a trade from list
         int select;
         do {
-            traderPrompts.displayString("Type number listed with trade to select it:");
+            traderPrompts.displayString("Type number listed with trade to select it or [0] to return to main menu.");
             select = Integer.parseInt(sc.nextLine());
-            // If user enters number greater than number of trades or less than or equal to 0
+            // If user enters number greater than number of trades or less than 0
             // display incorrect selection prompt and ask to enter again
-            if (select > onGoingTrades.size() || select <= 0){
+            if (select > onGoingTrades.size() || select < 0){
                 traderPrompts.incorrectSelection();
             }
-        }while(select > onGoingTrades.size() || select <= 0);
+        }while(select > onGoingTrades.size() || select < 0);
+        if (select == 0){
+            return;
+        }
         tradeManager.setCurrentUser(currentTrader, onGoingTrades.get(select-1));
 
         // The user selects a option for the trade
