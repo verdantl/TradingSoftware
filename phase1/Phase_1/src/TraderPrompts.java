@@ -332,10 +332,13 @@ public class TraderPrompts {
         switch (i){
             case 1:
                 System.out.println("Request fails: You have achieved the max number of weekly trades");
+                break;
             case 2:
                 System.out.println("Request fails: Please lend or trade before borrowing");
+                break;
             case 3:
                 System.out.println("Request successes: Your trade is now in progress");
+                break;
         }
     }
 }
