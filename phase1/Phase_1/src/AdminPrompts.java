@@ -93,6 +93,7 @@ public class AdminPrompts {
             else{
                 accounts.append(traders.get(i).toString());
             }
+            accounts.append(" ");
         }
         return accounts;
     }
@@ -182,8 +183,8 @@ public class AdminPrompts {
      */
     public void displayTraderProposedItems(ArrayList<Item> items){
         System.out.print(printItems(items));
-        System.out.println("\nPlease enter the number for the item you wish to approve. Enter" +
-                " [all] to approve all items.");
+        System.out.println("\nPlease enter the number for the item you wish to select. Enter" +
+                " [all] to select all items.");
     }
 
     /**
