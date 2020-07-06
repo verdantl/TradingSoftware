@@ -31,7 +31,7 @@ public abstract class Trade implements Comparable<Trade> {
         this.tradeDate = tradeDate;
         isPermanent = false;
         isCompleted = false;
-        returnDate = null;
+        returnDate = LocalDate.of(0,1,1);
         isConfirmed = new HashMap<>();
         isConfirmed.put(initiator.getUsername(), false);
         isConfirmed.put(receiver.getUsername(), false);
