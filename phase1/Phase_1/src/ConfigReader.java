@@ -190,8 +190,8 @@ public class ConfigReader {
                 //TODO: note that this else catches end so you want need another if check
                 line = fileInput.readLine();
                 input = line.split(",");
-                if (isInItems(Integer.parseInt(input[6]))) {
-                    item2 = getInItems(Integer.parseInt(input[6]));
+                if (isInItems(Integer.parseInt(input[5]))) {
+                    item2 = getInItems(Integer.parseInt(input[5]));
                 } else {
                     item2 = new Item(input[1], input[2], input[3], findTrader(input[6]), Integer.parseInt(input[4]), Integer.parseInt(input[5]));
                 }

@@ -50,6 +50,7 @@ public class TradeManager {
      * @param location The location that current user wants the trade to take place in
      * @param tradeDate The date that current user wants the trade to happen
      * @param item The item that current user wants to borrow in the trade
+     * @return the int representation of the trade's status
      */
     public int requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item){
@@ -78,6 +79,7 @@ public class TradeManager {
      * @param tradeDate The date that current user wants the trade to happen
      * @param item The item that current user wants to borrow in the trade
      * @param returnDate The date that the user wants to return the item
+     * @return the int representation of the trade's status
      */
     public int requestToBorrow(Trader receiver, String location,
                                 LocalDate tradeDate, Item item, LocalDate returnDate){
@@ -100,7 +102,8 @@ public class TradeManager {
         }
 
     }
-
+    //Since A borrows an item from B also means that B lends the item to A,
+    // we don't need A to explicitly request a lend. So i comment out this method
     ///**Request to permanently lend an item to another user
      //* @param receiver The user who receives the request from the  current user
      //* @param location The location that current user wants the trade to take place in
@@ -141,6 +144,7 @@ public class TradeManager {
      * @param tradeDate The date that current user wants the trade to happen
      * @param item1 The item that current user owns
      * @param item2 The item that receiver owns
+     * @return the int representation of the trade's status
      */
     public int requestToExchange(Trader receiver, String location,
                                   LocalDate tradeDate, Item item1, Item item2){
@@ -166,6 +170,7 @@ public class TradeManager {
      * @param item1 The item that current user owns
      * @param item2 The item that receiver owns
      * @param returnDate The date that the user wants to return the item
+     * @return the int representation of the trade's status
      */
     public int requestToExchange(Trader receiver, String location,
                                   LocalDate tradeDate, Item item1, Item item2, LocalDate returnDate){
@@ -184,44 +189,33 @@ public class TradeManager {
         }
     }
 
-    /**Allow the current user borrows the item
-     * @param item The item that the trader borrows
+    /**Allow the initiator borrows the item while the receiver lends the item
+     * @param item The item that the initiator borrows
+     * @param initiator The initiator of the processed trade
+     * @param receiver The receiver of the processed trade
      */
-    private void borrow(Item item){
-        currentUser.addToBorrowedItems(item);
-        processedTrade.getReceiver().removeFromWantToLend(item);
-        if(currentUser.getWantToBorrow().contains(item)){
-            currentUser.removeFromWantToBorrow(item);
+    private void borrow(Item item, Trader initiator, Trader receiver){
+        initiator.addToBorrowedItems(item);
+        receiver.removeFromWantToLend(item);
+        if(initiator.getWantToBorrow().contains(item)){
+            initiator.removeFromWantToBorrow(item);
         }
-        currentUser.setNumBorrowed(currentUser.getNumBorrowed() + 1);
-        processedTrade.getReceiver().setNumLent(processedTrade.getReceiver().getNumLent() + 1);
 
-        if(processedTrade.isPermanent()){item.setOwner(currentUser);}
+        initiator.setNumBorrowed(initiator.getNumBorrowed() + 1);
+        receiver.setNumLent(receiver.getNumLent() + 1);
+
+        if(processedTrade.isPermanent()){item.setOwner(initiator);}
     }
 
-    /**Allow the current user lends the item
-     * @param item The item that the trader lends
-     */
-    private void lend(Item item){
-        currentUser.removeFromWantToLend(item);
-        processedTrade.getReceiver().addToBorrowedItems(item);
-        if(processedTrade.getReceiver().getWantToBorrow().contains(item)){
-            processedTrade.getReceiver().removeFromWantToBorrow(item);
-        }
-        currentUser.setNumLent(currentUser.getNumLent() + 1);
-        processedTrade.getReceiver().setNumBorrowed(processedTrade.getReceiver().getNumBorrowed() + 1);
-
-        if(processedTrade.isPermanent()){item.setOwner(processedTrade.getReceiver());}
-
-    }
-
-    /**Allow the current user exchanges the items
-     * @param item1 The item that current user owns and wants to trade
-     * @param item2 The item that the processedTrade's receiver owns and wants to trade
+    /**Allow the initiator exchanges the items
+     * @param item1 The item that initiator owns and wants to trade
+     * @param item2 The item that the receiver owns and wants to trade
      */
     private void exchange(Item item1, Item item2){
-        lend(item1);
-        borrow(item2);
+        Trader initiator = processedTrade.getInitiator();
+        Trader receiver = processedTrade.getReceiver();
+        borrow(item2,initiator,receiver);
+        borrow(item1,receiver,initiator);
     }
 
     /**
@@ -250,7 +244,7 @@ public class TradeManager {
             processedTrade.setTradeDate(date);
             processedTrade.setLocation(location);
             processedTrade.increaseNumberOfEdits(currentUser);
-            processedTrade.setIsAgreed(currentUser, false);
+            processedTrade.setIsAgreed(processedTrade.getInitiator(), false);
             processedTrade.setIsAgreed(receiver, false);
             processedTrade.setTradeStatus("In Progress");
             return "New date and location has been set. Trade in Progress";
@@ -267,7 +261,8 @@ public class TradeManager {
         }else{
             processedTrade.setIsAgreed(currentUser, true);
 
-            if(processedTrade.getIsAgreed(currentUser) && processedTrade.getIsAgreed(processedTrade.getReceiver())){
+            if(processedTrade.getIsAgreed(processedTrade.getInitiator())
+                    && processedTrade.getIsAgreed(processedTrade.getReceiver())){
                 processedTrade.setTradeStatus("Agreed, Waiting to be confirmed");
                 return "Both users have agreed to the trade meeting. Waiting to be confirmed.";
             }
@@ -284,7 +279,8 @@ public class TradeManager {
             return "Request refused: The trade should not take place before the meeting";
         }else{
             processedTrade.setIsConfirmed(currentUser,true);
-            if(processedTrade.getIsConfirmed(currentUser) && processedTrade.getIsConfirmed(processedTrade.getReceiver())){
+            if(processedTrade.getIsConfirmed(processedTrade.getInitiator())
+                    && processedTrade.getIsConfirmed(processedTrade.getReceiver())){
                 processedTrade.setCompleted(true);
                 processedTrade.setTradeStatus("Completed");
                 completeTrade();
@@ -298,7 +294,9 @@ public class TradeManager {
      * Complete the trade when the trade has taken place
      */
     private void completeTrade(){
-        if(processedTrade instanceof OneWayTrade){borrow(((OneWayTrade) processedTrade).getItem());}
+        Trader initiator = processedTrade.getInitiator();
+        Trader receiver = processedTrade.getReceiver();
+        if(processedTrade instanceof OneWayTrade){borrow(((OneWayTrade) processedTrade).getItem(),initiator,receiver);}
         else if(processedTrade instanceof TwoWayTrade){
             exchange(((TwoWayTrade) processedTrade).getItem1(), ((TwoWayTrade) processedTrade).getItem2());
         }

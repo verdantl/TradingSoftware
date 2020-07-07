@@ -113,7 +113,7 @@ public class ConfigWriter {
             s += "\n"+formatBorrowedItem(((OneWayTrade) t).getItem(), t.getReceiver().getUsername());
         }else{
             s += "TwoWayTrade"+","+formatTradeInfo(t);
-            s += "\n"+formatBorrowedItem(t.getItems().get(0), t.getReceiver().getUsername());
+            s += "\n"+formatBorrowedItem(t.getItems().get(0), t.getInitiator().getUsername());
             s += "\n"+formatBorrowedItem(t.getItems().get(1), t.getReceiver().getUsername());
 
         }
