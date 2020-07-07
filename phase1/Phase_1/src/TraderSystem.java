@@ -564,7 +564,11 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         do{
             switch (option){
                 case 1:
-                    traderPrompts.displayString(editMeeting());
+                    String editOption = editMeeting();
+                    traderPrompts.displayString(editOption);
+                    if(editOption.equals("Cancelling edit")){
+                        traderPrompts.browseOnGoingTrades(onGoingTrades);
+                    }
                     break;
                 case 2:
                     traderPrompts.displayString(tradeManager.agreeToMeeting());
@@ -587,13 +591,17 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private String editMeeting(){
         traderPrompts.displayString("Enter new date and location for trade meeting");
-        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
+        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
         String newDateStr;
         LocalDate newDate;
         newDateStr = sc.nextLine();
+        if(newDateStr.equals("0")){
+            return "Cancelling edit";
+        }
 
         // Check if the user inputted a valid trade date
         while(true){
+
             try{
                 newDate = LocalDate.parse(newDateStr);
                 if (newDate.isAfter(LocalDate.now())) {
@@ -604,13 +612,16 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 }
             }
             catch (DateTimeParseException e){
-                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
+                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
             }
             newDateStr = sc.nextLine();
         }
         // User enters a new location
-        traderPrompts.displayString("Enter location:");
+        traderPrompts.displayString("Enter a location or enter [0] to cancel the edit:");
         String location = sc.nextLine();
+        if(location.equals("0")){
+            return "Cancelling edit";
+        }
         return tradeManager.editTradeMeeting(newDate, location);
     }
 }
