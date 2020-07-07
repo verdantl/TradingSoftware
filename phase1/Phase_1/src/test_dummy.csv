@@ -32,5 +32,5 @@ end
 Admin,Wordpass,2020-07-02
 end
 end
-limitOfTradesPerWeek,3,moreLendNeeded,2,maxIncomplete,3
+limitOfTradesPerWeek,3,moreLendNeeded,0,maxIncomplete,3
 end

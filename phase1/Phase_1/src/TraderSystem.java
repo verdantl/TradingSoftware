@@ -459,10 +459,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade, returnDate);
+            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, itemToTrade, item, returnDate);
         }
         else{
-            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade);
+            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, itemToTrade, item);
         }
         traderPrompts.displayTradeProcess(i);
     }
@@ -576,7 +576,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     traderPrompts.incorrectSelection();
             }
             traderPrompts.displayString("Enter [0] to return to the main menu" +
-                    "\n Or enter the option you still want to modify:");
+                    "\nOr enter the option you still want to modify:");
             option = Integer.parseInt(sc.nextLine());
         }while(option != 0);
 
