@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class AdminActions {
     private ArrayList<Admin> admins;
-    private static int limit = 1;
     private ArrayList<Admin> adminRequests;
 
     public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
@@ -187,16 +186,6 @@ public class AdminActions {
             approveItem(trader, item, approved);
         }
         return approved;
-    }
-
-
-
-    /**
-     * Changes the limit for the number of items required to be lent
-     * @param newLimit The new limit for the number of lent items required
-     */
-    public void changeLimit(int newLimit){
-        limit = newLimit;
     }
 
 
