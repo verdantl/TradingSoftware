@@ -12,6 +12,12 @@ public class SignupSystem {
     private String password;
 
     //Here we instantiate traderActions so we can use it.
+
+    /**
+     * Constructor for the signup system
+     * @param traderActions The trader actions instance
+     * @param adminActions The admin actions instance
+     */
     public SignupSystem(TraderActions traderActions, AdminActions adminActions){
         this.signupPrompts = new SignupPrompts();
         scanner = new Scanner(System.in);
@@ -22,6 +28,10 @@ public class SignupSystem {
     private void init(){
         running = true;
     }
+
+    /**
+     * The run method for signup system.
+     */
     public void run(){
         init();
         while (running){
@@ -29,6 +39,9 @@ public class SignupSystem {
         }
     }
 
+    /**
+     * This determines whether the new account is an admin or a trader.
+     */
     public void adminOrTrader(){
         signupPrompts.adminOrTrader();
         String option = scanner.next();
@@ -49,6 +62,10 @@ public class SignupSystem {
             createUsername();
         }
     }
+
+    /**
+     * This method is used to create a username for the user
+     */
     public void createUsername(){
         signupPrompts.displayCreateUserName();
         scanner.nextLine();
@@ -74,12 +91,18 @@ public class SignupSystem {
         }
     }
 
+    /**
+     * This method is used to create a password for the user.
+     */
     public void createPassword(){
         signupPrompts.displayCreatePassword();
         password = scanner.nextLine();
         createAccount();
     }
 
+    /**
+     * This method is used to create the account
+     */
     public void createAccount(){
         signupPrompts.displayAccountSuccessful();
         if (admin){
