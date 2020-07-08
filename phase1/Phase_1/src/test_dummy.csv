@@ -28,6 +28,10 @@ user1,Car,Transportation,it’s a car,9,6,user2
 Trades:
 OneWayTrade,user2,user1,Canada,2020-07-01,false,false,0000-01-01,user2,false,1,true,user1,false,1,true,In Progress
 user1,Car,Transportation,it’s a car,9,6,user2
+OneWayTrade,user1,user2,Canada,2020-07-04,true,true,0000-01-01,user1,false,1,true,user2,false,1,true,Complete
+user1,Laptop, Electronics, It's a laptop, 5,4, user2
+OneWayTrade,user1,user2,Canada,2020-07-05,true,true,0000-01-01,user1,false,1,true,user2,false,1,true,Complete
+user1,Wallet, Accessories, It's a wallet, 9,5, user2
 end
 Admin,Wordpass,2020-07-02
 end

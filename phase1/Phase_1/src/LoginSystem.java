@@ -69,7 +69,11 @@ public class LoginSystem {
 
     private Admin admin;
 
-
+    /**
+     * Constructor for the Login System
+     * @param path the file path.
+     * @throws IOException Throws an input/output exception
+     */
     public LoginSystem(String path) throws IOException {
         this.path = path;
         configReader = new ConfigReader(this.path);
