@@ -1,13 +1,10 @@
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TraderSystem extends UserSystem //if you want this system abstract class{
-    //BY THE WAY BEFORE Y'ALL START take a look at my AdminSystem loop and
-    //let me know in the chat if the loop works or if you want to make changes - Jeffrey
-{
+public class TraderSystem{
+
     private TraderPrompts traderPrompts;
     private TraderActions traderActions;
     private ItemManager itemManager;
@@ -17,7 +14,6 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     private boolean running;
     private Scanner sc;
 
-    //Because i assumed we get the current user as a parametre in the run class, it might be best to remove the currentTrader variable here
     /**
      * Constructor for TraderSystem.
      * @param currentTrader The trader using the TraderSystem
@@ -41,7 +37,6 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         running = true;
     }
 
-    @Override
     public void run() {
         init();
         int option;
@@ -114,12 +109,6 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         //Once the method ends we return to LoginSystem
     }
 
-    @Override
-    protected void update() {
-
-    }
-
-    @Override
     protected void stop() {
         running = false;
     }
