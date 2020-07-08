@@ -5,7 +5,7 @@ public class SignupPrompts {
                 " Enter [1] to sign up for an account. Enter [2] to go back to the login screen");
     }
     public void displayCreateUserName(){
-        System.out.println("Please enter the username you would like to create.");
+        System.out.println("Please enter the username you would like to create. Do not include any spaces.");
     }
 
     public void displayUserAvailable(boolean value){
