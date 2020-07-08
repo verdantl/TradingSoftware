@@ -6,12 +6,12 @@ public class SignupSystem {
     //Note that it doesn't extend UserSystem as the run method doesn't need a user- We can change this, idk if its a good idea atm
     TraderActions traderActions;
     AdminActions adminActions;
-    SignupPrompts signupPrompts;
-    Scanner scanner;
-    boolean admin;
-    boolean running;
-    String username;
-    String password;
+    private SignupPrompts signupPrompts;
+    private Scanner scanner;
+    private boolean admin;
+    private boolean running;
+    private String username;
+    private String password;
 
     //Here we instantiate traderActions so we can use it.
     public SignupSystem(TraderActions traderActions, AdminActions adminActions){
