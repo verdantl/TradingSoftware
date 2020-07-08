@@ -28,6 +28,22 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
         this.item2 = item2;
     }
 
+    /**
+     * Alternative constructor for TwoWayTrade
+     * @param initiator The user who wants to trade their item with another user
+     * @param receiver The user that the initiator wants to trade with
+     * @param location The location of the trade
+     * @param tradeDate The date of the trade
+     * @param isPermanent Whether the trade is permanent or not
+     * @param isCompleted Whether the trade is completed
+     * @param returnDate The return date of the trade
+     * @param isConfirmed Whether the trade is confirmed
+     * @param numberOfEdits The number of edits made to this trade
+     * @param isAgreed Whether the traders have agreed to this trade
+     * @param tradeStatus the status of the trade
+     * @param item1 the item that the initiator wishes to trade
+     * @param item2 the item that the receiver wishes to trade
+     */
     public TwoWayTrade(Trader initiator, Trader receiver, String location, LocalDate tradeDate, boolean isPermanent, boolean isCompleted,
                        LocalDate returnDate, HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits,
                        HashMap<String, Boolean> isAgreed, String tradeStatus, Item item1, Item item2){
@@ -83,6 +99,10 @@ public class TwoWayTrade extends Trade implements Comparable<Trade> {
         return super.compareTo(trade);
     }
 
+    /**
+     * A getter for the list of items in this trade
+     * @return an arraylist of the items in this TwoWayTrade
+     */
     @Override
     public ArrayList<Item> getItems() {
         ArrayList<Item> items= new ArrayList<>();
