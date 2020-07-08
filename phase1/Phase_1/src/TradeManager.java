@@ -102,41 +102,6 @@ public class TradeManager {
         }
 
     }
-    //Since A borrows an item from B also means that B lends the item to A,
-    // we don't need A to explicitly request a lend. So i comment out this method
-    ///**Request to permanently lend an item to another user
-     //* @param receiver The user who receives the request from the  current user
-     //* @param location The location that current user wants the trade to take place in
-     //* @param tradeDate The date that current user wants the trade to happen
-     //* @param item The item that current user wants to borrow in the trade
-     //*/
-    //public void requestToLend(Trader receiver, String location,
-                              //LocalDate tradeDate, Item item){
-        //this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                //tradeDate, item);
-        //processedTrade.setPermanent(true);
-        //currentUser.addToTrades(processedTrade);
-        //receiver.addToTrades(processedTrade);
-    //}
-
-    ///**Request to temporarily lend an item to another user
-     //* @param receiver The user who receives the request from the  current user
-     //* @param location The location that current user wants the trade to take place in
-     //* @param tradeDate The date that current user wants the trade to happen
-     //* @param item The item that current user wants to borrow in the trade
-     //* @param returnDate The date that the user wants to return the item
-     //*/
-    //public void requestToLend(Trader receiver, String location,
-                              //LocalDate tradeDate, Item item, LocalDate returnDate){
-            //this.processedTrade = new OneWayTrade(currentUser, receiver, location,
-                    //tradeDate, item);
-            //processedTrade.setReturnDate(returnDate);
-            //processedTrade.setPermanent(false);
-            //currentUser.addToTrades(processedTrade);
-            //receiver.addToTrades(processedTrade);
-
-
-    //}
 
     /**Request to permanently exchange items with another user
      * @param receiver The user who receives the request from the  current user
@@ -378,6 +343,4 @@ public class TradeManager {
     public void setMaxIncomplete(int num){
         maxIncomplete = num;
     }
-
-
 }
