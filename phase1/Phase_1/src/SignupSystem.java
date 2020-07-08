@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SignupSystem {
@@ -60,7 +58,8 @@ public class SignupSystem {
     }
     public void createUsername(){
         signupPrompts.displayCreateUserName();
-        String username = scanner.next();
+        scanner.nextLine();
+        String username = scanner.nextLine();
         checkUsername(username);
     }
 
@@ -84,7 +83,7 @@ public class SignupSystem {
 
     public void createPassword(){
         signupPrompts.displayCreatePassword();
-        password = scanner.next();
+        password = scanner.nextLine();
         createAccount();
     }
 
