@@ -67,8 +67,6 @@ public class LoginSystem {
     ItemManager itemManager;
     TradeManager tradeManager;
 
-    private ArrayList<String> userInfo;
-    private Trader trader;
     private Admin admin;
 
     /**
@@ -94,16 +92,12 @@ public class LoginSystem {
      * runs the the program from the login screen allowing the user to login, sign up, or exit.
      */
     public void run() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(java.lang.System.in));
-//        ArrayList<Trader> t = new ArrayList<>();
-//        t.add(new Trader("Carl", "Wu"));
-//        traderActions = new TraderActions(t);
-//        adminActions = new AdminActions(new ArrayList<>(), new ArrayList<>());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println(prompts.openingMessage());
             String input;
             do {
-                userInfo = new ArrayList<>();
+                ArrayList<String> userInfo = new ArrayList<>();
                 prompts.resetPrompts();
                 System.out.println(prompts.next());
                 input = br.readLine();
@@ -126,10 +120,11 @@ public class LoginSystem {
                             input = br.readLine();
                             userInfo.add(input);
 
-                            trader = traderActions.login(userInfo.get(0), userInfo.get(1));
+                            Trader trader = traderActions.login(userInfo.get(0), userInfo.get(1));
                             if (trader != null) {
                                 traderSystem = new TraderSystem(trader, traderActions, itemManager, tradeManager, adminActions);
                                 traderSystem.run();
+                                configWriter.saveFile(this.path, traderActions, adminActions, tradeManager);
                             }
                             else{
                                 System.out.println(prompts.wrongPassword());
@@ -145,6 +140,7 @@ public class LoginSystem {
                                     adminSystem = new AdminSystem(traderActions, adminActions, tradeManager);
                                     adminSystem.setCurrentAdmin(admin);
                                     adminSystem.run();
+                                    configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
                                 }
                                 else{
                                     System.out.println(prompts.wrongPassword());
@@ -154,9 +150,10 @@ public class LoginSystem {
                                 continue;
                             }
                         }
-                    break;
+                        break;
                     case 2:
                         signupSystem.run();
+                        configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
                         break;
                     default:
                         if (!input.equals("exit")) {
@@ -166,7 +163,7 @@ public class LoginSystem {
 
             } while (!input.equals("exit"));
         } catch (IOException e) {
-            java.lang.System.out.println("Something went wrong.");
+            System.out.println("Something went wrong.");
         }
     }
 

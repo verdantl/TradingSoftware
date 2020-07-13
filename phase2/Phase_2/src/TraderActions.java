@@ -154,12 +154,6 @@ public class TraderActions {
         return true;
     }
 
-    /**
-     * checks if the given username and password match with a user in the system
-     * @param username the username of the user
-     * @param password the password of the user
-     * @return whether or not the user exist in the system
-     */
     public Trader login(String username, String password){
         for(Trader t: traders){
             if (username.equals(t.getUsername())){
