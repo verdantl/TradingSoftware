@@ -10,7 +10,7 @@ public class AdminPrompts {
     private ArrayList<String> menuOptions;
     private AdminActions adminActions;
     private TraderActions traderActions;
-    private final String toMainMenu = "-1";
+    private final String toMainMenu = "0";
 
     /**
      * Constructor for the AdminPrompts class
@@ -75,7 +75,7 @@ public class AdminPrompts {
             selections.append(' ');
         }
         String instruction = "Please enter the number of the option " +
-                "you would like to select.";
+                "you would like to select. Enter [0] at any point to return to this menu.";
         System.out.println(instruction);
         System.out.println(selections);
     }
@@ -93,6 +93,7 @@ public class AdminPrompts {
             else{
                 accounts.append(traders.get(i).toString());
             }
+            accounts.append(" ");
         }
         return accounts;
     }
@@ -125,7 +126,7 @@ public class AdminPrompts {
      * @param mainMenu the main menu option from AdminSystem
      */
     public void displayFreezeHelper(String mainMenu){
-        System.out.println("Enter ["+mainMenu+"] to return to the main menu or enter any number return to Freeze/" +
+        System.out.println("Enter ["+mainMenu+"] to return to the main menu or enter any number to return to Freeze/" +
                 "Unfreeze Menu: ");
     }
 
@@ -182,8 +183,8 @@ public class AdminPrompts {
      */
     public void displayTraderProposedItems(ArrayList<Item> items){
         System.out.print(printItems(items));
-        System.out.println("\nPlease enter the number for the item you wish to approve. Enter" +
-                " [all] to approve all items.");
+        System.out.println("\nPlease enter the number for the item you wish to select. Enter" +
+                " [all] to select all items.");
     }
 
     /**
@@ -269,7 +270,7 @@ public class AdminPrompts {
      * Display menu for change username/password
      */
     public void displayChangeUserInfoMenu(){
-        System.out.println("Enter [1] to change username");
+        System.out.println("Enter [1] to change username.");
         System.out.print("Enter [2] to change password: ");
     }
 
@@ -277,7 +278,7 @@ public class AdminPrompts {
      * Display return to main menu message
      */
     public void displayReturnToMainMenu(){
-        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to" +
+        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to the " +
                 "previous menu: ");
     }
 
@@ -306,7 +307,7 @@ public class AdminPrompts {
      * Display a message that prompts user to enter
      */
     public void displayEnterNewMessage(String subject){
-        System.out.print("Enter new"+subject+": ");
+        System.out.print("Enter new "+subject+": ");
     }
 
 

@@ -25,7 +25,6 @@ public class ConfigReader {
         traders = new ArrayList<>();
         admins = new ArrayList<>();
         users = new ArrayList<>();
-        tradeManager = new TradeManager();
         items = new ArrayList<>();
         String[] input;
         String line = fileInput.readLine();
@@ -191,8 +190,8 @@ public class ConfigReader {
                 //TODO: note that this else catches end so you want need another if check
                 line = fileInput.readLine();
                 input = line.split(",");
-                if (isInItems(Integer.parseInt(input[6]))) {
-                    item2 = getInItems(Integer.parseInt(input[6]));
+                if (isInItems(Integer.parseInt(input[5]))) {
+                    item2 = getInItems(Integer.parseInt(input[5]));
                 } else {
                     item2 = new Item(input[1], input[2], input[3], findTrader(input[6]), Integer.parseInt(input[4]), Integer.parseInt(input[5]));
                 }
@@ -203,6 +202,9 @@ public class ConfigReader {
                 assert receiver != null;
                 receiver.addToTrades(twoWayTrade);
             }
+            Collections.sort(initiator.getTrades());
+            Collections.sort(receiver.getTrades());
+
             line = fileInput.readLine();
         }
 
@@ -227,6 +229,18 @@ public class ConfigReader {
             users.addAll(admins);
             //TODO: check if we want to do this
             users.addAll(traders);
+
+         //add limits
+             line = fileInput.readLine();
+             while(!line.equals("end")){
+                 input = line.split(",");
+                 int limitOfTradesPerWeek = Integer.parseInt(input[1]);
+                 int moreLendNeeded = Integer.parseInt(input[3]);
+                 int maxIncomplete = Integer.parseInt(input[5]);
+                 tradeManager = new TradeManager(limitOfTradesPerWeek, moreLendNeeded, maxIncomplete);
+                 line = fileInput.readLine();
+             }
+
             }
             //This is as far as i got for reading in.
             /*

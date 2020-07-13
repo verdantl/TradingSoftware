@@ -148,6 +148,7 @@ public class AdminActions {
      * if the account is already unfrozen
      */
     public boolean unfreezeAccount(Trader trader){
+        trader.setRequestToUnfreeze(false);
         if (!trader.isFrozen()){
             return false;
         }

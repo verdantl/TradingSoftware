@@ -71,6 +71,19 @@ public class TraderActions {
         }
         return availableItems;
     }
+    /**
+     * Returns a list of items that are available for borrowing/trading for the given trader
+     * @return The list of items that are available for borrowing for the given trader.
+     */
+    public ArrayList<Item> browseItems(Trader trader){
+        ArrayList<Item> availableItems = new ArrayList<>();
+        for(Trader t: traders){
+            if(!t.getUsername().equals(trader.getUsername())){
+                availableItems.addAll(t.getWantToLend());
+            }
+        }
+        return availableItems;
+    }
 
     /**
      * Adds the given trader to the list of traders.
@@ -142,6 +155,12 @@ public class TraderActions {
         return true;
     }
 
+    /**
+     * checks if the given username and password match with a user in the system
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return whether or not the user exist in the system
+     */
     public Trader login(String username, String password){
         for(Trader t: traders){
             if (username.equals(t.getUsername())){

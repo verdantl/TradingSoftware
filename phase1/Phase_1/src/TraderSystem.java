@@ -53,7 +53,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
             // Setting up the options available to the user by default.
             // There will always be an option 0 to exit the program
-            int numOptions = 8;
+            int numOptions = 9;
             ArrayList<Integer> validOptions = new ArrayList<>();
             for (int i = 0; i < numOptions + 1; i++) {
                 validOptions.add(i);
@@ -85,22 +85,27 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                     removeItemFromWantToLend();
                     break;
                 case 3:
+                    //Remove an item from their wishlist
+                    removeItemFromWishlist();
+                    break;
+
+                case 4:
                     // Browse their inventory
                     browseInventoryOfItems();
                     break;
-                case 4:
+                case 5:
                     // Browse list of On-Going trades
                     browseOnGoingTrades();
                     break;
-                case 5:
+                case 6:
                     // Check most recent 3 items the user has traded
                     showThreeMostRecentItemsTraded();
                     break;
-                case 6:
+                case 7:
                     // Get the user's top 3 trading partners
                     showTopThreeTradingPartners();
                     break;
-                case 7:
+                case 8:
                     // Request to unfreeze the account
                     requestUnfreeze();
                     break;
@@ -175,26 +180,64 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         for (int i=0; i < currentTrader.getWantToLend().size(); i++){
             availableOptions.add(i+1);
         }
-
+        traderPrompts.displayTraderItems(currentTrader);
         int o = Integer.parseInt(sc.nextLine());
-        while(!availableOptions.contains(o)){
-            traderPrompts.incorrectSelection();
-            o = Integer.parseInt(sc.nextLine());
-        }
-
+//        while(!availableOptions.contains(o)){
+//            traderPrompts.incorrectSelection();
+//            o = Integer.parseInt(sc.nextLine());
+//        }
         while(o!=0){
-            traderPrompts.displayTraderItems(currentTrader);
-            availableOptions = new ArrayList<>();
-            availableOptions.add(0);
-            for (int i=0; i < currentTrader.getWantToLend().size(); i++){
-                availableOptions.add(i+1);
-            }
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
                 o = Integer.parseInt(sc.nextLine());
             }
-            traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1) );
+            if(o==0){
+                System.out.println("break");
+                break;
+            }
+            traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1));
             traderPrompts.displayString("Item was removed.");
+            availableOptions.remove(availableOptions.size()-1);
+            traderPrompts.displayTraderItems(currentTrader);
+            o = Integer.parseInt(sc.nextLine());
+
+        }
+    }
+
+    /**
+     * Method that removes the chosen items from currentTrader's wishlist.
+     */
+    private void removeItemFromWishlist(){
+        ArrayList<Integer> availableOptions = new ArrayList<>();
+        availableOptions.add(0);
+        for (int i=0; i < currentTrader.getWantToBorrow().size(); i++){
+            availableOptions.add(i+1);
+        }
+        //System.out.println(currentTrader.getWantToBorrow());
+        traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
+        traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
+        traderPrompts.displayItems(currentTrader.getWantToBorrow());
+        int o = Integer.parseInt(sc.nextLine());
+//        while(!availableOptions.contains(o)){
+//            traderPrompts.incorrectSelection();
+//            o = Integer.parseInt(sc.nextLine());
+//        }
+        while(o!=0){
+            while(!availableOptions.contains(o)){
+                traderPrompts.incorrectSelection();
+                o = Integer.parseInt(sc.nextLine());
+            }
+            if(o==0){
+                //System.out.println("break");
+                break;
+            }
+            traderActions.removeFromWantToBorrow(currentTrader, currentTrader.getWantToBorrow().get(o-1));
+            traderPrompts.displayString("Item was removed.");
+            availableOptions.remove(availableOptions.size()-1);
+            traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
+            traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
+            traderPrompts.displayItems(currentTrader.getWantToBorrow());
+            o = Integer.parseInt(sc.nextLine());
         }
     }
 
@@ -203,7 +246,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void browseInventoryOfItems(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
-        ArrayList<Item> itemList = traderActions.browseItems();
+        ArrayList<Item> itemList = traderActions.browseItems(currentTrader);
 
         availableOptions.add(0);
         for (int i = 0; i < itemList.size(); i++){
@@ -222,7 +265,13 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 traderPrompts.viewItem(itemList.get(o - 1));
                 o2 = Integer.parseInt(sc.nextLine());
                 if (o2 == 1){
-                    traderActions.addToWantToBorrow(currentTrader, itemList.get(o));
+                    if(!currentTrader.getWantToBorrow().contains(itemList.get(o-1))) {
+                        traderActions.addToWantToBorrow(currentTrader, itemList.get(o-1));
+                        traderPrompts.displayString("Item was added to your wishlist.");
+                    }
+                    else{
+                        traderPrompts.displayString("Item is already in your wishlist.");
+                    }
                 }
                 else if (o2 == 2){
                     //THIS IS WHERE YOU DO THE PROPOSE TRADE CODE
@@ -394,7 +443,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
 
         int itemChoice = Integer.parseInt(sc.nextLine());
 
-        while(itemChoice >= currentTrader.getWantToLend().size()){
+        while(itemChoice > currentTrader.getWantToLend().size() || itemChoice < 0){
             traderPrompts.incorrectSelection();
             itemChoice = Integer.parseInt(sc.nextLine());
         }
@@ -410,10 +459,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade, returnDate);
+            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, itemToTrade, item, returnDate);
         }
         else{
-            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, item, itemToTrade);
+            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, itemToTrade, item);
         }
         traderPrompts.displayTradeProcess(i);
     }
@@ -451,6 +500,10 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private void requestUnfreeze(){
         //This is where i do the unfreeze thing but im not sure how we do that yet.
+        if(!currentTrader.isFrozen()){
+            traderPrompts.displayString("Only frozen users can request to unfreeze.");
+            return;
+        }
         traderPrompts.requestUnfreeze();
         if(currentTrader.isRequestToUnfreeze()){
             traderPrompts.displayString("You have already requested to unfreeze your account. Please wait.");
@@ -466,37 +519,67 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
     }
 
     /**
-     * The user requests to view all of their ongoing trades.
+     * The user requests to view all of their ongoing trades and
+     * selects trade to display options for selected trade.
      */
     private void browseOnGoingTrades(){
         ArrayList<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
+
+        // The user returns to main menu if no ongoing trades
+        if (onGoingTrades.size() == 0){
+            int type;
+            traderPrompts.displayString("You have no ongoing trades.");
+            do {
+                traderPrompts.displayString("Enter [0] to return to main menu.");
+                type = Integer.parseInt(sc.nextLine());
+                if (type != 0){
+                    traderPrompts.incorrectSelection();
+                }
+            }while(type != 0);
+            return;
+        }
         traderPrompts.browseOnGoingTrades(onGoingTrades);
 
+
         // The user selects a trade from list
-        traderPrompts.displayString("Type number listed with trade to select it: ");
-        int select = sc.nextInt();
+        int select;
+        do {
+            traderPrompts.displayString("Type number listed with trade to select it or [0] to return to main menu.");
+            select = Integer.parseInt(sc.nextLine());
+            // If user enters number greater than number of trades or less than 0
+            // display incorrect selection prompt and ask to enter again
+            if (select > onGoingTrades.size() || select < 0){
+                traderPrompts.incorrectSelection();
+            }
+        }while(select > onGoingTrades.size() || select < 0);
+        if (select == 0){
+            return;
+        }
         tradeManager.setCurrentUser(currentTrader, onGoingTrades.get(select-1));
 
         // The user selects a option for the trade
         traderPrompts.displayTradeOptions();
         traderPrompts.displayString("Enter option:");
-        int option = sc.nextInt();
-        switch (option){
-            case 0:
-                traderPrompts.returnToMain();
-                break;
-            case 1:
-                traderPrompts.displayString(editMeeting());
-                break;
-            case 2:
-                traderPrompts.displayString(tradeManager.agreeToMeeting());
-                break;
-            case 3:
-                traderPrompts.displayString(tradeManager.confirmTrade());
-                break;
-            default:
-                traderPrompts.incorrectSelection();
-        }
+        int option = Integer.parseInt(sc.nextLine());
+        do{
+            switch (option){
+                case 1:
+                    traderPrompts.displayString(editMeeting());
+                    break;
+                case 2:
+                    traderPrompts.displayString(tradeManager.agreeToMeeting());
+                    break;
+                case 3:
+                    traderPrompts.displayString(tradeManager.confirmTrade());
+                    break;
+                default:
+                    traderPrompts.incorrectSelection();
+            }
+            traderPrompts.displayString("Enter [0] to return to the main menu" +
+                    "\nOr enter the option you still want to modify:");
+            option = Integer.parseInt(sc.nextLine());
+        }while(option != 0);
+
     }
 
     /**
@@ -504,6 +587,7 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
      */
     private String editMeeting(){
         traderPrompts.displayString("Enter new date and location for trade meeting");
+        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
         String newDateStr;
         LocalDate newDate;
         newDateStr = sc.nextLine();
@@ -520,12 +604,12 @@ public class TraderSystem extends UserSystem //if you want this system abstract 
                 }
             }
             catch (DateTimeParseException e){
-                traderPrompts.displayString("Please enter a string in the format YYYY-MM-DD.");
+                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
             }
             newDateStr = sc.nextLine();
         }
         // User enters a new location
-        traderPrompts.displayString("Enter location: ");
+        traderPrompts.displayString("Enter location:");
         String location = sc.nextLine();
         return tradeManager.editTradeMeeting(newDate, location);
     }

@@ -1,33 +1,38 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
 public class ConfigWriter {
 
     /**
-     * Saves program data to fileName
-     * @param fileName The name of file.
-     * @param ta
-     * @param aa
+     * Save program data to fileName
+     * @param fileName The name of the file.
+     * @param ta TraderActions Data that need to be stored
+     * @param aa AdminActions Data that need to be stored
      */
-    public void saveFile(String fileName, TraderActions ta, AdminActions aa){
+    public void saveFile(String fileName, TraderActions ta, AdminActions aa, TradeManager tm){
         BufferedWriter out;
         try {
             out = new BufferedWriter(new FileWriter(fileName));
             List<Trader> traders = ta.getTraders();
             List<Admin> admins = aa.getAdmins();
             List<Admin> reqAdmins = aa.getListOfRequestedAdmins();
+            int limitOfTradesPerWeek = tm.getLimitOfTradesPerWeek();
+            int moreLendNeeded = tm.getMoreLendNeeded();
+            int maxIncomplete = tm.getMaxIncomplete();
 
             out.write(formatListOfTraders(traders));
             out.newLine();
             out.write("Wishlists:");
             out.newLine();
             out.write(formatListOfItems(traders));
-            out.newLine();
             out.write("Trades:");
             out.newLine();
             out.write(formatListOfTrades(traders));
             out.newLine();
             out.write(formatAdmins(admins, reqAdmins));
+            out.newLine();
+            out.write(formatLimits(limitOfTradesPerWeek, moreLendNeeded, maxIncomplete));
 
             out.close();
 
@@ -96,6 +101,7 @@ public class ConfigWriter {
         return s;
     }
 
+    //return item info in name,category,description,rating,id
     private String formatItem(Item i){
         return i.getName()+","+i.getCategory()+","+i.getDescription()+","+i.getQualityRating()+","+i.getId();
     }
@@ -103,13 +109,28 @@ public class ConfigWriter {
     private String formatTrade(Trade t){
         String s = "";
         if(t instanceof OneWayTrade){
-            s += "OneWayTrade"+",";
+            s += "OneWayTrade"+","+formatTradeInfo(t);
+            s += "\n"+formatBorrowedItem(((OneWayTrade) t).getItem(), t.getReceiver().getUsername());
         }else{
-            s += "TwoWayTrade"+",";
+            s += "TwoWayTrade"+","+formatTradeInfo(t);
+            s += "\n"+formatBorrowedItem(t.getItems().get(0), t.getInitiator().getUsername());
+            s += "\n"+formatBorrowedItem(t.getItems().get(1), t.getReceiver().getUsername());
+
         }
-        //TradeType,initator's username,receiver's username,location,the date the trade will occur,isPermanent,isCompleted,returnDate(note that if a trade is permanent the date here is recorded as 0000-00-00),Initiator's username,isConfirmed(for initiator),numberOfEdits(for initiator), isAgreed(for initiator),receiver's username,isConfirmed(for reciever),numberOfEdits(for receiver),isAgreed(for receiver),TradeStatus.
+        return s;
+
+
+
+    }
+
+    //method for formatting trader info
+    //TradeType,initator's username,receiver's username,location,the date the trade will occur,isPermanent,isCompleted,
+    // returnDate(note that if a trade is permanent the date here is recorded as 0000-00-00),Initiator's username,
+    // isConfirmed(for initiator),numberOfEdits(for initiator), isAgreed(for initiator),receiver's username,
+    // isConfirmed(for reciever),numberOfEdits(for receiver),isAgreed(for receiver),TradeStatus.
+    private String formatTradeInfo(Trade t){
+        String s = "";
         s += t.getInitiator().getUsername()+","+t.getReceiver().getUsername()+","+t.getLocation()+","+t.getTradeDate().toString();
-        //TODO We need to add something that will catch if the return date is null or not
         s += ","+t.isPermanent()+","+t.isCompleted()+",";
 
         s += t.getReturnDate().toString();
@@ -120,6 +141,7 @@ public class ConfigWriter {
                 t.getIsConfirmed(t.getReceiver())+","+t.getNumberOfEdit(t.getReceiver())+
                 ","+t.getIsAgreed(t.getReceiver())+","+t.getTradeStatus();
         return s;
+
 
     }
 
@@ -173,16 +195,24 @@ public class ConfigWriter {
         for(Trader t: traders){
             s += formatBorrowedItems(t.getBorrowedItems(), t.getUsername());
         }
-        s += "end";
 
         return s;
     }
 
     private String formatListOfTrades(List<Trader> traders){
         String s = "";
+        List<Trade> trades = new ArrayList<>();
+
+
         for(Trader t: traders){
-            s += formatTrades(t.getTrades());
+            List<Trade> userTrades = t.getTrades();
+            for (Trade tr: userTrades){
+                if (!trades.contains(tr)){
+                    trades.add(tr);
+                }
+            }
         }
+        s += formatTrades(trades);
         s += "end";
         return s;
     }
@@ -232,5 +262,12 @@ public class ConfigWriter {
         s += name+","+formatItem(i)+","+i.getOwner().getUsername();
         return s;
     }
+
+    private String formatLimits(int limitOfTradesPerWeek, int moreLendNeeded, int maxIncomplete){
+        return "limitOfTradesPerWeek," + limitOfTradesPerWeek + ",moreLendNeeded,"
+                + moreLendNeeded + ",maxIncomplete," + maxIncomplete + "\n" + "end";
+    }
+
+
 
 }

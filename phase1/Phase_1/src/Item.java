@@ -141,11 +141,11 @@ public class Item {
      */
     @Override
     public String toString() {
-        return "qualityRating=" + qualityRating +
-                ",\nname='" + name + '\'' +
-                ",\ncategory='" + category + '\'' +
-                "'\ndescription='" + description + '\'' +
-                ",\nowner=" + owner.getUsername() +
-                ",\nID=" + id;
+        return "| " + name + " |" +
+                "\nqualityRating: " + qualityRating +
+                ",\ncategory: '" + category +
+                "',\ndescription: '" + description +
+                "',\nowner: " + owner.getUsername() +
+                ",\nID: " + id;
     }
 }
