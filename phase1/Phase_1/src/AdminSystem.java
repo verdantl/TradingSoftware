@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminSystem{
+public class AdminSystem extends UserSystem {
 
     private AdminPrompts adminPrompts;
 
@@ -82,6 +82,7 @@ public class AdminSystem{
     /**
      * Runs the program in a loop
      */
+    @Override
     public void run() {
         init();
         while (running) {
@@ -118,6 +119,10 @@ public class AdminSystem{
         }
     }
 
+    protected void update() {
+    }
+
+    @Override
     protected void stop() {
         running = false;
     }

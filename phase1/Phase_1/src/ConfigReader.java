@@ -21,6 +21,7 @@ public class ConfigReader {
 
     public ConfigReader (String fileIn) throws IOException {
         BufferedReader fileInput = new BufferedReader(new FileReader(fileIn));
+        //TODO Change buffer reader to passing in filePath and instantiating bufferedReader
         traders = new ArrayList<>();
         admins = new ArrayList<>();
         users = new ArrayList<>();
@@ -29,7 +30,12 @@ public class ConfigReader {
         String line = fileInput.readLine();
         while(!line.equals("end")) {
             line = fileInput.readLine();
+            //Example entry for a trader:
+            //Format: username, password, creationDate, isFrozen, isFlagged,requestedtounfreeze,numlent,numborrowed
+            //eg. Username,Password,12-12-2020,false,false,false,2,1
+            //    Username2,Password2,12-12-2020,true,false,false,2,1
             input = line.split(",");
+            //makes and adds the empty trader to traders
                 Trader tempTrader = new Trader(input[0], input[1], input[2], new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                     new ArrayList<>(), new ArrayList<>(), Boolean.parseBoolean(input[3]), Boolean.parseBoolean(input[4]),Boolean.parseBoolean(input[5]),
                     Integer.parseInt(input[6]), Integer.parseInt(input[7]));
@@ -61,6 +67,23 @@ public class ConfigReader {
                 }
             }
             traders.add(tempTrader);
+            //Note that at the end of the traders we write an end.
+            //An example input up to this part would be the following:
+            /*
+             * Username,Password,12-12-2020,false,false,false,2,1
+             * WantToLend:
+             * Bike,Sports,It’s a bike,10,1
+             * Book,Literature,It’s a book,9,2
+             * ProposedItems:
+             * England,Country,I’m the King,10,3
+             * Trader:
+             * user2,goodbye,2020-07-01,false,false,0,0
+             * WantToLend:
+             * Laptop,Electronics,It’s a laptop,5,4
+             * Wallet,Accessories,It’s a Wallet,9,5
+             * ProposedItems:
+             * end
+             */
         }
 
         line=fileInput.readLine();
@@ -164,6 +187,7 @@ public class ConfigReader {
                 assert receiver != null;
                 receiver.addToTrades(oneWayTrade);
             } else {
+                //TODO: note that this else catches end so you want need another if check
                 line = fileInput.readLine();
                 input = line.split(",");
                 if (isInItems(Integer.parseInt(input[5]))) {
@@ -185,23 +209,28 @@ public class ConfigReader {
         }
 
         traderActions = new TraderActions(this.traders);
+        //adds approved admins
             line = fileInput.readLine();
             while(!line.equals("end")) {
             input = line.split(",");
             admins.add(new Admin(input[0], input[1], input[2]));
             line = fileInput.readLine();
         }
+            //adds the requested ones
             line = fileInput.readLine();
             ArrayList<Admin> adminRequest = new ArrayList<>();
             while(!line.equals("end")) {
                 input = line.split(",");
+                //TODO: check if this is how the requested are constructed
                 adminRequest.add(new Admin(input[0], input[1]));
                 line = fileInput.readLine();
             }
             adminActions = new AdminActions(admins, adminRequest);
             users.addAll(admins);
+            //TODO: check if we want to do this
             users.addAll(traders);
 
+         //add limits
              line = fileInput.readLine();
              while(!line.equals("end")){
                  input = line.split(",");
@@ -213,6 +242,114 @@ public class ConfigReader {
              }
 
             }
+            //This is as far as i got for reading in.
+            /*
+            The full example of a file would look like this:
+            * Username,Password,12-12-2020,false,false,false,2,1
+            * WantToLend:
+            * Bike,Sports,It’s a bike,10,1
+            * Book,Literature,It’s a book,9,2
+            * ProposedItems:
+            * England,Country,I’m the King,10,3
+            * Trader:
+            * user2,goodbye,2020-07-01,false,false,0,0
+            * WantToLend:
+            * Laptop,Electronics,It’s a laptop,5,4
+            * Wallet,Accessories,It’s a Wallet,9,5
+            * ProposedItems:
+            * end
+            * Wishlists:
+            * user1,4,user2
+            * user2,2,user1
+            * end
+            * BorrowedItems:
+            * user1,Car,Transportation,it’s a car,9,6,user2
+            * Trades:
+            * OneWayTrade,user2,user1,Canada,2020-07-01,false,false, null,user2,false,1,true,user1,false,1,true,On-Going
+            *
+            * end
+            * Admin, Wordpass, 02-07-2020
+            * end
+            * Admin2, Wordpass
+            * end
+            * */
+
+
+
+//        //adds to users
+//        users.addAll(traders);
+//
+//        //this is what i want you finish and is a failed attempted
+//        int i = 0;
+//        Item tempItem;
+//        Trader tempTrader;
+//        line = fileInput.readLine();
+//        while(!line.equals("end")) {
+//            while (line.equals("next")){
+//                i++;
+//                line = fileInput.readLine();
+//            }
+//            tempTrader = getByUsername(line);
+//            line = fileInput.readLine();
+//            input = line.split(",");
+//            tempItem = new Item(input[0], input[1], input[2], getByUsername(input[3]), Integer.parseInt(input[4]));
+//            itemManager.addApprovedItem(tempItem);
+//            addItemToTrader(tempTrader, tempItem, i);
+//            line = fileInput.readLine();
+//        }
+//
+//        //adds trades one way then two way
+//        line = fileInput.readLine();
+//        Trade tempTrade;
+//        Trader t1, t2;
+//        while(!line.equals("end")) {
+//            input = line.split(",");
+//            t1 = getByUsername(input[0]);
+//            t2 = getByUsername(input[1]);
+//            tempTrade = new OneWayTrade(t1, t2, input[2], LocalDate.parse(input[3]), null);
+//            t1.addToTrades(tempTrade);
+//            t2.addToTrades(tempTrade);
+//        }
+//
+//        line = fileInput.readLine();
+//        while(!line.equals("end")) {
+//            input = line.split(",");
+//            t1 = getByUsername(input[0]);
+//            t2 = getByUsername(input[1]);
+//            tempTrade = new TwoWayTrade(t1, t2, LocalDate.parse(input[3]), input[2], null,null);
+//            t1.addToTrades(tempTrade);
+//            t2.addToTrades(tempTrade);
+//        }
+//        //adds the admins
+//        line = fileInput.readLine();
+//        while(!line.equals("end")) {
+//            input = line.split(",");
+//            admins.add(new Admin(input[0], input[1]));
+//            line = fileInput.readLine();
+//        }
+//        //adminActions = new AdminActions(admins, null, null);
+//
+//    private Trader getByUsername(String username){
+//        for (Trader t : traders){
+//            if (t.getUsername().equals(username)){
+//                return t;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    private void addItemToTrader(Trader t, Item i, int j){
+//        switch (j){
+//            //case 0 exits
+//            case 1: t.addToWantToBorrow(i);
+//                break;
+//            case 2: t.addToProposedItems(i);
+//                break;
+//            case 3: t.addToWantToLend(i);
+//                break;
+//            case 4: t.addToBorrowedItems(i);
+//        }
+//    }
 
     /**
      * given the trader's username returns that trader
