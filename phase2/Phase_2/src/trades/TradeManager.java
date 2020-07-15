@@ -1,5 +1,8 @@
 package trades;
 
+import items.Item;
+import users.Trader;
+
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -140,7 +143,7 @@ public class TradeManager {
      * @return the int representation of the trade's status
      */
     public int requestToExchange(Trader receiver, String location,
-                                  LocalDate tradeDate, Item item1, Item item2, LocalDate returnDate){
+                                 LocalDate tradeDate, Item item1, Item item2, LocalDate returnDate){
         this.processedTrade = new TwoWayTrade(currentUser, receiver, tradeDate,
                 location, item1, item2);
         currentUser.addToTrades(processedTrade);

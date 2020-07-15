@@ -1,5 +1,7 @@
 package signupsys;
 
+import users.*;
+
 import java.util.Scanner;
 
 public class SignupSystem {

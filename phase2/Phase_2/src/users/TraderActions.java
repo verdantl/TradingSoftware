@@ -1,5 +1,8 @@
 package users;
 
+import items.Item;
+import trades.Trade;
+
 import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;

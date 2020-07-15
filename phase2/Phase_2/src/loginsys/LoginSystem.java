@@ -1,5 +1,13 @@
 package loginsys;
 
+import adminsys.*;
+import gateway.*;
+import items.ItemManager;
+import signupsys.SignupSystem;
+import tradersys.*;
+import trades.TradeManager;
+import users.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -1,5 +1,8 @@
 package users;
 
+import items.Item;
+import trades.Trade;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.time.LocalDate;

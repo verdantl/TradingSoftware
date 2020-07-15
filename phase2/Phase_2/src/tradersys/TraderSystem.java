@@ -1,5 +1,9 @@
 package tradersys;
 
+import items.*;
+import trades.*;
+import users.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

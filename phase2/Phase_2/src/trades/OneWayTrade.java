@@ -1,5 +1,8 @@
 package trades;
 
+import items.Item;
+import users.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;

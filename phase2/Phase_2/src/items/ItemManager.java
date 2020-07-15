@@ -1,5 +1,7 @@
 package items;
 
+import users.Trader;
+
 import java.util.ArrayList;
 
 public class ItemManager {
