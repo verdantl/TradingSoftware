@@ -23,15 +23,6 @@ public class Item {
         idCounter ++;
     }
 
-    /**
-     * Constructor of the item class for when items are read in.
-     * @param name the name of the item
-     * @param category the category of the item
-     * @param description the description of the item
-     * @param owner the owner of the item
-     * @param qualityRating the quality rating of the item
-     * @param id the item id
-     */
     public Item(String name, String category, String description, Trader owner, int qualityRating, int id){
         this.name = name;
         this.category = category;
@@ -42,6 +33,7 @@ public class Item {
         idCounter++;
     }
 
+    //new constructor with a given id (when starting up the program)
 
     /**
      * Gets the item's name.
@@ -121,6 +113,15 @@ public class Item {
      */
     public int getId() {
         return id;
+    }
+
+    //this should be remove
+    /**
+     * Sets the item's id.
+     * @param id the item's new id
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

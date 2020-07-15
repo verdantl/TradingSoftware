@@ -1,24 +1,23 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SignupSystem {
 
+    //Since signup system only needs to create a new user, it only needs the traderActions class (at least thats what i think)
+    //Note that it doesn't extend UserSystem as the run method doesn't need a user- We can change this, idk if its a good idea atm
     TraderActions traderActions;
     AdminActions adminActions;
-    private SignupPrompts signupPrompts;
-    private Scanner scanner;
-    private boolean admin;
-    private boolean running;
-    private String username;
-    private String password;
+    SignupPrompts signupPrompts;
+    Scanner scanner;
+    boolean admin;
+    boolean running;
+    String username;
+    String password;
 
     //Here we instantiate traderActions so we can use it.
-
-    /**
-     * Constructor for the signup system
-     * @param traderActions The trader actions instance
-     * @param adminActions The admin actions instance
-     */
     public SignupSystem(TraderActions traderActions, AdminActions adminActions){
+        //this.traderActions = traderActions;
         this.signupPrompts = new SignupPrompts();
         scanner = new Scanner(System.in);
         this.traderActions = traderActions;
@@ -28,20 +27,17 @@ public class SignupSystem {
     private void init(){
         running = true;
     }
-
-    /**
-     * The run method for signup system.
-     */
+    //This is the run method
+    //It makes use of signup prompts to ask the user to create an account. Theres no need to return a user because
+    //The user gets added to traderActions in HERE and we ask them to log in again in LoginSystem
     public void run(){
         init();
         while (running){
             adminOrTrader();
         }
     }
+    //Now its time to go back to loginSystem
 
-    /**
-     * This determines whether the new account is an admin or a trader.
-     */
     public void adminOrTrader(){
         signupPrompts.adminOrTrader();
         String option = scanner.next();
@@ -62,14 +58,9 @@ public class SignupSystem {
             createUsername();
         }
     }
-
-    /**
-     * This method is used to create a username for the user
-     */
     public void createUsername(){
         signupPrompts.displayCreateUserName();
-        scanner.nextLine();
-        String username = scanner.nextLine();
+        String username = scanner.next();
         checkUsername(username);
     }
 
@@ -91,18 +82,12 @@ public class SignupSystem {
         }
     }
 
-    /**
-     * This method is used to create a password for the user.
-     */
     public void createPassword(){
         signupPrompts.displayCreatePassword();
-        password = scanner.nextLine();
+        password = scanner.next();
         createAccount();
     }
 
-    /**
-     * This method is used to create the account
-     */
     public void createAccount(){
         signupPrompts.displayAccountSuccessful();
         if (admin){

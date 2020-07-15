@@ -1,10 +1,13 @@
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TraderSystem{
-
+public class TraderSystem extends UserSystem //if you want this system abstract class{
+    //BY THE WAY BEFORE Y'ALL START take a look at my AdminSystem loop and
+    //let me know in the chat if the loop works or if you want to make changes - Jeffrey
+{
     private TraderPrompts traderPrompts;
     private TraderActions traderActions;
     private ItemManager itemManager;
@@ -14,6 +17,7 @@ public class TraderSystem{
     private boolean running;
     private Scanner sc;
 
+    //Because i assumed we get the current user as a parametre in the run class, it might be best to remove the currentTrader variable here
     /**
      * Constructor for TraderSystem.
      * @param currentTrader The trader using the TraderSystem
@@ -37,10 +41,18 @@ public class TraderSystem{
         running = true;
     }
 
+    @Override
     public void run() {
         init();
         int option;
         while (running){
+            // This is where the user  will be used, and where the appropriate methods will be called.
+            // This is also where the traderPrompts is used to provide the user with prompts.
+            // Its better to code this part so its dynamic, where if we add in new prompts it allows you to choose those prompts
+            // with little needed change to the code
+
+            // Setting up the options available to the user by default.
+            // There will always be an option 0 to exit the program
             int numOptions = 9;
             ArrayList<Integer> validOptions = new ArrayList<>();
             for (int i = 0; i < numOptions + 1; i++) {
@@ -99,8 +111,15 @@ public class TraderSystem{
                     break;
             }
         }
+        //Once the method ends we return to LoginSystem
     }
 
+    @Override
+    protected void update() {
+
+    }
+
+    @Override
     protected void stop() {
         running = false;
     }
@@ -110,7 +129,7 @@ public class TraderSystem{
      */
     private void proposeItemToLend(){
         ArrayList<String> temp = traderPrompts.getProposeItemPrompts();
-//        String itemName, category, description;
+        String itemName, category, description;
         int rating;
         ArrayList<String> itemAttributes = new ArrayList<>();
         Item item;
@@ -163,7 +182,10 @@ public class TraderSystem{
         }
         traderPrompts.displayTraderItems(currentTrader);
         int o = Integer.parseInt(sc.nextLine());
-
+//        while(!availableOptions.contains(o)){
+//            traderPrompts.incorrectSelection();
+//            o = Integer.parseInt(sc.nextLine());
+//        }
         while(o!=0){
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
@@ -196,14 +218,17 @@ public class TraderSystem{
         traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
         traderPrompts.displayItems(currentTrader.getWantToBorrow());
         int o = Integer.parseInt(sc.nextLine());
-
+//        while(!availableOptions.contains(o)){
+//            traderPrompts.incorrectSelection();
+//            o = Integer.parseInt(sc.nextLine());
+//        }
         while(o!=0){
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
                 o = Integer.parseInt(sc.nextLine());
             }
             if(o==0){
-
+                //System.out.println("break");
                 break;
             }
             traderActions.removeFromWantToBorrow(currentTrader, currentTrader.getWantToBorrow().get(o-1));
@@ -271,6 +296,7 @@ public class TraderSystem{
      * @param item The item the user wishes to trade for.
      */
     private void proposeTradeStart(Item item){
+        // This is where the user decides between one-way or two-way
 
         ArrayList<Integer> availableOptionsOne = new ArrayList<>();
         boolean oneWay;
@@ -282,7 +308,11 @@ public class TraderSystem{
 
         tradeManager.setCurrentUser(currentTrader);
         //TODO: Move the following to TraderPrompts
-        traderPrompts.displayProposalMenu();
+        System.out.println("Please select one of the following options:");
+        System.out.println("0. Go back");
+        System.out.println("1. Initiate a one-way trade");
+        System.out.println("2. Initiate a two-way trade");
+
         int o1;
         o1 = Integer.parseInt(sc.nextLine());
 
@@ -534,11 +564,7 @@ public class TraderSystem{
         do{
             switch (option){
                 case 1:
-                    String editOption = editMeeting();
-                    traderPrompts.displayString(editOption);
-                    if(editOption.equals("Cancelling edit")){
-                        traderPrompts.browseOnGoingTrades(onGoingTrades);
-                    }
+                    traderPrompts.displayString(editMeeting());
                     break;
                 case 2:
                     traderPrompts.displayString(tradeManager.agreeToMeeting());
@@ -561,17 +587,13 @@ public class TraderSystem{
      */
     private String editMeeting(){
         traderPrompts.displayString("Enter new date and location for trade meeting");
-        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
+        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
         String newDateStr;
         LocalDate newDate;
         newDateStr = sc.nextLine();
-        if(newDateStr.equals("0")){
-            return "Cancelling edit";
-        }
 
         // Check if the user inputted a valid trade date
         while(true){
-
             try{
                 newDate = LocalDate.parse(newDateStr);
                 if (newDate.isAfter(LocalDate.now())) {
@@ -582,16 +604,13 @@ public class TraderSystem{
                 }
             }
             catch (DateTimeParseException e){
-                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
+                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD.");
             }
             newDateStr = sc.nextLine();
         }
         // User enters a new location
-        traderPrompts.displayString("Enter a location or enter [0] to cancel the edit:");
+        traderPrompts.displayString("Enter location:");
         String location = sc.nextLine();
-        if(location.equals("0")){
-            return "Cancelling edit";
-        }
         return tradeManager.editTradeMeeting(newDate, location);
     }
 }
