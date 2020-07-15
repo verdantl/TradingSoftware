@@ -1,3 +1,5 @@
+package items;
+
 import java.util.ArrayList;
 
 public class ItemManager {

@@ -1,3 +1,5 @@
+package items;
+
 public class Item {
     private int qualityRating;
     private String name, category, description;

@@ -1,3 +1,5 @@
+package users;
+
 import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;

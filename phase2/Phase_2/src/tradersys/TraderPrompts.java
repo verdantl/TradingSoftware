@@ -1,3 +1,5 @@
+package tradersys;
+
 import java.util.ArrayList;
 
 public class TraderPrompts {

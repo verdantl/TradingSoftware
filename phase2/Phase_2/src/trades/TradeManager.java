@@ -1,3 +1,5 @@
+package trades;
+
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
