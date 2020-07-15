@@ -21,7 +21,6 @@ public class ConfigReader {
 
     public ConfigReader (String fileIn) throws IOException {
         BufferedReader fileInput = new BufferedReader(new FileReader(fileIn));
-        //TODO Change buffer reader to passing in filePath and instantiating bufferedReader
         traders = new ArrayList<>();
         admins = new ArrayList<>();
         users = new ArrayList<>();
@@ -30,12 +29,7 @@ public class ConfigReader {
         String line = fileInput.readLine();
         while(!line.equals("end")) {
             line = fileInput.readLine();
-            //Example entry for a trader:
-            //Format: username, password, creationDate, isFrozen, isFlagged,requestedtounfreeze,numlent,numborrowed
-            //eg. Username,Password,12-12-2020,false,false,false,2,1
-            //    Username2,Password2,12-12-2020,true,false,false,2,1
             input = line.split(",");
-            //makes and adds the empty trader to traders
                 Trader tempTrader = new Trader(input[0], input[1], input[2], new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                     new ArrayList<>(), new ArrayList<>(), Boolean.parseBoolean(input[3]), Boolean.parseBoolean(input[4]),Boolean.parseBoolean(input[5]),
                     Integer.parseInt(input[6]), Integer.parseInt(input[7]));
@@ -170,7 +164,6 @@ public class ConfigReader {
                 assert receiver != null;
                 receiver.addToTrades(oneWayTrade);
             } else {
-                //TODO: note that this else catches end so you want need another if check
                 line = fileInput.readLine();
                 input = line.split(",");
                 if (isInItems(Integer.parseInt(input[5]))) {
@@ -192,14 +185,12 @@ public class ConfigReader {
         }
 
         traderActions = new TraderActions(this.traders);
-        //adds approved admins
             line = fileInput.readLine();
             while(!line.equals("end")) {
             input = line.split(",");
             admins.add(new Admin(input[0], input[1], input[2]));
             line = fileInput.readLine();
         }
-            //adds the requested ones
             line = fileInput.readLine();
             ArrayList<Admin> adminRequest = new ArrayList<>();
             while(!line.equals("end")) {
@@ -211,7 +202,6 @@ public class ConfigReader {
             users.addAll(admins);
             users.addAll(traders);
 
-         //add limits
              line = fileInput.readLine();
              while(!line.equals("end")){
                  input = line.split(",");
@@ -223,35 +213,6 @@ public class ConfigReader {
              }
 
             }
-            /*
-            The full example of a file would look like this:
-            * Username,Password,12-12-2020,false,false,false,2,1
-            * WantToLend:
-            * Bike,Sports,It’s a bike,10,1
-            * Book,Literature,It’s a book,9,2
-            * ProposedItems:
-            * England,Country,I’m the King,10,3
-            * Trader:
-            * user2,goodbye,2020-07-01,false,false,0,0
-            * WantToLend:
-            * Laptop,Electronics,It’s a laptop,5,4
-            * Wallet,Accessories,It’s a Wallet,9,5
-            * ProposedItems:
-            * end
-            * Wishlists:
-            * user1,4,user2
-            * user2,2,user1
-            * end
-            * BorrowedItems:
-            * user1,Car,Transportation,it’s a car,9,6,user2
-            * Trades:
-            * OneWayTrade,user2,user1,Canada,2020-07-01,false,false, null,user2,false,1,true,user1,false,1,true,On-Going
-            * end
-            * Admin, Wordpass, 02-07-2020
-            * end
-            * Admin2, Wordpass
-            * end
-            * */
 
     /**
      * given the trader's username returns that trader
