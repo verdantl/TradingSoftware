@@ -5,16 +5,12 @@ import users.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 public class AdminPrompts {
     private int atLeast;
     private int maxIncomplete;
     private int maxWeekly;
-    private ArrayList<String> menuOptions;
-    private AdminActions adminActions;
-    private TraderActions traderActions;
+    private final ArrayList<String> menuOptions;
     private final String toMainMenu = "0";
 
     /**
@@ -55,17 +51,6 @@ public class AdminPrompts {
      */
     public void commandNotRecognized(){
         System.out.println("Command not recognized.");
-    }
-
-    /**
-     * Prints a list of messages to the screen
-     * @param messages an array of strings representing the messages displayed to the
-     *                 administrator
-     */
-    public void displayMessage(String[] messages){
-        for (String message: messages){
-            System.out.println(message);
-        }
     }
 
     /**

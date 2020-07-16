@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class LoginSystem {
+public class LoginSystem{
     private String path;
     private ConfigReader configReader;
     private ConfigWriter configWriter;

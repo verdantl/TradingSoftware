@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.time.LocalDate;
 
 public class Trader extends User {
-        private ArrayList<Item> wantToBorrow,proposedItems, wantToLend, borrowedItems;
+        private final ArrayList<Item> wantToBorrow,proposedItems, wantToLend, borrowedItems;
         private boolean frozen, flagged, requestToUnfreeze;
         private int numLent, numBorrowed;
         private ArrayList<Trade> trades;
@@ -91,14 +91,6 @@ public class Trader extends User {
     }
 
     /**
-     * Setter for user's wantToBorrow
-     * @param wantToBorrow an arraylist of the user's wishlist
-     */
-    public void setWantToBorrow(ArrayList<Item> wantToBorrow) {
-        this.wantToBorrow = wantToBorrow;
-    }
-
-    /**
      * Getter for user's proposedItems
      * @return an arraylist of the items that the user wishes to lend that need to be approved
      */
@@ -107,27 +99,11 @@ public class Trader extends User {
     }
 
     /**
-     * Setter for user's proposedItems
-     * @param proposedItems an arraylist of the items the user wishes to lend that need to be approved
-     */
-    public void setProposedItems(ArrayList<Item> proposedItems) {
-        this.proposedItems = proposedItems;
-    }
-
-    /**
      * Getter for user's wantToLend
      * @return an arraylist of the user's lending list
      */
     public ArrayList<Item> getWantToLend() {
         return wantToLend;
-    }
-
-    /**
-     * Setter for user's wantToLend
-     * @param wantToLend an arraylist representing a lending list
-     */
-    public void setWantToLend(ArrayList<Item> wantToLend) {
-        this.wantToLend = wantToLend;
     }
 
     /**
@@ -282,27 +258,11 @@ public class Trader extends User {
     }
 
     /**
-     * Setter for user's borrowedItems
-     * @param borrowedItems an arraylist of the items the user has borrowed
-     */
-    public void setBorrowedItems(ArrayList<Item> borrowedItems) {
-        this.borrowedItems = borrowedItems;
-    }
-
-    /**
      * Adds the given item to the user's borrowedItems
      * @param item an item that the user has borrowed
      */
     public void addToBorrowedItems(Item item){
         this.borrowedItems.add(item);
-    }
-
-    /**
-     * Removes the given item from the user's borrowedItems
-     * @param item an item from the user's list of borrowed items
-     */
-    public void removeFromBorrowedItems(Item item){
-        this.borrowedItems.remove(item);
     }
 
     /**
@@ -343,7 +303,7 @@ public class Trader extends User {
 
     /**
      * Sets whether this user has requested to unfreeze.
-     * @param requestToUnfreeze
+     * @param requestToUnfreeze a boolean representing if the user has requested to unfreeze
      */
     public void setRequestToUnfreeze(boolean requestToUnfreeze) {
         this.requestToUnfreeze = requestToUnfreeze;

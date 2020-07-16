@@ -8,14 +8,12 @@ public class SignupSystem {
 
     TraderActions traderActions;
     AdminActions adminActions;
-    private SignupPrompts signupPrompts;
-    private Scanner scanner;
+    private final SignupPrompts signupPrompts;
+    private final Scanner scanner;
     private boolean admin;
     private boolean running;
     private String username;
     private String password;
-
-    //Here we instantiate traderActions so we can use it.
 
     /**
      * Constructor for the signup system
