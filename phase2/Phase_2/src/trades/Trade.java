@@ -1,3 +1,8 @@
+package trades;
+
+import items.Item;
+import users.Trader;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -287,5 +292,9 @@ public abstract class Trade implements Comparable<Trade> {
         numberOfEdits.replace(trader.getUsername(), numberOfEdits.get(trader.getUsername()) + 1);
     }
 
+    /**
+     * Getter for the items in the trade
+     * @return an arraylist of the items in the trade
+     */
     public abstract ArrayList<Item> getItems();
 }

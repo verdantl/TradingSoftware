@@ -1,4 +1,9 @@
-import java.sql.SQLOutput;
+package tradersys;
+
+import items.Item;
+import trades.Trade;
+import users.Trader;
+
 import java.util.ArrayList;
 
 public class TraderPrompts {
@@ -351,5 +356,16 @@ public class TraderPrompts {
                 System.out.println("Request successes: Your trade is now in progress");
                 break;
         }
+    }
+
+    /**
+     * Displays the submenu for the proposal screen
+     */
+    public void displayProposalMenu(){
+        System.out.println("Please select one of the following options:");
+        System.out.println("0. Go back");
+        System.out.println("1. Initiate a one-way trade");
+        System.out.println("2. Initiate a two-way trade");
+
     }
 }

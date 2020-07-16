@@ -1,9 +1,11 @@
+package users;
+
 import java.time.LocalDate;
 
 public abstract class User {
     private String username;
     private String password;
-    private LocalDate dateCreated;
+    private final LocalDate dateCreated;
 
     /**
      * Default constructor of User's subclasses.
@@ -26,7 +28,6 @@ public abstract class User {
         this.username = username;
         this.password = password;
 
-        // Extrapolating the date from the input string, and creating a LocalDate object.
         String[] dateParsed = date.split("-");
         int year = Integer.parseInt(dateParsed[0]);
         int month = Integer.parseInt(dateParsed[1]);

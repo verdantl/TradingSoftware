@@ -1,10 +1,12 @@
-import java.time.temporal.WeekFields;
+package users;
+
+import items.Item;
+import trades.Trade;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class TraderActions {
-    private ArrayList<Trader> traders;
+    private final ArrayList<Trader> traders;
 
     /**
      * This is the constructor for reading in users.
@@ -99,11 +101,10 @@ public class TraderActions {
      * This returns a list of the top 3 most frequent trading partners in descending order.
      * If there are less than 3 trading partners, it returns however many there are. If there is more than one
      * top trading partner with the same frequency, it returns the top 3 trading partners, where the users returned are chosen at random.
+     * This code is based on the work of "arshajii" at : https://stackoverflow.com/questions/19031213/java-get-most-common-element-in-a-list
      * @param trader The trader who's partners are to be checked.
      * @return An Arraylist of the trader's most frequent trading partners
      */
-    // Some code was used from the following resource, just going to link it here until I can cite it later:
-    //https://stackoverflow.com/questions/19031213/java-get-most-common-element-in-a-list
     public ArrayList<Trader> mostFrequentTradingPartners(Trader trader){
         ArrayList<Trade> trades = trader.getTrades();
         HashMap<Trader, Integer> mostFrequent = new HashMap<>();
@@ -155,12 +156,6 @@ public class TraderActions {
         return true;
     }
 
-    /**
-     * checks if the given username and password match with a user in the system
-     * @param username the username of the user
-     * @param password the password of the user
-     * @return whether or not the user exist in the system
-     */
     public Trader login(String username, String password){
         for(Trader t: traders){
             if (username.equals(t.getUsername())){

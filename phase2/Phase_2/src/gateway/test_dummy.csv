@@ -1,0 +1,40 @@
+Trader:
+user1,Password,2020-12-12,false,false,false,2,1
+WantToLend:
+Bike,Sports,It’s a bike,10,1
+Book,Literature,It’s a book,9,2
+ProposedItems:
+England,Country,I’m the King,10,3
+Trader:
+user2,goodbye,2020-07-01,false,false,false,0,0
+WantToLend:
+Laptop,Electronics,It’s a laptop,5,4
+Wallet,Accessories,It’s a Wallet,9,5
+ProposedItems:
+Trader:
+yyluio,12345,2020-07-04,false,false,false,0,0
+WantToLend:
+ProposedItems:
+salt,500g of salt,description,8,7
+The Pocket Oxford English Dictionary,An English Dictionary,description,8,7
+Ipad,A 2nd-hand ipad.,description,4,8
+Trader:
+123,123,2020-07-16,false,false,false,0,0
+WantToLend:
+ProposedItems:
+end
+Wishlists:
+user1,4,user2
+user2,2,user1
+end
+BorrowedItems:
+user1,Car,Transportation,it’s a car,9,8,user2
+Trades:
+OneWayTrade,user2,user1,Canada,2020-07-01,false,false,0000-01-01,user2,false,1,true,user1,false,1,true,In Progress
+user1,Car,Transportation,it’s a car,9,6,user2
+end
+Admin,Wordpass,2020-07-02
+end
+end
+limitOfTradesPerWeek,3,moreLendNeeded,0,maxIncomplete,3
+end

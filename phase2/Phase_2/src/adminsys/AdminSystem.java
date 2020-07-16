@@ -1,18 +1,22 @@
-import java.io.*;
+package adminsys;
+
+import trades.TradeManager;
+import users.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminSystem extends UserSystem {
+public class AdminSystem{
 
-    private AdminPrompts adminPrompts;
+    private final AdminPrompts adminPrompts;
 
-    private TraderActions traderActions;
-    private AdminActions adminActions;
-    private TradeManager tradeManager;
+    private final TraderActions traderActions;
+    private final AdminActions adminActions;
+    private final TradeManager tradeManager;
 
     private boolean running;
     private Admin currentAdmin;
-    private Scanner scanner;
+    private final Scanner scanner;
 
     private final String toMainMenu = "0";
 
@@ -82,7 +86,6 @@ public class AdminSystem extends UserSystem {
     /**
      * Runs the program in a loop
      */
-    @Override
     public void run() {
         init();
         while (running) {
@@ -119,10 +122,6 @@ public class AdminSystem extends UserSystem {
         }
     }
 
-    protected void update() {
-    }
-
-    @Override
     protected void stop() {
         running = false;
     }
@@ -256,14 +255,13 @@ public class AdminSystem extends UserSystem {
                 adminPrompts.commandNotRecognized();
                 return;
             }
-            if (itemID == 0) {
-            } else if (Integer.parseInt(option) <= trader.getProposedItems().size()) {
+            if (itemID != 0 && Integer.parseInt(option) <= trader.getProposedItems().size()) {
                 approved = approveOrReject();
                 if (approved!= null) {
                     adminActions.approveItem(trader, trader.getProposedItems().get(itemID - 1), approved);
                     confirmApproval(approved);
                 }
-            } else {
+            } else if (itemID != 0){
                 adminPrompts.commandNotRecognized();
             }
         }
@@ -289,8 +287,6 @@ public class AdminSystem extends UserSystem {
             }
         }
         else if (adminActions.getAdminRequests().toString().contains(option)) {
-            //TODO FIX THIS PART AND THE APPROVAL FUNCTION IS DONE
-            //            String username = option.replaceFirst("(\\d+)(\\.{1})", "");
             System.out.println(option);
             System.out.println("Processing");
             approved = approveOrReject();
