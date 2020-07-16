@@ -16,7 +16,6 @@ public class Admin extends User{
      * @param password this User's password.
      * @param date the date this User was created, in LocalDate format ("year-month-date")
      */
-    //Alternative constructor used for reading from files, off of the User reading file
     public Admin(String username, String password, String date){
         super(username, password, date);
     }

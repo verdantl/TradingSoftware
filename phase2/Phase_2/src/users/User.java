@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public abstract class User {
     private String username;
     private String password;
-    private LocalDate dateCreated;
+    private final LocalDate dateCreated;
 
     /**
      * Default constructor of User's subclasses.

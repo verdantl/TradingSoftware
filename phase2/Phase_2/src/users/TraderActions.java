@@ -2,14 +2,11 @@ package users;
 
 import items.Item;
 import trades.Trade;
-
-import java.time.temporal.WeekFields;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class TraderActions {
-    private ArrayList<Trader> traders;
+    private final ArrayList<Trader> traders;
 
     /**
      * This is the constructor for reading in users.

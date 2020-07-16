@@ -74,16 +74,6 @@ public class AdminActions {
         return true;
     }
 
-
-    // Here I don't know how to use the boolean, since successfully adding an admin doesn't have
-    // any contingencies
-
-    //the reason why I made the method to return boolean was to display message
-    //like "this admin <admin> is already in the list"
-    //and the boolean will tell the User whether admins were successfully added or not
-    //it will be used by controller/presenter classes so that those classes can display relevant message
-
-    //basically to send a confirmation message
     /**
      * Approves/rejects admins to the arraylist of admins
      * @param username the username of the admin that is being approved/rejected
@@ -104,7 +94,6 @@ public class AdminActions {
      * @param approved boolean representing whether or not the admins are approved
      * @return true if all admins were approved, and false if all admins were rejected
      */
-    //Not sure about the array here, but just used it for now.
     public boolean approveAllAdmins(boolean approved){
         if (approved) {
             for (Admin adminRequest : adminRequests) {
@@ -129,21 +118,6 @@ public class AdminActions {
         return true;
     }
 
-    //potential method
-    //if we make the parameter as a list, then in the controller class, we need to ask the user to
-    // enter list of accounts
-    // and in the controller class, we need to create a list and then pass it into the method
-    // if we do that, we need to check the formatting and etc.
-    // so I think it is better to allow user to type username one by one
-
-//    public boolean addAdmins(String username){
-//        if (admins.contains(username)){
-//            return false;
-//        }
-//        admins.add(username);
-//        return true
-//    }
-
     /**
      * Unfreezes a given account
      * @param trader The account that has to be unfrozen
@@ -165,16 +139,11 @@ public class AdminActions {
      * @param trader The account containing the item to be approved
      * @param item The item to be approved
      * @param approved A boolean representing if the item has been approved or not
-     * @return Return true iff the item has been successfully approved. Otherwise, return false.
      */
-    public boolean approveItem(Trader trader, Item item, boolean approved){
+    public void approveItem(Trader trader, Item item, boolean approved){
         trader.removeFromProposedItems(item);
         if (approved) {
             trader.addToWantToLend(item);
-            return true;
-        }
-        else{
-            return false;
         }
     }
 
@@ -182,16 +151,13 @@ public class AdminActions {
      * Approves or rejects all of the items in an account's proposed items list.
      * @param trader The account containing the items to be approved
      * @param approved A boolean representing if the items are all approved or not
-     * @return Return true iff the items are all successfully approved. Otherwise, return false.
      */
-    public boolean approveAllItems(Trader trader, boolean approved){
-        ArrayList<Item> proposedItems = (ArrayList<Item>) trader.getProposedItems().clone();
+    public void approveAllItems(Trader trader, boolean approved){
+        ArrayList<Item> proposedItems = new ArrayList<>(trader.getProposedItems());
         for (Item item: proposedItems){
             approveItem(trader, item, approved);
         }
-        return approved;
     }
-
 
     /**
      * Checks the given credentials and returns the user.
