@@ -1,5 +1,3 @@
-package adminsys;
-
 import items.Item;
 import users.*;
 

@@ -1,12 +1,10 @@
-package adminsys;
-
 import trades.TradeManager;
 import users.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminSystem{
+public class AdminSystem extends UserSystem{
 
     private final AdminPrompts adminPrompts;
 
@@ -77,7 +75,7 @@ public class AdminSystem{
 
     //Everything below here right now is part of the loop
     //This method helps set up some stuff
-    private void init() {
+    protected void init() {
         running = true;
         //this is a temporary holder
 
@@ -122,8 +120,9 @@ public class AdminSystem{
         }
     }
 
-    protected void stop() {
+    protected int stop() {
         running = false;
+        return 0;
     }
 
     /**

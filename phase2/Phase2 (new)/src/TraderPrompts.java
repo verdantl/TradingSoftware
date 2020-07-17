@@ -1,5 +1,3 @@
-package tradersys;
-
 import items.Item;
 import trades.Trade;
 import users.Trader;

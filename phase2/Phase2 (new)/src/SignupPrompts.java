@@ -1,5 +1,3 @@
-package signupsys;
-
 public class SignupPrompts {
 
     /**

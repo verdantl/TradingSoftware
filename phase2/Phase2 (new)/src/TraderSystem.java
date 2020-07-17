@@ -1,5 +1,3 @@
-package tradersys;
-
 import items.*;
 import trades.*;
 import users.*;
@@ -9,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TraderSystem{
+public class TraderSystem extends UserSystem{
 
     private TraderPrompts traderPrompts;
     private TraderActions traderActions;
@@ -39,7 +37,7 @@ public class TraderSystem{
         running = false;
     }
 
-    private void init() {
+    protected void init() {
         running = true;
     }
 
@@ -107,8 +105,9 @@ public class TraderSystem{
         }
     }
 
-    protected void stop() {
+    protected int stop() {
         running = false;
+        return 0;
     }
 
     /**

@@ -23,6 +23,7 @@ public class MainProgram implements Runnable{
         }
         while (running) {
             currentSystem.run();
+            nextSystem = currentSystem.stop();
         }
     }
 

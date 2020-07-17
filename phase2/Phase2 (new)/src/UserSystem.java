@@ -3,5 +3,5 @@ public abstract class UserSystem implements Runnable{
     public abstract void run();
 
     protected abstract void init();
-    protected abstract void stop();
+    protected abstract int stop();
 }

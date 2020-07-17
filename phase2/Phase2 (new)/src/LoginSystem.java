@@ -1,4 +1,3 @@
-package loginsys;
 
 import adminsys.*;
 import gateway.*;
@@ -27,6 +26,7 @@ public class LoginSystem extends UserSystem{
     private AdminActions adminActions;
     private ItemManager itemManager;
     private TradeManager tradeManager;
+    private int nextSystem;
 
     private Admin admin;
 
@@ -69,6 +69,7 @@ public class LoginSystem extends UserSystem{
                     choice = 0;
                 }
                 switch (choice) {
+                    //TODO split this into private methods
                     case 1:
                         System.out.println(prompts.next());
 
@@ -113,8 +114,9 @@ public class LoginSystem extends UserSystem{
                         }
                         break;
                     case 2:
-                        signupSystem.run();
-                        configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
+                        nextSystem = 1;
+//                        signupSystem.run();
+//                        configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
                         break;
                     default:
                         if (!input.equals("exit")) {
@@ -126,6 +128,24 @@ public class LoginSystem extends UserSystem{
         } catch (IOException e) {
             System.out.println("Something went wrong.");
         }
+    }
+
+    private void login(int choice){
+
+    }
+
+    private void signup(){
+
+    }
+
+    @Override
+    protected void init() {
+
+    }
+
+    @Override
+    protected int stop() {
+        return nextSystem;
     }
 
 }

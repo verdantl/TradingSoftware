@@ -1,10 +1,8 @@
-package signupsys;
-
 import users.*;
 
 import java.util.Scanner;
 
-public class SignupSystem {
+public class SignupSystem extends UserSystem{
 
     TraderActions traderActions;
     AdminActions adminActions;
@@ -27,7 +25,7 @@ public class SignupSystem {
         this.adminActions = adminActions;
     }
 
-    private void init(){
+    protected void init(){
         running = true;
     }
 
@@ -119,7 +117,8 @@ public class SignupSystem {
         stop();
     }
 
-    private void stop(){
+    protected int stop(){
         running = false;
+        return 0;
     }
 }
