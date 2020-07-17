@@ -6,7 +6,7 @@ public class Item {
     private int qualityRating;
     private String name, category, description;
     private Trader owner;
-    private int id;
+    private final int id;
     private static int idCounter = 0;
 
     /**
