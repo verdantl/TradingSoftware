@@ -15,19 +15,16 @@ public class MainProgram implements Runnable{
         configuration = new Configuration(PATH);
     }
 
-    private void init() throws IOException{
+    private void init(){
         currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
     }
 
     @Override
     public void run() {
-        try {
-            init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        init();
         while (running) {
             currentSystem.run();
+            configuration.saveInfo(PATH);
             username = currentSystem.getNextUser();
             nextSystem = currentSystem.getNextSystem();
             setCurrentSystem();

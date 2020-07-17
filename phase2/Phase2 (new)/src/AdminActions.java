@@ -5,9 +5,9 @@ import items.Item;
 import java.util.ArrayList;
 
 public class AdminActions {
-    private ArrayList<Admin> admins;
-    private ArrayList<Admin> adminRequests;
-
+    private final ArrayList<Admin> admins;
+    private final ArrayList<Admin> adminRequests;
+    private final int LINELIMIT = 80;
     public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
@@ -19,7 +19,7 @@ public class AdminActions {
     public StringBuilder getAdminRequests(){
         StringBuilder requests = new StringBuilder();
         for (int i = 0; i < adminRequests.size(); i++){
-            if (requests.length() > 80){
+            if (requests.length() > LINELIMIT){
                 requests.append("\n");
             }
             requests.append(adminRequests.get(i).getUsername());
