@@ -1,6 +1,6 @@
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 public class MainProgram implements Runnable{
     private UserSystem currentSystem;
@@ -16,8 +16,7 @@ public class MainProgram implements Runnable{
     }
 
     private void init() throws IOException{
-        currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions(),
-                configuration.getItemManager(), configuration.getTradeManager());
+        currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
     }
 
     @Override
@@ -29,17 +28,25 @@ public class MainProgram implements Runnable{
         }
         while (running) {
             currentSystem.run();
-            nextSystem = currentSystem.stop();
+            username = currentSystem.getNextUser();
+            nextSystem = currentSystem.getNextSystem();
+            try {
+                setCurrentSystem();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void setCurrentSystem() throws IOException {
         switch (nextSystem){
-            case 0: currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions(),
-                    configuration.getItemManager(), configuration.getTradeManager());
+            case 0: currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
             case 1: currentSystem = new SignupSystem(configuration.getTraderActions(), configuration.getAdminActions());
-            case 2: currentSystem = new TraderSystem();
-            case 3: currentSystem = new AdminSystem();
+            case 2: currentSystem = new TraderSystem(username, configuration.getTraderActions(),
+                    configuration.getItemManager(), configuration.getTradeManager(), configuration.getAdminActions());
+            case 3: currentSystem = new AdminSystem(username, configuration.getTraderActions(),
+                    configuration.getAdminActions(), configuration.getTradeManager());
+
             case 4: stop();
         }
     }

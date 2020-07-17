@@ -26,12 +26,19 @@ public class AdminSystem extends UserSystem{
      * @param adminActions  the actions a user can take involving admins
      * @param tradeManager  the manager class for trades
      */
-    public AdminSystem(TraderActions traderActions, AdminActions adminActions, TradeManager tradeManager) {
+    public AdminSystem(String currentAdmin, TraderActions traderActions, AdminActions adminActions, TradeManager tradeManager) {
         adminPrompts = new AdminPrompts();
         //I think we should read in from files.
         this.traderActions = traderActions;
         this.adminActions = adminActions;
         this.tradeManager = tradeManager;
+
+        //TODO Add a method for this
+        for (Admin admin: adminActions.getAdmins()){
+            if (admin.getUsername().equals(currentAdmin)){
+                this.currentAdmin = admin;
+            }
+        }
 
         running = false;
         scanner = new Scanner(System.in);
@@ -120,8 +127,17 @@ public class AdminSystem extends UserSystem{
         }
     }
 
-    protected int stop() {
+    protected void stop() {
         running = false;
+    }
+
+    @Override
+    public String getNextUser() {
+        return null;
+    }
+
+    @Override
+    protected int getNextSystem() {
         return 0;
     }
 

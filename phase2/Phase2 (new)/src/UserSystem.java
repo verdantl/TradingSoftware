@@ -3,5 +3,9 @@ public abstract class UserSystem implements Runnable{
     public abstract void run();
 
     protected abstract void init();
-    protected abstract int stop();
+    protected abstract void stop();
+
+    public abstract String getNextUser();
+
+    protected abstract int getNextSystem();
 }
