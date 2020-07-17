@@ -13,13 +13,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LoginSystem extends UserSystem{
-    private String path;
-    private ConfigReader configReader;
-    private ConfigWriter configWriter;
-
-    private TraderSystem traderSystem;
-    private AdminSystem adminSystem;
-    private SignupSystem signupSystem;
     private LoginPrompts prompts;
 
     private TraderActions traderActions;
@@ -32,21 +25,17 @@ public class LoginSystem extends UserSystem{
 
     /**
      * Constructor for the Login System
-     * @param path the file path.
      * @throws IOException Throws an input/output exception
      */
-    public LoginSystem(String path) throws IOException {
-        this.path = path;
-        configReader = new ConfigReader(this.path);
-        configWriter = new ConfigWriter();
+    public LoginSystem(TraderActions traderActions, AdminActions adminActions,
+                       ItemManager itemManager, TradeManager tradeManager) throws IOException {
 
-        traderActions = configReader.getTraderActions();
-        adminActions = configReader.getAdminActions();
-        itemManager = configReader.getItemManager();
-        tradeManager = configReader.getTradeManager();
+        this.traderActions = traderActions;
+        this.adminActions = adminActions;
+        this.itemManager = itemManager;
+        this.tradeManager = tradeManager;
 
         prompts = new LoginPrompts();
-        signupSystem = new SignupSystem(traderActions, adminActions);
     }
 
     /**
@@ -84,8 +73,6 @@ public class LoginSystem extends UserSystem{
 
                             Trader trader = traderActions.login(userInfo.get(0), userInfo.get(1));
                             if (trader != null) {
-                                traderSystem = new TraderSystem(trader, traderActions, itemManager, tradeManager, adminActions);
-                                traderSystem.run();
                                 configWriter.saveFile(this.path, traderActions, adminActions, tradeManager);
                             }
                             else{

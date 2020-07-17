@@ -1,4 +1,7 @@
-import users.*;
+import users.Admin;
+import users.AdminActions;
+import users.Trader;
+import users.TraderActions;
 
 import java.util.Scanner;
 
