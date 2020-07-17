@@ -1,39 +1,30 @@
-
-import adminsys.*;
-import gateway.*;
-import items.ItemManager;
-import signupsys.SignupSystem;
-import tradersys.*;
-import trades.TradeManager;
 import users.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+
 
 public class LoginSystem extends UserSystem{
     private LoginPrompts prompts;
 
     private TraderActions traderActions;
     private AdminActions adminActions;
-    private ItemManager itemManager;
-    private TradeManager tradeManager;
-    private int nextSystem;
 
-    private Admin admin;
+    private int nextSystem;
+    private String nextUser;
+    private BufferedReader br;
+    private boolean running;
 
     /**
      * Constructor for the Login System
      * @throws IOException Throws an input/output exception
      */
-    public LoginSystem(TraderActions traderActions, AdminActions adminActions,
-                       ItemManager itemManager, TradeManager tradeManager) throws IOException {
+    public LoginSystem(TraderActions traderActions, AdminActions adminActions) throws IOException {
 
         this.traderActions = traderActions;
         this.adminActions = adminActions;
-        this.itemManager = itemManager;
-        this.tradeManager = tradeManager;
+        br = new BufferedReader(new InputStreamReader(System.in));
 
         prompts = new LoginPrompts();
     }
@@ -42,97 +33,95 @@ public class LoginSystem extends UserSystem{
      * runs the the program from the login screen allowing the user to login, sign up, or exit.
      */
     public void run() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        init();
         try {
-            System.out.println(prompts.openingMessage());
-            String input;
-            do {
-                ArrayList<String> userInfo = new ArrayList<>();
+            while (running) {
                 prompts.resetPrompts();
                 System.out.println(prompts.next());
-                input = br.readLine();
+                String input = br.readLine();
                 int choice;
                 try {
                     choice = Integer.parseInt(input);
                 } catch (NumberFormatException e){
                     choice = 0;
                 }
-                switch (choice) {
-                    //TODO split this into private methods
+                switch (choice){
                     case 1:
-                        System.out.println(prompts.next());
-
-                        input = br.readLine();
-                        userInfo.add(input);
-
-                        if (!traderActions.checkUsername(userInfo.get(0))) {
-
-                            System.out.println(prompts.next());
-                            input = br.readLine();
-                            userInfo.add(input);
-
-                            Trader trader = traderActions.login(userInfo.get(0), userInfo.get(1));
-                            if (trader != null) {
-                                configWriter.saveFile(this.path, traderActions, adminActions, tradeManager);
-                            }
-                            else{
-                                System.out.println(prompts.wrongPassword());
-                            }
-                        } else {
-                            if (!adminActions.checkUsername(userInfo.get(0))) {
-                                System.out.println(prompts.next());
-                                input = br.readLine();
-                                userInfo.add(input);
-
-                                admin = adminActions.checkCredentials(userInfo.get(0), userInfo.get(1));
-                                if (admin != null) {
-                                    adminSystem = new AdminSystem(traderActions, adminActions, tradeManager);
-                                    adminSystem.setCurrentAdmin(admin);
-                                    adminSystem.run();
-                                    configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
-                                }
-                                else{
-                                    System.out.println(prompts.wrongPassword());
-                                }
-                            } else {
-                                System.out.println(prompts.wrongUser());
-                                continue;
-                            }
-                        }
+                        login();
                         break;
                     case 2:
-                        nextSystem = 1;
-//                        signupSystem.run();
-//                        configWriter.saveFile(this.path, traderActions, adminActions,tradeManager);
+                        signup();
                         break;
                     default:
                         if (!input.equals("exit")) {
                             System.out.println(prompts.invalidInput());
-                    }
+                        }
+                        else{
+                            break;
+                        }
                 }
-
-            } while (!input.equals("exit"));
-        } catch (IOException e) {
-            System.out.println("Something went wrong.");
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
-    private void login(int choice){
+    private void login() throws IOException {
+        System.out.println(prompts.next());
+        String username = br.readLine();
 
+        if (!traderActions.checkUsername(username)) {
+            System.out.println(prompts.next());
+            String password = br.readLine();
+
+            Trader trader = traderActions.login(username, password);
+            if (trader != null) {
+                nextUser = username;
+                nextSystem = 2;
+                stop();
+            }
+            else{
+                System.out.println(prompts.wrongPassword());
+            }
+        } else if (!adminActions.checkUsername(username)) {
+                System.out.println(prompts.next());
+                String password = br.readLine();
+
+                Admin admin = adminActions.checkCredentials(username, password);
+                if (admin != null) {
+                    nextUser = username;
+                    nextSystem = 3;
+                    stop();
+                }
+                else{
+                    System.out.println(prompts.wrongPassword());
+                }
+        } else {
+                System.out.println(prompts.wrongUser());
+            }
     }
 
     private void signup(){
-
+        nextSystem = 1;
+        stop();
     }
 
     @Override
     protected void init() {
-
+        running = true;
+        System.out.println(prompts.openingMessage());
     }
 
-    @Override
-    protected int stop() {
+    public String getNextUser(){
+        return nextUser;
+    }
+
+    protected int getNextSystem(){
         return nextSystem;
+    }
+    @Override
+    protected void stop() {
+        running = false;
     }
 
 }

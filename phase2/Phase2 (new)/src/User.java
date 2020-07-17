@@ -1,5 +1,3 @@
-package users;
-
 import java.time.LocalDate;
 
 public abstract class User {

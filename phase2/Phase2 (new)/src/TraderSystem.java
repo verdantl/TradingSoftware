@@ -25,10 +25,15 @@ public class TraderSystem extends UserSystem{
      * @param itemManager The ItemManager that this TraderSystem will use.
      * @param tradeManager The TradeManager that this Trader System will use.
      */
-    public TraderSystem(Trader currentTrader, TraderActions traderActions, ItemManager itemManager,
+    public TraderSystem(String currentTrader, TraderActions traderActions, ItemManager itemManager,
                         TradeManager tradeManager, AdminActions adminActions) {
-        this.currentTrader = currentTrader;
         this.traderActions = traderActions;
+        //TODO NEED METHOD FOR THIS:
+        for (Trader trader: traderActions.getTraders()){
+            if (trader.getUsername().equals(currentTrader)){
+                this.currentTrader = trader;
+            }
+        }
         this.itemManager = itemManager;
         this.tradeManager = tradeManager;
         this.adminActions = adminActions;
@@ -105,8 +110,17 @@ public class TraderSystem extends UserSystem{
         }
     }
 
-    protected int stop() {
+    protected void stop() {
         running = false;
+    }
+
+    @Override
+    public String getNextUser() {
+        return null;
+    }
+
+    @Override
+    protected int getNextSystem() {
         return 0;
     }
 
