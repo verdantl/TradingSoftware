@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 public class TraderSystem extends UserSystem{
 
-    private TraderPrompts traderPrompts;
-    private TraderActions traderActions;
-    private ItemManager itemManager;
-    private TradeManager tradeManager;
-    private AdminActions adminActions;
+    private final TraderPrompts traderPrompts;
+    private final TraderActions traderActions;
+    private final ItemManager itemManager;
+    private final TradeManager tradeManager;
+
     private Trader currentTrader;
     private boolean running;
-    private Scanner sc;
+    private final Scanner sc;
 
     /**
      * Constructor for TraderSystem.

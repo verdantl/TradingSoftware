@@ -6,21 +6,22 @@ import java.io.InputStreamReader;
 
 
 public class LoginSystem extends UserSystem{
-    private LoginPrompts prompts;
+    private final LoginPrompts prompts;
 
-    private TraderActions traderActions;
-    private AdminActions adminActions;
+    private final TraderActions traderActions;
+    private final AdminActions adminActions;
 
     private int nextSystem;
     private String nextUser;
-    private BufferedReader br;
+    private final BufferedReader br;
     private boolean running;
 
     /**
-     * Constructor for the Login System
-     * @throws IOException Throws an input/output exception
-     */
-    public LoginSystem(TraderActions traderActions, AdminActions adminActions) throws IOException {
+     * Constructor for this login system
+     * @param traderActions The traderActions use case class
+     * @param adminActions The Admin Actions use case class
+     * */
+    public LoginSystem(TraderActions traderActions, AdminActions adminActions) {
 
         this.traderActions = traderActions;
         this.adminActions = adminActions;

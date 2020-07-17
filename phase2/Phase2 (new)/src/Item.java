@@ -1,5 +1,3 @@
-package items;
-
 import users.Trader;
 
 public class Item {

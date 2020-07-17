@@ -9,7 +9,7 @@ public class MainProgram implements Runnable{
     private boolean running;
     private final String PATH = "src/gateway/test_dummy.csv";
 
-    private Configuration configuration;
+    private final Configuration configuration;
 
     public MainProgram() throws IOException {
         configuration = new Configuration(PATH);
@@ -30,15 +30,11 @@ public class MainProgram implements Runnable{
             currentSystem.run();
             username = currentSystem.getNextUser();
             nextSystem = currentSystem.getNextSystem();
-            try {
-                setCurrentSystem();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            setCurrentSystem();
         }
     }
 
-    private void setCurrentSystem() throws IOException {
+    private void setCurrentSystem() {
         switch (nextSystem){
             case 0: currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
             case 1: currentSystem = new SignupSystem(configuration.getTraderActions(), configuration.getAdminActions());
