@@ -16,7 +16,7 @@ public class Meeting implements Comparable<Meeting>{
     private HashMap<String, Boolean> isAgreed;
     private HashMap<String, Boolean> isConfirmed;
     private String tradeType;
-    private ArrayList<HashMap<String, String>> items;
+    private HashMap<String, String> items;
 
 
     @Override
@@ -151,14 +151,14 @@ public class Meeting implements Comparable<Meeting>{
     /**Getter for items
      * @return a list of hashmap storing items(values) and their owner's name
      */
-    public ArrayList<HashMap<String, String>> getItems() {
+    public HashMap<String, String> getItems() {
         return items;
     }
 
     /**Setter for items
      * @param items a list of hashmap storing items(values) and their owner's name
      */
-    public void setItems(ArrayList<HashMap<String, String>> items) {
+    public void setItems(HashMap<String, String> items) {
         this.items = items;
     }
 
@@ -184,6 +184,5 @@ public class Meeting implements Comparable<Meeting>{
     public void setConfirm(String trader, Boolean confirm) {
         isConfirmed.replace(trader, confirm);
     }
-
 
 }

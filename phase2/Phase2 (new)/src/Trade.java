@@ -4,10 +4,6 @@ public class Trade {
     private boolean isPermanent;
 
 
-
-
-
-
     /**Getter for whether or not the trade is permanent
      * @return whether or not the trade is permanent
      */

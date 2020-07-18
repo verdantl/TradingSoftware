@@ -11,7 +11,7 @@ public class ScheduleMeeting {
     public Meeting getMeeting(String user, int index){
         return meetingInventory.get(user).get(index);
     }
-    
+
 
 
 }
