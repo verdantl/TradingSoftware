@@ -1,41 +1,41 @@
 import java.util.List;
 
 public class Trade {
-    private String initiator;
-    private String receiver;
+    private final String initiator;
+    private final String receiver;
     private List<Integer> items; //list of item ids they are going to trade
     private final int id;
     private static int counter = 0;
-    private boolean isPermanent;
+    private boolean isTemporary;
+    private boolean isCompleted;
+    private String tradeType;
 
     /**
-     *
-     * @param init Initiator's username
-     * @param rec Receiver's username
      * @param items List of item ids they are going to trade
-     * @param isPermanent Determines whether the trade is permanent
+     * @param isTemporary Determines whether the trade is temporary
      */
-    public Trade (String init, String rec, List<Integer> items, boolean isPermanent){
-        initiator = init;
-        receiver = rec;
+    public Trade (List<Integer> items, boolean isTemporary, String initiator, String receiver){
         this.items = items;
-        this.isPermanent = isPermanent;
+        this.isTemporary = isTemporary;
+        this.isCompleted = false;
+        this.initiator = initiator;
+        this.receiver = receiver;
         id = counter;
         counter++;
     }
 
-    /**Getter for whether or not the trade is permanent
-     * @return whether or not the trade is permanent
+    /**Getter for whether or not the trade is temporary
+     * @return whether or not the trade is temporary
      */
-    public boolean isPermanent() {
-        return isPermanent;
+    public boolean isTemporary() {
+        return isTemporary;
     }
 
-    /**Getter for whether or not the trade is permanent
-     * @param permanent whether or not the trade is permanent
+    /**Getter for whether or not the trade is temporary
+     * @param temporary whether or not the trade is temporary
      */
-    public void setPermanent(boolean permanent) {
-        isPermanent = permanent;
+    public void setTemporary(boolean temporary) {
+        isTemporary = temporary;
     }
 
     /**
@@ -55,30 +55,6 @@ public class Trade {
     }
 
     /**
-     * Getter for initiator
-     * @return Initiator's username
-     */
-    public String getInitiator() {
-        return initiator;
-    }
-
-    /**
-     * Getter for receiver
-     * @return Receiver's username
-     */
-    public String getReceiver() {
-        return receiver;
-    }
-
-    /**
-     * Setter for initiator
-     * @param initiator Initiator's username
-     */
-    public void setInitiator(String initiator) {
-        this.initiator = initiator;
-    }
-
-    /**
      * Setter of items
      * @param items List of item ids
      */
@@ -86,12 +62,31 @@ public class Trade {
         this.items = items;
     }
 
-    /**
-     * Setter for receiver
-     * @param receiver Receiver's username
+    /**Setter for isCompleted
+     * @param isCompleted whether or not the trade is completed
      */
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setCompleted(Boolean isCompleted){this.isCompleted = isCompleted;}
+
+    /**Getter for isCompleted
+     * @return whether or not the trade is completed
+     */
+    public boolean getCompleted(){return this.isCompleted;}
+
+    /**Setter for the type of the trade
+     * @param tradeType the type of this trade
+     */
+    public void setTradeType(String tradeType){this.tradeType = tradeType;}
+
+    /**Getter for tradeType
+     * @return the type of the trade
+     */
+    public String getTradeType(){return tradeType;}
+
+    public String getInitiator() {
+        return initiator;
     }
 
+    public String getReceiver() {
+        return receiver;
+    }
 }

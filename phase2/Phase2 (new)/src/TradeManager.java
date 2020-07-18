@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,5 +40,45 @@ public class TradeManager {
         }
         return null;
     }
+
+
+
+    public String confirmTrade(String user, Meeting meeting, Trade trade){
+        if(LocalDate.now().isBefore(meeting.getTradeDate())){
+            return "Request refused: The trade should not take place before the meeting";
+        }else{
+            meeting.setConfirm(user, true);
+            if(checkBothConfirmed(meeting)){
+                meeting.setTradeStatus("Completed");
+                completeTrade(trade);
+                return "Both user have confirmed the trade happened. Trade is completed.";
+            }
+            return "You have confirmed the trade happened. Waiting for other user to confirm.";
+        }
+
+    }
+
+    private boolean checkBothConfirmed(Meeting meeting){
+        boolean bothConfirmed = true;
+        for(boolean confirm: meeting.getIsConfirmed().values()){
+            if(!confirm){
+                bothConfirmed = false;
+                break;
+            }
+        }
+        return bothConfirmed;
+    }
+
+    private void completeTrade(Trade trade){
+        if(trade.getTradeType().equals("OneWayTrade")){
+            conductOneWayTrade(trade);
+        }else if(trade.getTradeType().equals("TwoWayTrade")){
+            conductTwoWayTrade(trade);
+        }
+    }
+
+    private void conductOneWayTrade(Trade trade){}
+
+    private void conductTwoWayTrade(Trade trade){}
 
 }

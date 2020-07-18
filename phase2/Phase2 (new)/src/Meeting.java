@@ -2,43 +2,28 @@
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class Meeting implements Comparable<Meeting>{
+public abstract class Meeting{
     private int tradeId;
     private LocalDate tradeDate;
-    private LocalDate returnDate;
     private String location;
     private String tradeStatus;
-    private HashMap<String, Integer> numberOfEdits;
-    private HashMap<String, Boolean> isAgreed;
-    private HashMap<String, Boolean> isConfirmed;
+    private LocalDate requestMeetingDate;
+    private  HashMap<String, Integer> numberOfEdits;
+    private  HashMap<String, Boolean> isAgreed;
+    private  HashMap<String, Boolean> isConfirmed;
 
-    public Meeting(String initiator, String receiver, LocalDate tradeDate, String location){
-        this.location = location;
-        this.tradeDate = tradeDate;
+    public Meeting(int tradeId){
+        this.tradeId = tradeId;
         isConfirmed = new HashMap<>();
-        isConfirmed.put(initiator, false);
-        isConfirmed.put(receiver, false);
         numberOfEdits = new HashMap<>();
-        numberOfEdits.put(initiator, 0);
-        numberOfEdits.put(receiver, 0);
         isAgreed = new HashMap<>();
-        isAgreed.put(initiator, false);
-        isAgreed.put(receiver, false);
         this.tradeStatus = "In Progress";
+        numberOfEdits = new HashMap<>();
+        isAgreed = new HashMap<>();
+        isConfirmed = new HashMap<>();
     }
 
-    @Override
-    public int compareTo(Meeting meeting) {
-        if(this.tradeDate.isBefore(meeting.getTradeDate())){
-            return -1;
-        }
-        else if (this.tradeDate.isBefore(meeting.getTradeDate())){
-            return 1;
-        }
-        else{
-            return 0;
-        }
-    }
+
 
     /**Getter for the tradeDate
      * @return the date that the trade
@@ -68,20 +53,6 @@ public class Meeting implements Comparable<Meeting>{
      */
     public void setTradeStatus(String tradeStatus){this.tradeStatus = tradeStatus;}
 
-    /**Getter the returnDate of the trade
-     * @return the returnDate of the trade
-     */
-    public LocalDate getReturnDate(){return this.returnDate;}
-
-    /**Setter for the returnDate
-     * @param returnDate the date that the second meeting should take place
-     */
-    public void setReturnDate(LocalDate returnDate){this.returnDate = returnDate;}
-
-    /**Setter for isAgreed
-     * @param isAgreed a hashmap storing whether or not both trader agree the meeting
-     */
-    public void setIsAgreed(HashMap<String, Boolean> isAgreed) {this.isAgreed = isAgreed;}
 
     /**Getter for isAgreed
      * @return a hashmap storing whether or not both trader agree the meeting
@@ -97,10 +68,7 @@ public class Meeting implements Comparable<Meeting>{
         return isConfirmed;
     }
 
-    /**Setter for isConfirmed
-     * @param isConfirmed a hashmap storing whether or not both trader confirm the trade
-     */
-    public void setIsConfirmed(HashMap<String, Boolean> isConfirmed){this.isConfirmed = isConfirmed;}
+
 
     /**Getter for numberOfEdits
      * @return a hashmap storing the number of times each trader edits the meeting information
@@ -110,16 +78,17 @@ public class Meeting implements Comparable<Meeting>{
     }
 
     /**Setter for numberOfEdits
-     * @param numberOfEdits a hashmap storing the number of times each trader edits the meeting information
+     * @param trader the user who edits the meeting
+     * @param num the number of times that the user has edited
      */
-    public void setNumberOfEdits(HashMap<String, Integer> numberOfEdits){this.numberOfEdits = numberOfEdits;}
+    public void setNumberOfEdits(String trader, int num){this.numberOfEdits.replace(trader, num);}
 
-    /**increase the number of edits when the user edits the trade
-     * @param trader the trader who edit this trade
+    /**increase the number of edits when the user edits the meeting
+     * @param user the user who edit this meeting
      */
 
-    public void increaseNumberOfEdits(Trader trader) {
-        numberOfEdits.replace(trader.getUsername(), numberOfEdits.get(trader.getUsername()) + 1);
+    public void increaseNumberOfEdits(String user) {
+        numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
     }
 
     /**allow the trader to agree the meeting
@@ -146,9 +115,17 @@ public class Meeting implements Comparable<Meeting>{
         return tradeId;
     }
 
-    /**Setter for trade id
-     * @param id the id of the trade
-     */
-    public void setTradeId(int id) {this.tradeId = id;}
 
+    public void setTradeId(int tradeId) {
+        this.tradeId = tradeId;
+    }
+
+
+    public LocalDate getRequestMeetingDate() {
+        return requestMeetingDate;
+    }
+
+    public void setRequestMeetingDate(LocalDate requestMeetingDate) {
+        this.requestMeetingDate = requestMeetingDate;
+    }
 }
