@@ -1,13 +1,27 @@
 import java.time.LocalDate;
 import java.util.HashMap;
 
+/**
+ * A MeetingManager class that manages meetings
+ */
 public class MeetingManager {
+
+    //Each meeting is paired up with the corresponding trade's id
     private HashMap<Integer, Meeting> meetings;
 
+    /**
+     * Constructs MeetingManager class
+     * @param meetings A HashMap of Integer and Meeting
+     */
     public MeetingManager(HashMap<Integer, Meeting> meetings){
         this.meetings = meetings;
     }
 
+    /**
+     *
+     * @param id Id of the trade
+     * @return Return Meeting object iff it exists. Otherwise return null
+     */
     public Meeting getMeeting(int id){
         if (!containMeeting(id)){
             return null;
@@ -15,54 +29,58 @@ public class MeetingManager {
         return meetings.get(id);
     }
 
-    public boolean editLocation(int id, String location){
-        if (!containMeeting(id)){
-            return false;
-        }
-
+    /**
+     * Changes the location of the meeting with given id with the given location
+     * @param id Id of the trade
+     * @param location New location
+     */
+    public void editLocation(int id, String location){
         getMeeting(id).setLocation(location);
-        return true;
     }
 
-    public boolean editTradeDate(int id, LocalDate date){
-        if (!containMeeting(id)){
-            return false;
-        }
-
+    /**
+     * Changes the meeting date of the meeting with given id with the given date
+     * @param id Id of the trade
+     * @param date New trade date
+     */
+    public void editTradeDate(int id, LocalDate date){
         getMeeting(id).setTradeDate(date);
-        return true;
     }
 
-    public boolean confirmTrade(int id, String username){
-        if (!containMeeting(id)){
-            return false;
-        }
-
+    /**
+     * Confirms that the meeting happened
+     * @param id Id of the trade
+     * @param username Username of the Trader confirming that the meeting happened
+     */
+    public void confirmTrade(int id, String username){
         getMeeting(id).setConfirm(username, true);
-        return true;
     }
 
-    public boolean agreeOnTrade(int id, String username){
-        if (!containMeeting(id)){
-            return false;
-        }
-
+    /**
+     * Agrees on the meeting
+     * @param id Id of the trade
+     * @param username Username of the Trader agreeing on the meeting
+     */
+    public void agreeOnTrade(int id, String username){
         getMeeting(id).setAgree(username, true);
-        return true;
     }
 
-
+    /**
+     * Checks if the Meeting Manager has a meeting with given int id
+     * @param id Id of the trade
+     * @return Return true iff meeting with the given id exists. Otherwise return false
+     */
     public boolean containMeeting(int id){
         return meetings.containsKey(id);
     }
 
-    public boolean increaseNumEdits(int id, String username){
-        if (!containMeeting(id)){
-            return false;
-        }
-
+    /**
+     * Increases number of edits
+     * @param id Id of the trade
+     * @param username Username of the Trader that edited the meeting
+     */
+    public void increaseNumEdits(int id, String username){
         getMeeting(id).increaseNumberOfEdits(username);
-        return true;
     }
 
 
