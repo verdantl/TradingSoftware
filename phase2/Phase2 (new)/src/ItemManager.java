@@ -206,6 +206,20 @@ public class ItemManager {
         i.setDescription(description);
     }
 
+    /**
+     * Returns a list of the usernames of all traders that have items that need approving.
+     * @return
+     */
+    public List<String> getTradersNeedingItemApproval(){
+        List<String> temp = new ArrayList<>();
+        for(Map.Entry<String, Inventory> inven: this.traderInventories.entrySet()){
+            if(!inven.getValue().getProposedItems().isEmpty()){
+                temp.add(inven.getKey());
+            }
+        }
+        return temp;
+    }
+
 //    /**
 //     * changes the owner of a given item
 //     * @param i the given item
