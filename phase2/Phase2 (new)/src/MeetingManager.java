@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A MeetingManager class that manages meetings
@@ -81,6 +82,35 @@ public class MeetingManager {
      */
     public void increaseNumEdits(int id, String username){
         getMeeting(id).increaseNumberOfEdits(username);
+    }
+
+    /**
+     * Add new meeting object to meetings
+     * @param meeting Meeting object to add
+     * @return Return true iff meeting was successfully added
+     */
+    public boolean addMeeting(Meeting meeting){
+        if (containMeeting(meeting.getTradeId())){
+            return false;
+        }
+
+        meetings.put(meeting.getTradeId(), meeting);
+        return true;
+    }
+
+    /**
+     * Add list of meeting objects to meetings
+     * @param meetingList List of meeting objects to add
+     * @return Return true iff all of the meeting objects were added
+     */
+    public boolean addAllMeetings(List<Meeting> meetingList){
+        boolean addAll = true;
+        for(Meeting m: meetingList){
+            if(!addMeeting(m)){
+                addAll = false;
+            }
+        }
+        return addAll;
     }
 
 
