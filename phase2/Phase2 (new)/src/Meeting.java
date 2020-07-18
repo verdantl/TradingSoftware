@@ -8,6 +8,7 @@ public class Meeting implements Comparable<Meeting>{
 //    private String initiator;
 //    private String receiver;
 //    private LocalDate requestMeetingDate;
+    private int tradeId;
     private LocalDate tradeDate;
     private LocalDate returnDate;
     private String location;
@@ -186,4 +187,11 @@ public class Meeting implements Comparable<Meeting>{
         isConfirmed.replace(trader, confirm);
     }
 
+    /**
+     *
+     * @return Trade Id
+     */
+    public int getTradeId() {
+        return tradeId;
+    }
 }
