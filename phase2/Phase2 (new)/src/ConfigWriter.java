@@ -1,14 +1,3 @@
-package gateway;
-
-import items.Item;
-import trades.OneWayTrade;
-import trades.Trade;
-import trades.TradeManager;
-import users.Admin;
-import users.AdminActions;
-import users.Trader;
-import users.TraderActions;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

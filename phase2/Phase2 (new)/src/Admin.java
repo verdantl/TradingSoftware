@@ -1,5 +1,3 @@
-package users;
-
 public class Admin extends User{
     /**
      * Constructor for the admin class when a new account is made.
