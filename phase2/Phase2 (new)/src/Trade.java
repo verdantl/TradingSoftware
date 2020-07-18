@@ -3,7 +3,7 @@ import java.util.List;
 public class Trade {
     private String initiator;
     private String receiver;
-    private List<String> items; //list of item ids they are going to trade
+    private List<Integer> items; //list of item ids they are going to trade
     private final int id;
     private static int counter = 0;
     private boolean isPermanent;
@@ -15,7 +15,7 @@ public class Trade {
      * @param items List of item ids they are going to trade
      * @param isPermanent Determines whether the trade is permanent
      */
-    public Trade (String init, String rec, List<String> items, boolean isPermanent){
+    public Trade (String init, String rec, List<Integer> items, boolean isPermanent){
         initiator = init;
         receiver = rec;
         this.items = items;
@@ -50,7 +50,7 @@ public class Trade {
      *
      * @return List of item ids
      */
-    public List<String> getItems() {
+    public List<Integer> getItems() {
         return items;
     }
 
@@ -82,7 +82,7 @@ public class Trade {
      * Setter of items
      * @param items List of item ids
      */
-    public void setItems(List<String> items) {
+    public void setItems(List<Integer> items) {
         this.items = items;
     }
 
