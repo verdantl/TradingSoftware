@@ -1,6 +1,3 @@
-import trades.TradeManager;
-import users.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

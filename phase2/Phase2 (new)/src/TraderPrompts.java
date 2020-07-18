@@ -1,7 +1,3 @@
-import items.Item;
-import trades.Trade;
-import users.Trader;
-
 import java.util.ArrayList;
 
 public class TraderPrompts {

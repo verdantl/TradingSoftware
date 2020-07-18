@@ -1,4 +1,3 @@
-import users.Trader;
 
 import java.util.ArrayList;
 import java.time.LocalDate;

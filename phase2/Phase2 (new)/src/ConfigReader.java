@@ -1,12 +1,3 @@
-package gateway;
-
-import items.Item;
-import items.ItemManager;
-import trades.OneWayTrade;
-import trades.TradeManager;
-import trades.TwoWayTrade;
-import users.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +18,7 @@ public class ConfigReader {
 
     private ArrayList<User> users;
 
-    public ConfigReader (String fileIn) throws IOException {
+    public ConfigReader(String fileIn) throws IOException {
         BufferedReader fileInput = new BufferedReader(new FileReader(fileIn));
         traders = new ArrayList<>();
         admins = new ArrayList<>();
