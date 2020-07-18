@@ -7,7 +7,7 @@ public abstract class Meeting{
     private LocalDate tradeDate;
     private String location;
     private String tradeStatus;
-    private LocalDate requestMeetingDate;
+//    private LocalDate requestMeetingDate;
     private  HashMap<String, Integer> numberOfEdits;
     private  HashMap<String, Boolean> isAgreed;
     private  HashMap<String, Boolean> isConfirmed;
@@ -121,11 +121,11 @@ public abstract class Meeting{
     }
 
 
-    public LocalDate getRequestMeetingDate() {
-        return requestMeetingDate;
-    }
-
-    public void setRequestMeetingDate(LocalDate requestMeetingDate) {
-        this.requestMeetingDate = requestMeetingDate;
-    }
+//    public LocalDate getRequestMeetingDate() {
+//        return requestMeetingDate;
+//    }
+//
+//    public void setRequestMeetingDate(LocalDate requestMeetingDate) {
+//        this.requestMeetingDate = requestMeetingDate;
+//    }
 }
