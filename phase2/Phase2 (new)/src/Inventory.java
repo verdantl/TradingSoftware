@@ -124,4 +124,61 @@ public class Inventory {
         return s;
 
     }
+
+    /**
+     * Adds the item to borrowedItems
+     * @param item the item to be added
+     */
+    public void addToBorrowedItems(Item item){
+        this.borrowedItems.add(item);
+    }
+    /**
+     * Adds the item to approvedItems
+     * @param item the item to be added
+     */
+    public void addToApprovedItems(Item item){
+        this.approvedItems.add(item);
+    }
+    /**
+     * Adds the item to proposedItems
+     * @param item the item to be added
+     */
+    public void addProposedItems(Item item){
+        this.proposedItems.add(item);
+    }
+    /**
+     * Adds the item to wishlist
+     * @param item the item to be added
+     */
+    public void addToWishlist(Item item){
+        this.wishlist.add(item);
+    }
+    /**
+     * Removes the item from borrowedItems
+     * @param item the item to be removed
+     */
+    public void removeFromProposedItems(Item item){
+        this.proposedItems.remove(item);
+    }
+    /**
+     * Removes the item from borrowedItems
+     * @param item the item to be removed
+     */
+    public void removeFromWishlist(Item item){
+        this.wishlist.remove(item);
+    }
+    /**
+     * Removes the item from approvedItems
+     * @param item the item to be removed
+     */
+    public void removeFromApprovedItems(Item item){
+        this.approvedItems.remove(item);
+    }
+    /**
+     * Removes the item from borrowedItems
+     * @param item the item to be removed
+     */
+    public void removeFromBorrowedItems(Item item){
+        this.borrowedItems.remove(item);
+    }
 }

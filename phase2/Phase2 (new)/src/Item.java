@@ -1,9 +1,9 @@
-import users.Trader;
+//import users.Trader;
 
 public class Item {
     private int qualityRating;
     private String name, category, description;
-    private Trader owner;
+    //private Trader owner;
     private final int id;
     private static int idCounter = 0;
 
@@ -12,14 +12,13 @@ public class Item {
      * @param name the string the item is called
      * @param category the string the item is called
      * @param description the string description of the item
-     * @param owner the trader that the item belongs to
      * @param qualityRating the int the represents the quality/condition of the item
      */
-    public Item(String name, String category, String description, Trader owner, int qualityRating){
+    public Item(String name, String category, String description, int qualityRating){
         this.name = name;
         this.category = category;
         this.description = description;
-        this.owner = owner;
+        //this.owner = owner;
         this.qualityRating = qualityRating;
         id = idCounter;
         idCounter ++;
@@ -38,7 +37,7 @@ public class Item {
         this.name = name;
         this.category = category;
         this.description = description;
-        this.owner = owner;
+        //this.owner = owner;
         this.qualityRating = qualityRating;
         this.id = id;
         idCounter++;
@@ -101,21 +100,21 @@ public class Item {
         return qualityRating;
     }
 
-    /**
-     * Gets the item's owner.
-     * @return the instance of Trader that is this item's owner
-     */
-    public Trader getOwner() {
-        return owner;
-    }
+//    /**
+//     * Gets the item's owner.
+//     * @return the instance of Trader that is this item's owner
+//     */
+//    public Trader getOwner() {
+//        return owner;
+//    }
 
-    /**
-     * Sets the item's owner.
-     * @param owner the Trader that is to become this item's owner
-     */
-    public void setOwner(Trader owner) {
-        this.owner = owner;
-    }
+//    /**
+//     * Sets the item's owner.
+//     * @param owner the Trader that is to become this item's owner
+//     */
+//    public void setOwner(Trader owner) {
+//        this.owner = owner;
+//    }
 
     /**
      * Gets the item's id.
@@ -146,7 +145,7 @@ public class Item {
                 "\nqualityRating: " + qualityRating +
                 ",\ncategory: '" + category +
                 "',\ndescription: '" + description +
-                "',\nowner: " + owner.getUsername() +
+//                "',\nowner: " + owner.getUsername() +
                 ",\nID: " + id;
     }
 }
