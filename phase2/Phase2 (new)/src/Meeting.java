@@ -1,12 +1,8 @@
 
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Meeting implements Comparable<Meeting>{
-//    private String initiator;
-//    private String receiver;
-//    private LocalDate requestMeetingDate;
     private int tradeId;
     private LocalDate tradeDate;
     private LocalDate returnDate;
@@ -15,32 +11,34 @@ public class Meeting implements Comparable<Meeting>{
     private HashMap<String, Integer> numberOfEdits;
     private HashMap<String, Boolean> isAgreed;
     private HashMap<String, Boolean> isConfirmed;
-//    private String tradeType;
-//    private HashMap<String, String> items;
 
+    public Meeting(String initiator, String receiver, LocalDate tradeDate, String location){
+        this.location = location;
+        this.tradeDate = tradeDate;
+        isConfirmed = new HashMap<>();
+        isConfirmed.put(initiator, false);
+        isConfirmed.put(receiver, false);
+        numberOfEdits = new HashMap<>();
+        numberOfEdits.put(initiator, 0);
+        numberOfEdits.put(receiver, 0);
+        isAgreed = new HashMap<>();
+        isAgreed.put(initiator, false);
+        isAgreed.put(receiver, false);
+        this.tradeStatus = "In Progress";
+    }
 
     @Override
     public int compareTo(Meeting meeting) {
-        if(this.tradeDate.isBefore(meeting.getRequestMeetingDate())){
+        if(this.tradeDate.isBefore(meeting.getTradeDate())){
             return -1;
         }
-        else if (this.tradeDate.isBefore(meeting.getRequestMeetingDate())){
+        else if (this.tradeDate.isBefore(meeting.getTradeDate())){
             return 1;
         }
         else{
             return 0;
         }
     }
-
-    /**Getter for the requestMeetingDate
-     * @return the requestMeetingDate
-     */
-    //public LocalDate getRequestMeetingDate(){return this.requestMeetingDate;}
-
-    /**Setter for the requestMeetingDate
-     * @param requestMeetingDate the requestMeetingDate
-     */
-    //public void setRequestMeetingDate(LocalDate requestMeetingDate){this.requestMeetingDate = requestMeetingDate;}
 
     /**Getter for the tradeDate
      * @return the date that the trade
@@ -52,29 +50,7 @@ public class Meeting implements Comparable<Meeting>{
      */
     public void setTradeDate(LocalDate tradeDate){this.tradeDate = tradeDate;}
 
-    /** Getter for the initiator
-     * @return the initiator
-     */
-    //public String getInitiator(){return this.initiator;}
 
-    /**Setter for the initiator
-     * @param initiator the initiator
-     */
-    //public void setInitiator(String initiator){this.initiator = initiator;}
-
-    /**Getter for the receiver
-     * @return the receiver
-     */
-    //public String getReceiver(){return this.receiver;}
-
-    /**Setter for the receiver
-     * @param receiver the receiver
-     */
-    //public void setReceiver(String receiver){this.receiver = receiver;}
-
-    /**Getter for the location
-     * @return the location of the meeting
-     */
     public String getLocation(){return this.location;}
 
     /**Setter for the location
@@ -91,16 +67,6 @@ public class Meeting implements Comparable<Meeting>{
      * @param tradeStatus the status of the trade
      */
     public void setTradeStatus(String tradeStatus){this.tradeStatus = tradeStatus;}
-
-    /**Getter for the type of the trade
-     * @return the type of the trade
-     */
-    //public String getTradeType(){return this.tradeType;}
-
-    /**Setter for the tradeType
-     * @param tradeType the type of the trade
-     */
-    //public void setTradeType(String tradeType){this.tradeType = tradeType;}
 
     /**Getter the returnDate of the trade
      * @return the returnDate of the trade
@@ -148,20 +114,6 @@ public class Meeting implements Comparable<Meeting>{
      */
     public void setNumberOfEdits(HashMap<String, Integer> numberOfEdits){this.numberOfEdits = numberOfEdits;}
 
-    /**Getter for items
-     * @return a list of hashmap storing items(values) and their owner's name
-     */
-//    public HashMap<String, String> getItems() {
-//        return items;
-//    }
-
-    /**Setter for items
-     * @param items a list of hashmap storing items(values) and their owner's name
-     */
-//    public void setItems(HashMap<String, String> items) {
-//        this.items = items;
-//    }
-
     /**increase the number of edits when the user edits the trade
      * @param trader the trader who edit this trade
      */
@@ -187,10 +139,16 @@ public class Meeting implements Comparable<Meeting>{
     }
 
     /**
-     *
+     *Getter for trade id
      * @return Trade Id
      */
     public int getTradeId() {
         return tradeId;
     }
+
+    /**Setter for trade id
+     * @param id the id of the trade
+     */
+    public void setTradeId(int id) {this.tradeId = id;}
+
 }

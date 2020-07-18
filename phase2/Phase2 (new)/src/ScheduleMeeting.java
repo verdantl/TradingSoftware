@@ -4,9 +4,9 @@ import java.util.List;
 
 
 public class ScheduleMeeting {
-    private  HashMap<String, List<Meeting>> meetingInventory;
+    private final HashMap<String, List<Meeting>> meetingInventory;
 
-    public ScheduleMeeting(HashMap<String, ArrayList<Meeting>> meetingInventory){
+    public ScheduleMeeting(HashMap<String, List<Meeting>> meetingInventory){
         this.meetingInventory = meetingInventory;
     }
 
