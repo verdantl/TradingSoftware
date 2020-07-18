@@ -1,12 +1,12 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Trader extends User {
-        //private final ArrayList<Item> wantToBorrow,proposedItems, wantToLend, borrowedItems;
         private boolean frozen, flagged, requestToUnfreeze;
         private int numLent, numBorrowed;
-        private ArrayList<Trade> trades;
+        private List<Integer> tradeIds;
 
 
     /**
@@ -14,25 +14,23 @@ public class Trader extends User {
      * @param username The user's username
      * @param password The user's password
      * @param dateCreated   The date the user was created
-     * @param trades The user's list of trades
+     * @param ids The user's list of trade ids
      * @param frozen Whether the user's account is frozen
      * @param flagged Whether this user's account is flagged for review by a moderator
      * @param requestToUnfreeze Whether this user has requested to unfreeze.
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
-    public Trader(String username, String password, String dateCreated,
-                   ArrayList<Trade> trades, boolean frozen, boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed){
+
+    public Trader(String username, String password, String dateCreated, List<Integer> ids, boolean frozen,
+                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed){
         super(username, password, dateCreated);
-//        this.wantToBorrow = wantToBorrow;
-//        this.proposedItems = proposedItems;
-//        this.wantToLend = wantToLend;
-        this.trades=trades;
+
+        this.tradeIds = ids;
         this.frozen = frozen;
         this.flagged = flagged;
         this.numBorrowed=numBorrowed;
         this.numLent=numLent;
-       // this.borrowedItems = borrowedItems;
         this.requestToUnfreeze = requestToUnfreeze;
     }
 
@@ -43,45 +41,35 @@ public class Trader extends User {
      */
     public Trader(String username, String password){
         super(username,password);
-//        wantToBorrow = new ArrayList<>();
-//        proposedItems = new ArrayList<>();
-//        wantToLend = new ArrayList<>();
-        trades = new ArrayList<>();
+
+        tradeIds = new ArrayList<>();
         frozen = false;
         numBorrowed= 0;
         numLent=0;
-       // borrowedItems = new ArrayList<>();
     }
 
     /**
      * Adds the given trade to trades, ordering by tradeDate.
-     * @param trade a trade that the user has made
+     * @param id an id of the trade that the user has made
      */
-    public void addToTrades(Trade trade){
-        this.trades.add(trade);
-        Collections.sort(trades);
+    public void addToTradeIds(int id){
+        tradeIds.add(id);
     }
 
     /**
      * Converts the trader to a string representation.
      * @return a string of the admin's username, password, and date created
      */
-    @Override
-    public String toString() {
-        return "Trader{" +
-                "username='" + super.getUsername() + '\'' +
-                ", password='" + super.getPassword() + '\'' +
-                ", dateCreated=" + super.getDateCreated().toString() +
-//                ", wishlist='" + wantToBorrow + '\'' +
-//                ", lending list=" + wantToLend +
-                ", trades='" + trades + '\'' +
-                ", frozen='" + frozen + '\'' +
-                ", flagged=" + flagged +
-                ", numBorrowed=" + numBorrowed +
-                ", numLent='" + numLent + '\'' +
-                '}';
-    }
 
+    @Override
+    public String toString(){
+        String s = "Trader: "+ super.getUsername()+"\n";
+        s += "Joined on: "+ super.getDateCreated()+"\n";
+        s += "Frozen: "+frozen+" | Flagged: "+flagged+" | Request to Unfreeze: "+requestToUnfreeze+"\n\n";
+        s += "Number of items borrowed: "+numBorrowed+" | Number of items lent: "+numLent;
+
+        return s;
+    }
 
 
     /**
@@ -133,19 +121,19 @@ public class Trader extends User {
     }
 
     /**
-     * Getter for user's trades
-     * @return an arraylist of the trades the user has made
+     * Getter for user's tradeIds
+     * @return an arraylist of the tradeIds the user has made
      */
-    public ArrayList<Trade> getTrades() {
-        return trades;
+    public List<Integer> getTradeIds() {
+        return tradeIds;
     }
 
     /**
-     * Setter for user's trades
-     * @param trades an arraylist of the trades the user has made
+     * Setter for user's tradeIds
+     * @param tradeIds an arraylist of the trade Ids the user has made
      */
-    public void setTrades(ArrayList<Trade> trades) {
-        this.trades = trades;
+    public void setTradeIds(List<Integer> tradeIds) {
+        this.tradeIds = tradeIds;
     }
 
     /**
@@ -167,40 +155,41 @@ public class Trader extends User {
 
 
     /**
-     * Removes the given trade from Trades
-     * @param trade a trade from the list of trades
+     * Removes the given trade id from tradeIds
+     * @param id an Id of trade from the list of trade ids
      */
-    public void removeFromTrades(Trade trade){this.trades.remove(trade);}
-
-
-
-    /**
-     * @return Return the number of transactions that are incomplete
-     */
-    public int getNumIncompleteTransactions(){
-        int numIncomplete = 0;
-        for(Trade trade: trades){
-            if (trade.getTradeDate().isBefore(LocalDate.now()) && !trade.getIsConfirmed(trade.getInitiator()) &&
-                    !trade.getIsConfirmed(trade.getReceiver())){
-                numIncomplete++;
-            }
-        }
-
-        return numIncomplete;
+    public void removeFromTrades(int id){
+        tradeIds.remove(id);
     }
 
-    /**
-     * @return Return the number of transactions in this week
-     */
-    public int getNumWeeklyTransactions(){
-        int numTransactions = 0;
+//
+//    /**
+//     * @return Return the number of transactions that are incomplete
+//     */
+//    public int getNumIncompleteTransactions(){
+//        int numIncomplete = 0;
+//        for(Trade trade: trades){
+//            if (trade.getTradeDate().isBefore(LocalDate.now()) && !trade.getIsConfirmed(trade.getInitiator()) &&
+//                    !trade.getIsConfirmed(trade.getReceiver())){
+//                numIncomplete++;
+//            }
+//        }
+//
+//        return numIncomplete;
+//    }
 
-        for(Trade trade: trades){
-            //code goes here
-        }
-
-        return numTransactions;
-    }
+//    /**
+//     * @return Return the number of transactions in this week
+//     */
+//    public int getNumWeeklyTransactions(){
+//        int numTransactions = 0;
+//
+//        for(Trade trade: trades){
+//            //code goes here
+//        }
+//
+//        return numTransactions;
+//    }
 
     /**
      * Whether this user has requested to unfreeze or not.
