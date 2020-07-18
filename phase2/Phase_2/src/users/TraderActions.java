@@ -187,7 +187,7 @@ public class TraderActions {
 
     /**
      * Returns an arraylist of the three (if there are three) most recently traded items.
-     * Here by recenetly traded we assume it means any item involved in a trade.
+     * Here by recently traded we assume it means any item involved in a trade.
      * @param trader The trader whose recent items we wish to check
      * @return The list of items the threeMostRecentItems
      */
