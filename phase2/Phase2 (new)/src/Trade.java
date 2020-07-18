@@ -4,7 +4,7 @@ public class Trade {
     private String initiator;
     private String receiver;
     private List<String> items; //list of item ids they are going to trade
-    private int id;
+    private final int id;
     private static int counter = 0;
     private boolean isPermanent;
 
