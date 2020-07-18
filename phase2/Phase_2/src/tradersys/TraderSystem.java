@@ -308,7 +308,7 @@ public class TraderSystem{
                 return;
         }
 
-        // This is where the user decides between temporary or permanenet
+        // This is where the user decides between temporary or permanent
 
         ArrayList<Integer> availableOptionsTwo = new ArrayList<>();
         boolean temporary;

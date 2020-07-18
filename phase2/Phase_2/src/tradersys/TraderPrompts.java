@@ -242,7 +242,7 @@ public class TraderPrompts {
     }
 
     public void requestUnfreeze(){
-        System.out.println("You have requested to unfreeze your account. Please wait until an adminsitrator reviews your request.");
+        System.out.println("You have requested to unfreeze your account. Please wait until an administrator reviews your request.");
         System.out.println("Type \"0\" to return to the main menu");
     }
 
