@@ -184,4 +184,6 @@ public class Meeting implements Comparable<Meeting>{
     public void setConfirm(String trader, Boolean confirm) {
         isConfirmed.replace(trader, confirm);
     }
+
+
 }
