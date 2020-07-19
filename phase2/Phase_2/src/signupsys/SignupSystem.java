@@ -16,7 +16,7 @@ public class SignupSystem {
     private String password;
 
     /**
-     * Constructor for the signup system
+     * Constructor for the sign up system
      * @param traderActions The trader actions instance
      * @param adminActions The admin actions instance
      */
@@ -32,7 +32,7 @@ public class SignupSystem {
     }
 
     /**
-     * The run method for signup system.
+     * The run method for sign up system.
      */
     public void run(){
         init();
@@ -75,6 +75,11 @@ public class SignupSystem {
         checkUsername(username);
     }
 
+    /**
+     * Checks whether an username is available. Allows the user to create their password iff the username
+     * is available, but forces them to input another username that would be checked again if not.
+     * @param username the username that needs to be checked
+     */
     private void checkUsername(String username){
         boolean available;
         if (admin){
@@ -103,7 +108,7 @@ public class SignupSystem {
     }
 
     /**
-     * This method is used to create the account
+     * This method is used to create the account.
      */
     public void createAccount(){
         signupPrompts.displayAccountSuccessful();
@@ -119,6 +124,9 @@ public class SignupSystem {
         stop();
     }
 
+    /**
+     * Stops the SignupSystem from running.
+     */
     private void stop(){
         running = false;
     }

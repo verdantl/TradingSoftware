@@ -64,7 +64,7 @@ public class Trader extends User {
 
     /**
      * Converts the trader to a string representation.
-     * @return a string of the admin's username, password, and date created
+     * @return a string of the trader's username, password, and date created
      */
     @Override
     public String toString() {

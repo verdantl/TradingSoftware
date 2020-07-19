@@ -8,6 +8,11 @@ public class AdminActions {
     private ArrayList<Admin> admins;
     private ArrayList<Admin> adminRequests;
 
+    /**
+     * The constructor. Initializes admins and adminRequests.
+     * @param admins admins that are already in the system.
+     * @param adminRequests users to requested to become an admin.
+     */
     public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
@@ -30,10 +35,16 @@ public class AdminActions {
         return requests;
     }
 
+    /**
+     * @return the ArrayList of all admins in the system.
+     */
     public ArrayList<Admin> getAdmins(){
         return admins;
     }
 
+    /**
+     * @return the ArrayList of all admin requests in the system.
+     */
     public ArrayList<Admin> getListOfRequestedAdmins(){
         return adminRequests;
     }
@@ -45,6 +56,7 @@ public class AdminActions {
     public void addAdminRequest(Admin admin){
         adminRequests.add(admin);
     }
+
     /**
      * Finds an admin in adminRequests by
      * @param username the username of the admin being approved/rejected
@@ -105,7 +117,7 @@ public class AdminActions {
     }
 
     /**
-     * Check whether the username is valid or not
+     * Check whether the username is valid
      * @param username the username that needs to be checked
      * @return Return true iff the username is valid
      */

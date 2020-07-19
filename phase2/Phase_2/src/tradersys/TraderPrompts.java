@@ -11,6 +11,10 @@ public class TraderPrompts {
     private final String instruction = "Please enter the number of the option " +
             "you would like to select.";
 
+    /**
+     * The constructor. Calls other methods to set up the Prompts for the main menu and for when
+     * proposing an Item.
+     */
     public TraderPrompts(){
         setUpMainMenuPrompts();
         setUpProposeItemPrompts();
@@ -241,6 +245,9 @@ public class TraderPrompts {
         System.out.println(userList);
     }
 
+    /**
+     * Display a String to confirm the user successfully made a request to unfreeze their account.
+     */
     public void requestUnfreeze(){
         System.out.println("You have requested to unfreeze your account. Please wait until an administrator reviews your request.");
         System.out.println("Type \"0\" to return to the main menu");
@@ -312,6 +319,9 @@ public class TraderPrompts {
         System.out.println(trades);
     }
 
+    /**
+     * Display a String to notify the user that the option they selected is not valid.
+     */
     public void incorrectSelection(){
         System.out.println("That is not a valid option, please try again.");
     }

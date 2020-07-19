@@ -156,6 +156,11 @@ public class TraderActions {
         return true;
     }
 
+    /**
+     * @param username username of the trader who is logging in.
+     * @param password password of the trader who is logging in.
+     * @return the trader with the input username and password if it exists, null otherwise.
+     */
     public Trader login(String username, String password){
         for(Trader t: traders){
             if (username.equals(t.getUsername())){

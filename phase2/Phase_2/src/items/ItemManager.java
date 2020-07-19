@@ -7,11 +7,19 @@ import java.util.ArrayList;
 public class ItemManager {
     private ArrayList<Item> requestedItems, approvedItems;
 
+    /**
+     * The default constructor for when no parameters are given.
+     */
     public ItemManager(){
         requestedItems = new ArrayList<>();
         approvedItems = new ArrayList<>();
     }
 
+    /**
+     * Initializes the ArrayLists of Items based on the input.
+     * @param requestedItems the ArrayList of requested Items that have not been reviewed by an admin yet.
+     * @param approvedItems the ArrayList of Items approved by an admin.
+     */
     public ItemManager(ArrayList<Item> requestedItems, ArrayList<Item> approvedItems){
         this.approvedItems = approvedItems;
         this.requestedItems = requestedItems;
