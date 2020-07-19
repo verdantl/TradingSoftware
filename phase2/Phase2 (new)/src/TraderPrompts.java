@@ -140,7 +140,7 @@ public class TraderPrompts {
      * Method that prints the give list of items.
      * @param itemsList The list of items to be printed.
      */
-    public void displayItems(ArrayList<Item> itemsList){
+    public void displayItems(List<Item> itemsList){
         StringBuilder items = new StringBuilder();
         for(int i=1; i< itemsList.size()+1; i++) {
             items.append(i);
@@ -168,7 +168,7 @@ public class TraderPrompts {
      * Method we use to display the inventory of items that are available
      * @param items The items available in the inventory
      */
-    public void browseInventory(ArrayList<Item> items){
+    public void browseInventory(List<Item> items){
         System.out.println("Type '0 if you would like to return to the main menu.");
         System.out.println("Type the number of the item you wish to view in more detail.");
         StringBuilder itemsList = new StringBuilder();

@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TraderSystem extends UserSystem{
@@ -10,6 +11,7 @@ public class TraderSystem extends UserSystem{
     private final TraderManager traderManager;
     private final ItemManager itemManager;
     private final TradeManager tradeManager;
+    private final MeetingManager meetingManager;
 
     private String currentTrader;
     private boolean running;
@@ -23,12 +25,14 @@ public class TraderSystem extends UserSystem{
      * @param tradeManager The TradeManager that this Trader System will use.
      */
     public TraderSystem(String currentTrader, TraderActions traderActions, ItemManager itemManager,
-                        TradeManager tradeManager, TraderManager traderManager) {
+                        TradeManager tradeManager, TraderManager traderManager,
+                        MeetingManager meetingManager) {
+        this.currentTrader = currentTrader;
         this.traderActions = traderActions;
         this.itemManager = itemManager;
         this.tradeManager = tradeManager;
         this.traderManager = traderManager;
-        this.currentTrader = currentTrader;
+        this.meetingManager = meetingManager;
         this.traderPrompts = new TraderPrompts(itemManager);
         sc = new Scanner(System.in);
         running = false;
@@ -203,14 +207,14 @@ public class TraderSystem extends UserSystem{
     private void removeItemFromWishlist(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
         availableOptions.add(0);
-        for (int i=0; i < currentTrader.getWantToBorrow().size(); i++){
-            availableOptions.add(i+1);
+        for (int i=0; i < itemManager.getWantToLend(currentTrader).size(); i++){
+            availableOptions.add(itemManager.getWantToLend(currentTrader).get(i).getId());
         }
         itemManager.getWantToBorrow(currentTrader);
         //System.out.println(currentTrader.getWantToBorrow());
         traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
-        traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
-        traderPrompts.displayItems(currentTrader.getWantToBorrow());
+        traderPrompts.displayString("Choose the item you want to remove by typing in its respective ID: ");
+        traderPrompts.displayItems(itemManager.getWantToBorrow(currentTrader));
         int o = Integer.parseInt(sc.nextLine());
 
         while(o!=0){
@@ -219,15 +223,14 @@ public class TraderSystem extends UserSystem{
                 o = Integer.parseInt(sc.nextLine());
             }
             if(o==0){
-
                 break;
             }
-            traderActions.removeFromWantToBorrow(currentTrader, currentTrader.getWantToBorrow().get(o-1));
+            itemManager.removeFromWantToBorrow(currentTrader, o);
             traderPrompts.displayString("Item was removed.");
-            availableOptions.remove(availableOptions.size()-1);
+            availableOptions.remove(availableOptions.remove(o));
             traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
             traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
-            traderPrompts.displayItems(currentTrader.getWantToBorrow());
+            traderPrompts.displayItems(itemManager.getWantToBorrow(currentTrader));
             o = Integer.parseInt(sc.nextLine());
         }
     }
@@ -236,8 +239,8 @@ public class TraderSystem extends UserSystem{
      * This is the method where the user browses the inventory, and decides if they want to add items to their wantToBorrow list or propose trades.
      */
     private void browseInventoryOfItems(){
-        ArrayList<Integer> availableOptions = new ArrayList<>();
-        ArrayList<Item> itemList = traderActions.browseItems(currentTrader);
+        List<Integer> availableOptions = new ArrayList<>();
+        List<Item> itemList = itemManager.getApprovedItems(currentTrader);
 
         availableOptions.add(0);
         for (int i = 0; i < itemList.size(); i++){
@@ -256,8 +259,8 @@ public class TraderSystem extends UserSystem{
                 traderPrompts.viewItem(itemList.get(o - 1));
                 o2 = Integer.parseInt(sc.nextLine());
                 if (o2 == 1){
-                    if(!currentTrader.getWantToBorrow().contains(itemList.get(o-1))) {
-                        traderActions.addToWantToBorrow(currentTrader, itemList.get(o-1));
+                    if(!itemManager.getWantToBorrow(currentTrader).contains(itemList.get(o-1))) {
+                        itemManager.addToWantToBorrow(currentTrader, itemList.get(o-1).getId());
                         traderPrompts.displayString("Item was added to your wishlist.");
                     }
                     else{
@@ -265,10 +268,12 @@ public class TraderSystem extends UserSystem{
                     }
                 }
                 else if (o2 == 2){
-                    //THIS IS WHERE YOU DO THE PROPOSE TRADE CODE
-                    //This might be a good place to tell the user they can't trade if their account is frozen.
-                    //If their account is frozen just don't do anything, the code should return to the browsing items loop
-
+                    // I have no way of checking if currentUser's account is frozen.
+                    // Currently, currentTrader is a string for its username. However, traderManager
+                    // does not allow met to get a trader given a username. Even it it could, we
+                    // would be violating Clean Architecture by calling Trader.isFrozen() here.
+                    // Instead, we could get TraderManager to return a list of frozen accounts'
+                    // usernames, and check if currentTrader is in that list.
                     if (!currentTrader.isFrozen()){
                         this.proposeTradeStart(itemList.get(o - 1));
                     }
@@ -296,8 +301,6 @@ public class TraderSystem extends UserSystem{
             availableOptionsOne.add(i);
         }
 
-        tradeManager.setCurrentUser(currentTrader);
-        //TODO: Move the following to TraderPrompts
         traderPrompts.displayProposalMenu();
         int o1;
         o1 = Integer.parseInt(sc.nextLine());
@@ -382,54 +385,66 @@ public class TraderSystem extends UserSystem{
         // TODO: Move this to TraderPrompts
         traderPrompts.displayString("Please enter a location for the trade:");
 
+        // I have no way of checking which user owns this item.
+        String reciever;
+
         String location;
         location = sc.nextLine();
 
         if (oneWay){
-            proposeOneWay(item, temporary, tradeDate, location);
+            proposeOneWay(reciever, item, temporary, tradeDate, location);
         }
         else{
-            proposeTwoWay(item, temporary, tradeDate, location);
+            proposeTwoWay(reciever, item, temporary, tradeDate, location);
         }
     }
 
     /**
      * Where a new one-way trade is created depending on the choices the trader made previously.
+     * @param reciever The owner of the other item.
      * @param item The item to be traded.
      * @param temporary Whether or not the trade is to have a return date or not.
      * @param tradeDate The date for the trade to occur.
      * @param location The location for the trade to occur.
      */
-    private void proposeOneWay(Item item, boolean temporary, LocalDate tradeDate, String location){
-        int i;
+    private void proposeOneWay(String reciever, Item item, boolean temporary, LocalDate tradeDate, String location){
+        Trade i;
+        List<Integer> items = new ArrayList<>();
+        items.add(item.getId());
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            i = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item, returnDate);
         }
-        else{
-            i = tradeManager.requestToBorrow(item.getOwner(), location, tradeDate, item);
-        }
-        traderPrompts.displayTradeProcess(i);
+
+        i = tradeManager.createTrade(currentTrader, reciever, temporary, items, "One Way");
+
+        // I have no idea how to make a new meeting in MeetingManager without instancing the
+        // meeting here.
+
+        // traderPrompts.displayTradeProcess(i);
     }
 
     /**
      * Where a new two-way trade is created depending on the choices the trader made previously. Additionally, where the
      * user decides on which item they want to give away in the exchange.
+     * @param reciever The owner of the other item.
      * @param item The item to be traded.
      * @param temporary Whether or not the trade is to have a return date or not.
      * @param tradeDate The date for the trade to occur.
      * @param location The location for the trade to occur.
      */
-    private void proposeTwoWay(Item item, boolean temporary, LocalDate tradeDate, String location){
+    private void proposeTwoWay(String reciever, Item item, boolean temporary, LocalDate tradeDate, String location){
+        List<Integer> items = new ArrayList<>();
+        items.add(item.getId());
+
         // TODO: Move this to TraderPrompts
         traderPrompts.displayString("Here are the items you currently own. Please select one of them to trade with your trading " +
                 "partner:");
-        traderPrompts.displayTraderItemsTwo(currentTrader);
+        // traderPrompts.displayTraderItemsTwo(currentTrader);
 
         int itemChoice = Integer.parseInt(sc.nextLine());
 
-        while(itemChoice > currentTrader.getWantToLend().size() || itemChoice < 0){
+        while(itemChoice > itemManager.getWantToLend(currentTrader).size() || itemChoice < 0){
             traderPrompts.incorrectSelection();
             itemChoice = Integer.parseInt(sc.nextLine());
         }
@@ -438,19 +453,18 @@ public class TraderSystem extends UserSystem{
             return;
         }
 
-        Item itemToTrade = currentTrader.getWantToLend().get(itemChoice - 1);
+        Item itemToTrade = itemManager.getWantToLend(currentTrader).get(itemChoice - 1);
+        items.add(itemToTrade.getId());
 
-        int i;
+        Trade i;
 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, itemToTrade, item, returnDate);
         }
-        else{
-            i = tradeManager.requestToExchange(item.getOwner(), location, tradeDate, itemToTrade, item);
-        }
-        traderPrompts.displayTradeProcess(i);
+        i = tradeManager.createTrade(currentTrader, reciever, temporary, items, "Two Way");
+
+        // traderPrompts.displayTradeProcess(i);
     }
 
     /**
