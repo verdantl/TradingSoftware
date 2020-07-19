@@ -319,10 +319,7 @@ public class TraderSystem{
         }
 
         //TODO: Move the following to TraderPrompts
-        System.out.println("Please select one of the following options:");
-        System.out.println("0. Go back");
-        System.out.println("1. Make a temporary trade");
-        System.out.println("2. Make a permanent trade");
+        traderPrompts.displayProposalMenu();
 
         int o2;
         o2 = Integer.parseInt(sc.nextLine());
