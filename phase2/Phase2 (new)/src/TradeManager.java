@@ -1,84 +1,38 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class TradeManager {
-    private HashMap<String, List<Trade>> trades;
+    private final HashMap<Integer, Trade> trades;
 
+    public TradeManager(HashMap<Integer, Trade> trades){
+        this.trades = trades;
+    }
 
-    /**
-     *
-     * @param username Trader's username
-     * @return List of trades that the Trader has. If the username does not exist, return null
+    /**return the trade by the id
+     * @param id the id of the trade
+     * @return the trade with the trade's id
      */
-    public List<Trade> getTrades(String username){
-        if (!trades.containsKey(username)){
+    public Trade getTrade(int id){
+        if(!trades.containsKey(id)){
             return null;
         }
-        return trades.get(username);
+
+        return trades.get(id);
     }
 
-    /**
-     *
-     * @param username Trader's username
-     * @param tradeId Id of the trade that is being return
-     * @return Trade that the Trader has. If the username or the tradeId does not exist, return null
+    /**create a new trade
+     * @param initiator the initiator of the trade
+     * @param receiver the receiver of the trade
+     * @param isTemporary check whether or not the trade is temporary
+     * @param items a list of items needed to be traded
+     * @return a new trade
      */
-    public Trade getTrade(String username, int tradeId){
-        if (!trades.containsKey(username)){
-            return null;
-        }
-        return getTradeWithTradeId(trades.get(username), tradeId);
+    public Trade createTrade(String initiator, String receiver,
+                             boolean isTemporary, List<Integer> items){
+        return new Trade(items, isTemporary, initiator, receiver);
     }
 
-    private Trade getTradeWithTradeId(List<Trade> listOfTrades, int tradeId){
-        for (Trade t: listOfTrades){
-            if (t.getId() == tradeId){
-                return t;
-            }
-        }
-        return null;
-    }
-
-
-
-    public String confirmTrade(String user, Meeting meeting, Trade trade){
-        if(LocalDate.now().isBefore(meeting.getTradeDate())){
-            return "Request refused: The trade should not take place before the meeting";
-        }else{
-            meeting.setConfirm(user, true);
-            if(checkBothConfirmed(meeting)){
-                meeting.setTradeStatus("Completed");
-                completeTrade(trade);
-                return "Both user have confirmed the trade happened. Trade is completed.";
-            }
-            return "You have confirmed the trade happened. Waiting for other user to confirm.";
-        }
-
-    }
-
-    private boolean checkBothConfirmed(Meeting meeting){
-        boolean bothConfirmed = true;
-        for(boolean confirm: meeting.getIsConfirmed().values()){
-            if(!confirm){
-                bothConfirmed = false;
-                break;
-            }
-        }
-        return bothConfirmed;
-    }
-
-    private void completeTrade(Trade trade){
-        if(trade.getTradeType().equals("OneWayTrade")){
-            conductOneWayTrade(trade);
-        }else if(trade.getTradeType().equals("TwoWayTrade")){
-            conductTwoWayTrade(trade);
-        }
-    }
-
-    private void conductOneWayTrade(Trade trade){}
-
-    private void conductTwoWayTrade(Trade trade){}
+    
 
 }
