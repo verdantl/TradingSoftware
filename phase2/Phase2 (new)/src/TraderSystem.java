@@ -24,7 +24,7 @@ public class TraderSystem extends UserSystem{
     public TraderSystem(String currentTrader, TraderActions traderActions, ItemManager itemManager,
                         TradeManager tradeManager) {
         this.traderActions = traderActions;
-        //TODO NEED METHOD FOR THIS:
+        //TODO: NEED METHOD FOR THIS:
         for (Trader trader: traderActions.getTraders()){
             if (trader.getUsername().equals(currentTrader)){
                 this.currentTrader = trader;
@@ -133,29 +133,33 @@ public class TraderSystem extends UserSystem{
         itemAttributes.add("description");
 
         traderPrompts.displayString(temp.get(0));
-        traderPrompts.displayString(temp.get(1));
-        String o = sc.nextLine();
-        if(o.equals("0")){
-            traderPrompts.displayString("Returning to the Main Menu..");
-        }
-        else{
-            int loopVar = 0;
-            while(!o.equals("0") && loopVar <2){
-                itemAttributes.set(loopVar, o);
-                loopVar+=1;
-                traderPrompts.displayString(temp.get(loopVar+2));
-                o = sc.nextLine();
-            }
-            if(!o.equals("0")){
-                rating = Integer.parseInt(o);
-                item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
-                traderActions.addProposedItem(currentTrader, item);
-                loopVar+=1;
-                traderPrompts.displayString(temp.get(loopVar+2));
-            }
-            traderPrompts.displayString("Returning to the Main Menu...");
+
+        int loopVar = 0;
+        while(!o.equals("0") && loopVar < 3){
+            traderPrompts.displayString(temp.get(loopVar + 1));
+            o = sc.nextLine();
+            itemAttributes.set(loopVar, o);
+            loopVar+=1;
         }
 
+        if(!o.equals("0")){
+            traderPrompts.displayString(temp.get(loopVar + 1));
+            rating = Integer.parseInt(o);
+            // item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
+            // traderActions.addProposedItem(currentTrader, item);
+
+            // ~~~~ We HAVE to call a method from the User class here, might just be better to
+            // store only the username, and require all public methods in our use cases to take
+            // in usernames instead of Traders ~~~
+
+            if (!o.equals("0")){
+                itemManager.addToProposedItems(currentTrader.getUsername(), itemAttributes.get(0),
+                        itemAttributes.get(1), itemAttributes.get(2), rating);
+                loopVar+=1;
+                traderPrompts.displayString(temp.get(loopVar+1));
+            }
+        }
+        traderPrompts.displayString("Returning to the Main Menu...");
     }
 
     /**
