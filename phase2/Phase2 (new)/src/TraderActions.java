@@ -2,15 +2,49 @@ import java.util.*;
 
 
 public class TraderActions {
-    private final ArrayList<Trader> traders;
+    private ItemManager itemManager;
+    private MeetingManager meetingManager;
+    private TradeManager tradeManager;
+    private TraderManager traderManager;
 
     /**
-     * This is the constructor for reading in users.
-     * @param traders A list of traders that were read in to the program
+     * This is the constructor for the trader actions class which acts as a facade.
+     * @param itemManager The item manager for the class
+     * @param meetingManager The meeting manager for the class
+     * @param tradeManager The trade manager for the class
+     * @param traderManager the trader manager for the class
      */
-    public TraderActions(ArrayList<Trader> traders){
-        this.traders = traders;
+    public TraderActions(ItemManager itemManager, MeetingManager meetingManager, TradeManager tradeManager,
+                         TraderManager traderManager){
+        this.itemManager = itemManager;
+        this.meetingManager = meetingManager;
+        this.tradeManager = tradeManager;
+        this.traderManager = traderManager;
     }
+
+    /**
+     * A getter for the approved items owned by the user with the given username
+     * @param username The username of the trader
+     * @return An arraylist of all approved items owned by the trader
+     */
+    public ArrayList<Item> getApprovedItems(String username){
+        return itemManager.getApprovedItems(username);
+    }
+
+    public List<Item> getWishList(String username){
+        return itemManager.getWantToBorrow(username);
+    }
+
+    public void addToWishList(String username, int id){
+        itemManager.addToWantToBorrow(username, id);
+    }
+
+    public void removeFromWishList(String username, int id){
+        itemManager.removeFromWantToBorrow(username, id);
+    }
+
+    public
+
 
     //TODO Reimplement once trade classes are done.
     /**

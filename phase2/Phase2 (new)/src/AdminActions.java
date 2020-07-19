@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AdminActions {
-    private final ArrayList<Admin> admins;
-    private final ArrayList<Admin> adminRequests;
+    private final HashMap<String, Admin> admins;
+    private final HashMap<String, Admin> adminRequests;
     private final int LINELIMIT = 80;
-    public AdminActions(ArrayList<Admin> admins, ArrayList<Admin> adminRequests){
+
+    public AdminActions(HashMap<String, Admin> admins, HashMap<String, Admin> adminRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
     }
@@ -26,11 +28,19 @@ public class AdminActions {
         return requests;
     }
 
-    public ArrayList<Admin> getAdmins(){
+    /**
+     * Getter for the hashmap of admins
+     * @return A hashmap of an admins username to their account
+     */
+    public HashMap<String, Admin> getAdmins(){
         return admins;
     }
 
-    public ArrayList<Admin> getListOfRequestedAdmins(){
+    /**
+     * Getter for the list of admin requests
+     * @return An arraylist of admin requests
+     */
+    public HashMap<String, Admin> getListOfRequestedAdmins(){
         return adminRequests;
     }
 
@@ -39,20 +49,16 @@ public class AdminActions {
      * @param admin an admin request
      */
     public void addAdminRequest(Admin admin){
-        adminRequests.add(admin);
+        adminRequests.put(admin.getUsername(), admin);
     }
+
     /**
      * Finds an admin in adminRequests by
      * @param username the username of the admin being approved/rejected
      * @return the admin in adminRequests whose username matches the parameter
      */
     private Admin findRequestByUserName(String username){
-        for (Admin admin: adminRequests){
-            if (admin.getUsername().equals(username)){
-                return admin;
-            }
-        }
-        return null;
+        return adminRequests.getOrDefault(username, null);
     }
 
     /**

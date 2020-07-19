@@ -10,6 +10,10 @@ public class MainProgram implements Runnable{
 
     private final Configuration configuration;
 
+    /**
+     * Sets up the main program for the application.
+     * @throws IOException
+     */
     public MainProgram() throws IOException {
         configuration = new Configuration(PATH);
     }
@@ -18,6 +22,9 @@ public class MainProgram implements Runnable{
         currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
     }
 
+    /**
+     * Runs the program and updates the current system/user each loop.
+     */
     @Override
     public void run() {
         init();
@@ -35,7 +42,7 @@ public class MainProgram implements Runnable{
             case 0: currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
             case 1: currentSystem = new SignupSystem(configuration.getTraderActions(), configuration.getAdminActions());
             case 2: currentSystem = new TraderSystem(username, configuration.getTraderActions(),
-                    configuration.getItemManager(), configuration.getTradeManager(), configuration.getAdminActions());
+                    configuration.getItemManager(), configuration.getTradeManager());
             case 3: currentSystem = new AdminSystem(username, configuration.getTraderActions(),
                     configuration.getAdminActions(), configuration.getTradeManager());
 

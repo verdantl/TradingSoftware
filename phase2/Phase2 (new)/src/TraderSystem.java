@@ -22,7 +22,7 @@ public class TraderSystem extends UserSystem{
      * @param tradeManager The TradeManager that this Trader System will use.
      */
     public TraderSystem(String currentTrader, TraderActions traderActions, ItemManager itemManager,
-                        TradeManager tradeManager, AdminActions adminActions) {
+                        TradeManager tradeManager) {
         this.traderActions = traderActions;
         //TODO NEED METHOD FOR THIS:
         for (Trader trader: traderActions.getTraders()){
@@ -32,7 +32,6 @@ public class TraderSystem extends UserSystem{
         }
         this.itemManager = itemManager;
         this.tradeManager = tradeManager;
-        this.adminActions = adminActions;
         this.traderPrompts = new TraderPrompts();
         sc = new Scanner(System.in);
         running = false;

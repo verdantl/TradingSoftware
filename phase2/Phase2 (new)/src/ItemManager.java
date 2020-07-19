@@ -42,7 +42,7 @@ public class ItemManager {
         return traderInventories.get(username).getWishlist();
     }
     /**
-     * Adds the given item to username's  wantToBorrow
+     * Adds the given item to username's wantToBorrow
      * @param username the username of the user.
      * @param id the id of the item.
      */
@@ -67,9 +67,6 @@ public class ItemManager {
             }
         }
     }
-
-
-
 
     /**
      * Getter for user's proposedItems
