@@ -82,6 +82,10 @@ public class TraderManager {
         return temp;
     }
 
+    public HashMap<String, Trader> getAllUsers(){
+        return users;
+    }
+
     /**
      * Adds a Trader object to users
      * @param t The trader object to add
@@ -161,4 +165,5 @@ public class TraderManager {
         trader.setFlagged(false);
         return true;
     }
+
 }

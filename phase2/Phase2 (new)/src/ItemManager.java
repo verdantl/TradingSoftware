@@ -240,6 +240,16 @@ public class ItemManager {
         traderInventories.get(username).approveAllItems(approved);
     }
 
+    public HashMap<String, List<Item>> getAwaitingApproval(){
+        HashMap<String, List<Item>> needingApproval = new HashMap<>();
+        for (String username: traderInventories.keySet()){
+            List<Item> proposed = traderInventories.get(username).getProposedItems();
+            if (!proposed.isEmpty()){
+                needingApproval.put(username, proposed);
+            }
+        }
+        return needingApproval;
+    }
 //    /**
 //     * changes the owner of a given item
 //     * @param i the given item

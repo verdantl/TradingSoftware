@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AdminPrompts {
     private int atLeast;
@@ -7,6 +8,7 @@ public class AdminPrompts {
     private int maxWeekly;
     private final ArrayList<String> menuOptions;
     private final String toMainMenu = "0";
+    private final int LINELENGTH = 80;
 
     /**
      * Constructor for the AdminPrompts class
@@ -116,13 +118,25 @@ public class AdminPrompts {
     }
 
 
+    private StringBuilder printUsernames(List<String> accounts){
+        StringBuilder usernames = new StringBuilder();
+        for (int i = 0; i < accounts.size(); i++){
+            if (usernames.length() >  LINELENGTH){
+                usernames.append("\n");
+            }
+            usernames.append(i + 1).append(". ");
+            usernames.append(accounts.get(i));
+            usernames.append(" ");
+        }
+        return usernames;
+    }
     /**
      * Displays the account information of an arraylist of accounts passed in as a parameter
      * @param i the option that the administrator has selected
      * @param accounts the arraylist of accounts that are to be displayed
      */
-    public void displayFreezeOptions(int i, ArrayList<Trader> accounts){
-        System.out.print(printAccounts(accounts, false));
+    public void displayFreezeOptions(int i, List<String> accounts){
+        System.out.print(printUsernames(accounts));
         switch (i){
             case 1:
                 System.out.println("Here are all the flagged accounts. Enter [0] to go back, or enter the number of the account you " +
