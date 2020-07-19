@@ -82,4 +82,50 @@ public class TraderManager {
         return temp;
     }
 
+    /**
+     * Adds a Trader object to users
+     * @param t The trader object to add
+     * @return Return true iff the trader object was added
+     */
+    public boolean addTrader(Trader t){
+        if(containTrader(t.getUsername())){
+            return false;
+        }
+        users.put(t.getUsername(), t);
+        return true;
+    }
+
+    /**
+     * Adds a list of Trader objects to users
+     * @param traders The list of trader objects to add
+     * @return Return true iff all of the trader objects were added
+     */
+    public boolean addAllTraders(List<Trader> traders){
+        boolean addAll = true;
+        for(Trader t: traders){
+            if(!addTrader(t)){
+                addAll = false;
+            }
+        }
+        return addAll;
+    }
+
+    /**
+     * Checks if the Trader with the given username exists in users
+     * @param username Trader's username
+     * @return True iff the Trader exists
+     */
+    public boolean containTrader(String username){
+        return users.containsKey(username);
+    }
+
+    /**
+     * Removes a trader object
+     * @param t The Trader object
+     * @return True iff the Trader object was removed
+     */
+    public boolean removeTrader(Trader t){
+        return users.remove(t.getUsername(), t);
+    }
+
 }
