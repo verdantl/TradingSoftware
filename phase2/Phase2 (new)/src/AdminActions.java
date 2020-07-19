@@ -112,4 +112,17 @@ public class AdminActions {
             return false;
         }
     }
+
+    public void changeUsername(String username, String newUserName){
+        if (admins.containsKey(username)) {
+            Admin admin = admins.get(username);
+            admins.remove(username);
+            admins.put(newUserName, admin);
+        }
+    }
+    public void changePassword(String username, String password){
+        if (admins.containsKey(username)){
+            admins.get(username).setPassword(password);
+        }
+    }
 }

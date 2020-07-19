@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class AdminPrompts {
@@ -67,25 +68,21 @@ public class AdminPrompts {
         System.out.println(selections);
     }
 
-    private StringBuilder printAccounts(ArrayList<Trader> traders, boolean usernameOnly){
+    private StringBuilder printAccounts(ArrayList<Trader> traders){
         StringBuilder accounts = new StringBuilder();
         for (int i = 0; i < traders.size(); i++){
             if (accounts.length() > 80){
                 accounts.append("\n");
             }
             accounts.append(i + 1).append(". ");
-            if (usernameOnly) {
-                accounts.append(traders.get(i).getUsername());
-            }
-            else{
-                accounts.append(traders.get(i).toString());
-            }
+            accounts.append(traders.get(i).toString());
+
             accounts.append(" ");
         }
         return accounts;
     }
 
-    private StringBuilder printItems(ArrayList<Item> proposedItems){
+    private StringBuilder printItems(List<Item> proposedItems){
         StringBuilder items = new StringBuilder();
         for (int i = 0; i < proposedItems.size(); i++){
             if (items.length() > 80){
@@ -170,9 +167,9 @@ public class AdminPrompts {
      * Displays the menu for the item approval option for administrators.
      * @param traders an arraylist of all traders in the system who are awaiting item approval
      */
-    public void displayItemMenu(ArrayList<Trader> traders){
+    public void displayItemMenu(List<String> traders){
         System.out.println("Here is the list of all traders awaiting item approval:");
-        System.out.print(printAccounts(traders, true));
+        System.out.print(printUsernames(traders));
         System.out.println("\nEnter the number beside trader that you want to view: ");
     }
 
@@ -180,7 +177,7 @@ public class AdminPrompts {
      * Displays the list of items awaiting approval
      * @param items an arraylist of items awaiting approval
      */
-    public void displayTraderProposedItems(ArrayList<Item> items){
+    public void displayTraderProposedItems(List<Item> items){
         System.out.print(printItems(items));
         System.out.println("\nPlease enter the number for the item you wish to select. Enter" +
                 " [all] to select all items.");
@@ -240,8 +237,8 @@ public class AdminPrompts {
      * Displays a string representation of the given traders in the system
      * @param traders an arraylist of traders
      */
-    public void displayAllTraders(ArrayList<Trader> traders){
-        System.out.print(printAccounts(traders, false));
+    public void displayAllTraders(Collection<Trader> traders){
+        System.out.print(printAccounts((ArrayList<Trader>) traders));
     }
 
     /**

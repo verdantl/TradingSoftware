@@ -191,7 +191,7 @@ public class TraderActions {
 //
 //
 //    /**
-//     * Getter for traders who have items awaiting approval
+//     * Getter for traders who have items ng approval
 //     * @return a list of traders in the system with proposedItems length with more than 0 items
 //     */
 //    public ArrayList<Trader> getTradersNeedingApproval() {

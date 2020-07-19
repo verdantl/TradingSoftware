@@ -29,7 +29,7 @@ public class AdminSystem extends UserSystem{
         this.meetingManager = meetingManager;
 
         this.currentAdmin = currentAdmin;
-
+        adminPrompts = new AdminPrompts();
         running = false;
         scanner = new Scanner(System.in);
     }
@@ -225,7 +225,8 @@ public class AdminSystem extends UserSystem{
      */
     public void approveItemsMenu() {
         while (true) {
-            adminPrompts.displayItemMenu(traderActions.getTradersNeedingApproval());
+            HashMap<Integer, String> approvalNeeded = usernamesToHashMap(itemManager.getTradersNeedingItemApproval());
+            adminPrompts.displayItemMenu(itemManager.getTradersNeedingItemApproval());
             String option = scanner.next();
             int traderID;
             try {
@@ -237,23 +238,23 @@ public class AdminSystem extends UserSystem{
             if (traderID == 0) {
                 setToMainMenu();
                 break;
-            } else if (traderID <= traderActions.getTradersNeedingApproval().size()) {
-                Trader trader = traderActions.getTradersNeedingApproval().get(traderID - 1);
-                adminPrompts.displayTraderProposedItems(trader.getProposedItems());
-                itemSubMenu(trader);
+            } else if (approvalNeeded.containsKey(traderID)) {
+                List<Item> items = itemManager.getWantToBorrow(approvalNeeded.get(traderID));
+                adminPrompts.displayTraderProposedItems(items);
+                itemSubMenu(approvalNeeded.get(traderID));
             } else {
                 adminPrompts.commandNotRecognized();
             }
         }
     }
 
-    private void itemSubMenu(Trader trader) {
+    private void itemSubMenu(String trader) {
         String option = scanner.next();
         Boolean approved;
         if (option.equals("all")) {
             approved = approveOrReject();
             if (approved != null) {
-                adminActions.approveAllItems(trader, approved);
+                itemManager.approveAllItems(trader, approved);
                 adminPrompts.confirmApproval(approved);
             }
         }
@@ -265,16 +266,27 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.commandNotRecognized();
                 return;
             }
-            if (itemID != 0 && Integer.parseInt(option) <= trader.getProposedItems().size()) {
+            List<Item> proposedItems = itemManager.getProposedItems(trader);
+            HashMap<Integer, Item> choiceToItem = choiceToItem(proposedItems);
+
+            if (choiceToItem.containsKey(itemID)) {
                 approved = approveOrReject();
                 if (approved!= null) {
-                    adminActions.approveItem(trader, trader.getProposedItems().get(itemID - 1), approved);
+                    itemManager.approveItem(trader, choiceToItem.get(itemID).getId(), approved);
                     confirmApproval(approved);
                 }
             } else if (itemID != 0){
                 adminPrompts.commandNotRecognized();
             }
         }
+    }
+
+    private HashMap<Integer, Item> choiceToItem(List<Item> proposedItems){
+        HashMap<Integer, Item> temp = new HashMap<>();
+        for (int i = 1; i <= proposedItems.size(); i++){
+            temp.put(i, proposedItems.get(i - 1));
+        }
+        return temp;
     }
 
     private Boolean approveOrReject(){
@@ -286,23 +298,63 @@ public class AdminSystem extends UserSystem{
             case "2":
                 return false;
             case "0":
-                //The method returns a boolean so
-                //for now, I changed it to false (Junhee)
-                //I made it a reference type Boolean which has null, the null case
-                // is handled in the adminApproval method which is a bit messy rn
-                //but will fix (Jeffrey)
                 return null;
             default:
                 adminPrompts.commandNotRecognized();
                 return approveOrReject();
         }
     }
-    
+
+    /**
+     * Prints a trader with the input username to the screen
+     */
+    public void viewTraders(){
+        adminPrompts.displayTraderMenu();
+        String user = scanner.next();
+        switch (user){
+            case "0":
+                setToMainMenu();
+                break;
+            case "all":
+                adminPrompts.displayAllTraders(traderManager.getAllUsers().values());
+                break;
+            default:
+                adminPrompts.displayTrader(findTrader(user));
+                break;
+        }
+        restartViewTraders();
+    }
+
+    private Trader findTrader(String user){
+        if (traderManager.containTrader(user)){
+            return traderManager.getAllUsers().get(user);
+        }
+        else {
+            return null;
+        }
+    }
+
+    private void restartViewTraders() {
+        adminPrompts.displayRestartTrader();
+        String choice = scanner.next();
+        switch (choice){
+            case "0":
+                setToMainMenu();
+                break;
+            case "1":
+                viewTraders();
+                break;
+            default:
+                adminPrompts.commandNotRecognized();
+                restartViewTraders();
+                break;
+        }
+    }
+
     /**
      * Display the menu that allows the admin to change the limit
      */
     public void changeLimit(){
-        //to remove dummy line
         String option;
         scanner.nextLine();
         do {
@@ -310,7 +362,7 @@ public class AdminSystem extends UserSystem{
             option = scanner.nextLine();
             switch(option){
                 case "1":
-                    adminPrompts.displayThresholdOption(tradeManager.getMaxIncomplete());
+                    adminPrompts.displayThresholdOption(traderManager.get.getMaxIncomplete());
                     int newMaxIncomplete = scanner.nextInt();
                     tradeManager.setMaxIncomplete(newMaxIncomplete);
                     adminPrompts.displaySuccessMessage(1, "Limit");
@@ -373,68 +425,19 @@ public class AdminSystem extends UserSystem{
     private int changeUsername(){
         adminPrompts.displayEnterNewMessage("username");
         String newName = scanner.next();
-        if (newName.equals(currentAdmin.getUsername())){
-            return 0;
-        }
-        currentAdmin.setUsername(newName);
+        adminActions.changeUsername(currentAdmin, newName);
         return 1;
     }
 
     private int changePassword(){
         adminPrompts.displayEnterNewMessage("password");
         String newPassword = scanner.next();
-        if (newPassword.equals(currentAdmin.getPassword())){
+        if (!adminActions.checkCredentials(currentAdmin, newPassword)){
             return 0;
         }
-        currentAdmin.setPassword(newPassword);
+        adminActions.changePassword(currentAdmin, newPassword);
         return 1;
 
-    }
-
-    /**
-     * Prints a trader with the input username to the screen
-     */
-    public void viewTraders(){
-        adminPrompts.displayTraderMenu();
-        String user = scanner.next();
-        switch (user){
-            case "0":
-                setToMainMenu();
-                break;
-            case "all":
-                adminPrompts.displayAllTraders(traderActions.getTraders());
-                break;
-            default:
-                adminPrompts.displayTrader(findTrader(user));
-                break;
-        }
-        restartViewTraders();
-    }
-
-    private Trader findTrader(String user){
-        for (Trader trader: traderActions.getTraders()){
-            if (trader.getUsername().equals(user)){
-                return trader;
-            }
-        }
-        return null;
-    }
-
-    private void restartViewTraders() {
-        adminPrompts.displayRestartTrader();
-        String choice = scanner.next();
-        switch (choice){
-            case "0":
-                setToMainMenu();
-                break;
-            case "1":
-                viewTraders();
-                break;
-            default:
-                adminPrompts.commandNotRecognized();
-                restartViewTraders();
-                break;
-        }
     }
 
     /**
