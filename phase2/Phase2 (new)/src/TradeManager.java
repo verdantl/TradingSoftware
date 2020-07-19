@@ -29,10 +29,12 @@ public class TradeManager {
      * @return a new trade
      */
     public Trade createTrade(String initiator, String receiver,
-                             boolean isTemporary, List<Integer> items){
-        return new Trade(items, isTemporary, initiator, receiver);
+                             boolean isTemporary, List<Integer> items, String tradeType){
+        Trade trade = new Trade(items, isTemporary, initiator, receiver);
+        trade.setTradeType(tradeType);
+        return trade;
+
     }
 
-    
 
 }
