@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 public class LoginSystem extends UserSystem{
     private final LoginPrompts prompts;
 
-    private final TraderActions traderActions;
     private final AdminActions adminActions;
+    private final TraderManager traderManager;
 
     private int nextSystem;
     private String nextUser;
@@ -16,12 +16,12 @@ public class LoginSystem extends UserSystem{
 
     /**
      * Constructor for this login system
-     * @param traderActions The traderActions use case class
+     * @param traderManager the Trader Manager use case class
      * @param adminActions The Admin Actions use case class
      * */
-    public LoginSystem(TraderActions traderActions, AdminActions adminActions) {
+    public LoginSystem(TraderManager traderManager, AdminActions adminActions) {
 
-        this.traderActions = traderActions;
+        this.traderManager = traderManager;
         this.adminActions = adminActions;
         br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -69,12 +69,11 @@ public class LoginSystem extends UserSystem{
         System.out.println(prompts.next());
         String username = br.readLine();
 
-        if (!traderActions.checkUsername(username)) {
+        if (!traderManager.containTrader(username)) {
             System.out.println(prompts.next());
             String password = br.readLine();
 
-            Trader trader = traderActions.login(username, password);
-            if (trader != null) {
+            if (traderManager.login(username, password)){
                 nextUser = username;
                 nextSystem = 2;
                 stop();
@@ -82,19 +81,19 @@ public class LoginSystem extends UserSystem{
             else{
                 System.out.println(prompts.wrongPassword());
             }
-        } else if (!adminActions.checkUsername(username)) {
-                System.out.println(prompts.next());
-                String password = br.readLine();
+        }
+        else if (!adminActions.checkUsername(username)) {
+            System.out.println(prompts.next());
+            String password = br.readLine();
 
-                Admin admin = adminActions.checkCredentials(username, password);
-                if (admin != null) {
-                    nextUser = username;
-                    nextSystem = 3;
-                    stop();
-                }
-                else{
-                    System.out.println(prompts.wrongPassword());
-                }
+            if (adminActions.checkCredentials(username, password)){
+                nextUser = username;
+                nextSystem = 3;
+                stop();
+            }
+            else{
+                System.out.println(prompts.wrongPassword());
+            }
         } else {
                 System.out.println(prompts.wrongUser());
             }
