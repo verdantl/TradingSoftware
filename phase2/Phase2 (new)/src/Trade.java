@@ -82,10 +82,18 @@ public class Trade {
      */
     public String getTradeType(){return tradeType;}
 
+    /**
+     * Getter for initiator
+     * @return the initiator of the trade
+     */
     public String getInitiator() {
         return initiator;
     }
 
+    /**
+     * Getter for receiver
+     * @return the receiver of the trade
+     */
     public String getReceiver() {
         return receiver;
     }

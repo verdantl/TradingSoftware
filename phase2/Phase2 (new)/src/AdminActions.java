@@ -61,20 +61,6 @@ public class AdminActions {
         return adminRequests.getOrDefault(username, null);
     }
 
-    /**
-     * Freezes a given account
-     * @param trader The account that has to be frozen
-     * @return Return true iff the account is successfully frozen. Return false
-     * if the account is already frozen
-     */
-    public boolean freezeAccount(Trader trader){
-        if (trader.isFrozen()){
-            return false;
-        }
-        trader.setFrozen(true);
-        trader.setFlagged(false);
-        return true;
-    }
 
     /**
      * Approves/rejects admins to the arraylist of admins
@@ -85,9 +71,9 @@ public class AdminActions {
     public boolean approveAdmin(String username, boolean approved){
         Admin admin = findRequestByUserName(username);
         if (approved){
-            admins.add(admin);
+            admins.put(username, admin);
         }
-        adminRequests.remove(admin);
+        adminRequests.remove(username);
         return approved;
     }
 
@@ -98,9 +84,7 @@ public class AdminActions {
      */
     public boolean approveAllAdmins(boolean approved){
         if (approved) {
-            for (Admin adminRequest : adminRequests) {
-                approveAdmin(adminRequest.getUsername(), approved);
-            }
+            admins.putAll(adminRequests);
         }
         adminRequests.clear();
         return approved;
@@ -112,72 +96,20 @@ public class AdminActions {
      * @return Return true iff the username is valid
      */
     public boolean checkUsername(String username){
-        for (Admin admin: admins){
-            if (admin.getUsername().equals(username)){
-                return false;
-            }
-        }
-        return true;
+        return admins.containsKey(username);
     }
 
     /**
-     * Unfreezes a given account
-     * @param trader The account that has to be unfrozen
-     * @return Return true iff the account is successfully unfrozen. Return false
-     * if the account is already unfrozen
+     * Verifies the login information for the admin
+     * @param username the username of the login
+     * @param password the password for the login
+     * @return a boolean representing if the login was successful or not
      */
-    public boolean unfreezeAccount(Trader trader){
-        trader.setRequestToUnfreeze(false);
-        if (!trader.isFrozen()){
+    public boolean checkCredentials(String username, String password) {
+        if (admins.containsKey(username)) {
+            return admins.get(username).getPassword().equals(password);
+        } else {
             return false;
         }
-        trader.setFrozen(false);
-        trader.setFlagged(false);
-        return true;
-    }
-
-    /**
-     * Approves or rejects an item
-     * @param trader The account containing the item to be approved
-     * @param item The item to be approved
-     * @param approved A boolean representing if the item has been approved or not
-     */
-    public void approveItem(Trader trader, Item item, boolean approved){
-        trader.removeFromProposedItems(item);
-        if (approved) {
-            trader.addToWantToLend(item);
-        }
-    }
-
-    /**
-     * Approves or rejects all of the items in an account's proposed items list.
-     * @param trader The account containing the items to be approved
-     * @param approved A boolean representing if the items are all approved or not
-     */
-    public void approveAllItems(Trader trader, boolean approved){
-        ArrayList<Item> proposedItems = new ArrayList<>(trader.getProposedItems());
-        for (Item item: proposedItems){
-            approveItem(trader, item, approved);
-        }
-    }
-
-    /**
-     * Checks the given credentials and returns the user.
-     * @param username The username of the user
-     * @param password  The password of the user
-     * @return The user if the credentials match, and null otherwise.
-     */
-    public Admin checkCredentials(String username, String password){
-        for(Admin u: admins){
-            if(u.getUsername().equals(username)){
-                if(u.getPassword().equals(password)){
-                    return u;
-                }
-                else{
-                    return null;
-                }
-            }
-        }
-        return null;
     }
 }

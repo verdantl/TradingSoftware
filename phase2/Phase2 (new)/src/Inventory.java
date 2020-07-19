@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -180,5 +181,16 @@ public class Inventory {
      */
     public void removeFromBorrowedItems(Item item){
         this.borrowedItems.remove(item);
+    }
+
+    /**
+     * Approves or rejects all of the items in proposed items
+     * @param approved Whether or not the items should be approved or not
+     */
+    public void approveAllItems(boolean approved){
+        if (approved) {
+            approvedItems.addAll(proposedItems);
+        }
+        proposedItems.clear();
     }
 }

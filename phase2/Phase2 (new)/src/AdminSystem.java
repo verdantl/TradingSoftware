@@ -1,88 +1,41 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminSystem extends UserSystem{
 
     private final AdminPrompts adminPrompts;
 
-    private final TraderActions traderActions;
     private final AdminActions adminActions;
-    private final TradeManager tradeManager;
 
+    private final ItemManager itemManager;
+    private final TradeManager tradeManager;
+    private final TraderManager traderManager;
+    private final MeetingManager meetingManager;
     private boolean running;
-    private Admin currentAdmin;
+    private String currentAdmin;
     private final Scanner scanner;
 
     private final String toMainMenu = "0";
 
 
-    /**
-     * Constructor for the admin system
-     *
-     * @param traderActions the actions that a user can take involving traders
-     * @param adminActions  the actions a user can take involving admins
-     * @param tradeManager  the manager class for trades
-     */
-    public AdminSystem(String currentAdmin, TraderActions traderActions, AdminActions adminActions, TradeManager tradeManager) {
-        adminPrompts = new AdminPrompts();
-        //I think we should read in from files.
-        this.traderActions = traderActions;
+    public AdminSystem(String currentAdmin, AdminActions adminActions, ItemManager itemManager,
+                       TradeManager tradeManager, TraderManager traderManager, MeetingManager meetingManager) {
         this.adminActions = adminActions;
+        this.itemManager = itemManager;
         this.tradeManager = tradeManager;
+        this.traderManager = traderManager;
+        this.meetingManager = meetingManager;
 
-        //TODO Add a method for this
-        for (Admin admin: adminActions.getAdmins()){
-            if (admin.getUsername().equals(currentAdmin)){
-                this.currentAdmin = admin;
-            }
-        }
+        this.currentAdmin = currentAdmin;
 
         running = false;
         scanner = new Scanner(System.in);
-
-//        ArrayList<Admin> admins = new ArrayList<>();
-//        //gotta read this too
-//        ArrayList<Admin> adminRequests = new ArrayList<>();
-//
-//        try {
-//            BufferedReader in = new BufferedReader(new FileReader(fileName));
-//            String line = in.readLine();
-//            while (line != null){
-//                String[] info = line.split(",");
-//                admins.add(new Admin(info[0], info[1]));
-//                line = in.readLine();
-//            }
-//            in.close();
-//
-//        }catch (IOException iox){
-//            System.out.println("File Not Found");
-//        }
-//        adminActions = new AdminActions(admins, adminRequests);
-//        traderActions = new TraderActions(new ArrayList<>());
-//        tradeManager = new TradeManager();
-//        //May need to change constructor
-//        adminPrompts = new AdminPrompts();
-//        //may want to change the following
-
-
     }
 
-    /**
-     * Sets the current admin for the admin system
-     *
-     * @param admin the current admin
-     */
-    public void setCurrentAdmin(Admin admin) {
-        currentAdmin = admin;
-    }
-
-
-    //Everything below here right now is part of the loop
-    //This method helps set up some stuff
     protected void init() {
         running = true;
-        //this is a temporary holder
-
     }
 
     /**
@@ -93,8 +46,6 @@ public class AdminSystem extends UserSystem{
         while (running) {
             adminPrompts.displayOptions();
             int option = scanner.nextInt();
-            //to remove dummy line
-            //scanner.nextLine();
             switch (option) {
                 case 1:
                     adminApproval();
@@ -139,19 +90,60 @@ public class AdminSystem extends UserSystem{
     }
 
     /**
+     * Allows an admin to approve or reject administrative requests.
+     */
+    public void adminApproval(){
+        adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
+        String option = scanner.next();
+        Boolean approved;
+        if (option.equals(toMainMenu)){
+            setToMainMenu();
+        }
+        else if (option.equals("all")) {
+            System.out.println("Processing...");
+            approved = approveOrReject();
+            if (approved == null){
+                adminApproval();
+            }
+            else {
+                confirmApproval(adminActions.approveAllAdmins(approved));
+            }
+        }
+        else if (adminActions.getAdminRequests().toString().contains(option)) {
+            System.out.println(option);
+            System.out.println("Processing");
+            approved = approveOrReject();
+            if (approved == null){
+                adminApproval();
+            }
+            else {
+                confirmApproval(adminActions.approveAdmin(option, approved));
+            }
+        } else {
+            System.out.println("Input not recognized.");
+            adminApproval();
+        }
+    }
+
+    private void confirmApproval(boolean approved){
+        adminPrompts.confirmApproval(approved);
+    }
+
+    /**
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
     public void freezeMenu() {
-        ArrayList<Trader> traders = traderActions.getTraders();
+        HashMap<String, Trader> traders = traderManager.getAllUsers();
         adminPrompts.displayFreezeMenu();
         String option = scanner.next();
+        HashMap<Integer, String> flagged = new HashMap<>();
         switch (option) {
-            case "0":
+            case toMainMenu:
                 setToMainMenu();
                 break;
             case "1":
-                ArrayList<Trader> flaggedAccounts =
-                        traderActions.getListOfFlaggedAccounts();
+                List<String> flaggedAccounts = traderManager.getListOfFlagged();
+                flagged = usernamesToHashMap(flaggedAccounts);
                 adminPrompts.displayFreezeOptions(1, flaggedAccounts);
                 option = scanner.next();
                 int chosenFlag;
@@ -164,11 +156,12 @@ public class AdminSystem extends UserSystem{
                 if (chosenFlag == 0) {
                     break;
                 }
-                boolean freeze = adminActions.freezeAccount(flaggedAccounts.get(chosenFlag - 1));
+                boolean freeze = traderManager.freezeAccount(flagged.get(chosenFlag));
                 adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
                 break;
             case "2":
-                ArrayList<Trader> frozenAccounts = traderActions.getAllRequestToUnfreeze();
+                List<String> frozenAccounts = traderManager.getAllRequestsToUnfreeze();
+                flagged = usernamesToHashMap(frozenAccounts);
                 adminPrompts.displayFreezeOptions(2, frozenAccounts);
                 option = scanner.next();
                 int chosenFrozen;
@@ -181,12 +174,13 @@ public class AdminSystem extends UserSystem{
                 if (chosenFrozen == 0) {
                     break;
                 }
-                boolean unfreeze = adminActions.unfreezeAccount(frozenAccounts.get(chosenFrozen - 1));
+                boolean unfreeze = traderManager.unfreezeAccount(flagged.get(chosenFrozen));
                 adminPrompts.displayFreezeConfirmation(unfreeze, "Unfreeze");
                 break;
             case "3":
-                adminPrompts.displayFreezeOptions(3, traders);
+                adminPrompts.displayFreezeOptions(3, traderManager.getTraders());
                 option = scanner.next();
+                flagged = usernamesToHashMap(traderManager.getTraders());
                 int chosenAccount;
                 try {
                     chosenAccount = Integer.parseInt(option);
@@ -197,7 +191,7 @@ public class AdminSystem extends UserSystem{
                 if (chosenAccount == 0) {
                     break;
                 }
-                boolean freezeGeneral = adminActions.freezeAccount(traders.get(chosenAccount - 1));
+                boolean freezeGeneral = traderManager.freezeAccount(flagged.get(chosenAccount));
                 adminPrompts.displayFreezeConfirmation(freezeGeneral, "Freeze");
                 break;
             default:
@@ -208,6 +202,14 @@ public class AdminSystem extends UserSystem{
         freezeMenuHelper();
     }
 
+    private HashMap<Integer, String> usernamesToHashMap(List<String> usernames){
+        HashMap<Integer, String> temp = new HashMap<>();
+        for (int i = 1; i <= usernames.size(); i++){
+            temp.put(i, usernames.get(i - 1));
+        }
+        return temp;
+    }
+
     private void freezeMenuHelper() {
         adminPrompts.displayFreezeHelper(toMainMenu);
         String option = scanner.next();
@@ -216,10 +218,6 @@ public class AdminSystem extends UserSystem{
         } else {
             freezeMenu();
         }
-
-        //I don't think these two lines are needed since dowhile loop is already taking care of that
-//        adminPrompts.setToMainMenu();
-//        setToMainMenu();
     }
 
     /**
@@ -277,44 +275,6 @@ public class AdminSystem extends UserSystem{
                 adminPrompts.commandNotRecognized();
             }
         }
-    }
-    /**
-     * Allows an admin to approve or reject administrative requests.
-     */
-    public void adminApproval(){
-        adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
-        String option = scanner.next();
-        Boolean approved;
-        if (option.equals(toMainMenu)){
-            setToMainMenu();
-        }
-        else if (option.equals("all")) {
-            System.out.println("Processing...");
-            approved = approveOrReject();
-            if (approved == null){
-                adminApproval();
-            }
-            else {
-                confirmApproval(adminActions.approveAllAdmins(approved));
-            }
-        }
-        else if (adminActions.getAdminRequests().toString().contains(option)) {
-            System.out.println(option);
-            System.out.println("Processing");
-            approved = approveOrReject();
-            if (approved == null){
-                adminApproval();
-            }
-            else {
-                confirmApproval(adminActions.approveAdmin(option, approved));
-            }
-        } else {
-                System.out.println("Input not recognized.");
-                adminApproval();
-        }
-    }
-    private void confirmApproval(boolean approved){
-        adminPrompts.confirmApproval(approved);
     }
 
     private Boolean approveOrReject(){
