@@ -217,6 +217,29 @@ public class ItemManager {
         return temp;
     }
 
+    /**
+     * Approves or rejects an item
+     * @param username The account usernamecontaining the item to be approved
+     * @param item The item to be approved
+     * @param approved A boolean representing if the item has been approved or not
+     */
+    public void approveItem(String username, int item, boolean approved){
+        removeFromProposedItems(username, item);
+        if (approved) {
+            addToWantToLend(username, item);
+        }
+    }
+
+
+    /**
+     * Approves or rejects all of the items in an account's proposed items list.
+     * @param username The account containing the items to be approved
+     * @param approved A boolean representing if the items are all approved or not
+     */
+    public void approveAllItems(String username, boolean approved){
+        traderInventories.get(username).approveAllItems(approved);
+    }
+
 //    /**
 //     * changes the owner of a given item
 //     * @param i the given item

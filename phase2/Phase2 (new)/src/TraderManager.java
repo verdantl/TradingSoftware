@@ -128,4 +128,37 @@ public class TraderManager {
         return users.remove(t.getUsername(), t);
     }
 
+    /**
+     * Freezes a given account
+     * @param username The account username that has to be frozen
+     * @return Return true iff the account is successfully frozen. Return false
+     * if the account is already frozen
+     */
+    public boolean freezeAccount(String username){
+        Trader trader = users.get(username);
+        if (trader.isFrozen()){
+            return false;
+        }
+        trader.setFrozen(true);
+        trader.setFlagged(false);
+        return true;
+    }
+
+    /**
+     * Unfreezes a given account
+     * @param username The account username that has to be unfrozen
+     * @return Return true iff the account is successfully unfrozen. Return false
+     * if the account is already unfrozen
+     */
+    public boolean unfreezeAccount(String username){
+        Trader trader = users.get(username);
+
+        trader.setRequestToUnfreeze(false);
+        if (!trader.isFrozen()){
+            return false;
+        }
+        trader.setFrozen(false);
+        trader.setFlagged(false);
+        return true;
+    }
 }
