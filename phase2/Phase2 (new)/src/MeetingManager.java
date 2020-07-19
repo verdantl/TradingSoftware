@@ -85,7 +85,7 @@ public class MeetingManager {
     }
 
     /**
-     * Add new meeting object to meetings
+     * Adds new meeting object to meetings
      * @param meeting Meeting object to add
      * @return Return true iff meeting was successfully added
      */
@@ -99,7 +99,7 @@ public class MeetingManager {
     }
 
     /**
-     * Add list of meeting objects to meetings
+     * Adds list of meeting objects to meetings
      * @param meetingList List of meeting objects to add
      * @return Return true iff all of the meeting objects were added
      */
@@ -113,6 +113,17 @@ public class MeetingManager {
         return addAll;
     }
 
-
+    /**
+     * Removes the given meeting object from meetings
+     * @param m The meeting object that needs to be removed
+     * @return Return true iff the meeting object was removed
+     */
+    public boolean removeMeeting(Meeting m){
+        if(containMeeting(m.getTradeId())){
+            meetings.remove(m.getTradeId(), m);
+            return true;
+        }
+        return false;
+    }
 
 }
