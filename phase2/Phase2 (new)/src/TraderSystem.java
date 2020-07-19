@@ -33,7 +33,7 @@ public class TraderSystem extends UserSystem{
         this.tradeManager = tradeManager;
         this.traderManager = traderManager;
         this.meetingManager = meetingManager;
-        this.traderPrompts = new TraderPrompts(itemManager);
+        this.traderPrompts = new TraderPrompts(itemManager, tradeManager);
         sc = new Scanner(System.in);
         running = false;
     }
@@ -386,7 +386,7 @@ public class TraderSystem extends UserSystem{
         traderPrompts.displayString("Please enter a location for the trade:");
 
         // I have no way of checking which user owns this item.
-        String reciever;
+        String reciever = "bruh";
 
         String location;
         location = sc.nextLine();
@@ -474,6 +474,9 @@ public class TraderSystem extends UserSystem{
         traderActions.getMostRecentItems(currentTrader);
         //gives u the list of item ids that are traded^^
 
+        // Here, we should pass these ids into our prompts class, which will take care of the rest
+        // of the displaying stuff part of this
+
 //        traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
 //        int o;
 //        do {
@@ -491,7 +494,8 @@ public class TraderSystem extends UserSystem{
         traderActions.mostFrequentTradingPartners(currentTrader);
         //gives u the list of usernames of traders most frequently traded with
 
-
+        // Here, we should pass these usernames into our prompts class, which will take care of the
+        // rest of the displaying stuff part of this
 
 //        traderPrompts.viewListOfTradingPartners();
 //        int o;
@@ -507,14 +511,21 @@ public class TraderSystem extends UserSystem{
      * The user requests to unfreeze their account.
      */
     private void requestUnfreeze(){
+
+        // Again, I don't have a way of checking this at the moment.
         if(!currentTrader.isFrozen()){
             traderPrompts.displayString("Only frozen users can request to unfreeze.");
             return;
         }
         traderPrompts.requestUnfreeze();
+
+        // Same as checking if a user is frozen, I can't check this without calling an entity method
+        // or storing the instance of the entity here.
         if(currentTrader.isRequestToUnfreeze()){
             traderPrompts.displayString("You have already requested to unfreeze your account. Please wait.");
         }
+
+        // Holy shit, I just realised how bad this is for clean architecture lol im dumb
         currentTrader.setRequestToUnfreeze(true);
         int o;
         do {
@@ -530,7 +541,8 @@ public class TraderSystem extends UserSystem{
      * selects trade to display options for selected trade.
      */
     private void browseOnGoingTrades(){
-        ArrayList<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
+        // No way to get on going trades currently
+        List<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
 
         // The user returns to main menu if no ongoing trades
         if (onGoingTrades.size() == 0){

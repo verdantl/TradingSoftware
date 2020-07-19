@@ -6,9 +6,11 @@ public class TraderPrompts {
     private final String instruction = "Please enter the number of the option " +
             "you would like to select.";
     private final ItemManager itemManager;
+    private final TradeManager tradeManager;
 
-    public TraderPrompts(ItemManager itemManager){
+    public TraderPrompts(ItemManager itemManager, TradeManager tradeManager){
         this.itemManager = itemManager;
+        this.tradeManager = tradeManager;
         setUpMainMenuPrompts();
         setUpProposeItemPrompts();
     }
@@ -249,7 +251,7 @@ public class TraderPrompts {
      * Displays a list of a Trader's on-going trades.
      * @param onGoingTrades The Trader's on-going trades.
      */
-    public void browseOnGoingTrades(ArrayList<Trade> onGoingTrades){
+    public void browseOnGoingTrades(List<Trade> onGoingTrades){
         System.out.println("Here is a list of all of your on-going trades:");
 
         StringBuilder trades = new StringBuilder();
