@@ -1,11 +1,14 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TraderPrompts {
     ArrayList<String> mainMenuPrompts, proposeItemPrompts;
     private final String instruction = "Please enter the number of the option " +
             "you would like to select.";
+    private final ItemManager itemManager;
 
-    public TraderPrompts(){
+    public TraderPrompts(ItemManager itemManager){
+        this.itemManager = itemManager;
         setUpMainMenuPrompts();
         setUpProposeItemPrompts();
     }
@@ -74,26 +77,28 @@ public class TraderPrompts {
      * This is the method used to display a user's items by displaying the item name, category, description, and rating.
      * @param trader The trader who's items are to be displayed.
      */
-    public void displayTraderItems(Trader trader){
+    public void displayTraderItems(String trader){
         System.out.println("Type 0 if you would like to return to the main menu.");
         System.out.println("Choose the item you want to remove by typing in its respective number: ");
 
+        List<Item> itemList = itemManager.getWantToLend(trader);
+
         StringBuilder items = new StringBuilder();
-        for(int i=1; i< trader.getWantToLend().size()+1; i++){
+        for(int i=1; i< itemList.size()+1; i++){
             items.append(i);
 
             items.append(" - Name: ");
-            items.append(trader.getWantToLend().get(i-1).getName());
+            items.append(itemList.get(i-1).getName());
 
             items.append(". Category: ");
-            items.append(trader.getWantToLend().get(i-1).getCategory());
+            items.append(itemList.get(i-1).getCategory());
 
             items.append(". Description: ");
-            items.append(trader.getWantToLend().get(i-1).getDescription());
+            items.append(itemList.get(i-1).getDescription());
 
             items.append(". Rating: ");
-            items.append(trader.getWantToLend().get(i-1).getQualityRating());
-            if(i!=trader.getWantToLend().size()) {
+            items.append(itemList.get(i-1).getQualityRating());
+            if(i!=itemList.size()) {
                 items.append(".\n");
             }
         }
