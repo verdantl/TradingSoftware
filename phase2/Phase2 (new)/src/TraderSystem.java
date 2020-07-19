@@ -120,30 +120,32 @@ public class TraderSystem extends UserSystem{
      * Asks the user to enter the item's information that they want to propose to be added to currentTrader's wantToLend list.
      */
     private void proposeItemToLend(){
-        ArrayList<String> temp = traderPrompts.getProposeItemPrompts();
+        //I have commented out all the things related to prompts, etc. Since we're doing gui we might have to rewrite all of this.
+        //ArrayList<String> temp = traderPrompts.getProposeItemPrompts();
 //        String itemName, category, description;
         int rating;
         ArrayList<String> itemAttributes = new ArrayList<>();
-        Item item;
+        //Item item;
         itemAttributes.add("itemName");
         itemAttributes.add("category");
         itemAttributes.add("description");
 
-        traderPrompts.displayString(temp.get(0));
+        //traderPrompts.displayString(temp.get(0));
 
         String o = null;
 
         int loopVar = 0;
+        //If the user doesn't want to go back, displays the prompts to enter item specs and creates the item.
         while(!o.equals("0") && loopVar < 3){
-            traderPrompts.displayString(temp.get(loopVar + 1));
+            //traderPrompts.displayString(temp.get(loopVar + 1));
             o = sc.nextLine();
             itemAttributes.set(loopVar, o);
             loopVar+=1;
         }
-
         if(!o.equals("0")){
-            traderPrompts.displayString(temp.get(loopVar + 1));
+            //traderPrompts.displayString(temp.get(loopVar + 1));
             rating = Integer.parseInt(o);
+            //itemManager.addToProposedItems(currentTrader, itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), rating);
             // item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
             // traderActions.addProposedItem(currentTrader, item);
 
@@ -154,11 +156,11 @@ public class TraderSystem extends UserSystem{
             if (!o.equals("0")){
                 itemManager.addToProposedItems(currentTrader, itemAttributes.get(0),
                         itemAttributes.get(1), itemAttributes.get(2), rating);
-                loopVar+=1;
-                traderPrompts.displayString(temp.get(loopVar+1));
+                //loopVar+=1;
+                //traderPrompts.displayString(temp.get(loopVar+1));
             }
         }
-        traderPrompts.displayString("Returning to the Main Menu...");
+        //traderPrompts.displayString("Returning to the Main Menu...");
     }
 
     /**
@@ -204,6 +206,7 @@ public class TraderSystem extends UserSystem{
         for (int i=0; i < currentTrader.getWantToBorrow().size(); i++){
             availableOptions.add(i+1);
         }
+        itemManager.getWantToBorrow(currentTrader);
         //System.out.println(currentTrader.getWantToBorrow());
         traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
         traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
@@ -454,35 +457,42 @@ public class TraderSystem extends UserSystem{
      * Shows the user the three most recent items they have traded.
      */
     private void showThreeMostRecentItemsTraded(){
-        traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
-        int o;
-        do {
-            o = Integer.parseInt(sc.nextLine());
-            if(o != 0){
-                traderPrompts.incorrectSelection();
-            }
-        }while(o != 0);
+        traderActions.getMostRecentItems(currentTrader);
+        //gives u the list of item ids that are traded^^
+
+//        traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
+//        int o;
+//        do {
+//            o = Integer.parseInt(sc.nextLine());
+//            if(o != 0){
+//                traderPrompts.incorrectSelection();
+//            }
+//        }while(o != 0);
     }
 
     /**
      * Shows the user their top three most frequent trading partners.
      */
     private void showTopThreeTradingPartners(){
-        traderPrompts.viewListOfTradingPartners(traderActions.mostFrequentTradingPartners(currentTrader));
-        int o;
-        do {
-            o = Integer.parseInt(sc.nextLine());
-            if(o!=0){
-                traderPrompts.incorrectSelection();
-            }
-        }while(o!=0);
-    }
+        traderActions.mostFrequentTradingPartners(currentTrader);
+        //gives u the list of usernames of traders most frequently traded with
+
+
+
+//        traderPrompts.viewListOfTradingPartners();
+//        int o;
+//        do {
+//            o = Integer.parseInt(sc.nextLine());
+//            if(o!=0){
+//                traderPrompts.incorrectSelection();
+//            }
+//        }while(o!=0);
+//    }
 
     /**
      * The user requests to unfreeze their account.
      */
     private void requestUnfreeze(){
-        //This is where i do the unfreeze thing but im not sure how we do that yet.
         if(!currentTrader.isFrozen()){
             traderPrompts.displayString("Only frozen users can request to unfreeze.");
             return;

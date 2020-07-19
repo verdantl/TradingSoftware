@@ -36,5 +36,32 @@ public class TradeManager {
 
     }
 
+    /**
+     * Checks whether the trade with the given id is completed.
+     * @param id The trade id
+     * @return True iff trade with ID id is completed.
+     */
+    public boolean isTradeCompleted(int id){
+        return trades.get(id).getCompleted();
+    }
+
+    /**
+     * Returns the given trade's initiator
+     * @param id The id of the trade
+     * @return the username of the initiator
+     */
+    public String getTradeInitiator(int id){
+        return trades.get(id).getInitiator();
+    }
+
+    /**
+     * Returns the given trade's receiver
+     * @param id The id of the trade
+     * @return the username of the receiver
+     */
+    public String getTradeReceiver(int id){
+        return trades.get(id).getInitiator();
+    }
+
 
 }

@@ -166,4 +166,13 @@ public class TraderManager {
         return true;
     }
 
+    /**
+     * Returns the tradeIds of the given user
+     * @param username The username of the user
+     * @return trade ids of username
+     */
+    public List<Integer> getTradeIds(String username){
+        return users.get(username).getTradeIds();
+    }
+
 }
