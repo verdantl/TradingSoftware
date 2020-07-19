@@ -7,10 +7,11 @@ public class TraderSystem extends UserSystem{
 
     private final TraderPrompts traderPrompts;
     private final TraderActions traderActions;
+    private final TraderManager traderManager;
     private final ItemManager itemManager;
     private final TradeManager tradeManager;
 
-    private Trader currentTrader;
+    private String currentTrader;
     private boolean running;
     private final Scanner sc;
 
@@ -22,17 +23,13 @@ public class TraderSystem extends UserSystem{
      * @param tradeManager The TradeManager that this Trader System will use.
      */
     public TraderSystem(String currentTrader, TraderActions traderActions, ItemManager itemManager,
-                        TradeManager tradeManager) {
+                        TradeManager tradeManager, TraderManager traderManager) {
         this.traderActions = traderActions;
-        //TODO NEED METHOD FOR THIS:
-        for (Trader trader: traderActions.getTraders()){
-            if (trader.getUsername().equals(currentTrader)){
-                this.currentTrader = trader;
-            }
-        }
         this.itemManager = itemManager;
         this.tradeManager = tradeManager;
-        this.traderPrompts = new TraderPrompts();
+        this.traderManager = traderManager;
+        this.currentTrader = currentTrader;
+        this.traderPrompts = new TraderPrompts(itemManager);
         sc = new Scanner(System.in);
         running = false;
     }
@@ -133,37 +130,35 @@ public class TraderSystem extends UserSystem{
         itemAttributes.add("description");
 
         traderPrompts.displayString(temp.get(0));
-        traderPrompts.displayString(temp.get(1));
-        String o = sc.nextLine();
-        if(o.equals("0")){
-            traderPrompts.displayString("Returning to the Main Menu..");
-        }
-        else{
-            int loopVar = 0;
-            while(!o.equals("0") && loopVar <2){
-                itemAttributes.set(loopVar, o);
-                loopVar+=1;
-                traderPrompts.displayString(temp.get(loopVar+2));
-                o = sc.nextLine();
-            }
-            if(!o.equals("0")){
-                rating = Integer.parseInt(o);
-                item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
-                traderActions.addProposedItem(currentTrader, item);
-                loopVar+=1;
-                traderPrompts.displayString(temp.get(loopVar+2));
-            }
-            traderPrompts.displayString("Returning to the Main Menu...");
+
+        String o = null;
+
+        int loopVar = 0;
+        while(!o.equals("0") && loopVar < 3){
+            traderPrompts.displayString(temp.get(loopVar + 1));
+            o = sc.nextLine();
+            itemAttributes.set(loopVar, o);
+            loopVar+=1;
         }
 
-    }
+        if(!o.equals("0")){
+            traderPrompts.displayString(temp.get(loopVar + 1));
+            rating = Integer.parseInt(o);
+            // item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
+            // traderActions.addProposedItem(currentTrader, item);
 
-    /**
-     * A method to set the currentUser variable.
-     * @param trader The logged-in user we will manipulate.
-     */
-    public void setCurrentTrader(Trader trader){
-        currentTrader = trader;
+            // ~~~~ We HAVE to call a method from the User class here, might just be better to
+            // store only the username, and require all public methods in our use cases to take
+            // in usernames instead of Traders ~~~
+
+            if (!o.equals("0")){
+                itemManager.addToProposedItems(currentTrader, itemAttributes.get(0),
+                        itemAttributes.get(1), itemAttributes.get(2), rating);
+                loopVar+=1;
+                traderPrompts.displayString(temp.get(loopVar+1));
+            }
+        }
+        traderPrompts.displayString("Returning to the Main Menu...");
     }
 
     /**
@@ -172,8 +167,10 @@ public class TraderSystem extends UserSystem{
     private void removeItemFromWantToLend(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
         availableOptions.add(0);
-        for (int i=0; i < currentTrader.getWantToLend().size(); i++){
-            availableOptions.add(i+1);
+        for (int i=0; i < itemManager.getWantToLend(currentTrader).size(); i++){
+            // TODO: Add method in itemManager that returns all ID's given a list of items or something
+            // so I don't have to call getId on Item, which is an entity.
+            availableOptions.add(itemManager.getWantToLend(currentTrader).get(i).getId());
         }
         traderPrompts.displayTraderItems(currentTrader);
         int o = Integer.parseInt(sc.nextLine());
@@ -187,12 +184,14 @@ public class TraderSystem extends UserSystem{
                 System.out.println("break");
                 break;
             }
-            traderActions.removeFromWantToLend(currentTrader, currentTrader.getWantToLend().get(o-1));
+            // TODO: Fix this, so that the program asks for the id of the item instead of the
+            // position of the item in the trader's wantToLend list. This avoids calling the getId
+            // method.
+            itemManager.removeFromWantToLend(currentTrader, o);
             traderPrompts.displayString("Item was removed.");
             availableOptions.remove(availableOptions.size()-1);
             traderPrompts.displayTraderItems(currentTrader);
             o = Integer.parseInt(sc.nextLine());
-
         }
     }
 
