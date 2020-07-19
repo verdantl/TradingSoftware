@@ -48,22 +48,56 @@ public class MeetingManager {
         getMeeting(id).setTradeDate(date);
     }
 
-    /**
+    /**Return true iff both traders confirm the meeting
      * Confirms that the meeting happened
      * @param id Id of the trade
      * @param username Username of the Trader confirming that the meeting happened
+     * @return whether or not both trader confirm the meeting
      */
-    public void confirmTrade(int id, String username){
+    public boolean confirmTrade(int id, String username){
         getMeeting(id).setConfirm(username, true);
+        if(checkAllConfirmed(id)){
+            getMeeting(id).setTradeStatus("Confirmed: waiting the other to confirm");
+            return false;
+        }else{
+            getMeeting(id).setTradeStatus("Both confirmed: the trade is completed");
+            return true;
+        }
     }
 
-    /**
+    private boolean checkAllConfirmed(int id){
+        Meeting meeting = getMeeting(id);
+        for(String user: meeting.getIsConfirmed().keySet()){
+            if(!meeting.getIsConfirmed().get(user)){return false;}
+        }
+        return true;
+    }
+
+    /**Return true iff both traders agree with the meeting
      * Agrees on the meeting
      * @param id Id of the trade
      * @param username Username of the Trader agreeing on the meeting
+     * @return whether or not both trader agree with the meeting
      */
-    public void agreeOnTrade(int id, String username){
+    public boolean agreeOnTrade(int id, String username){
         getMeeting(id).setAgree(username, true);
+        if(checkAllAgreed(id)){
+            getMeeting(id).setTradeStatus("Agreed: waiting the other to agree");
+            return false;
+        }else{
+            getMeeting(id).setTradeStatus("Both Agreed: waiting to be confirmed");
+            return true;
+        }
+    }
+
+    private boolean checkAllAgreed(int id){
+        Meeting meeting = getMeeting(id);
+        for(String user: meeting.getIsAgreed().keySet()){
+            if(!meeting.getIsAgreed().get(user)){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
