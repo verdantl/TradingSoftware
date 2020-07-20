@@ -274,7 +274,7 @@ public class TraderSystem extends UserSystem{
                     // would be violating Clean Architecture by calling Trader.isFrozen() here.
                     // Instead, we could get TraderManager to return a list of frozen accounts'
                     // usernames, and check if currentTrader is in that list.
-                    if (!currentTrader.isFrozen()){
+                    if (traderManager.getIsFrozen(currentTrader)){
                         this.proposeTradeStart(itemList.get(o - 1));
                     }
                     else{
@@ -505,7 +505,7 @@ public class TraderSystem extends UserSystem{
 //                traderPrompts.incorrectSelection();
 //            }
 //        }while(o!=0);
-//    }
+    }
 
     /**
      * The user requests to unfreeze their account.
@@ -513,7 +513,7 @@ public class TraderSystem extends UserSystem{
     private void requestUnfreeze(){
 
         // Again, I don't have a way of checking this at the moment.
-        if(!currentTrader.isFrozen()){
+        if(!traderManager.getIsFrozen(currentTrader)){
             traderPrompts.displayString("Only frozen users can request to unfreeze.");
             return;
         }
@@ -521,12 +521,12 @@ public class TraderSystem extends UserSystem{
 
         // Same as checking if a user is frozen, I can't check this without calling an entity method
         // or storing the instance of the entity here.
-        if(currentTrader.isRequestToUnfreeze()){
+        if(traderManager.getRequestToUnfreeze(currentTrader)){
             traderPrompts.displayString("You have already requested to unfreeze your account. Please wait.");
         }
 
         // Holy shit, I just realised how bad this is for clean architecture lol im dumb
-        currentTrader.setRequestToUnfreeze(true);
+        traderManager.setRequestToUnfreeze(currentTrader,true);
         int o;
         do {
             o = Integer.parseInt(sc.nextLine());
@@ -542,7 +542,7 @@ public class TraderSystem extends UserSystem{
      */
     private void browseOnGoingTrades(){
         // No way to get on going trades currently
-        List<Trade> onGoingTrades = traderActions.getOnGoingTrades(currentTrader);
+        List<Integer> onGoingTrades = tradeManager.getTrades(currentTrader);
 
         // The user returns to main menu if no ongoing trades
         if (onGoingTrades.size() == 0){
@@ -557,7 +557,7 @@ public class TraderSystem extends UserSystem{
             }while(type != 0);
             return;
         }
-        traderPrompts.browseOnGoingTrades(onGoingTrades);
+        // traderPrompts.browseOnGoingTrades(onGoingTrades);
 
 
         // The user selects a trade from list
@@ -574,7 +574,6 @@ public class TraderSystem extends UserSystem{
         if (select == 0){
             return;
         }
-        tradeManager.setCurrentUser(currentTrader, onGoingTrades.get(select-1));
 
         // The user selects a option for the trade
         traderPrompts.displayTradeOptions();
@@ -586,7 +585,7 @@ public class TraderSystem extends UserSystem{
                     String editOption = editMeeting();
                     traderPrompts.displayString(editOption);
                     if(editOption.equals("Cancelling edit")){
-                        traderPrompts.browseOnGoingTrades(onGoingTrades);
+                        // traderPrompts.browseOnGoingTrades(onGoingTrades);
                     }
                     break;
                 case 2:

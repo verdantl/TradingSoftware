@@ -175,4 +175,31 @@ public class TraderManager {
         return users.get(username).getTradeIds();
     }
 
+    /**
+     * Returns true iff the Trader with the given username is frozen.
+     * @param username the username of the Trader in question
+     * @return true, iff the Trader with the given username's account is frozen.
+     */
+    public boolean getIsFrozen(String username){
+        return users.get(username).isFrozen();
+    }
+
+    /**
+     * Returns true iff the Trader with the given username has requested to have their account
+     * unfrozen.
+     * @param username the username of the Trader in question
+     * @return
+     */
+    public boolean getRequestToUnfreeze(String username){
+        return users.get(username).isRequestToUnfreeze();
+    }
+
+    /**
+     * Sets the Trader's requestToUnfreeze variable to the inputted boolean.
+     * @param username the username of the Trader in question
+     * @param setting the new state of the Trader's requestToUnfreeze variable.
+     */
+    public void setRequestToUnfreeze(String username, boolean setting){
+        users.get(username).setRequestToUnfreeze(setting);
+    }
 }
