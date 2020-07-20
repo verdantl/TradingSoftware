@@ -12,9 +12,13 @@ public class TradeMeetingManager {
     //but there wasn't a way to do that (you could do <Integer, List<Object>>
     //but can't avoid casting)
     //so I made two hashmaps
-    private HashMap<Integer, Trade> trades;
-    private HashMap<Integer, Meeting> meetings;
+    private final HashMap<Integer, Trade> trades;
+    private final HashMap<Integer, Meeting> meetings;
 
+    public TradeMeetingManager(HashMap<Integer, Trade> trades, HashMap<Integer, Meeting> meetings){
+        this.trades = trades;
+        this.meetings = meetings;
+    }
     /**
      * Updates the status of the meeting as completed for Trader with the given username
      * @param id Id of the trade
@@ -72,18 +76,18 @@ public class TradeMeetingManager {
     }
 
     /**
-     *
+     * Getter for the items in the trade
      * @param id Id of the trade
      * @return Returns the list of item ids
      */
     public List<Integer> getItems(int id){
-        //I have to use casting here
+        //I have to use casting here - autoboxing is fine here
         return trades.get(id).getItems();
     }
 
     /**
      * Allows the trader with the given username to agree on the meeting
-     * @param id
+     * @param id the id of the trade
      */
     public void agreeOnMeeting(int id, String username){
         meetings.get(id).setAgree(username, true);
@@ -164,7 +168,7 @@ public class TradeMeetingManager {
     }
 
     /**
-     *
+     * Getter for the information of the trade
      * @param id Id of the trade
      * @return Return the username of the initiator and receiver
      */

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ItemManager {
     //private ArrayList<Item> requestedItems, approvedItems;
-//    HashMap<String, Inventory> traderInventories;
+//    HashMap<String, items.Inventory> traderInventories;
     HashMap<Integer, Item> inventory;
 
     public ItemManager(HashMap<Integer, Item> inventory){
@@ -29,7 +29,7 @@ public class ItemManager {
 //        for (Integer i: itemIDs){
 //
 //        }
-//        for(Map.Entry<String, Inventory> inventories: traderInventories.entrySet()){
+//        for(Map.Entry<String, items.Inventory> inventories: traderInventories.entrySet()){
 //            if (!inventories.getKey().equals(username)){
 //                approvedItems.addAll(inventories.getValue().getApprovedItems());
 //            }
@@ -49,7 +49,7 @@ public class ItemManager {
 //     * @param id the id of the item.
 //     */
 //    public void addToWantToBorrow(String username, int id){
-//        for(Map.Entry<String, Inventory> inventories: traderInventories.entrySet()){
+//        for(Map.Entry<String, items.Inventory> inventories: traderInventories.entrySet()){
 //            for(Item item: inventories.getValue().getApprovedItems()){
 //                if(item.getId()==id){
 //                    traderInventories.get(username).addToWishlist(item);
@@ -149,7 +149,7 @@ public class ItemManager {
 //     * @param username The username of the item that is going to be added.
 //     */
 //    public void addToBorrowedItems(String username, int id){
-//        for(Map.Entry<String, Inventory> inventories: traderInventories.entrySet()){
+//        for(Map.Entry<String, items.Inventory> inventories: traderInventories.entrySet()){
 //            for(Item i: inventories.getValue().getApprovedItems()){
 //                if (i.getId()==id){
 //                    traderInventories.get(username).addToBorrowedItems(i);

@@ -25,9 +25,10 @@ public class Trader extends User {
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
-
     public Trader(String username, String password, String dateCreated, List<Integer> ids, boolean frozen,
-                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed){
+                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed,
+                  List<Integer> wishlist, List<Integer> borrowedItems, List<Integer> proposedItems,
+                  List<Integer> approvedItems){
         super(username, password, dateCreated);
 
         this.tradeIds = ids;
@@ -36,6 +37,11 @@ public class Trader extends User {
         this.numBorrowed=numBorrowed;
         this.numLent=numLent;
         this.requestToUnfreeze = requestToUnfreeze;
+
+        this.wishlist = wishlist;
+        this.borrowedItems = borrowedItems;
+        this.proposedItems = proposedItems;
+        this.approvedItems = approvedItems;
     }
 
     /**
@@ -75,17 +81,6 @@ public class Trader extends User {
         s += "Joined on: "+ super.getDateCreated()+"\n";
         s += "Frozen: "+frozen+" | Flagged: "+flagged+" | Request to Unfreeze: "+requestToUnfreeze+"\n\n";
         s += "Number of items borrowed: "+numBorrowed+" | Number of items lent: "+numLent;
-//        s += "\nInventory\n";
-//
-//        s += "Wishlist:\n";
-//        s += formatItems(wishlist)+"\n";
-//        s += "Approved Items:\n";
-//        s += formatItems(approvedItems)+"\n";
-//        s += "Borrowed Items:\n";
-//        s += formatItems(borrowedItems)+"\n";
-//        s += "Proposed Items:\n";
-//        s += formatItems(proposedItems);
-
         return s;
     }
 

@@ -4,26 +4,29 @@ import java.util.HashMap;
 public class AdminActions {
     private final HashMap<String, Admin> admins;
     private final HashMap<String, Admin> adminRequests;
-    private final int LINELIMIT = 80;
 
+    /**
+     * Constructor for the AdminActions class
+     * @param admins a HashMap of an admin's username to the Admin
+     * @param adminRequests a HashMap of the admin requester's username to their account
+     */
     public AdminActions(HashMap<String, Admin> admins, HashMap<String, Admin> adminRequests){
         this.admins = admins;
         this.adminRequests = adminRequests;
     }
+
     /**
      * A getter for a string version of all the admin requests for approval.
      * @return a string version of adminRequests
      */
     public StringBuilder getAdminRequests(){
         StringBuilder requests = new StringBuilder();
-        for (int i = 0; i < adminRequests.size(); i++){
+        for (String admin: adminRequests.keySet()){
+            int LINELIMIT = 80;
             if (requests.length() > LINELIMIT){
                 requests.append("\n");
             }
-            requests.append(adminRequests.get(i).getUsername());
-            if (i != adminRequests.size() - 1) {
-                requests.append(" | ");
-            }
+            requests.append(admin);
         }
         return requests;
     }
@@ -113,6 +116,11 @@ public class AdminActions {
         }
     }
 
+    /**
+     * Changes the username for this admin user's account
+     * @param username the username for the admin
+     * @param newUserName the new username for the admin
+     */
     public void changeUsername(String username, String newUserName){
         if (admins.containsKey(username)) {
             Admin admin = admins.get(username);
@@ -120,6 +128,12 @@ public class AdminActions {
             admins.put(newUserName, admin);
         }
     }
+
+    /**
+     * Changes the password for this admin user's account
+     * @param username the username for the admin
+     * @param password the new password for the admin
+     */
     public void changePassword(String username, String password){
         if (admins.containsKey(username)){
             admins.get(username).setPassword(password);

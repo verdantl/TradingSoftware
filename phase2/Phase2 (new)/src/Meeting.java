@@ -11,6 +11,10 @@ public abstract class Meeting{
     private  HashMap<String, Boolean> isAgreed;
     private  HashMap<String, Boolean> isConfirmed;
 
+    /**
+     * Constructor for the meeting between two individuals that are conducting a trade
+     * @param tradeId The id of the trade
+     */
     public Meeting(int tradeId){
         this.tradeId = tradeId;
         isConfirmed = new HashMap<>();
@@ -22,8 +26,6 @@ public abstract class Meeting{
         isConfirmed = new HashMap<>();
     }
 
-
-
     /**Getter for the tradeDate
      * @return the date that the trade
      */
@@ -34,7 +36,10 @@ public abstract class Meeting{
      */
     public void setTradeDate(LocalDate tradeDate){this.tradeDate = tradeDate;}
 
-
+    /**
+     * Getter for the location of the meeting
+     * @return a string representing the meeting location
+     */
     public String getLocation(){return this.location;}
 
     /**Setter for the location
@@ -68,7 +73,6 @@ public abstract class Meeting{
     }
 
 
-
     /**Getter for numberOfEdits
      * @return a hashmap storing the number of times each trader edits the meeting information
      */
@@ -76,11 +80,9 @@ public abstract class Meeting{
         return numberOfEdits;
     }
 
-
     /**increase the number of edits when the user edits the meeting
      * @param user the user who edit this meeting
      */
-
     public void increaseNumberOfEdits(String user) {
         numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
     }

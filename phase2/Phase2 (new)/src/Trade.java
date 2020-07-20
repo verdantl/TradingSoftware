@@ -107,10 +107,18 @@ public class Trade {
         return receiver;
     }
 
+    /**
+     * Getter for the date of the creation of the trade
+     * @return The date of the trade
+     */
     public LocalDate getCreatedDate() {
         return createdDate;
     }
 
+    /**
+     * Setter for the creation date of the trade
+     * @param createdDate The date of the trade
+     */
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
