@@ -9,13 +9,6 @@ public class ItemManager {
 //    HashMap<String, Inventory> traderInventories;
     HashMap<Integer, Item> inventory;
 
-    //This constructor will probably end up being unused.
-    public ItemManager(){
-        inventory = new HashMap<>();
-//        requestedItems = new ArrayList<>();
-//        approvedItems = new ArrayList<>();
-    }
-
     public ItemManager(HashMap<Integer, Item> inventory){
 //        this.approvedItems = approvedItems;
 //        this.requestedItems = requestedItems;
@@ -267,8 +260,9 @@ public class ItemManager {
     }
 
     /**
-     * Returns an arraylist of all of the items
-     * @return
+     * A getter for a list of items based on a list of their ids.
+     * @param itemIDs A list of the item ids
+     * @return A list of items
      */
     public ArrayList<Item> getItems(List<Integer> itemIDs){
         ArrayList<Item> items = new ArrayList<>();

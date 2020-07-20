@@ -7,13 +7,6 @@ public class TraderManager {
     HashMap<String, Trader> users;
 
     /**
-     * Constructor for TraderManager with no users
-     */
-    public TraderManager(){
-        users = new HashMap<>();
-    }
-
-    /**
      * Constructor for TraderManager given a HashMap
      * @param users The hashmap of Traders to users.
      */
@@ -188,7 +181,7 @@ public class TraderManager {
      * Returns true iff the Trader with the given username has requested to have their account
      * unfrozen.
      * @param username the username of the Trader in question
-     * @return
+     * @return a boolean representing if the trader has an unfreeze request
      */
     public boolean getRequestToUnfreeze(String username){
         return users.get(username).isRequestToUnfreeze();
