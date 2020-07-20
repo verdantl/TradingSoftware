@@ -8,10 +8,14 @@ public class Trade {
     private final int id;
     private static int counter = 0;
     private boolean isPermanent;
-    private boolean isCompleted;
+    // I think this is handled by the meeting (isConfirmed variable)
+//    private boolean isCompleted;
     private String tradeType;
     private LocalDate createdDate;
-    private boolean hasMeeting;
+    //Instead of having a boolean, we could just make the location store "Online" if it is
+    //a no meeting trade
+    //even if it is a no meeting, they still need to decide on a date and stuff
+//    private boolean hasMeeting;
 
     /**
      * @param items List of item ids they are going to trade
