@@ -202,4 +202,19 @@ public class TraderManager {
     public void setRequestToUnfreeze(String username, boolean setting){
         users.get(username).setRequestToUnfreeze(setting);
     }
+
+    /**
+     * Returns a list of the usernames of all traders that have items that need approving.
+     * @return a list of strings representing the usernames of all traders with items needing approval
+     */
+    public List<String> getTradersNeedingItemApproval() {
+        List<String> temp = new ArrayList<>();
+        for (String username : users.keySet()) {
+            if (!users.get(username).getProposedItems().isEmpty()) {
+                temp.add(username);
+            }
+        }
+        return temp;
+    }
+
 }
