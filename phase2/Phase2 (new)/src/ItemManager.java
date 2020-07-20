@@ -267,4 +267,20 @@ public class ItemManager {
 //    public void changeQualityRating(Item i, int qualityRating){
 //        i.setQualityRating(qualityRating);
 //    }
+
+    /**
+     * From a given list of item gives back a list of the item's ids
+     * @param items the ArrayList of Items
+     * @return an ArrayList of Integers containing the items' ids
+     */
+    public ArrayList<Integer> getItemIDs(ArrayList<Item> items){
+        ArrayList<Integer> out = new ArrayList<>();
+        for (Item i : items){
+            out.add(i.getId());
+        }
+        //this may be removed
+        Collections.sort(out);
+        return out;
+    }
+
 }

@@ -178,6 +178,8 @@ public class TraderSystem extends UserSystem{
             // so I don't have to call getId on Item, which is an entity.
             availableOptions.add(itemManager.getWantToLend(currentTrader).get(i).getId());
         }
+        // availableOptions.addAll(itemManager.getItemIDs(itemManager.getWantToLend(currentTrader)))
+        // this should be able to replace the code (for loop) above
         traderPrompts.displayTraderItems(currentTrader);
         int o = Integer.parseInt(sc.nextLine());
 
@@ -190,9 +192,7 @@ public class TraderSystem extends UserSystem{
                 System.out.println("break");
                 break;
             }
-            // TODO: Fix this, so that the program asks for the id of the item instead of the
-            // position of the item in the trader's wantToLend list. This avoids calling the getId
-            // method.
+
             itemManager.removeFromWantToLend(currentTrader, o);
             traderPrompts.displayString("Item was removed.");
             availableOptions.remove(availableOptions.size()-1);
