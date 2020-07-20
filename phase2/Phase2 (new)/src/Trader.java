@@ -7,10 +7,10 @@ public class Trader extends User {
     private boolean frozen, flagged, requestToUnfreeze;
     private int numLent, numBorrowed;
     private List<Integer> tradeIds;
-    private List<Item> wishlist;
-    private List<Item> borrowedItems;
-    private List<Item> proposedItems;
-    private List<Item> approvedItems;
+    private List<Integer> wishlist;
+    private List<Integer> borrowedItems;
+    private List<Integer> proposedItems;
+    private List<Integer> approvedItems;
 
 
     /**
@@ -75,16 +75,16 @@ public class Trader extends User {
         s += "Joined on: "+ super.getDateCreated()+"\n";
         s += "Frozen: "+frozen+" | Flagged: "+flagged+" | Request to Unfreeze: "+requestToUnfreeze+"\n\n";
         s += "Number of items borrowed: "+numBorrowed+" | Number of items lent: "+numLent;
-        s += "\nInventory\n";
-
-        s += "Wishlist:\n";
-        s += formatItems(wishlist)+"\n";
-        s += "Approved Items:\n";
-        s += formatItems(approvedItems)+"\n";
-        s += "Borrowed Items:\n";
-        s += formatItems(borrowedItems)+"\n";
-        s += "Proposed Items:\n";
-        s += formatItems(proposedItems);
+//        s += "\nInventory\n";
+//
+//        s += "Wishlist:\n";
+//        s += formatItems(wishlist)+"\n";
+//        s += "Approved Items:\n";
+//        s += formatItems(approvedItems)+"\n";
+//        s += "Borrowed Items:\n";
+//        s += formatItems(borrowedItems)+"\n";
+//        s += "Proposed Items:\n";
+//        s += formatItems(proposedItems);
 
         return s;
     }
@@ -230,7 +230,7 @@ public class Trader extends User {
      *
      * @return Trader's wishlist
      */
-    public List<Item> getWishlist() {
+    public List<Integer> getWishlist() {
         return wishlist;
     }
 
@@ -239,7 +239,7 @@ public class Trader extends User {
      * @return Trader's borrowed items
      */
 
-    public List<Item> getBorrowedItems() {
+    public List<Integer> getBorrowedItems() {
         return borrowedItems;
     }
 
@@ -248,7 +248,7 @@ public class Trader extends User {
      * @return Trader's items
      */
 
-    public List<Item> getApprovedItems() {
+    public List<Integer> getApprovedItems() {
         return approvedItems;
     }
 
@@ -257,7 +257,7 @@ public class Trader extends User {
      * @return Trader's items waiting to be approved
      */
 
-    public List<Item> getProposedItems() {
+    public List<Integer> getProposedItems() {
         return proposedItems;
     }
 
@@ -296,71 +296,83 @@ public class Trader extends User {
 //    public void setWishlist(List<Item> wishlist) {
 //        this.wishlist = wishlist;
 //    }
-
-    private String formatItems(List<Item> items){
-        String s = "";
-        for (Item i: items){
-            s += i.toString()+"\n";
-        }
-        return s;
-
-    }
+//
+//    private String formatItems(List<Item> items){
+//        String s = "";
+//        for (Item i: items){
+//            s += i.toString()+"\n";
+//        }
+//        return s;
+//
+//    }
 
     /**
      * Adds the item to borrowedItems
-     * @param item the item to be added
+     * @param id the id of the item to be added
      */
-    public void addToBorrowedItems(Item item){
-        this.borrowedItems.add(item);
+    public void addToBorrowedItems(Integer id){
+        this.borrowedItems.add(id);
     }
     /**
      * Adds the item to approvedItems
-     * @param item the item to be added
+     * @param id the id of the item to be added
      */
-    public void addToApprovedItems(Item item){
-        this.approvedItems.add(item);
+    public void addToApprovedItems(Integer id){
+        this.approvedItems.add((id));
     }
     /**
      * Adds the item to proposedItems
-     * @param item the item to be added
+     * @param id the id of the item to be added
      */
-    public void addProposedItems(Item item){
-        this.proposedItems.add(item);
+    public void addProposedItems(Integer id){
+        this.proposedItems.add(id);
     }
+
     /**
      * Adds the item to wishlist
-     * @param item the item to be added
+     * @param id the id of the item to be added
      */
-    public void addToWishlist(Item item){
-        this.wishlist.add(item);
+    public void addToWishlist(Integer id){
+        this.wishlist.add(id);
     }
     /**
      * Removes the item from borrowedItems
-     * @param item the item to be removed
+     * @param id the id of the item to be removed
      */
-    public void removeFromProposedItems(Item item){
-        this.proposedItems.remove(item);
+    public void removeFromProposedItems(Integer id){
+        this.proposedItems.remove(id);
     }
     /**
      * Removes the item from borrowedItems
-     * @param item the item to be removed
+     * @param id the id of the item to be removed
      */
-    public void removeFromWishlist(Item item){
-        this.wishlist.remove(item);
+    public void removeFromWishlist(Integer id){
+        this.wishlist.remove(id);
     }
     /**
      * Removes the item from approvedItems
-     * @param item the item to be removed
+     * @param id the id of the item to be removed
      */
-    public void removeFromApprovedItems(Item item){
-        this.approvedItems.remove(item);
+    public void removeFromApprovedItems(Integer id){
+        this.approvedItems.remove(id);
     }
     /**
      * Removes the item from borrowedItems
-     * @param item the item to be removed
+     * @param id the id of the item to be removed
      */
-    public void removeFromBorrowedItems(Item item){
-        this.borrowedItems.remove(item);
+    public void removeFromBorrowedItems(Integer id){
+        this.borrowedItems.remove(id);
+    }
+
+    /**
+     * Deletes the item from this trader's records.
+     * @param id the id of the item
+     */
+    public void deleteItem(Integer id){
+        wishlist.remove(id);
+        approvedItems.remove(id);
+        borrowedItems.remove(id);
+        proposedItems.remove(id);
     }
 
     /**
@@ -373,4 +385,5 @@ public class Trader extends User {
         }
         proposedItems.clear();
     }
+
 }
