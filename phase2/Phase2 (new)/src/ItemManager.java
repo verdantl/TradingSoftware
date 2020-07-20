@@ -51,6 +51,8 @@ public class ItemManager {
             for(Item item: inventories.getValue().getApprovedItems()){
                 if(item.getId()==id){
                     traderInventories.get(username).addToWishlist(item);
+                    //for optimizing you should add a break; or return; line here
+                    //this is the case for all if(item.getId()==id){ something } since id is unique
                 }
             }
         }
@@ -176,6 +178,7 @@ public class ItemManager {
         }
     }
 
+    //I believe these three methods can be deleted
     /**
      * changes the name of a given item
      * @param i the given item
@@ -224,9 +227,13 @@ public class ItemManager {
      * @param approved A boolean representing if the item has been approved or not
      */
     public void approveItem(String username, int item, boolean approved){
-        removeFromProposedItems(username, item);
+        //removeFromProposedItems(username, item); //remove this addToWantToLend does this already
         if (approved) {
+            //TODO: change this code since addToWantToLend looks for the item in ProposedItems
             addToWantToLend(username, item);
+        }
+        else {
+            removeFromProposedItems(username, item);
         }
     }
 
