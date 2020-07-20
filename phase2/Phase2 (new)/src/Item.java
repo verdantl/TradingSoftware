@@ -3,7 +3,6 @@
 public class Item {
     private int qualityRating;
     private String name, category, description;
-    //private Trader owner;
     private final int id;
     private static int idCounter = 0;
 
@@ -18,7 +17,6 @@ public class Item {
         this.name = name;
         this.category = category;
         this.description = description;
-        //this.owner = owner;
         this.qualityRating = qualityRating;
         id = idCounter;
         idCounter ++;
@@ -37,7 +35,6 @@ public class Item {
         this.name = name;
         this.category = category;
         this.description = description;
-        //this.owner = owner;
         this.qualityRating = qualityRating;
         this.id = id;
         idCounter++;

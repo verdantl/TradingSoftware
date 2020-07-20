@@ -4,9 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Trader extends User {
-        private boolean frozen, flagged, requestToUnfreeze;
-        private int numLent, numBorrowed;
-        private List<Integer> tradeIds;
+    private boolean frozen, flagged, requestToUnfreeze;
+    private int numLent, numBorrowed;
+    private List<Integer> tradeIds;
+    private List<Integer> wishlist;
+    private List<Integer> borrowedItems;
+    private List<Integer> proposedItems;
+    private List<Integer> approvedItems;
 
 
     /**
@@ -21,9 +25,10 @@ public class Trader extends User {
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
-
     public Trader(String username, String password, String dateCreated, List<Integer> ids, boolean frozen,
-                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed){
+                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed,
+                  List<Integer> wishlist, List<Integer> borrowedItems, List<Integer> proposedItems,
+                  List<Integer> approvedItems){
         super(username, password, dateCreated);
 
         this.tradeIds = ids;
@@ -32,6 +37,11 @@ public class Trader extends User {
         this.numBorrowed=numBorrowed;
         this.numLent=numLent;
         this.requestToUnfreeze = requestToUnfreeze;
+
+        this.wishlist = wishlist;
+        this.borrowedItems = borrowedItems;
+        this.proposedItems = proposedItems;
+        this.approvedItems = approvedItems;
     }
 
     /**
@@ -46,6 +56,10 @@ public class Trader extends User {
         frozen = false;
         numBorrowed= 0;
         numLent=0;
+//        this.wishlist = wishlist;
+//        this.borrowedItems = borrowedItems;
+//        this.approvedItems = approvedItems;
+//        this.proposedItems = proposedItems;
     }
 
     /**
@@ -67,7 +81,6 @@ public class Trader extends User {
         s += "Joined on: "+ super.getDateCreated()+"\n";
         s += "Frozen: "+frozen+" | Flagged: "+flagged+" | Request to Unfreeze: "+requestToUnfreeze+"\n\n";
         s += "Number of items borrowed: "+numBorrowed+" | Number of items lent: "+numLent;
-
         return s;
     }
 
@@ -206,4 +219,166 @@ public class Trader extends User {
     public void setRequestToUnfreeze(boolean requestToUnfreeze) {
         this.requestToUnfreeze = requestToUnfreeze;
     }
+
+
+    /**
+     *
+     * @return Trader's wishlist
+     */
+    public List<Integer> getWishlist() {
+        return wishlist;
+    }
+
+    /**
+     *
+     * @return Trader's borrowed items
+     */
+
+    public List<Integer> getBorrowedItems() {
+        return borrowedItems;
+    }
+
+    /**
+     *
+     * @return Trader's items
+     */
+
+    public List<Integer> getApprovedItems() {
+        return approvedItems;
+    }
+
+    /**
+     *
+     * @return Trader's items waiting to be approved
+     */
+
+    public List<Integer> getProposedItems() {
+        return proposedItems;
+    }
+
+//    /**
+//     *
+//     * @param approvedItems Trader's items
+//     */
+//
+//    public void setApprovedItems(List<Item> approvedItems) {
+//        this.approvedItems = approvedItems;
+//    }
+//
+//    /**
+//     *
+//     * @param borrowedItems Items that the Trader borrowed
+//     */
+//
+//    public void setBorrowedItems(List<Item> borrowedItems) {
+//        this.borrowedItems = borrowedItems;
+//    }
+//
+//    /**
+//     *
+//     * @param proposedItems Items that the Trader prposed
+//     */
+//
+//    public void setProposedItems(List<Item> proposedItems) {
+//        this.proposedItems = proposedItems;
+//    }
+//
+//    /**
+//     *
+//     * @param wishlist Trader's wishlist
+//     */
+//
+//    public void setWishlist(List<Item> wishlist) {
+//        this.wishlist = wishlist;
+//    }
+//
+//    private String formatItems(List<Item> items){
+//        String s = "";
+//        for (Item i: items){
+//            s += i.toString()+"\n";
+//        }
+//        return s;
+//
+//    }
+
+    /**
+     * Adds the item to borrowedItems
+     * @param id the id of the item to be added
+     */
+    public void addToBorrowedItems(Integer id){
+        this.borrowedItems.add(id);
+    }
+    /**
+     * Adds the item to approvedItems
+     * @param id the id of the item to be added
+     */
+    public void addToApprovedItems(Integer id){
+        this.approvedItems.add((id));
+    }
+    /**
+     * Adds the item to proposedItems
+     * @param id the id of the item to be added
+     */
+    public void addProposedItems(Integer id){
+        this.proposedItems.add(id);
+    }
+
+    /**
+     * Adds the item to wishlist
+     * @param id the id of the item to be added
+     */
+    public void addToWishlist(Integer id){
+        this.wishlist.add(id);
+    }
+    /**
+     * Removes the item from borrowedItems
+     * @param id the id of the item to be removed
+     */
+    public void removeFromProposedItems(Integer id){
+        this.proposedItems.remove(id);
+    }
+    /**
+     * Removes the item from borrowedItems
+     * @param id the id of the item to be removed
+     */
+    public void removeFromWishlist(Integer id){
+        this.wishlist.remove(id);
+    }
+    /**
+     * Removes the item from approvedItems
+     * @param id the id of the item to be removed
+     */
+    public void removeFromApprovedItems(Integer id){
+        this.approvedItems.remove(id);
+    }
+    /**
+     * Removes the item from borrowedItems
+     * @param id the id of the item to be removed
+     */
+    public void removeFromBorrowedItems(Integer id){
+        this.borrowedItems.remove(id);
+    }
+
+    /**
+     * Deletes the item from this trader's records.
+     * @param id the id of the item
+     */
+    public void deleteItem(Integer id){
+        wishlist.remove(id);
+        approvedItems.remove(id);
+        borrowedItems.remove(id);
+        proposedItems.remove(id);
+    }
+
+    /**
+     * Approves or rejects all of the items in proposed items
+     * @param approved Whether or not the items should be approved or not
+     */
+    public void approveAllItems(boolean approved){
+        if (approved) {
+            approvedItems.addAll(proposedItems);
+        }
+        proposedItems.clear();
+    }
+
 }

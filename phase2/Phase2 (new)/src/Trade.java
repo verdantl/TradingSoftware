@@ -21,14 +21,14 @@ public class Trade {
      * @param isPermanent Determines whether the trade is temporary
      */
     public Trade (List<Integer> items, boolean isPermanent,
-                  String initiator, String receiver, LocalDate createdDate, boolean hasMeeting){
+                  String initiator, String receiver, LocalDate createdDate){
         this.items = items;
         this.isPermanent = isPermanent;
         this.isCompleted = false;
         this.initiator = initiator;
         this.receiver = receiver;
         this.createdDate = createdDate;
-        this.hasMeeting = hasMeeting;
+//        this.hasMeeting = hasMeeting;
         id = counter;
         counter++;
     }
@@ -107,19 +107,27 @@ public class Trade {
         return receiver;
     }
 
+    /**
+     * Getter for the date of the creation of the trade
+     * @return The date of the trade
+     */
     public LocalDate getCreatedDate() {
         return createdDate;
     }
 
+    /**
+     * Setter for the creation date of the trade
+     * @param createdDate The date of the trade
+     */
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
 
-    public boolean isHasMeeting() {
-        return hasMeeting;
-    }
-
-    public void setHasMeeting(boolean hasMeeting) {
-        this.hasMeeting = hasMeeting;
-    }
+//    public boolean isHasMeeting() {
+//        return hasMeeting;
+//    }
+//
+//    public void setHasMeeting(boolean hasMeeting) {
+//        this.hasMeeting = hasMeeting;
+//    }
 }

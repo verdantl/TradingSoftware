@@ -1,8 +1,18 @@
 public class PermanentTradeMeeting extends Meeting{
+
+    /**
+     * Constructor for the meeting between two individuals that are conducting a trade
+     *
+     * @param tradeId The id of the trade
+     */
     public PermanentTradeMeeting(int tradeId) {
         super(tradeId);
     }
 
+    /**
+     * String representation of this meeting
+     * @return a string representation of the information in this meeting
+     */
     @Override
     public String toString(){
         StringBuilder meetingString = new StringBuilder("-TradeID:" + super.getTradeId() + "\n" +
