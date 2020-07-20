@@ -8,7 +8,7 @@ import java.util.List;
 public class MeetingManager {
 
     //Each meeting is paired up with the corresponding trade's id
-    private HashMap<Integer, Meeting> meetings;
+    private final HashMap<Integer, Meeting> meetings;
 
     /**
      * Constructs MeetingManager class
@@ -30,23 +30,58 @@ public class MeetingManager {
         return meetings.get(id);
     }
 
-    /**
-     * Changes the location of the meeting with given id with the given location
-     * @param id Id of the trade
-     * @param location New location
+    /**create a temporary trade meeting
+     * @param id the trade's id
+     * @param tradeDate trade's date
+     * @param tradeLocation trade's location
+     * @param returnDate return date
+     * @param returnLocation return location
+     * @return a temporaryTradeMeeting
      */
-    public void editLocation(int id, String location){
-        getMeeting(id).setLocation(location);
+    public TemporaryTradeMeeting createTemporaryTradeMeeting(int id, LocalDate tradeDate, String tradeLocation,
+                                                             LocalDate returnDate, String returnLocation){
+        TemporaryTradeMeeting meeting = new TemporaryTradeMeeting(id);
+        meeting.setTradeDate(tradeDate);
+        meeting.setLocation(tradeLocation);
+        meeting.setReturnDate(returnDate);
+        meeting.setReturnLocation(returnLocation);
+        return meeting;
+
+    }
+
+    /**create a permanent trade meeting
+     * @param id the trade's id
+     * @param tradeDate trade's date
+     * @param tradeLocation trade's location
+     * @return a permanentTradeMeeting
+     */
+    public PermanentTradeMeeting createPermanentTradeMeeting(int id, LocalDate tradeDate, String tradeLocation){
+        PermanentTradeMeeting meeting = new PermanentTradeMeeting(id);
+        meeting.setTradeDate(tradeDate);
+        meeting.setLocation(tradeLocation);
+        return meeting;
     }
 
     /**
-     * Changes the meeting date of the meeting with given id with the given date
+     * edit the meeting based on the given information
      * @param id Id of the trade
-     * @param date New trade date
+     * @param location New location
      */
-    public void editTradeDate(int id, LocalDate date){
+    public void editLocation(String user, int id, LocalDate date, String location){
+        getMeeting(id).setLocation(location);
         getMeeting(id).setTradeDate(date);
+        meetings.get(id).increaseNumberOfEdits(user);
     }
+
+    /**return true iff the user hasn't edited the trade more than 3 times
+     * @param user the user who wants to edit the meeting
+     * @param id the tradeID
+     * @return whether or not the user is valid to edit the trade
+     */
+    public boolean isValid(String user, int id){
+        return meetings.get(id).getNumberOfEdits().get(user) <= 3;
+    }
+
 
     /**Return true iff both traders confirm the meeting
      * Confirms that the meeting happened
@@ -109,14 +144,6 @@ public class MeetingManager {
         return meetings.containsKey(id);
     }
 
-    /**
-     * Increases number of edits
-     * @param id Id of the trade
-     * @param username Username of the Trader that edited the meeting
-     */
-    public void increaseNumEdits(int id, String username){
-        getMeeting(id).increaseNumberOfEdits(username);
-    }
 
     /**
      * Adds new meeting object to meetings

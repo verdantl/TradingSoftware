@@ -6,7 +6,6 @@ public class PermanentTradeMeeting extends Meeting{
     @Override
     public String toString(){
         StringBuilder meetingString = new StringBuilder("-TradeID:" + super.getTradeId() + "\n" +
-                //"-RequestDate:" + super.getRequestMeetingDate() + "\n" +
                 "-MeetingDate:" + super.getTradeDate() + "\n" +
                 "-MeetingLocation:" + super.getLocation() + "\n" +
                 "-TradingStatus:" + super.getTradeStatus() + "\n");

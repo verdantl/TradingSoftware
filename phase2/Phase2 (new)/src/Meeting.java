@@ -3,11 +3,10 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public abstract class Meeting{
-    private int tradeId;
+    private final int tradeId;
     private LocalDate tradeDate;
     private String location;
     private String tradeStatus;
-//    private LocalDate requestMeetingDate;
     private  HashMap<String, Integer> numberOfEdits;
     private  HashMap<String, Boolean> isAgreed;
     private  HashMap<String, Boolean> isConfirmed;
@@ -77,11 +76,6 @@ public abstract class Meeting{
         return numberOfEdits;
     }
 
-    /**Setter for numberOfEdits
-     * @param trader the user who edits the meeting
-     * @param num the number of times that the user has edited
-     */
-    public void setNumberOfEdits(String trader, int num){this.numberOfEdits.replace(trader, num);}
 
     /**increase the number of edits when the user edits the meeting
      * @param user the user who edit this meeting
@@ -116,16 +110,6 @@ public abstract class Meeting{
     }
 
 
-    public void setTradeId(int tradeId) {
-        this.tradeId = tradeId;
-    }
 
 
-//    public LocalDate getRequestMeetingDate() {
-//        return requestMeetingDate;
-//    }
-//
-//    public void setRequestMeetingDate(LocalDate requestMeetingDate) {
-//        this.requestMeetingDate = requestMeetingDate;
-//    }
 }

@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class TemporaryTradeMeeting extends Meeting{
     private LocalDate returnDate;
-    private LocalDate returnLocation;
+    private String returnLocation;
     private boolean isReturned;
     private HashMap<String, Boolean> confirmReturned;
     public TemporaryTradeMeeting(int tradeId) {
@@ -14,7 +14,6 @@ public class TemporaryTradeMeeting extends Meeting{
     @Override
     public String toString(){
         StringBuilder meetingString = new StringBuilder("-TradeID:" + super.getTradeId() + "\n" +
-                //"-RequestDate:" + super.getRequestMeetingDate() + "\n" +
                 "-MeetingDate:" + super.getTradeDate() + "\n" +
                 "-MeetingLocation:" + super.getLocation() + "\n" +
                 "-TradingStatus:" + super.getTradeStatus() + "\n" +
@@ -31,19 +30,12 @@ public class TemporaryTradeMeeting extends Meeting{
         return meetingString.toString();
     }
 
-    /**Getter the returnDate of the trade
-     * @return the returnDate of the trade
-     */
-    public LocalDate getReturnDate(){return this.returnDate;}
 
     /**Setter for the returnDate
      * @param returnDate the date that the second meeting should take place
      */
     public void setReturnDate(LocalDate returnDate){this.returnDate = returnDate;}
 
-    public LocalDate getReturnLocation() {
-        return returnLocation;
-    }
 
     public HashMap<String, Boolean> getConfirmReturned() {
         return confirmReturned;
@@ -61,7 +53,7 @@ public class TemporaryTradeMeeting extends Meeting{
         isReturned = returned;
     }
 
-    public void setReturnLocation(LocalDate returnLocation) {
+    public void setReturnLocation(String returnLocation) {
         this.returnLocation = returnLocation;
     }
 }

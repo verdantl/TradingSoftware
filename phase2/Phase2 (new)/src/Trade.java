@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.List;
 
 public class Trade {
@@ -6,36 +7,41 @@ public class Trade {
     private List<Integer> items; //list of item ids they are going to trade
     private final int id;
     private static int counter = 0;
-    private boolean isTemporary;
+    private boolean isPermanent;
     private boolean isCompleted;
     private String tradeType;
+    private LocalDate createdDate;
+    private boolean hasMeeting;
 
     /**
      * @param items List of item ids they are going to trade
-     * @param isTemporary Determines whether the trade is temporary
+     * @param isPermanent Determines whether the trade is temporary
      */
-    public Trade (List<Integer> items, boolean isTemporary, String initiator, String receiver){
+    public Trade (List<Integer> items, boolean isPermanent,
+                  String initiator, String receiver, LocalDate createdDate, boolean hasMeeting){
         this.items = items;
-        this.isTemporary = isTemporary;
+        this.isPermanent = isPermanent;
         this.isCompleted = false;
         this.initiator = initiator;
         this.receiver = receiver;
+        this.createdDate = createdDate;
+        this.hasMeeting = hasMeeting;
         id = counter;
         counter++;
     }
 
-    /**Getter for whether or not the trade is temporary
-     * @return whether or not the trade is temporary
+    /**Getter for whether or not the trade is permanent
+     * @return whether or not the trade is permanent
      */
-    public boolean isTemporary() {
-        return isTemporary;
+    public boolean isPermanent() {
+        return isPermanent;
     }
 
-    /**Getter for whether or not the trade is temporary
-     * @param temporary whether or not the trade is temporary
+    /**Getter for whether or not the trade is permanent
+     * @param permanent whether or not the trade is permanent
      */
-    public void setTemporary(boolean temporary) {
-        isTemporary = temporary;
+    public void setPermanent(boolean permanent) {
+        isPermanent= permanent;
     }
 
     /**
@@ -96,5 +102,21 @@ public class Trade {
      */
     public String getReceiver() {
         return receiver;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isHasMeeting() {
+        return hasMeeting;
+    }
+
+    public void setHasMeeting(boolean hasMeeting) {
+        this.hasMeeting = hasMeeting;
     }
 }
