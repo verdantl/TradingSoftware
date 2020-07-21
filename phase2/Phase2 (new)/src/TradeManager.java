@@ -11,13 +11,15 @@ public class TradeManager {
     private final HashMap<String, List<Integer>> trades;
     private int weeklyLimit;
     private int maxInComplete;
+    private int moreLend;
 
     public TradeManager(HashMap<Integer, Trade> tradeInventory, HashMap<String, List<Integer>> trades,
-                        int weeklyLimit, int maxInComplete){
+                        int weeklyLimit, int maxInComplete, int moreLend){
         this.tradeInventory = tradeInventory;
         this.trades = trades;
         this.weeklyLimit = weeklyLimit;
         this.maxInComplete = maxInComplete;
+        this.moreLend = moreLend;
     }
 
     /**return the trade by the id
@@ -60,11 +62,7 @@ public class TradeManager {
     public boolean createTrade(String user, List<Integer> items, boolean isPermanent,
                             String initiator, String receiver, LocalDate createdDate, String tradeType){
         Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType);
-        if(addToTradeInventory(trade)){
-            return addToTrades(user, trade);
-        }else{
-            return false;
-        }
+        return addToTradeInventory(trade) && addToTrades(user, trade);
     }
 
     /**add a trade to the tradeInventory
@@ -165,6 +163,20 @@ public class TradeManager {
         return total > maxInComplete;
     }
 
+    /**check whether or not the user need to lend more items 
+     * @param user the user who wants to trade
+     * @param numOfLend the number of items that user has lent
+     * @param numOfBorrow the number of items that user has borrowed
+     * @return whether or not the user need to lend more items
+     */
+    public boolean NeedMoreLend(String user, int numOfLend, int numOfBorrow){
+        if(trades.get(user).isEmpty()){
+            return false;
+        }else{
+            return numOfLend - numOfBorrow < moreLend;
+        }
+    }
+
     /**set the assigned trade with id to be completed
      * @param id the id of the trade
      */
@@ -243,5 +255,19 @@ public class TradeManager {
      */
     public void setMaxInComplete(int maxInComplete) {
         this.maxInComplete = maxInComplete;
+    }
+
+    /**Getter for moreLend
+     * @return the number that the trader need to lend before they can borrow
+     */
+    public int getMoreLend() {
+        return moreLend;
+    }
+
+    /**Setter for moreLend
+     * @param moreLend the number that the trader need to lend before they can borrow
+     */
+    public void setMoreLend(int moreLend) {
+        this.moreLend = moreLend;
     }
 }
