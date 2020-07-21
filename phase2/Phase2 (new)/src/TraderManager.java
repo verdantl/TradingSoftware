@@ -220,6 +220,24 @@ public class TraderManager {
         }
     }
 
+    /**
+     * Getter for the number of items lent by the trader with the given username
+     * @param username the username of the trader
+     * @return the number of items lent by the trader with the username
+     */
+    public int getNumLent(String username){
+        return users.get(username).getNumLent();
+    }
+
+    /**
+     * Getter for the number of items borrowed by the trader with the given username
+     * @param username the username of the trader
+     * @return the number of items borrowed
+     */
+    public int getNumBorrowed(String username){
+        return users.get(username).getNumBorrowed();
+    }
+
 //    /**
 //     * Approves or rejects an item in a user's list.
 //     * @param username The account usernamecontaining the item to be approved

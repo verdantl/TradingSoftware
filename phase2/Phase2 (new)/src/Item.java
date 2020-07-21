@@ -4,28 +4,25 @@ public class Item {
     private int qualityRating;
     private String name, category, description, owner;
     private final int id;
-    private static int idCounter = 0;
     private ItemStatus status;
 
-    /**
-     * The default constructor of the item class
-     * @param name the string the item is called
-     * @param category the string the item is called
-     * @param description the string description of the item
-     * @param qualityRating the int the represents the quality/condition of the item
-     * @param owner The owner's username
-     * @param status The status of the item
-     */
-    public Item(String name, String category, String description, int qualityRating, String status, String owner){
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.qualityRating = qualityRating;
-        this.status = convertToItemStatus(status);
-        this.owner = owner;
-        id = idCounter;
-        idCounter ++;
-    }
+//    /**
+//     * The default constructor of the item class
+//     * @param name the string the item is called
+//     * @param category the string the item is called
+//     * @param description the string description of the item
+//     * @param qualityRating the int the represents the quality/condition of the item
+//     * @param owner The owner's username
+//     * @param status The status of the item
+//     */
+//    public Item(String name, String category, String description, int qualityRating, String status, String owner){
+//        this.name = name;
+//        this.category = category;
+//        this.description = description;
+//        this.qualityRating = qualityRating;
+//        this.status = convertToItemStatus(status);
+//        this.owner = owner;
+//    }
 
     /**
      * Constructor of the item class for when items are read in.
@@ -46,7 +43,6 @@ public class Item {
         this.id = id;
         this.owner = owner;
         this.status = convertToItemStatus(status);
-        idCounter++;
     }
 
 
@@ -171,12 +167,12 @@ public class Item {
                 ",\nID: " + id;
     }
 
-    /**
-     * Converts the status of the item in String to Enum
-     * @param status The status of the item
-     * @return Return the enum equivalent of status
-     */
-    public ItemStatus convertToItemStatus(String status){
+//    /**
+//     * Converts the status of the item in String to Enum
+//     * @param status The status of the item
+//     * @return Return the enum equivalent of status
+//     */
+    private ItemStatus convertToItemStatus(String status){
 
         ItemStatus itemStatus = null;
         switch (status){

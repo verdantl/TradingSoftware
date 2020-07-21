@@ -5,14 +5,25 @@
 import java.util.*;
 
 public class ItemManager {
-    //maps item ids to item
     HashMap<Integer, Item> items;
+    private int idCounter;
 
-
-
+    /**
+     * Contructor for a new ItemManager class
+     * @param items a Hashmap that maps item ids to the item in the system
+     */
     public ItemManager(HashMap<Integer, Item> items){
         this.items = items;
+        idCounter = Collections.max(items.keySet()) + 1;
     }
+
+//    /**
+//     * We need this method for reading in
+//     */
+//    public void createNewItem(){
+//        Item item = new Item(idCounter);
+//        idCounter ++;
+//    }
 
     /**
      * Gets trader with the given username's approved items
@@ -393,8 +404,6 @@ public class ItemManager {
 //        inventory.get(id).setDescription(description);
 //    }
 
-
-    //TODO Move all of these to TraderManager if we're staying on track with the idea
 //    /**
 //     * Approves or rejects an item
 //     * @param username The account usernamecontaining the item to be approved
@@ -426,11 +435,11 @@ public class ItemManager {
 //        i.setQualityRating(qualityRating);
 //    }
 
-    /**
-     * From a given list of item gives back a list of the item's ids
-     * @param items the ArrayList of Items
-     * @return an ArrayList of Integers containing the items' ids
-     */
+//    /**
+//     * From a given list of item gives back a list of the item's ids
+//     * @param items the ArrayList of Items
+//     * @return an ArrayList of Integers containing the items' ids
+//     */
 //    public ArrayList<Integer> getItemIDs(List<Item> items){
 //        ArrayList<Integer> out = new ArrayList<>();
 //        for (Item i : items){
@@ -441,11 +450,11 @@ public class ItemManager {
 //        return out;
 //    }
 
-    /**
-     * A getter for a list of items based on a list of their ids.
-     * @param itemIDs A list of the item ids
-     * @return A list of items
-     */
+//    /**
+//     * A getter for a list of items based on a list of their ids.
+//     * @param itemIDs A list of the item ids
+//     * @return A list of items
+//     */
 //    public ArrayList<Item> getItems(List<Integer> itemIDs){
 //        ArrayList<Item> items = new ArrayList<>();
 //
