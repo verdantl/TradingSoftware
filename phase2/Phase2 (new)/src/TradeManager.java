@@ -1,9 +1,6 @@
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 public class TradeManager {
@@ -12,6 +9,7 @@ public class TradeManager {
     private int weeklyLimit;
     private int maxInComplete;
     private int moreLend;
+    private int counter;
 
     public TradeManager(HashMap<Integer, Trade> tradeInventory, HashMap<String, List<Integer>> trades,
                         int weeklyLimit, int maxInComplete, int moreLend){
@@ -20,6 +18,7 @@ public class TradeManager {
         this.weeklyLimit = weeklyLimit;
         this.maxInComplete = maxInComplete;
         this.moreLend = moreLend;
+        counter = Collections.max(tradeInventory.keySet()) + 1;
     }
 
     /**return the trade by the id
@@ -61,7 +60,8 @@ public class TradeManager {
      */
     public boolean createTrade(String user, List<Integer> items, boolean isPermanent,
                             String initiator, String receiver, LocalDate createdDate, String tradeType){
-        Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType);
+        Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType, counter);
+        counter++;
         return addToTradeInventory(trade) && addToTrades(user, trade);
     }
 

@@ -4,9 +4,8 @@ import java.util.List;
 public class Trade {
     private final String initiator;
     private final String receiver;
-    private List<Integer> items; //list of item ids they are going to trade
+    private List<Integer> items;
     private final int id;
-    private static int counter = 0;
     private final boolean isPermanent;
     private boolean isCompleted;
     private final String tradeType;
@@ -21,7 +20,7 @@ public class Trade {
      * @param isPermanent Determines whether the trade is temporary
      */
     public Trade (List<Integer> items, boolean isPermanent,
-                  String initiator, String receiver, LocalDate createdDate, String tradeType){
+                  String initiator, String receiver, LocalDate createdDate, String tradeType, Integer id){
         this.items = items;
         this.isPermanent = isPermanent;
         this.isCompleted = false;
@@ -30,8 +29,7 @@ public class Trade {
         this.createdDate = createdDate;
         this.tradeType = tradeType;
 //        this.hasMeeting = hasMeeting;
-        id = counter;
-        counter++;
+        this.id = id;
     }
 
     public String toString(){
