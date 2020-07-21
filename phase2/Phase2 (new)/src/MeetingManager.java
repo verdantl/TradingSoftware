@@ -40,7 +40,18 @@ public class MeetingManager {
         return meetings.get(id).toString();
     }
 
-    public Meeting createMeeting(int tradeId, LocalDate tradeDate, LocalDate returnDate,
+    /**create a trade
+     * @param tradeId the id of the trade
+     * @param tradeDate the date of the trade
+     * @param returnDate the return date of the trade
+     * @param location the location of the trade
+     * @param returnLocation the return location of the trade
+     * @param isAgreed a hashmap storing whether or not the traders agree with the meeting
+     * @param isConfirmed a hashmap storing whether or not the traders confim the meeting
+     * @param numberOfEdits a hashmap storing traders' edit times
+     * @return whether or not the meeting is created
+     */
+    public boolean createMeeting(int tradeId, LocalDate tradeDate, LocalDate returnDate,
                                  String location, String returnLocation, HashMap<String, Boolean> isAgreed,
                                  HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits){
         Meeting m = new Meeting(tradeId);
@@ -51,30 +62,24 @@ public class MeetingManager {
         m.setIsAgreed(isAgreed);
         m.setIsConfirmed(isConfirmed);
         m.setNumberOfEdits(numberOfEdits);
-        return m;
-    }
-
-
-    /**add the given meeting object to meetings
-     * @param m The meeting object that needs to be added
-     * @return Return true iff the meeting object was added
-     */
-    public boolean addMeeting(Meeting m){
-        if(!containMeeting(m.getTradeId())){
-            meetings.put(m.getTradeId(), m);
+        if(meetings.containsKey(tradeId)){
+            return false;
+        }else{
+            meetings.put(tradeId, m);
             return true;
         }
-        return false;
     }
+
+
 
     /**
      * Removes the given meeting object from meetings
-     * @param m The meeting object that needs to be removed
+     * @param id The trade id
      * @return Return true iff the meeting object was removed
      */
-    public boolean removeMeeting(Meeting m){
-        if(containMeeting(m.getTradeId())){
-            meetings.remove(m.getTradeId(), m);
+    public boolean removeMeeting(int id){
+        if(containMeeting(id)){
+            meetings.remove(id);
             return true;
         }
         return false;

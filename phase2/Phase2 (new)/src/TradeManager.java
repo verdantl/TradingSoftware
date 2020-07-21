@@ -49,15 +49,22 @@ public class TradeManager {
     }
 
     /**create a trade
+     * @param user the user who wants to create a trade
      * @param items a list of items involved in the trade
      * @param isPermanent whether or not the trade is permanent
      * @param initiator the initiator of the trade
      * @param receiver the receiver of the trade
      * @param createdDate the time that the trade is created
+     * @return whether or not the trade is successfully created
      */
-    public Trade createTrade(List<Integer> items, boolean isPermanent,
+    public boolean createTrade(String user, List<Integer> items, boolean isPermanent,
                             String initiator, String receiver, LocalDate createdDate, String tradeType){
-        return new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType);
+        Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType);
+        if(addToTradeInventory(trade)){
+            return addToTrades(user, trade);
+        }else{
+            return false;
+        }
     }
 
     /**add a trade to the tradeInventory
@@ -74,14 +81,14 @@ public class TradeManager {
     }
 
     /**remove a trade from tradeInventory
-     * @param trade the trade needed to be removed
+     * @param id the id of the trade
      * @return whether or not the trade is successfully removed from inventory
      */
-    public boolean removeFromInventory(Trade trade){
-        if(!tradeInventory.containsKey(trade.getId())){
+    public boolean removeFromInventory(int id){
+        if(!tradeInventory.containsKey(id)){
             return false;
         }else{
-            tradeInventory.remove(trade.getId(), trade);
+            tradeInventory.remove(id);
             return true;
         }
     }
@@ -109,18 +116,18 @@ public class TradeManager {
 
     /**remove a trade from user's trade list
      * @param user the user who wants to remove the trade
-     * @param trade the trade needed to be removed
+     * @param id the id of the trade
      * @return whether or not the trade is successfully removed from user's trade list
      */
-    public boolean removeFromTrades(String user, Trade trade){
+    public boolean removeFromTrades(String user, int id){
         if(!trades.containsKey(user)){
             return false;
         }
 
-        if(!trades.get(user).contains(trade.getId())){
+        if(!trades.get(user).contains(id)){
             return false;
         }else{
-            trades.get(user).remove(trade.getId());
+            trades.get(user).remove(id);
             return true;
         }
     }
