@@ -6,10 +6,19 @@ import gateway.ConfigWriter;
 import java.io.IOException;
 
 public class Configuration {
-    private ConfigAdmin configAdmin;
-    private ConfigItems configItems;
-    private ConfigTraders configTraders;
-    private ConfigTrades configTrades;
+    private final String adminPath = "configfiles/admins.csv";
+    private final String adminRequestPath = "configfiles/adminrequests.csv";
+    private final String itemPath = "configfiles/items.csv";
+    private final String meetingPath = "configfiles/meetings.csv";
+    private final String traderPath = "configfiles/traders.csv";
+    private final String tradePath = "configfiles/trades.csv";
+
+    private ConfigReader configReader;
+    private ConfigWriter configWriter;
+
+    public Configuration(){
+
+    }
 
 //
 //    private TraderActions traderActions;
