@@ -13,6 +13,7 @@ public class TradeManager {
                         int weeklyLimit){
         this.tradeInventory = tradeInventory;
         this.trades = trades;
+        this.weeklyLimit = weeklyLimit;
     }
 
     /**return the trade by the id
@@ -23,7 +24,6 @@ public class TradeManager {
         if(!tradeInventory.containsKey(id)){
             return null;
         }
-
         return tradeInventory.get(id);
     }
 

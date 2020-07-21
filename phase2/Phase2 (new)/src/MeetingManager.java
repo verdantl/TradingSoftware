@@ -42,8 +42,6 @@ public class MeetingManager {
 
 
 
-
-
     /**edit the meeting based on the new location
      * @param id id of the trade
      * @param location the new meeting location
