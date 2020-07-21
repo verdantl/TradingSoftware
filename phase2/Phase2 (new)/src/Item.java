@@ -5,6 +5,7 @@ public class Item {
     private String name, category, description;
     private final int id;
     private static int idCounter = 0;
+    private ItemStatus status;
 
     /**
      * The default constructor of the item class
@@ -13,11 +14,12 @@ public class Item {
      * @param description the string description of the item
      * @param qualityRating the int the represents the quality/condition of the item
      */
-    public Item(String name, String category, String description, int qualityRating){
+    public Item(String name, String category, String description, int qualityRating, String status){
         this.name = name;
         this.category = category;
         this.description = description;
         this.qualityRating = qualityRating;
+        this.status = convertToItemStatus(status);
         id = idCounter;
         idCounter ++;
     }
@@ -31,12 +33,14 @@ public class Item {
      * @param qualityRating the quality rating of the item
      * @param id the item id
      */
-    public Item(String name, String category, String description, Trader owner, int qualityRating, int id){
+    public Item(String name, String category, String description, Trader owner, int qualityRating, int id,
+                String status){
         this.name = name;
         this.category = category;
         this.description = description;
         this.qualityRating = qualityRating;
         this.id = id;
+        this.status = convertToItemStatus(status);
         idCounter++;
     }
 
@@ -97,7 +101,23 @@ public class Item {
         return qualityRating;
     }
 
-//    /**
+    /**
+     * Getter for status
+     * @return Return the status
+     */
+    public ItemStatus getStatus(){
+        return this.status;
+    }
+
+    /**
+     * Setter for status
+     * @param status The status of the item
+     */
+    public void setStatus(ItemStatus status) {
+        this.status = status;
+    }
+
+    //    /**
 //     * Gets the item's owner.
 //     * @return the instance of Trader that is this item's owner
 //     */
@@ -144,5 +164,46 @@ public class Item {
                 "',\ndescription: '" + description +
 //                "',\nowner: " + owner.getUsername() +
                 ",\nID: " + id;
+    }
+
+    /**
+     * Converts the status of the item in String to Enum
+     * @param status The status of the item
+     * @return Return the enum equivalent of status
+     */
+    public ItemStatus convertToItemStatus(String status){
+
+        ItemStatus itemStatus = null;
+        switch (status){
+            case "available":
+                itemStatus = ItemStatus.AVAILABLE;
+                break;
+            case "unavailable":
+                itemStatus = ItemStatus.UNAVAILABLE;
+                break;
+            case "requested":
+                itemStatus = ItemStatus.REQUESTED;
+                break;
+        }
+
+        return itemStatus;
+    }
+
+    /**
+     * Converts the status of the item in Enum to String
+     * @param status The status of the item
+     * @return Return the string equivalent of status
+     */
+    public String convertToString(ItemStatus status){
+
+        switch (status){
+            case AVAILABLE:
+                return "available";
+            case UNAVAILABLE:
+                return "unavailable";
+            case REQUESTED:
+                return "requested";
+        }
+        return "";
     }
 }
