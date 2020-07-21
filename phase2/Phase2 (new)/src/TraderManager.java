@@ -7,13 +7,6 @@ public class TraderManager {
     HashMap<String, Trader> users;
 
     /**
-     * Constructor for TraderManager with no users
-     */
-    public TraderManager(){
-        users = new HashMap<>();
-    }
-
-    /**
      * Constructor for TraderManager given a HashMap
      * @param users The hashmap of Traders to users.
      */
@@ -188,7 +181,7 @@ public class TraderManager {
      * Returns true iff the Trader with the given username has requested to have their account
      * unfrozen.
      * @param username the username of the Trader in question
-     * @return
+     * @return a boolean representing if the trader has an unfreeze request
      */
     public boolean getRequestToUnfreeze(String username){
         return users.get(username).isRequestToUnfreeze();
@@ -215,6 +208,39 @@ public class TraderManager {
             }
         }
         return temp;
+    }
+
+    /**
+     * Deletes the item from all traders' lists.
+     * @param id the id of the item
+     */
+    public void deleteItem(Integer id){
+        for (Trader trader: users.values()){
+            trader.deleteItem(id);
+        }
+    }
+
+    /**
+     * Approves or rejects an item in a user's list.
+     * @param username The account usernamecontaining the item to be approved
+     * @param itemID The id of the item to be approved
+     * @param approved A boolean representing if the item has been approved or not
+     */
+    public void approveItem(String username, int itemID, boolean approved){
+        Trader trader = users.get(username);
+        trader.removeFromProposedItems(itemID);
+        if (approved) {
+            trader.addToWishlist(itemID);
+        }
+    }
+
+    /**
+     * Approves or rejects all of the items in an account's proposed items list.
+     * @param username The account containing the items to be approved
+     * @param approved A boolean representing if the items are all approved or not
+     */
+    public void approveAllItems(String username, boolean approved){
+        users.get(username).approveAllItems(approved);
     }
 
 }

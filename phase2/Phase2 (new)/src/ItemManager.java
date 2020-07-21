@@ -6,15 +6,8 @@ import java.util.*;
 
 public class ItemManager {
     //private ArrayList<Item> requestedItems, approvedItems;
-//    HashMap<String, Inventory> traderInventories;
+//    HashMap<String, items.Inventory> traderInventories;
     HashMap<Integer, Item> inventory;
-
-    //This constructor will probably end up being unused.
-    public ItemManager(){
-        inventory = new HashMap<>();
-//        requestedItems = new ArrayList<>();
-//        approvedItems = new ArrayList<>();
-    }
 
     public ItemManager(HashMap<Integer, Item> inventory){
 //        this.approvedItems = approvedItems;
@@ -36,7 +29,7 @@ public class ItemManager {
 //        for (Integer i: itemIDs){
 //
 //        }
-//        for(Map.Entry<String, Inventory> inventories: traderInventories.entrySet()){
+//        for(Map.Entry<String, items.Inventory> inventories: traderInventories.entrySet()){
 //            if (!inventories.getKey().equals(username)){
 //                approvedItems.addAll(inventories.getValue().getApprovedItems());
 //            }
@@ -56,7 +49,7 @@ public class ItemManager {
 //     * @param id the id of the item.
 //     */
 //    public void addToWantToBorrow(String username, int id){
-//        for(Map.Entry<String, Inventory> inventories: traderInventories.entrySet()){
+//        for(Map.Entry<String, items.Inventory> inventories: traderInventories.entrySet()){
 //            for(Item item: inventories.getValue().getApprovedItems()){
 //                if(item.getId()==id){
 //                    traderInventories.get(username).addToWishlist(item);
@@ -156,7 +149,7 @@ public class ItemManager {
 //     * @param username The username of the item that is going to be added.
 //     */
 //    public void addToBorrowedItems(String username, int id){
-//        for(Map.Entry<String, Inventory> inventories: traderInventories.entrySet()){
+//        for(Map.Entry<String, items.Inventory> inventories: traderInventories.entrySet()){
 //            for(Item i: inventories.getValue().getApprovedItems()){
 //                if (i.getId()==id){
 //                    traderInventories.get(username).addToBorrowedItems(i);
@@ -186,7 +179,9 @@ public class ItemManager {
 //    }
 
     public boolean eraseItem(Integer id){
+        boolean value = inventory.containsKey(id);
         inventory.remove(id);
+        return value;
     }
 
     /**
@@ -218,39 +213,19 @@ public class ItemManager {
 
 
     //TODO Move all of these to TraderManager if we're staying on track with the idea
-    /**
-     * Approves or rejects an item
-     * @param username The account usernamecontaining the item to be approved
-     * @param item The item to be approved
-     * @param approved A boolean representing if the item has been approved or not
-     */
-    public void approveItem(String username, int item, boolean approved){
-        removeFromProposedItems(username, item);
-        if (approved) {
-            addToWantToLend(username, item);
-        }
-    }
+//    /**
+//     * Approves or rejects an item
+//     * @param username The account usernamecontaining the item to be approved
+//     * @param item The item to be approved
+//     * @param approved A boolean representing if the item has been approved or not
+//     */
+//    public void approveItem(String username, int item, boolean approved){
+//        removeFromProposedItems(username, item);
+//        if (approved) {
+//            addToWantToLend(username, item);
+//        }
+//    }
 
-
-    /**
-     * Approves or rejects all of the items in an account's proposed items list.
-     * @param username The account containing the items to be approved
-     * @param approved A boolean representing if the items are all approved or not
-     */
-    public void approveAllItems(String username, boolean approved){
-        traderInventories.get(username).approveAllItems(approved);
-    }
-
-    public HashMap<String, List<Item>> getAwaitingApproval(){
-        HashMap<String, List<Item>> needingApproval = new HashMap<>();
-        for (String username: traderInventories.keySet()){
-            List<Item> proposed = traderInventories.get(username).getProposedItems();
-            if (!proposed.isEmpty()){
-                needingApproval.put(username, proposed);
-            }
-        }
-        return needingApproval;
-    }
 //    /**
 //     * changes the owner of a given item
 //     * @param i the given item
@@ -274,7 +249,7 @@ public class ItemManager {
      * @param items the ArrayList of Items
      * @return an ArrayList of Integers containing the items' ids
      */
-    public ArrayList<Integer> getItemIDs(ArrayList<Item> items){
+    public ArrayList<Integer> getItemIDs(List<Item> items){
         ArrayList<Integer> out = new ArrayList<>();
         for (Item i : items){
             out.add(i.getId());
@@ -284,4 +259,17 @@ public class ItemManager {
         return out;
     }
 
+    /**
+     * A getter for a list of items based on a list of their ids.
+     * @param itemIDs A list of the item ids
+     * @return A list of items
+     */
+    public ArrayList<Item> getItems(List<Integer> itemIDs){
+        ArrayList<Item> items = new ArrayList<>();
+
+        for (Integer id: itemIDs){
+            items.add(inventory.get(id));
+        }
+        return items;
+    }
 }

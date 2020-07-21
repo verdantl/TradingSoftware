@@ -1,8 +1,10 @@
+package items;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An Inventory class
+ * An items.Inventory class
  */
 
 public class Inventory {
@@ -12,7 +14,7 @@ public class Inventory {
     private List<Item> approvedItems;
 
     /**
-     * Construct Inventory
+     * Construct items.Inventory
      * @param wishlist Trader's wishlist
      * @param borrowedItems Trader's borrowed items
      * @param proposedItems Trader's items
@@ -99,10 +101,10 @@ public class Inventory {
 
     /**
      *
-     * @return String representation of Inventory
+     * @return String representation of items.Inventory
      */
     public String toString(){
-        String s = "Inventory\n";
+        String s = "items.Inventory\n";
 
         s += "Wishlist:\n";
         s += formatItems(wishlist)+"\n";
@@ -120,7 +122,7 @@ public class Inventory {
     private String formatItems(List<Item> items){
         String s = "";
         for (Item i: items){
-            s += i.toString()+"\n";
+            s = s.concat(i.toString()+"\n");
         }
         return s;
 

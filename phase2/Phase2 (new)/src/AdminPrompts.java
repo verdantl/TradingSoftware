@@ -8,7 +8,6 @@ public class AdminPrompts {
     private int maxIncomplete;
     private int maxWeekly;
     private final ArrayList<String> menuOptions;
-    private final String toMainMenu = "0";
     private final int LINELENGTH = 80;
 
     /**
@@ -274,7 +273,7 @@ public class AdminPrompts {
      * Display return to main menu message
      */
     public void displayReturnToMainMenu(){
-        System.out.print("Enter ["+toMainMenu+"] to return to the main menu or enter anything to return to the " +
+        System.out.print("Enter [0] to return to the main menu or enter anything to return to the " +
                 "previous menu: ");
     }
 
