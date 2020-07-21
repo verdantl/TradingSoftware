@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -6,8 +7,10 @@ import java.util.List;
 public class TradeManager {
     private final HashMap<Integer, Trade> tradeInventory;
     private final HashMap<String, List<Integer>> trades;
+    private int weeklyLimit;
 
-    public TradeManager(HashMap<Integer, Trade> tradeInventory, HashMap<String, List<Integer>> trades){
+    public TradeManager(HashMap<Integer, Trade> tradeInventory, HashMap<String, List<Integer>> trades,
+                        int weeklyLimit){
         this.tradeInventory = tradeInventory;
         this.trades = trades;
     }
@@ -24,46 +27,66 @@ public class TradeManager {
         return tradeInventory.get(id);
     }
 
-    /**create a new trade
+    /**create a trade
+     * @param items a list of items involved in the trade
+     * @param isPermanent whether or not the trade is permanent
      * @param initiator the initiator of the trade
      * @param receiver the receiver of the trade
-     * @param isTemporary check whether or not the trade is temporary
-     * @param items a list of items needed to be traded
-     * @return a new trade
+     * @param createdDate the time that the trade is created
      */
-    public Trade createTrade(String initiator, String receiver,
-                             boolean isTemporary, List<Integer> items, String tradeType,
-                             LocalDate createdDate, boolean hasMeeting){
-        Trade trade = new Trade(items, isTemporary, initiator, receiver, createdDate, hasMeeting);
-        trade.setTradeType(tradeType);
-        return trade;
-
+    public Trade createTrade(List<Integer> items, boolean isPermanent,
+                            String initiator, String receiver, LocalDate createdDate, String tradeType){
+        return new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType);
     }
 
-    // not implement yet, but you can assume it exist
-    public void completeTrade(int id, Trader initiator, Trader receiver){}
+    /**add a trade to the tradeInventory
+     * @param trade the trade needed to be added in inventory
+     * @return whether or not the trade is successfully added in inventory
+     */
+    public boolean addToTradeInventory(Trade trade){
+        if(!tradeInventory.containsKey(trade.getId())){
+            tradeInventory.put(trade.getId(), trade);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-    // not implement yet, but you can assume it exist
-    public boolean exceedWeeklyLimit(String trader, LocalDate createdDate){}
+    /**add a trade to user's trade list
+     * @param user the user who wants to add trade to trades
+     * @param trade the trade needed to be added
+     * @return whether or not the trade is successfully added in user's trade list
+     */
+    public boolean addToTrades(String user, Trade trade){
+        if(!trades.containsKey(user)){
+            List<Integer> list = new ArrayList<>();
+            list.add(trade.getId());
+            trades.put(user, list);
+            return true;
+        }
 
-    // not implement yet, but you can assume it exist
-    public boolean exceedMaxIncomplete(Trader trader){}
+        if(!trades.get(user).contains(trade.getId())){
+            trades.get(user).add(trade.getId());
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
-    // not implement yet, but you can assume it exist
-    public boolean lackLend(Trader trader){}
 
-    // You may not need this method, in the meetingManager,
+
+    // You may not need this method for a trade having meeting, in the meetingManager,
     // confirmMeeting return true iff both trader confirm the meeting
     // which means that the meeting is completed
-    /**
-     * Checks whether the trade with the given id is completed.
-     * @param id The trade id
-     * @return True iff trade with ID id is completed.
-     */
-    public boolean isTradeCompleted(int id){
-        return tradeInventory.get(id).getCompleted();
-    }
+    ///**
+     //* Checks whether the trade with the given id is completed.
+     //* @param id The trade id
+     //* @return True iff trade with ID id is completed.
+     //*/
+    //public boolean isTradeCompleted(int id){
+        //return tradeInventory.get(id).getCompleted();
+    //}
 
     /**
      * Returns the given trade's initiator
@@ -83,12 +106,30 @@ public class TradeManager {
         return tradeInventory.get(id).getInitiator();
     }
 
-
-    /**get a list of trade's IDs
-     * @param user a user who wants to get all his trades
-     * @return a list of tradeIDs represents all the trades that the user has
+    /**return the given trade's tradeType
+     * @param id the id of the trade
+     * @return which type the trade is(OneWay or TwoWay)
      */
-    public List<Integer> getTrades(String user) {
-        return this.trades.get(user);
+    public String getTradeType(int id){return tradeInventory.get(id).getTradeType();}
+
+    /**Getter for trades
+     * @return a hashMap storing in the format <trader, a list of trades(id) the trader has>
+     */
+    public HashMap<String, List<Integer>> getTrades() {
+        return trades;
+    }
+
+    /**Getter for weeklyLimit
+     * @return the maximum number of trades a trade can have in a week
+     */
+    public int getWeeklyLimit() {
+        return weeklyLimit;
+    }
+
+    /**Setter for weeklyLimit
+     * @param weeklyLimit the maximum number of trades a trade can have in a week
+     */
+    public void setWeeklyLimit(int weeklyLimit) {
+        this.weeklyLimit = weeklyLimit;
     }
 }
