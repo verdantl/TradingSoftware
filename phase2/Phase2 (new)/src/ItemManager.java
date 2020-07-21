@@ -5,20 +5,202 @@
 import java.util.*;
 
 public class ItemManager {
-    //private ArrayList<Item> requestedItems, approvedItems;
-//    HashMap<String, items.Inventory> traderInventories;
-    HashMap<Integer, Item> inventory;
+    //maps item ids to item
+    HashMap<Integer, Item> items;
 
-    public ItemManager(HashMap<Integer, Item> inventory){
-//        this.approvedItems = approvedItems;
-//        this.requestedItems = requestedItems;
-        this.inventory = inventory;
-//        this.traderInventories = traderInventories;
+
+
+    public ItemManager(HashMap<Integer, Item> items){
+        this.items = items;
     }
 
-    public Collection<Item> getAllItems(){
-        return inventory.values();
+    /**
+     * Gets trader with the given username's approved items
+     * @param username The trader's username
+     * @return Return the trader's approved items
+     */
+    public List<Item> getApprovedItems(String username){
+        List<Item> approvedItems = new ArrayList<>();
+        Set<Integer> ids = items.keySet();
+
+        for (Integer id: ids){
+            if(items.containsKey(id)) {
+                Item item = items.get(id);
+                if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
+                    approvedItems.add(item);
+                }
+            }
+        }
+
+        return approvedItems;
     }
+
+    /**
+     * Converts all the approved items into a String representation
+     * @param username The Trader's username
+     * @return Return the string representation of approved items of the Trader with the given username
+     */
+    public List<String> getApprovedItemsInString(String username){
+        List<Item> approvedItems = getApprovedItems(username);
+
+        return convertItemListToString(approvedItems);
+    }
+
+    /**
+     * Converts all the proposed items into a String representation
+     * @param username The Trader's username
+     * @return Return the string representation of proposed items of the Trader with the given username
+     */
+    public List<String> getProposedItemsInString(String username){
+        List<Item> proposedItems = getProposedItems(username);
+
+        return convertItemListToString(proposedItems);
+    }
+
+    /**
+     * Converts the list of items with the given list of item ids into a String representation
+     * @param itemIds List of item ids
+     * @return Return the string representation of the list of items
+     */
+    public List<String> getListOfItemsInString(List<Integer> itemIds){
+        return convertItemListToString(getListOfItems(itemIds));
+    }
+
+
+    /**
+     * Gets trader with the given username's proposed items
+     * @param username The trader's username
+     * @return Return the trader's proposed items
+     */
+    public List<Item> getProposedItems(String username){
+        List<Item>  proposedItems = new ArrayList<>();
+        Set<Integer> ids = items.keySet();
+
+        for (Integer id: ids){
+            if(items.containsKey(id)) {
+                Item item = items.get(id);
+                if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.REQUESTED) {
+                    proposedItems.add(item);
+                }
+            }
+        }
+
+        return proposedItems;
+    }
+
+    /**
+     * Returns list of items based on the given list of item ids
+     * @param itemIds List of item ids
+     * @return Return list of items
+     */
+    public List<Item> getListOfItems(List<Integer> itemIds){
+        List<Item> itemList = new ArrayList<>();
+        for(Integer id: itemIds){
+            if(items.containsKey(id)) {
+                itemList.add(items.get(id));
+            }
+        }
+
+        return itemList;
+    }
+
+    /**
+     * Changes the status of the item with the given id to AVAILABLE
+     * @param id Id of the item
+     */
+    public void changeStatusToAvailable(Integer id){
+        items.get(id).setStatus(ItemStatus.AVAILABLE);
+    }
+
+    /**
+     * Changes the status of the item with the given id to UNAVAILABLE
+     * @param id Id of the item
+     */
+    public void changeStatusToUnavailable(Integer id){
+        items.get(id).setStatus(ItemStatus.UNAVAILABLE);
+    }
+
+    /**
+     * Changes the status of the item with the given id to UNAVAILABLE
+     * @param id Id of the item
+     */
+    public void changeStatusToRequested(Integer id){
+        items.get(id).setStatus(ItemStatus.REQUESTED);
+    }
+
+    /**
+     * Removes them item with the given id
+     * @param id Id of the item to remove
+     */
+    public void removeItem(Integer id){
+        items.remove(id);
+    }
+
+    /**
+     * Adds new item to the hash map
+     * @param item Item to add
+     */
+    public void addItem(Item item){
+        items.put(item.getId(), item);
+    }
+
+    /**
+     * Edits the description of the item with the given item
+     * @param id Id of the Item
+     * @param desc New description
+     */
+    public void editDescription(Integer id, String desc){
+        items.get(id).setDescription(desc);
+    }
+
+    /**
+     * Edits the name of the item with the given item
+     * @param id Id of the Item
+     * @param name New name
+     */
+    public void editName(Integer id, String name){
+        items.get(id).setName(name);
+    }
+
+    /**
+     * Edits the category of the item with the given item
+     * @param id Id of the Item
+     * @param category New category
+     */
+    public void editCategory(Integer id, String category){
+        items.get(id).setCategory(category);
+    }
+
+    /**
+     * Edits the rating of the item with the given item
+     * @param id Id of the Item
+     * @param rating New rating
+     */
+    public void editQualityRating(Integer id, int rating){
+        items.get(id).setQualityRating(rating);
+    }
+
+    /**
+     *
+     * @param item The Item
+     * @return Return String representation of the item
+     */
+    public String convertItemToString(Item item){
+        //TODO: Implement this method
+        return "";
+    }
+
+    public List<String> convertItemListToString(List<Item> items){
+        //TODO: Implement this method
+
+        List<String> stringList = new ArrayList<>();
+        for(Item item: items){
+            stringList.add(convertItemToString(item));
+        }
+        return stringList;
+    }
+
+
 
 //    /**
 //     * Return an ArrayList of all items that have been approved by admins that are not owned by the user with the username
@@ -178,38 +360,38 @@ public class ItemManager {
 //        }
 //    }
 
-    public boolean eraseItem(Integer id){
-        boolean value = inventory.containsKey(id);
-        inventory.remove(id);
-        return value;
-    }
-
-    /**
-     * changes the name of a given item
-     * @param id the given item's id
-     * @param name the new name
-     */
-    public void changeName(Integer id, String name){
-        inventory.get(id).setName(name);
-    }
-
-    /**
-     * changes the category of a given item
-     * @param id the given item's ID
-     * @param category the new category
-     */
-    public void changeCategory(Integer id, String category){
-        inventory.get(id).setCategory(category);
-    }
-
-    /**
-     * changes the description of a given item
-     * @param id the given item's ID
-     * @param description the new description
-     */
-    public void changeDescription(Integer id, String description){
-        inventory.get(id).setDescription(description);
-    }
+//    public boolean eraseItem(Integer id){
+//        boolean value = inventory.containsKey(id);
+//        inventory.remove(id);
+//        return value;
+//    }
+//
+//    /**
+//     * changes the name of a given item
+//     * @param id the given item's id
+//     * @param name the new name
+//     */
+//    public void changeName(Integer id, String name){
+//        inventory.get(id).setName(name);
+//    }
+//
+//    /**
+//     * changes the category of a given item
+//     * @param id the given item's ID
+//     * @param category the new category
+//     */
+//    public void changeCategory(Integer id, String category){
+//        inventory.get(id).setCategory(category);
+//    }
+//
+//    /**
+//     * changes the description of a given item
+//     * @param id the given item's ID
+//     * @param description the new description
+//     */
+//    public void changeDescription(Integer id, String description){
+//        inventory.get(id).setDescription(description);
+//    }
 
 
     //TODO Move all of these to TraderManager if we're staying on track with the idea
@@ -249,27 +431,27 @@ public class ItemManager {
      * @param items the ArrayList of Items
      * @return an ArrayList of Integers containing the items' ids
      */
-    public ArrayList<Integer> getItemIDs(List<Item> items){
-        ArrayList<Integer> out = new ArrayList<>();
-        for (Item i : items){
-            out.add(i.getId());
-        }
-        //this may be removed
-        Collections.sort(out);
-        return out;
-    }
+//    public ArrayList<Integer> getItemIDs(List<Item> items){
+//        ArrayList<Integer> out = new ArrayList<>();
+//        for (Item i : items){
+//            out.add(i.getId());
+//        }
+//        //this may be removed
+//        Collections.sort(out);
+//        return out;
+//    }
 
     /**
      * A getter for a list of items based on a list of their ids.
      * @param itemIDs A list of the item ids
      * @return A list of items
      */
-    public ArrayList<Item> getItems(List<Integer> itemIDs){
-        ArrayList<Item> items = new ArrayList<>();
-
-        for (Integer id: itemIDs){
-            items.add(inventory.get(id));
-        }
-        return items;
-    }
+//    public ArrayList<Item> getItems(List<Integer> itemIDs){
+//        ArrayList<Item> items = new ArrayList<>();
+//
+//        for (Integer id: itemIDs){
+//            items.add(inventory.get(id));
+//        }
+//        return items;
+//    }
 }
