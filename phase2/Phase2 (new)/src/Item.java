@@ -2,7 +2,7 @@
 
 public class Item {
     private int qualityRating;
-    private String name, category, description;
+    private String name, category, description, owner;
     private final int id;
     private static int idCounter = 0;
     private ItemStatus status;
@@ -13,13 +13,16 @@ public class Item {
      * @param category the string the item is called
      * @param description the string description of the item
      * @param qualityRating the int the represents the quality/condition of the item
+     * @param owner The owner's username
+     * @param status The status of the item
      */
-    public Item(String name, String category, String description, int qualityRating, String status){
+    public Item(String name, String category, String description, int qualityRating, String status, String owner){
         this.name = name;
         this.category = category;
         this.description = description;
         this.qualityRating = qualityRating;
         this.status = convertToItemStatus(status);
+        this.owner = owner;
         id = idCounter;
         idCounter ++;
     }
@@ -29,17 +32,19 @@ public class Item {
      * @param name the name of the item
      * @param category the category of the item
      * @param description the description of the item
-     * @param owner the owner of the item
      * @param qualityRating the quality rating of the item
      * @param id the item id
+     * @param status The status of the item
+     * @param owner The owner's username
      */
-    public Item(String name, String category, String description, Trader owner, int qualityRating, int id,
-                String status){
+    public Item(String name, String category, String description, int qualityRating, int id,
+                String status, String owner){
         this.name = name;
         this.category = category;
         this.description = description;
         this.qualityRating = qualityRating;
         this.id = id;
+        this.owner = owner;
         this.status = convertToItemStatus(status);
         idCounter++;
     }
@@ -117,21 +122,21 @@ public class Item {
         this.status = status;
     }
 
-    //    /**
-//     * Gets the item's owner.
-//     * @return the instance of Trader that is this item's owner
-//     */
-//    public Trader getOwner() {
-//        return owner;
-//    }
+    /**
+     * Setter for owner
+     * @param owner Owner's username
+     */
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
-//    /**
-//     * Sets the item's owner.
-//     * @param owner the Trader that is to become this item's owner
-//     */
-//    public void setOwner(Trader owner) {
-//        this.owner = owner;
-//    }
+    /**
+     * Getter for owner
+     * @return Return owner
+     */
+    public String getOwner() {
+        return owner;
+    }
 
     /**
      * Gets the item's id.
