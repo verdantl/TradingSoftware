@@ -2,7 +2,7 @@
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public abstract class Meeting{
+public class Meeting{
     private final int tradeId;
     private LocalDate tradeDate;
     private String location;
@@ -103,6 +103,12 @@ public abstract class Meeting{
     public HashMap<String, Integer> getNumberOfEdits() {
         return numberOfEdits;
     }
+
+    public void setNumberOfEdits(HashMap<String, Integer> numberOfEdits) {this.numberOfEdits = numberOfEdits;}
+
+    public void setIsAgreed(HashMap<String, Boolean> isAgreed){this.isAgreed = isAgreed;}
+
+    public void setIsConfirmed(HashMap<String, Boolean> isConfirmed){this.isConfirmed = isConfirmed;}
 
     /**increase the number of edits when the user edits the meeting
      * @param user the user who edit this meeting

@@ -40,6 +40,46 @@ public class MeetingManager {
         return meetings.get(id).toString();
     }
 
+    public Meeting createMeeting(int tradeId, LocalDate tradeDate, LocalDate returnDate,
+                                 String location, String returnLocation, HashMap<String, Boolean> isAgreed,
+                                 HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits){
+        Meeting m = new Meeting(tradeId);
+        m.setTradeDate(tradeDate);
+        m.setReturnDate(returnDate);
+        m.setLocation(location);
+        m.setReturnLocation(returnLocation);
+        m.setIsAgreed(isAgreed);
+        m.setIsConfirmed(isConfirmed);
+        m.setNumberOfEdits(numberOfEdits);
+        return m;
+    }
+
+
+    /**add the given meeting object to meetings
+     * @param m The meeting object that needs to be added
+     * @return Return true iff the meeting object was added
+     */
+    public boolean addMeeting(Meeting m){
+        if(!containMeeting(m.getTradeId())){
+            meetings.put(m.getTradeId(), m);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Removes the given meeting object from meetings
+     * @param m The meeting object that needs to be removed
+     * @return Return true iff the meeting object was removed
+     */
+    public boolean removeMeeting(Meeting m){
+        if(containMeeting(m.getTradeId())){
+            meetings.remove(m.getTradeId(), m);
+            return true;
+        }
+        return false;
+    }
+
 
 
     /**edit the meeting based on the new location
@@ -101,7 +141,7 @@ public class MeetingManager {
      * @param username Username of the Trader confirming that the meeting happened
      * @return whether or not both trader confirm the meeting
      */
-    public boolean confirmTrade(int id, String username){
+    public boolean confirmMeeting(int id, String username){
         getMeeting(id).setConfirm(username, true);
         if(checkAllConfirmed(id)){
             getMeeting(id).setTradeStatus("Confirmed: waiting the other to confirm");
@@ -157,17 +197,5 @@ public class MeetingManager {
     }
 
 
-    /**
-     * Removes the given meeting object from meetings
-     * @param m The meeting object that needs to be removed
-     * @return Return true iff the meeting object was removed
-     */
-    public boolean removeMeeting(Meeting m){
-        if(containMeeting(m.getTradeId())){
-            meetings.remove(m.getTradeId(), m);
-            return true;
-        }
-        return false;
-    }
 
 }
