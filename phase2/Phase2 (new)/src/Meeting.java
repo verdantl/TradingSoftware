@@ -7,6 +7,8 @@ public abstract class Meeting{
     private LocalDate tradeDate;
     private String location;
     private String tradeStatus;
+    private String returnLocation;
+    private LocalDate returnDate;
     private  HashMap<String, Integer> numberOfEdits;
     private  HashMap<String, Boolean> isAgreed;
     private  HashMap<String, Boolean> isConfirmed;
@@ -24,6 +26,28 @@ public abstract class Meeting{
         numberOfEdits = new HashMap<>();
         isAgreed = new HashMap<>();
         isConfirmed = new HashMap<>();
+        returnDate = LocalDate.of(0,0,0);
+        returnLocation = "N/A";
+    }
+
+    public String toString(){
+        StringBuilder s = new StringBuilder("-TradeID: " + getTradeId() +
+                "\n" +
+                "-MeetingDate: " + getTradeDate() +
+                "\n" +
+                "-MeetingLocation: " + getLocation() +
+                "\n" +
+                "-ReturnDate: " + getReturnDate() +
+                "\n" +
+                "-ReturnLocation: " + getReturnLocation() +
+                "\n" +
+                "-TradeStatus: " + getTradeStatus() +
+                "\n");
+        for(String trader: numberOfEdits.keySet()){
+            s.append("-").append(trader).append("EditTimes: ").append(getNumberOfEdits().get(trader)).append("\n");
+        }
+
+        return s.toString();
     }
 
     /**Getter for the tradeDate
@@ -112,6 +136,31 @@ public abstract class Meeting{
     }
 
 
+    /**Getter for returnLocation
+     * @return the returnMeeting's location
+     */
+    public String getReturnLocation() {
+        return returnLocation;
+    }
 
+    /**Setter for returnLocation
+     * @param returnLocation the return meeting's location
+     */
+    public void setReturnLocation(String returnLocation) {
+        this.returnLocation = returnLocation;
+    }
 
+    /**Getter for returnDate
+     * @return the return meeting's date
+     */
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    /**Setter for the return meeting
+     * @param returnDate the return meeting's date
+     */
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
 }
