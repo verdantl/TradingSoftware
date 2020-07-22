@@ -45,6 +45,10 @@ public class Item {
         this.status = convertToItemStatus(status);
     }
 
+    public Item(Integer id) {
+        this.id = id;
+    }
+
 
     /**
      * Gets the item's name.
@@ -118,6 +122,9 @@ public class Item {
         this.status = status;
     }
 
+    public void setStatus(String status){
+        setStatus(convertToItemStatus(status));
+    }
     /**
      * Setter for owner
      * @param owner Owner's username

@@ -24,7 +24,18 @@ public class ItemManager {
 //        Item item = new Item(idCounter);
 //        idCounter ++;
 //    }
-
+    //This is a temporary method to see how the reduction of constructors would work for Item
+    public void addItem(Integer id, ArrayList<String> itemInfo, int quality, String status, String owner){
+        Item item = new Item(id);
+        item.setName(itemInfo.get(0));
+        item.setCategory(itemInfo.get(1));
+        item.setDescription(itemInfo.get(2));
+        item.setQualityRating(quality);
+        item.setStatus(status);
+        item.setOwner(owner);
+        items.put(id, item);
+        idCounter++;
+    }
     /**
      * Gets trader with the given username's approved items
      * @param username The trader's username

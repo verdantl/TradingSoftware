@@ -27,8 +27,7 @@ public class Trader extends User {
      */
     public Trader(String username, String password, String dateCreated, List<Integer> ids, boolean frozen,
                   boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed,
-                  List<Integer> wishlist, List<Integer> borrowedItems){ //List<Integer> proposedItems,
-                  //List<Integer> approvedItems){
+                  List<Integer> wishlist, List<Integer> borrowedItems){
         super(username, password, dateCreated);
 
         this.tradeIds = ids;
@@ -37,11 +36,8 @@ public class Trader extends User {
         this.numBorrowed=numBorrowed;
         this.numLent=numLent;
         this.requestToUnfreeze = requestToUnfreeze;
-
         this.wishlist = wishlist;
         this.borrowedItems = borrowedItems;
-//        this.proposedItems = proposedItems;
-//        this.approvedItems = approvedItems;
     }
 
     /**
