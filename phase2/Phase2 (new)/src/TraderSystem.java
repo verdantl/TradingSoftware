@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -110,12 +111,10 @@ public class TraderSystem extends UserSystem{
         running = false;
     }
 
-    @Override
     public String getNextUser() {
         return null;
     }
 
-    @Override
     protected int getNextSystem() {
         return 0;
     }
@@ -125,46 +124,46 @@ public class TraderSystem extends UserSystem{
      */
     private void proposeItemToLend(){
         //I have commented out all the things related to prompts, etc. Since we're doing gui we might have to rewrite all of this.
-        //ArrayList<String> temp = traderPrompts.getProposeItemPrompts();
+        List<String> temp = new ArrayList<>();
+        // Copied from TraderPrompts.setUpProposeItemPrompts
+        temp.add("Enter \"0\" at any time to exit");//0
+        temp.add("Otherwise, enter the item name:");//1
+        temp.add("Enter the item's Category:");//2
+        temp.add("Enter a description for the item:");//3
+        temp.add("Enter the item's quality rating from 1-10:");//4
+        temp.add("Your item is waiting to be reviewed by an Administrator, please check back later.");//5
+
 //        String itemName, category, description;
         int rating;
         ArrayList<String> itemAttributes = new ArrayList<>();
-        //Item item;
+
         itemAttributes.add("itemName");
         itemAttributes.add("category");
         itemAttributes.add("description");
 
-        //traderPrompts.displayString(temp.get(0));
-
         String o = null;
 
         int loopVar = 0;
+        System.out.println(temp.get(loopVar));
         //If the user doesn't want to go back, displays the prompts to enter item specs and creates the item.
         while(!o.equals("0") && loopVar < 3){
-            //traderPrompts.displayString(temp.get(loopVar + 1));
+            System.out.println(temp.get(loopVar + 1));
             o = sc.nextLine();
             itemAttributes.set(loopVar, o);
             loopVar+=1;
         }
         if(!o.equals("0")){
-            //traderPrompts.displayString(temp.get(loopVar + 1));
+            System.out.println(temp.get(loopVar + 1));
+            o = sc.nextLine();
             rating = Integer.parseInt(o);
-            //itemManager.addToProposedItems(currentTrader, itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), rating);
-            // item = new Item(itemAttributes.get(0), itemAttributes.get(1), itemAttributes.get(2), currentTrader, rating);
-            // traderActions.addProposedItem(currentTrader, item);
-
-            // ~~~~ We HAVE to call a method from the User class here, might just be better to
-            // store only the username, and require all public methods in our use cases to take
-            // in usernames instead of Traders ~~~
 
             if (!o.equals("0")){
-                itemManager.addToProposedItems(currentTrader, itemAttributes.get(0),
-                        itemAttributes.get(1), itemAttributes.get(2), rating);
-                //loopVar+=1;
-                //traderPrompts.displayString(temp.get(loopVar+1));
+                itemManager.addItem(itemAttributes, rating, "REQUESTED", currentTrader);
+                loopVar+=1;
+                System.out.println(temp.get(loopVar+1));
             }
         }
-        //traderPrompts.displayString("Returning to the Main Menu...");
+        System.out.println("Returning to the Main Menu...");
     }
 
     /**
@@ -173,14 +172,12 @@ public class TraderSystem extends UserSystem{
     private void removeItemFromWantToLend(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
         availableOptions.add(0);
-        for (int i=0; i < itemManager.getWantToLend(currentTrader).size(); i++){
-            // TODO: Add method in itemManager that returns all ID's given a list of items or something
-            // so I don't have to call getId on Item, which is an entity.
-            availableOptions.add(itemManager.getWantToLend(currentTrader).get(i).getId());
-        }
-        // availableOptions.addAll(itemManager.getItemIDs(itemManager.getWantToLend(currentTrader)))
-        // this should be able to replace the code (for loop) above
-        traderPrompts.displayTraderItems(currentTrader);
+
+        availableOptions.addAll(itemManager.getApprovedItemsIDs(currentTrader));
+        System.out.println("Enter the ID of the item you want to remove from your inventory," +
+                "or [0] to exit.");
+
+        System.out.println(itemManager.getApprovedItemsInString(currentTrader));;
         int o = Integer.parseInt(sc.nextLine());
 
         while(o!=0){
@@ -193,7 +190,7 @@ public class TraderSystem extends UserSystem{
                 break;
             }
 
-            itemManager.removeFromWantToLend(currentTrader, o);
+            traderManager.deleteItem(o);
             traderPrompts.displayString("Item was removed.");
             availableOptions.remove(availableOptions.size()-1);
             traderPrompts.displayTraderItems(currentTrader);
@@ -207,14 +204,12 @@ public class TraderSystem extends UserSystem{
     private void removeItemFromWishlist(){
         ArrayList<Integer> availableOptions = new ArrayList<>();
         availableOptions.add(0);
-        for (int i=0; i < itemManager.getWantToLend(currentTrader).size(); i++){
-            availableOptions.add(itemManager.getWantToLend(currentTrader).get(i).getId());
-        }
-        itemManager.getWantToBorrow(currentTrader);
+        availableOptions.addAll(traderManager.getWishlistIds(currentTrader));
+
         //System.out.println(currentTrader.getWantToBorrow());
         traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
         traderPrompts.displayString("Choose the item you want to remove by typing in its respective ID: ");
-        traderPrompts.displayItems(itemManager.getWantToBorrow(currentTrader));
+        System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
         int o = Integer.parseInt(sc.nextLine());
 
         while(o!=0){
@@ -225,12 +220,12 @@ public class TraderSystem extends UserSystem{
             if(o==0){
                 break;
             }
-            itemManager.removeFromWantToBorrow(currentTrader, o);
+            traderManager.removeFromWishlist(currentTrader, o);
             traderPrompts.displayString("Item was removed.");
             availableOptions.remove(availableOptions.remove(o));
             traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
             traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
-            traderPrompts.displayItems(itemManager.getWantToBorrow(currentTrader));
+            System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
             o = Integer.parseInt(sc.nextLine());
         }
     }
