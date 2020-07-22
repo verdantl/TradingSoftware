@@ -169,6 +169,22 @@ public class TraderManager {
     }
 
     /**
+     * Returns the IDs of the items in the inputted Trader's wishlist.
+     * @param username the username of the Trader in question
+     * @return a list of the IDs of the items in the inputted user's wishlist.
+     */
+    public List<Integer> getWishlistIds(String username) {return users.get(username).getWishlist();}
+
+    /**
+     * Removes an item from a Traders's wishlist.
+     * @param username the username of the Trader in question
+     * @param id the ID of the item in question
+     */
+    public void removeFromWishlist(String username, Integer id){
+        users.get(username).getWishlist().remove(id);
+    }
+
+    /**
      * Returns true iff the Trader with the given username is frozen.
      * @param username the username of the Trader in question
      * @return true, iff the Trader with the given username's account is frozen.

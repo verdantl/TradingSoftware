@@ -24,8 +24,7 @@ public class ItemManager {
 //        Item item = new Item(idCounter);
 //        idCounter ++;
 //    }
-    //This is a temporary method to see how the reduction of constructors would work for Item
-    // TODO: Replace status with an enum
+    //This is a temporary method to see how the reduction of constructors would work for Item\
     public void addItem(ArrayList<String> itemInfo, int quality, String status, String owner){
         Item item = new Item(idCounter);
         item.setName(itemInfo.get(0));
@@ -51,6 +50,28 @@ public class ItemManager {
                 Item item = items.get(id);
                 if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
                     approvedItems.add(item);
+                }
+            }
+        }
+
+        return approvedItems;
+    }
+
+    /**
+     * Gets trader with the given username's approved items IDs.
+     * Used for controllers, whom should not have access to an instance of an entity.
+     * @param username The trader's username
+     * @return Return the trader's approved items' IDs
+     */
+    public List<Integer> getApprovedItemsIDs(String username){
+        List<Integer> approvedItems = new ArrayList<>();
+        Set<Integer> ids = items.keySet();
+
+        for (Integer id: ids){
+            if(items.containsKey(id)) {
+                Item item = items.get(id);
+                if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
+                    approvedItems.add(item.getId());
                 }
             }
         }
