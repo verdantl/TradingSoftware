@@ -1,4 +1,6 @@
 public class Admin extends User{
+
+    private boolean isApproved;
     /**
      * Constructor for the admin class when a new account is made.
      * @param username The user's username
@@ -6,6 +8,7 @@ public class Admin extends User{
      */
     public Admin(String username, String password) {
         super(username, password);
+        isApproved = false;
     }
 
     /**
@@ -14,8 +17,25 @@ public class Admin extends User{
      * @param password this User's password.
      * @param date the date this User was created, in LocalDate format ("year-month-date")
      */
-    public Admin(String username, String password, String date){
+    public Admin(String username, String password, String date, boolean isApproved){
         super(username, password, date);
+        this.isApproved = isApproved;
+    }
+
+    /**
+     * Getter for isApproved
+     * @return Return isApproved
+     */
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    /**
+     * Setter for isApproved
+     * @param approved
+     */
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 
     /**

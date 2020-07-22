@@ -1,18 +1,17 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AdminActions {
     private final HashMap<String, Admin> admins;
-    private final HashMap<String, Admin> adminRequests;
+    private final int LINE_LIMIT = 80;
 
     /**
      * Constructor for the AdminActions class
      * @param admins a HashMap of an admin's username to the Admin
-     * @param adminRequests a HashMap of the admin requester's username to their account
      */
-    public AdminActions(HashMap<String, Admin> admins, HashMap<String, Admin> adminRequests){
+    public AdminActions(HashMap<String, Admin> admins){
         this.admins = admins;
-        this.adminRequests = adminRequests;
     }
 
     /**
@@ -21,9 +20,9 @@ public class AdminActions {
      */
     public StringBuilder getAdminRequests(){
         StringBuilder requests = new StringBuilder();
-        for (String admin: adminRequests.keySet()){
-            int LINELIMIT = 80;
-            if (requests.length() > LINELIMIT){
+        List<Admin> adminRequests = getRequestedAdmins();
+        for (Admin admin: adminRequests){
+            if (requests.length() > LINE_LIMIT){
                 requests.append("\n");
             }
             requests.append(admin);
@@ -40,19 +39,11 @@ public class AdminActions {
     }
 
     /**
-     * Getter for the list of admin requests
-     * @return An arraylist of admin requests
-     */
-    public HashMap<String, Admin> getListOfRequestedAdmins(){
-        return adminRequests;
-    }
-
-    /**
      * Adds an admin request to the list
      * @param admin an admin request
      */
-    public void addAdminRequest(Admin admin){
-        adminRequests.put(admin.getUsername(), admin);
+    public void addAdmin(Admin admin){
+        admins.put(admin.getUsername(), admin);
     }
 
     /**
@@ -61,7 +52,7 @@ public class AdminActions {
      * @return the admin in adminRequests whose username matches the parameter
      */
     private Admin findRequestByUserName(String username){
-        return adminRequests.getOrDefault(username, null);
+        return admins.getOrDefault(username, null);
     }
 
 
@@ -69,28 +60,20 @@ public class AdminActions {
      * Approves/rejects admins to the arraylist of admins
      * @param username the username of the admin that is being approved/rejected
      * @param approved a boolean representing whether or not the admin is approved
-     * @return true iff the admins were successfully added
      */
-    public boolean approveAdmin(String username, boolean approved){
-        Admin admin = findRequestByUserName(username);
-        if (approved){
-            admins.put(username, admin);
-        }
-        adminRequests.remove(username);
-        return approved;
+    public void approveAdmin(String username, boolean approved){
+        admins.get(username).setApproved(approved);
     }
 
     /**
      * Adds admins to the list of admins
      * @param approved boolean representing whether or not the admins are approved
-     * @return true if all admins were approved, and false if all admins were rejected
+     * @param usernames List of usernames
      */
-    public boolean approveAllAdmins(boolean approved){
-        if (approved) {
-            admins.putAll(adminRequests);
+    public void approveAllAdmins(List<String> usernames, boolean approved){
+        for(String username: usernames){
+            admins.get(username).setApproved(approved);
         }
-        adminRequests.clear();
-        return approved;
     }
 
     /**
@@ -138,5 +121,33 @@ public class AdminActions {
         if (admins.containsKey(username)){
             admins.get(username).setPassword(password);
         }
+    }
+
+    /**
+     * Gets list of requested admins
+     * @return Return a list of requested admins
+     */
+    public List<Admin> getRequestedAdmins(){
+        List<Admin> requestedAdmins = new ArrayList<>();
+        for(String username: admins.keySet()){
+            if(!admins.get(username).isApproved()){
+                requestedAdmins.add(admins.get(username));
+            }
+        }
+        return requestedAdmins;
+    }
+
+    /**
+     * Gets list of approved admins
+     * @return Return a list of approved admins
+     */
+    public List<Admin> getApprovedAdmins(){
+        List<Admin> approvedAdmins = new ArrayList<>();
+        for(String username: admins.keySet()){
+            if(!admins.get(username).isApproved()){
+                approvedAdmins.add(admins.get(username));
+            }
+        }
+        return approvedAdmins;
     }
 }

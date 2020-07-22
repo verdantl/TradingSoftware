@@ -9,8 +9,8 @@ public class Trader extends User {
     private List<Integer> tradeIds;
     private List<Integer> wishlist;
     private List<Integer> borrowedItems;
-    private List<Integer> proposedItems;
-    private List<Integer> approvedItems;
+//    private List<Integer> proposedItems;
+//    private List<Integer> approvedItems;
 
 
     /**
@@ -27,8 +27,7 @@ public class Trader extends User {
      */
     public Trader(String username, String password, String dateCreated, List<Integer> ids, boolean frozen,
                   boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed,
-                  List<Integer> wishlist, List<Integer> borrowedItems, List<Integer> proposedItems,
-                  List<Integer> approvedItems){
+                  List<Integer> wishlist, List<Integer> borrowedItems){
         super(username, password, dateCreated);
 
         this.tradeIds = ids;
@@ -37,11 +36,8 @@ public class Trader extends User {
         this.numBorrowed=numBorrowed;
         this.numLent=numLent;
         this.requestToUnfreeze = requestToUnfreeze;
-
         this.wishlist = wishlist;
         this.borrowedItems = borrowedItems;
-        this.proposedItems = proposedItems;
-        this.approvedItems = approvedItems;
     }
 
     /**
@@ -243,18 +239,18 @@ public class Trader extends User {
      * @return Trader's items
      */
 
-    public List<Integer> getApprovedItems() {
-        return approvedItems;
-    }
+//    public List<Integer> getApprovedItems() {
+//        return approvedItems;
+//    }
 
     /**
      *
      * @return Trader's items waiting to be approved
      */
 
-    public List<Integer> getProposedItems() {
-        return proposedItems;
-    }
+//    public List<Integer> getProposedItems() {
+//        return proposedItems;
+//    }
 
 //    /**
 //     *
@@ -312,16 +308,16 @@ public class Trader extends User {
      * Adds the item to approvedItems
      * @param id the id of the item to be added
      */
-    public void addToApprovedItems(Integer id){
-        this.approvedItems.add((id));
-    }
+//    public void addToApprovedItems(Integer id){
+//        this.approvedItems.add((id));
+//    }
     /**
      * Adds the item to proposedItems
      * @param id the id of the item to be added
      */
-    public void addProposedItems(Integer id){
-        this.proposedItems.add(id);
-    }
+//    public void addProposedItems(Integer id){
+//        this.proposedItems.add(id);
+//    }
 
     /**
      * Adds the item to wishlist
@@ -334,9 +330,9 @@ public class Trader extends User {
      * Removes the item from borrowedItems
      * @param id the id of the item to be removed
      */
-    public void removeFromProposedItems(Integer id){
-        this.proposedItems.remove(id);
-    }
+//    public void removeFromProposedItems(Integer id){
+//        this.proposedItems.remove(id);
+//    }
     /**
      * Removes the item from borrowedItems
      * @param id the id of the item to be removed
@@ -348,9 +344,9 @@ public class Trader extends User {
      * Removes the item from approvedItems
      * @param id the id of the item to be removed
      */
-    public void removeFromApprovedItems(Integer id){
-        this.approvedItems.remove(id);
-    }
+//    public void removeFromApprovedItems(Integer id){
+//        this.approvedItems.remove(id);
+//    }
     /**
      * Removes the item from borrowedItems
      * @param id the id of the item to be removed
@@ -365,20 +361,20 @@ public class Trader extends User {
      */
     public void deleteItem(Integer id){
         wishlist.remove(id);
-        approvedItems.remove(id);
+ //       approvedItems.remove(id);
         borrowedItems.remove(id);
-        proposedItems.remove(id);
+ //       proposedItems.remove(id);
     }
 
     /**
      * Approves or rejects all of the items in proposed items
      * @param approved Whether or not the items should be approved or not
      */
-    public void approveAllItems(boolean approved){
-        if (approved) {
-            approvedItems.addAll(proposedItems);
-        }
-        proposedItems.clear();
-    }
+//    public void approveAllItems(boolean approved){
+//        if (approved) {
+//            approvedItems.addAll(proposedItems);
+//        }
+//        proposedItems.clear();
+//    }
 
 }

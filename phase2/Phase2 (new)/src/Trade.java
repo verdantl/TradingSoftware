@@ -4,13 +4,12 @@ import java.util.List;
 public class Trade {
     private final String initiator;
     private final String receiver;
-    private List<Integer> items; //list of item ids they are going to trade
+    private List<Integer> items;
     private final int id;
-    private static int counter = 0;
-    private boolean isPermanent;
+    private final boolean isPermanent;
     private boolean isCompleted;
-    private String tradeType;
-    private LocalDate createdDate;
+    private final String tradeType;
+    private final LocalDate createdDate;
     //Instead of having a boolean, we could just make the location store "Online" if it is
     //a no meeting trade
     //even if it is a no meeting, they still need to decide on a date and stuff
@@ -21,16 +20,35 @@ public class Trade {
      * @param isPermanent Determines whether the trade is temporary
      */
     public Trade (List<Integer> items, boolean isPermanent,
-                  String initiator, String receiver, LocalDate createdDate){
+                  String initiator, String receiver, LocalDate createdDate, String tradeType, Integer id){
         this.items = items;
         this.isPermanent = isPermanent;
         this.isCompleted = false;
         this.initiator = initiator;
         this.receiver = receiver;
         this.createdDate = createdDate;
+        this.tradeType = tradeType;
 //        this.hasMeeting = hasMeeting;
-        id = counter;
-        counter++;
+        this.id = id;
+    }
+
+    public String toString(){
+
+        return "-TradeID: " + getId() +
+                "\n" +
+                "-TradeType: " + getTradeType() +
+                "\n" +
+                "-Initiator: " + getInitiator() +
+                "\n" +
+                "-Receiver: " + getReceiver() +
+                "\n" +
+                "-TradeItems: " + getItems() +
+                "\n" +
+                "-IsPermanent: " + isPermanent() +
+                "\n" +
+                "-IsCompleted: " + getCompleted() +
+                "\n" +
+                "Trade is created on: " + getCreatedDate();
     }
 
     /**Getter for whether or not the trade is permanent
@@ -40,12 +58,6 @@ public class Trade {
         return isPermanent;
     }
 
-    /**Getter for whether or not the trade is permanent
-     * @param permanent whether or not the trade is permanent
-     */
-    public void setPermanent(boolean permanent) {
-        isPermanent= permanent;
-    }
 
     /**
      * Getter for id
@@ -81,10 +93,6 @@ public class Trade {
      */
     public boolean getCompleted(){return this.isCompleted;}
 
-    /**Setter for the type of the trade
-     * @param tradeType the type of this trade
-     */
-    public void setTradeType(String tradeType){this.tradeType = tradeType;}
 
     /**Getter for tradeType
      * @return the type of the trade
@@ -107,21 +115,10 @@ public class Trade {
         return receiver;
     }
 
-    /**
-     * Getter for the date of the creation of the trade
-     * @return The date of the trade
-     */
     public LocalDate getCreatedDate() {
         return createdDate;
     }
 
-    /**
-     * Setter for the creation date of the trade
-     * @param createdDate The date of the trade
-     */
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-    }
 
 //    public boolean isHasMeeting() {
 //        return hasMeeting;

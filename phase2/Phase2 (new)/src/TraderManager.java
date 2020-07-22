@@ -196,19 +196,19 @@ public class TraderManager {
         users.get(username).setRequestToUnfreeze(setting);
     }
 
-    /**
-     * Returns a list of the usernames of all traders that have items that need approving.
-     * @return a list of strings representing the usernames of all traders with items needing approval
-     */
-    public List<String> getTradersNeedingItemApproval() {
-        List<String> temp = new ArrayList<>();
-        for (String username : users.keySet()) {
-            if (!users.get(username).getProposedItems().isEmpty()) {
-                temp.add(username);
-            }
-        }
-        return temp;
-    }
+//    /**
+//     * Returns a list of the usernames of all traders that have items that need approving.
+//     * @return a list of strings representing the usernames of all traders with items needing approval
+//     */
+//    public List<String> getTradersNeedingItemApproval() {
+//        List<String> temp = new ArrayList<>();
+//        for (String username : users.keySet()) {
+//            if (!users.get(username).getProposedItems().isEmpty()) {
+//                temp.add(username);
+//            }
+//        }
+//        return temp;
+//    }
 
     /**
      * Deletes the item from all traders' lists.
@@ -221,26 +221,44 @@ public class TraderManager {
     }
 
     /**
-     * Approves or rejects an item in a user's list.
-     * @param username The account usernamecontaining the item to be approved
-     * @param itemID The id of the item to be approved
-     * @param approved A boolean representing if the item has been approved or not
+     * Getter for the number of items lent by the trader with the given username
+     * @param username the username of the trader
+     * @return the number of items lent by the trader with the username
      */
-    public void approveItem(String username, int itemID, boolean approved){
-        Trader trader = users.get(username);
-        trader.removeFromProposedItems(itemID);
-        if (approved) {
-            trader.addToWishlist(itemID);
-        }
+    public int getNumLent(String username){
+        return users.get(username).getNumLent();
     }
 
     /**
-     * Approves or rejects all of the items in an account's proposed items list.
-     * @param username The account containing the items to be approved
-     * @param approved A boolean representing if the items are all approved or not
+     * Getter for the number of items borrowed by the trader with the given username
+     * @param username the username of the trader
+     * @return the number of items borrowed
      */
-    public void approveAllItems(String username, boolean approved){
-        users.get(username).approveAllItems(approved);
+    public int getNumBorrowed(String username){
+        return users.get(username).getNumBorrowed();
     }
+
+//    /**
+//     * Approves or rejects an item in a user's list.
+//     * @param username The account usernamecontaining the item to be approved
+//     * @param itemID The id of the item to be approved
+//     * @param approved A boolean representing if the item has been approved or not
+//     */
+//    public void approveItem(String username, int itemID, boolean approved){
+//        Trader trader = users.get(username);
+//        trader.removeFromProposedItems(itemID);
+//        if (approved) {
+//            trader.addToWishlist(itemID);
+//        }
+//    }
+
+//    /**
+//     * Approves or rejects all of the items in an account's proposed items list.
+//     * @param username The account containing the items to be approved
+//     * @param approved A boolean representing if the items are all approved or not
+//     */
+//    public void approveAllItems(String username, boolean approved){
+//        users.get(username).approveAllItems(approved);
+//    }
 
 }

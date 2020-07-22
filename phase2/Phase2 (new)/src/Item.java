@@ -2,42 +2,51 @@
 
 public class Item {
     private int qualityRating;
-    private String name, category, description;
+    private String name, category, description, owner;
     private final int id;
-    private static int idCounter = 0;
+    private ItemStatus status;
 
-    /**
-     * The default constructor of the item class
-     * @param name the string the item is called
-     * @param category the string the item is called
-     * @param description the string description of the item
-     * @param qualityRating the int the represents the quality/condition of the item
-     */
-    public Item(String name, String category, String description, int qualityRating){
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.qualityRating = qualityRating;
-        id = idCounter;
-        idCounter ++;
-    }
+//    /**
+//     * The default constructor of the item class
+//     * @param name the string the item is called
+//     * @param category the string the item is called
+//     * @param description the string description of the item
+//     * @param qualityRating the int the represents the quality/condition of the item
+//     * @param owner The owner's username
+//     * @param status The status of the item
+//     */
+//    public Item(String name, String category, String description, int qualityRating, String status, String owner){
+//        this.name = name;
+//        this.category = category;
+//        this.description = description;
+//        this.qualityRating = qualityRating;
+//        this.status = convertToItemStatus(status);
+//        this.owner = owner;
+//    }
 
     /**
      * Constructor of the item class for when items are read in.
      * @param name the name of the item
      * @param category the category of the item
      * @param description the description of the item
-     * @param owner the owner of the item
      * @param qualityRating the quality rating of the item
      * @param id the item id
+     * @param status The status of the item
+     * @param owner The owner's username
      */
-    public Item(String name, String category, String description, Trader owner, int qualityRating, int id){
+    public Item(String name, String category, String description, int qualityRating, int id,
+                String status, String owner){
         this.name = name;
         this.category = category;
         this.description = description;
         this.qualityRating = qualityRating;
         this.id = id;
-        idCounter++;
+        this.owner = owner;
+        this.status = convertToItemStatus(status);
+    }
+
+    public Item(Integer id) {
+        this.id = id;
     }
 
 
@@ -97,21 +106,40 @@ public class Item {
         return qualityRating;
     }
 
-//    /**
-//     * Gets the item's owner.
-//     * @return the instance of Trader that is this item's owner
-//     */
-//    public Trader getOwner() {
-//        return owner;
-//    }
+    /**
+     * Getter for status
+     * @return Return the status
+     */
+    public ItemStatus getStatus(){
+        return this.status;
+    }
 
-//    /**
-//     * Sets the item's owner.
-//     * @param owner the Trader that is to become this item's owner
-//     */
-//    public void setOwner(Trader owner) {
-//        this.owner = owner;
-//    }
+    /**
+     * Setter for status
+     * @param status The status of the item
+     */
+    public void setStatus(ItemStatus status) {
+        this.status = status;
+    }
+
+    public void setStatus(String status){
+        setStatus(convertToItemStatus(status));
+    }
+    /**
+     * Setter for owner
+     * @param owner Owner's username
+     */
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * Getter for owner
+     * @return Return owner
+     */
+    public String getOwner() {
+        return owner;
+    }
 
     /**
      * Gets the item's id.
@@ -144,5 +172,46 @@ public class Item {
                 "',\ndescription: '" + description +
 //                "',\nowner: " + owner.getUsername() +
                 ",\nID: " + id;
+    }
+
+//    /**
+//     * Converts the status of the item in String to Enum
+//     * @param status The status of the item
+//     * @return Return the enum equivalent of status
+//     */
+    private ItemStatus convertToItemStatus(String status){
+
+        ItemStatus itemStatus = null;
+        switch (status){
+            case "available":
+                itemStatus = ItemStatus.AVAILABLE;
+                break;
+            case "unavailable":
+                itemStatus = ItemStatus.UNAVAILABLE;
+                break;
+            case "requested":
+                itemStatus = ItemStatus.REQUESTED;
+                break;
+        }
+
+        return itemStatus;
+    }
+
+    /**
+     * Converts the status of the item in Enum to String
+     * @param status The status of the item
+     * @return Return the string equivalent of status
+     */
+    public String convertToString(ItemStatus status){
+
+        switch (status){
+            case AVAILABLE:
+                return "available";
+            case UNAVAILABLE:
+                return "unavailable";
+            case REQUESTED:
+                return "requested";
+        }
+        return "";
     }
 }
