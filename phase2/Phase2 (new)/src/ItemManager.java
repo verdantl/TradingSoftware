@@ -31,6 +31,16 @@ public class ItemManager {
         item.setDescription(description);
         item.setQualityRating(quality);
     }
+
+    public List<Integer> getItemsNeedingApproval(){
+        ArrayList<Integer> approvalNeeded = new ArrayList<>();
+        for (Item item: items.values()){
+            if (item.getStatus() == ItemStatus.REQUESTED){
+                approvalNeeded.add(item.getId());
+            }
+        }
+        return approvalNeeded;
+    }
     /**
      * Gets trader with the given username's approved items
      * @param username The trader's username
@@ -236,6 +246,12 @@ public class ItemManager {
             stringList.add(convertItemToString(item));
         }
         return stringList;
+    }
+
+    public void approveItem(Integer id, boolean approved){
+        if (approved){
+            items.get(id).setStatus(ItemStatus.AVAILABLE);
+        }
     }
 
 

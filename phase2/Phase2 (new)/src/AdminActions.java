@@ -4,7 +4,6 @@ import java.util.List;
 
 public class AdminActions {
     private final HashMap<String, Admin> admins;
-    private final int LINE_LIMIT = 80;
 
     /**
      * Constructor for the AdminActions class
@@ -19,9 +18,10 @@ public class AdminActions {
      * @return a string version of adminRequests
      */
     public StringBuilder getAdminRequests(){
+        int LINE_LIMIT = 80;
         StringBuilder requests = new StringBuilder();
-        List<Admin> adminRequests = getRequestedAdmins();
-        for (Admin admin: adminRequests){
+        List<String> adminRequests = getRequestedAdmins();
+        for (String admin: adminRequests){
             if (requests.length() > LINE_LIMIT){
                 requests.append("\n");
             }
@@ -127,11 +127,11 @@ public class AdminActions {
      * Gets list of requested admins
      * @return Return a list of requested admins
      */
-    public List<Admin> getRequestedAdmins(){
-        List<Admin> requestedAdmins = new ArrayList<>();
+    public List<String> getRequestedAdmins(){
+        List<String> requestedAdmins = new ArrayList<>();
         for(String username: admins.keySet()){
             if(!admins.get(username).isApproved()){
-                requestedAdmins.add(admins.get(username));
+                requestedAdmins.add(username);
             }
         }
         return requestedAdmins;
@@ -141,11 +141,11 @@ public class AdminActions {
      * Gets list of approved admins
      * @return Return a list of approved admins
      */
-    public List<Admin> getApprovedAdmins(){
-        List<Admin> approvedAdmins = new ArrayList<>();
+    public List<String> getApprovedAdmins(){
+        List<String> approvedAdmins = new ArrayList<>();
         for(String username: admins.keySet()){
-            if(!admins.get(username).isApproved()){
-                approvedAdmins.add(admins.get(username));
+            if(admins.get(username).isApproved()){
+                approvedAdmins.add(username);
             }
         }
         return approvedAdmins;

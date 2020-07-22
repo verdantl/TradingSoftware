@@ -95,29 +95,31 @@ public class AdminSystem extends UserSystem{
     public void adminApproval(){
         adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
         String option = scanner.next();
-        Boolean approved;
         if (option.equals(toMainMenu)){
             setToMainMenu();
         }
         else if (option.equals("all")) {
             System.out.println("Processing...");
-            approved = approveOrReject();
+            Boolean approved = approveOrReject();
             if (approved == null){
                 adminApproval();
             }
             else {
-                confirmApproval(adminActions.approveAllAdmins(approved));
+                List<String> requests = adminActions.getRequestedAdmins();
+                adminActions.approveAllAdmins(requests, approved);
+                confirmApproval(approved);
             }
         }
         else if (adminActions.getAdminRequests().toString().contains(option)) {
             System.out.println(option);
             System.out.println("Processing");
-            approved = approveOrReject();
+            Boolean approved = approveOrReject();
             if (approved == null){
                 adminApproval();
             }
             else {
-                confirmApproval(adminActions.approveAdmin(option, approved));
+                adminActions.approveAdmin(option, approved);
+                confirmApproval(approved);
             }
         } else {
             System.out.println("Input not recognized.");
@@ -225,20 +227,27 @@ public class AdminSystem extends UserSystem{
      */
     public void approveItemsMenu() {
         while (true) {
-            HashMap<Integer, String> approvalNeeded = usernamesToHashMap(itemManager.getTradersNeedingItemApproval());
-            adminPrompts.displayItemMenu(itemManager.getTradersNeedingItemApproval());
+            List<Integer> approvalNeeded = itemManager.getItemsNeedingApproval();
+            List<Item> items = itemManager.getListOfItems(approvalNeeded);
+            adminPrompts.displayItemMenu(items);
             String option = scanner.next();
-            int traderID;
+            int itemNumber;
             try {
-                traderID = Integer.parseInt(option);
+                itemNumber = Integer.parseInt(option);
             } catch (NumberFormatException e) {
                 adminPrompts.commandNotRecognized();
                 break;
             }
-            if (traderID == 0) {
+            if (itemNumber == 0) {
                 setToMainMenu();
                 break;
-            } else if (approvalNeeded.containsKey(traderID)) {
+            } else if (approvalNeeded.contains(itemNumber)) {
+                Boolean approved = approveOrReject();
+                if (approved != null) {
+                    itemManager.approveItem(itemNumber, approved);
+                    confirmApproval(approved);
+                }
+
                 List<Item> items = itemManager.getWantToBorrow(approvalNeeded.get(traderID));
                 adminPrompts.displayTraderProposedItems(items);
                 itemSubMenu(approvalNeeded.get(traderID));
