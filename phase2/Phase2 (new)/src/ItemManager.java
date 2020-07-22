@@ -53,6 +53,27 @@ public class ItemManager {
     }
 
     /**
+     * Gets trader with the given username's approved items IDs.
+     * Used for controllers, whom should not have access to an instance of an entity.
+     * @param username The trader's username
+     * @return Return the trader's approved items' IDs
+     */
+    public List<Integer> getApprovedItemsIDs(String username){
+        List<Integer> approvedItems = new ArrayList<>();
+        Set<Integer> ids = items.keySet();
+
+        for (Integer id: ids){
+            if(items.containsKey(id)) {
+                Item item = items.get(id);
+                if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
+                    approvedItems.add(item.getId());
+                }
+            }
+        }
+
+        return approvedItems;
+    }
+    /**
      * Converts all the approved items into a String representation
      * @param username The Trader's username
      * @return Return the string representation of approved items of the Trader with the given username
