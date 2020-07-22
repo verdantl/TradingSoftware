@@ -25,15 +25,16 @@ public class ItemManager {
 //        idCounter ++;
 //    }
     //This is a temporary method to see how the reduction of constructors would work for Item
-    public void addItem(Integer id, ArrayList<String> itemInfo, int quality, String status, String owner){
-        Item item = new Item(id);
+    // TODO: Replace status with an enum
+    public void addItem(ArrayList<String> itemInfo, int quality, String status, String owner){
+        Item item = new Item(idCounter);
         item.setName(itemInfo.get(0));
         item.setCategory(itemInfo.get(1));
         item.setDescription(itemInfo.get(2));
         item.setQualityRating(quality);
         item.setStatus(status);
         item.setOwner(owner);
-        items.put(id, item);
+        items.put(idCounter, item);
         idCounter++;
     }
     /**

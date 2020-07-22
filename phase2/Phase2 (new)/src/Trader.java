@@ -9,12 +9,13 @@ public class Trader extends User {
     private List<Integer> tradeIds;
     private List<Integer> wishlist;
     private List<Integer> borrowedItems;
-//    private List<Integer> proposedItems;
-//    private List<Integer> approvedItems;
+    private List<Integer> proposedItems;
+    private List<Integer> approvedItems;
 
 
     /**
-     * Constructor for when the user is read in
+     * Constructor for when the user is read in.
+     * TODO: Add proposed and approvedItems as parameters.
      * @param username The user's username
      * @param password The user's password
      * @param dateCreated   The date the user was created
@@ -41,7 +42,8 @@ public class Trader extends User {
     }
 
     /**
-     * Constructor for the trader class when a new account is made.
+     * Constructor for the trader class when a new account is made. We may assume that a newly
+     * created user has empty borrowedItems, approvedItems, proposedItems and wishlist lists.
      * @param username The user's username
      * @param password  The user's password
      */
@@ -52,10 +54,10 @@ public class Trader extends User {
         frozen = false;
         numBorrowed= 0;
         numLent=0;
-//        this.wishlist = wishlist;
-//        this.borrowedItems = borrowedItems;
-//        this.approvedItems = approvedItems;
-//        this.proposedItems = proposedItems;
+        wishlist = new ArrayList<>();
+        borrowedItems = new ArrayList<>();
+        approvedItems = new ArrayList<>();
+        proposedItems = new ArrayList<>();
     }
 
     /**
