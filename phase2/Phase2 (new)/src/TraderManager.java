@@ -79,6 +79,20 @@ public class TraderManager {
         return users;
     }
 
+
+    //Instead of the two methods below, since we're just reading in by use case, we can just have
+    //the use case class add new users
+    /**
+     * Adds a new trader to the system
+     * @param username The username of the trader
+     * @param password The password of the trader
+     */
+    public void newTrader(String username, String password){
+        users.put(username, new Trader(username, password));
+    }
+
+
+
     /**
      * Adds a Trader object to users
      * @param t The trader object to add

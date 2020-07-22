@@ -17,24 +17,19 @@ public class ItemManager {
         idCounter = Collections.max(items.keySet()) + 1;
     }
 
-//    /**
-//     * We need this method for reading in
-//     */
-//    public void createNewItem(){
-//        Item item = new Item(idCounter);
-//        idCounter ++;
-//    }
-    //This is a temporary method to see how the reduction of constructors would work for Item
-    public void addItem(Integer id, ArrayList<String> itemInfo, int quality, String status, String owner){
-        Item item = new Item(id);
-        item.setName(itemInfo.get(0));
-        item.setCategory(itemInfo.get(1));
-        item.setDescription(itemInfo.get(2));
-        item.setQualityRating(quality);
-        item.setStatus(status);
-        item.setOwner(owner);
-        items.put(id, item);
+    //We add the item here. I assume all new items are unavailable, because they have to be approved
+    public void addItem(String username, String owner){
+        Item item = new Item(idCounter, username, owner);
+        items.put(idCounter, item);
         idCounter++;
+    }
+
+    //Here I'm assuming all new items are unavailable, since they have to be approved
+    public void addItemDetails(Integer itemID, String category, String description, int quality){
+        Item item = items.get(itemID);
+        item.setCategory(category);
+        item.setDescription(description);
+        item.setQualityRating(quality);
     }
     /**
      * Gets trader with the given username's approved items

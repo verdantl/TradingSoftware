@@ -6,23 +6,15 @@ public class Item {
     private final int id;
     private ItemStatus status;
 
-//    /**
-//     * The default constructor of the item class
-//     * @param name the string the item is called
-//     * @param category the string the item is called
-//     * @param description the string description of the item
-//     * @param qualityRating the int the represents the quality/condition of the item
-//     * @param owner The owner's username
-//     * @param status The status of the item
-//     */
-//    public Item(String name, String category, String description, int qualityRating, String status, String owner){
-//        this.name = name;
-//        this.category = category;
-//        this.description = description;
-//        this.qualityRating = qualityRating;
-//        this.status = convertToItemStatus(status);
-//        this.owner = owner;
-//    }
+
+    //New constructor, we set the rest of the details in the use case, I'm assuming theyu're unavailable
+    //because they're not approved yet
+    public Item(Integer id, String name, String owner) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
+        status = ItemStatus.UNAVAILABLE;
+    }
 
     /**
      * Constructor of the item class for when items are read in.
@@ -45,9 +37,7 @@ public class Item {
         this.status = convertToItemStatus(status);
     }
 
-    public Item(Integer id) {
-        this.id = id;
-    }
+
 
 
     /**

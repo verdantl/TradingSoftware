@@ -12,6 +12,20 @@ public class Trader extends User {
 //    private List<Integer> proposedItems;
 //    private List<Integer> approvedItems;
 
+    //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
+    // for making a new trader
+    public Trader(String username, String password){
+        super(username, password);
+        frozen = false;
+        flagged = false;
+        requestToUnfreeze = false;
+        numLent = 0;
+        numBorrowed = 0;
+        tradeIds = new ArrayList<>();
+        wishlist = new ArrayList<>();
+        borrowedItems = new ArrayList<>();
+
+    }
 
     /**
      * Constructor for when the user is read in
@@ -38,24 +52,6 @@ public class Trader extends User {
         this.requestToUnfreeze = requestToUnfreeze;
         this.wishlist = wishlist;
         this.borrowedItems = borrowedItems;
-    }
-
-    /**
-     * Constructor for the trader class when a new account is made.
-     * @param username The user's username
-     * @param password  The user's password
-     */
-    public Trader(String username, String password){
-        super(username,password);
-
-        tradeIds = new ArrayList<>();
-        frozen = false;
-        numBorrowed= 0;
-        numLent=0;
-//        this.wishlist = wishlist;
-//        this.borrowedItems = borrowedItems;
-//        this.approvedItems = approvedItems;
-//        this.proposedItems = proposedItems;
     }
 
     /**
@@ -234,68 +230,6 @@ public class Trader extends User {
         return borrowedItems;
     }
 
-    /**
-     *
-     * @return Trader's items
-     */
-
-//    public List<Integer> getApprovedItems() {
-//        return approvedItems;
-//    }
-
-    /**
-     *
-     * @return Trader's items waiting to be approved
-     */
-
-//    public List<Integer> getProposedItems() {
-//        return proposedItems;
-//    }
-
-//    /**
-//     *
-//     * @param approvedItems Trader's items
-//     */
-//
-//    public void setApprovedItems(List<Item> approvedItems) {
-//        this.approvedItems = approvedItems;
-//    }
-//
-//    /**
-//     *
-//     * @param borrowedItems Items that the Trader borrowed
-//     */
-//
-//    public void setBorrowedItems(List<Item> borrowedItems) {
-//        this.borrowedItems = borrowedItems;
-//    }
-//
-//    /**
-//     *
-//     * @param proposedItems Items that the Trader prposed
-//     */
-//
-//    public void setProposedItems(List<Item> proposedItems) {
-//        this.proposedItems = proposedItems;
-//    }
-//
-//    /**
-//     *
-//     * @param wishlist Trader's wishlist
-//     */
-//
-//    public void setWishlist(List<Item> wishlist) {
-//        this.wishlist = wishlist;
-//    }
-//
-//    private String formatItems(List<Item> items){
-//        String s = "";
-//        for (Item i: items){
-//            s += i.toString()+"\n";
-//        }
-//        return s;
-//
-//    }
 
     /**
      * Adds the item to borrowedItems
@@ -304,20 +238,6 @@ public class Trader extends User {
     public void addToBorrowedItems(Integer id){
         this.borrowedItems.add(id);
     }
-    /**
-     * Adds the item to approvedItems
-     * @param id the id of the item to be added
-     */
-//    public void addToApprovedItems(Integer id){
-//        this.approvedItems.add((id));
-//    }
-    /**
-     * Adds the item to proposedItems
-     * @param id the id of the item to be added
-     */
-//    public void addProposedItems(Integer id){
-//        this.proposedItems.add(id);
-//    }
 
     /**
      * Adds the item to wishlist
@@ -326,13 +246,7 @@ public class Trader extends User {
     public void addToWishlist(Integer id){
         this.wishlist.add(id);
     }
-    /**
-     * Removes the item from borrowedItems
-     * @param id the id of the item to be removed
-     */
-//    public void removeFromProposedItems(Integer id){
-//        this.proposedItems.remove(id);
-//    }
+
     /**
      * Removes the item from borrowedItems
      * @param id the id of the item to be removed
@@ -340,13 +254,7 @@ public class Trader extends User {
     public void removeFromWishlist(Integer id){
         this.wishlist.remove(id);
     }
-    /**
-     * Removes the item from approvedItems
-     * @param id the id of the item to be removed
-     */
-//    public void removeFromApprovedItems(Integer id){
-//        this.approvedItems.remove(id);
-//    }
+
     /**
      * Removes the item from borrowedItems
      * @param id the id of the item to be removed
@@ -361,20 +269,10 @@ public class Trader extends User {
      */
     public void deleteItem(Integer id){
         wishlist.remove(id);
- //       approvedItems.remove(id);
         borrowedItems.remove(id);
- //       proposedItems.remove(id);
+
     }
 
-    /**
-     * Approves or rejects all of the items in proposed items
-     * @param approved Whether or not the items should be approved or not
-     */
-//    public void approveAllItems(boolean approved){
-//        if (approved) {
-//            approvedItems.addAll(proposedItems);
-//        }
-//        proposedItems.clear();
-//    }
+
 
 }

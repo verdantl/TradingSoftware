@@ -47,7 +47,7 @@ public class MeetingManager {
      * @param location the location of the trade
      * @param returnLocation the return location of the trade
      * @param isAgreed a hashmap storing whether or not the traders agree with the meeting
-     * @param isConfirmed a hashmap storing whether or not the traders confim the meeting
+     * @param isConfirmed a hashmap storing whether or not the traders confirm the meeting
      * @param numberOfEdits a hashmap storing traders' edit times
      * @return whether or not the meeting is created
      */
@@ -69,6 +69,42 @@ public class MeetingManager {
             return true;
         }
     }
+
+
+    //Depending on when the meeting is created we can shorten the above method
+    public boolean createMeeting(int tradeId, String initiator, String receiver){
+        if(meetings.containsKey(tradeId)){
+            return false;}
+        else{
+        Meeting m = new Meeting(tradeId);
+        m.setIsAgreed(new HashMap<>());
+        m.setAgree(initiator, true);
+        m.setAgree(receiver, false);
+
+        m.setIsConfirmed(new HashMap<>());
+        m.setConfirm(initiator, false);
+        m.setConfirm(receiver, false);
+
+        HashMap<String, Integer> edits = new HashMap<>();
+        edits.put(initiator, 0);
+        edits.put(receiver, 0);
+        m.setNumberOfEdits(new HashMap<>());
+
+        meetings.put(tradeId, m);
+        return true;
+        }
+    }
+
+    public void setMeetingInfo(int id, LocalDate tradeDate, LocalDate returnDate,
+                               String location, String returnLocation){
+        Meeting meeting = meetings.get(id);
+        meeting.setTradeDate(tradeDate);
+        meeting.setReturnDate(returnDate);
+        meeting.setLocation(location);
+        meeting.setReturnLocation(returnLocation);
+
+    }
+
 
 
 

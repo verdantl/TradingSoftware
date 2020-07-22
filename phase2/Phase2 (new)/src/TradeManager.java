@@ -49,6 +49,16 @@ public class TradeManager {
         return s.toString();
     }
 
+    public boolean createTrade(String initiator, String receiver, String tradeType, boolean isPermanent){
+        Trade trade = new Trade(counter, initiator, receiver, tradeType, isPermanent);
+        counter++;
+        return addToTradeInventory(trade) && addToTrades(initiator, trade);
+    }
+
+    public void setTradeItems(Integer id, List<Integer> items){
+        tradeInventory.get(id).setItems(items);
+
+    }
     /**create a trade
      * @param user the user who wants to create a trade
      * @param items a list of items involved in the trade
@@ -62,8 +72,9 @@ public class TradeManager {
                             String initiator, String receiver, LocalDate createdDate, String tradeType){
         Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType, counter);
         counter++;
-        return addToTradeInventory(trade) && addToTrades(user, trade);
+        return addToTradeInventory(trade) && addToTrades(initiator, trade) && addToTrades(receiver, trade);
     }
+    //I added an add to trades for the receiver above, remove it if it's wrong
 
     /**add a trade to the tradeInventory
      * @param trade the trade needed to be added in inventory
