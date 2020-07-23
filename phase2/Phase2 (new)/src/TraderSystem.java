@@ -1,11 +1,10 @@
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class TraderSystem extends UserSystem{
 
@@ -53,7 +52,6 @@ public class TraderSystem extends UserSystem{
             }
 
             // Present the options to the user here.
-
             traderPrompts.displayMainMenu();
 
             option = Integer.parseInt(sc.nextLine());
@@ -102,6 +100,8 @@ public class TraderSystem extends UserSystem{
                     // Request to unfreeze the account
                     requestUnfreeze();
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + option);
             }
         }
     }
@@ -122,7 +122,6 @@ public class TraderSystem extends UserSystem{
      * Asks the user to enter the item's information that they want to propose to be added to currentTrader's wantToLend list.
      */
     private void proposeItemToLend(){
-        //I have commented out all the things related to prompts, etc. Since we're doing gui we might have to rewrite all of this.
         List<String> temp = new ArrayList<>();
         // Copied from TraderPrompts.setUpProposeItemPrompts
         temp.add("Enter \"0\" at any time to exit");//0
@@ -132,7 +131,6 @@ public class TraderSystem extends UserSystem{
         temp.add("Enter the item's quality rating from 1-10:");//4
         temp.add("Your item is waiting to be reviewed by an Administrator, please check back later.");//5
 
-//        String itemName, category, description;
         int rating;
         ArrayList<String> itemAttributes = new ArrayList<>();
 
@@ -140,7 +138,7 @@ public class TraderSystem extends UserSystem{
         itemAttributes.add("category");
         itemAttributes.add("description");
 
-        String o = null;
+        String o = "-1";
 
         int loopVar = 0;
         System.out.println(temp.get(loopVar));
@@ -218,7 +216,7 @@ public class TraderSystem extends UserSystem{
             if(o!=0){
                 traderManager.removeFromWishlist(currentTrader, o);
                 traderPrompts.displayString("Item was removed.");
-                availableOptions.remove(availableOptions.remove(o));
+                availableOptions.remove(o);
                 traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
                 traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
                 System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
@@ -250,7 +248,7 @@ public class TraderSystem extends UserSystem{
             }
             if (o != 0){
                 System.out.println(itemManager.getItemInString(o));
-                o2 = Integer.parseInt(sc.nextLine());
+                o2 = Integer.getInteger(sc.nextLine());
                 if (o2 == 1){
                     if(!traderManager.getWishlistIds(currentTrader).contains(o)) {
                         traderManager.addToWishlist(currentTrader, o);
@@ -402,7 +400,7 @@ public class TraderSystem extends UserSystem{
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            meetingManager.setMeetingInfo(i, tradeDate, null, location, location);
+            meetingManager.setMeetingInfo(i, tradeDate, returnDate, location, location);
         }
         else{
             meetingManager.setMeetingInfo(i, tradeDate, null, location, null);
@@ -476,7 +474,7 @@ public class TraderSystem extends UserSystem{
 
         // This is an ugly, ugly piece of code but I'm too tired to do better.
         // iterating over the list of this user's trades from front to back
-        for (int j = trades.size(); j >= 0; j--) {
+        for (int j = trades.size() - 1; j >= 0; j--) {
             // if the trade is completed, then we'll consider it
             if (meetingManager.getMeetingStatus(trades.get(j)).equals("COMPLETED")) {
                 // iterating over the 1-2 items involved with the trade
@@ -502,12 +500,12 @@ public class TraderSystem extends UserSystem{
      * Shows the user their top three most frequent trading partners.
      */
     private void showTopThreeTradingPartners(){
-        TreeMap<String, Integer> tradingPartners = new TreeMap<String, Integer>();
+        TreeMap<String, Integer> tradingPartners = new TreeMap<>();
         List<Integer> trades = tradeManager.getTrades().get(currentTrader);
 
         // iterating over the user's trades
         for(Integer i: trades){
-            String traderToAdd = null;
+            String traderToAdd;
             // getting the right trader from the pair of traders involved in the trade.
             if (tradeManager.getTradeInitiator(i).equals(currentTrader)) {
                 traderToAdd = tradeManager.getTradeReceiver(i);
@@ -516,7 +514,7 @@ public class TraderSystem extends UserSystem{
                 traderToAdd = tradeManager.getTradeInitiator(i);
             }
             // putting the other trader into the hashmap
-            if (tradingPartners.keySet().contains(traderToAdd)) {
+            if (tradingPartners.containsKey(traderToAdd)) {
                 tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
             }
             else {
@@ -527,9 +525,12 @@ public class TraderSystem extends UserSystem{
         System.out.println("Here are your most frequent trading partners:");
 
         // By the nature of TreeMap, the keys are already sorted in order of their values!
-        for (int j = tradingPartners.keySet().size() - 1; j >= 0; j--) {
-            System.out.println(tradingPartners.get(j));
+        TreeSet<String> traders = new TreeSet<>(tradingPartners.keySet());
+        // Getting the last 3 elements of traders.
+        for (int j = traders.size() - 1; j >= trades.size() - 4 && j >= 0; j--) {
+            System.out.println(traders.toArray()[j]);
         }
+
         System.out.println("Press anything to return to the main menu:");
         sc.nextLine();
     }
@@ -552,8 +553,6 @@ public class TraderSystem extends UserSystem{
             traderPrompts.displayString("You have already requested to unfreeze your account. Please wait.");
         }
 
-        // Holy shit, I just realised how bad this is for clean architecture lol im dumb
-        //good job
         traderManager.setRequestToUnfreeze(currentTrader,true);
         int o;
         do {
@@ -587,7 +586,6 @@ public class TraderSystem extends UserSystem{
             return;
         }
         // traderPrompts.browseOnGoingTrades(onGoingTrades);
-
 
         // The user selects a trade from list
         int select;
