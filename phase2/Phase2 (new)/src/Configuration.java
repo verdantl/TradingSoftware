@@ -6,13 +6,13 @@ public class Configuration {
     private final ConfigMeetings configMeetings;
     private final ConfigTraders configTraders;
     private final ConfigTrades configTrades;
-//
-//    private final Config config;
-//    private final AdminActions adminActions;
-//    private final ItemManager itemManager;
-//    private final MeetingManager meetingManager;
-//    private final TraderManager traderManager;
-//    private final TradeManager tradeManager;
+
+    private final ConfigGateway configGateway;
+    private final AdminActions adminActions;
+    private final ItemManager itemManager;
+    private final MeetingManager meetingManager;
+    private final TraderManager traderManager;
+    private final TradeManager tradeManager;
 
     private final String ADMINPATH = "src/configfiles/admins.ser";
     private final String ITEMPATH = "src/configfiles/items.ser";
@@ -21,13 +21,22 @@ public class Configuration {
     private final String TRADEPATH = "src/configfiles/trade.ser";
 
 
-    public Configuration(){
+    public Configuration() throws IOException, ClassNotFoundException {
+        //version 1
         configAdmin = new ConfigAdmin();
         configItems = new ConfigItems();
         configMeetings = new ConfigMeetings();
         configTraders = new ConfigTraders();
         configTrades = new ConfigTrades();
-//        config = new Config();
+
+        //version 2
+        configGateway = new ConfigGateway();
+        adminActions = (AdminActions) configGateway.readInfo(ADMINPATH);
+        itemManager = (ItemManager) configGateway.readInfo(ITEMPATH);
+        meetingManager = (MeetingManager) configGateway.readInfo(MEETINGPATH);
+        tradeManager = (TradeManager) configGateway.readInfo(TRADEPATH);
+        traderManager = (TraderManager) configGateway.readInfo(TRADERPATH);
+
     }
 
     public TraderManager getTraderManager() throws IOException, ClassNotFoundException {
@@ -52,10 +61,20 @@ public class Configuration {
 
 
     public void saveInfo() throws IOException {
+
+        //version 1
         configAdmin.saveInfo(ADMINPATH);
         configItems.saveInfo(ITEMPATH);
         configMeetings.saveInfo(MEETINGPATH);
         configTraders.saveInfo(TRADERPATH);
         configTrades.saveInfo(TRADEPATH);
+
+
+        //version 2
+        configGateway.saveInfo(ADMINPATH, adminActions);
+        configGateway.saveInfo(ITEMPATH, itemManager);
+        configGateway.saveInfo(MEETINGPATH, meetingManager);
+        configGateway.saveInfo(TRADERPATH, traderManager);
+        configGateway.saveInfo(TRADEPATH, tradeManager);
     }
 }
