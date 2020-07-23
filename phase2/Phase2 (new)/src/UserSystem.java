@@ -1,9 +1,15 @@
 public abstract class UserSystem implements Runnable{
+    protected boolean running = false;
     @Override
     public abstract void run();
 
-    protected abstract void init();
-    protected abstract void stop();
+    protected void init(){
+        running = true;
+    }
+
+    protected void stop(){
+        running = false;
+    }
 
     public abstract String getNextUser();
 

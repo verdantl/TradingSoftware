@@ -15,7 +15,6 @@ public class TraderSystem extends UserSystem{
     private final MeetingManager meetingManager;
 
     private String currentTrader;
-    private boolean running;
     private final Scanner sc;
 
     /**
@@ -35,10 +34,6 @@ public class TraderSystem extends UserSystem{
         this.traderPrompts = new TraderPrompts(itemManager, tradeManager);
         sc = new Scanner(System.in);
         running = false;
-    }
-
-    protected void init() {
-        running = true;
     }
 
     public void run() {
@@ -65,7 +60,7 @@ public class TraderSystem extends UserSystem{
             switch(option) {
                 case 0:
                     // Exit the program
-                    this.stop();
+                    stop();
                     break;
                 case 1:
                     // Propose an item to be lent
@@ -104,10 +99,6 @@ public class TraderSystem extends UserSystem{
                     throw new IllegalStateException("Unexpected value: " + option);
             }
         }
-    }
-
-    protected void stop() {
-        running = false;
     }
 
     public String getNextUser() {

@@ -32,27 +32,13 @@ public class AdminActions implements Serializable {
     }
 
     /**
-     * Getter for the hashmap of admins
-     * @return A hashmap of an admins username to their account
+     * Adds a new admin request to the system
+     * @param username the username of the admin
+     * @param password the password of the admin
      */
-    public HashMap<String, Admin> getAdmins(){
-        return admins;
-    }
-
-
     public void newAdmin(String username, String password){
         admins.put(username, new Admin(username, password));
     }
-
-    /**
-     * Finds an admin in adminRequests by
-     * @param username the username of the admin being approved/rejected
-     * @return the admin in adminRequests whose username matches the parameter
-     */
-    private Admin findRequestByUserName(String username){
-        return admins.getOrDefault(username, null);
-    }
-
 
     /**
      * Approves/rejects admins to the arraylist of admins
@@ -134,19 +120,5 @@ public class AdminActions implements Serializable {
             }
         }
         return requestedAdmins;
-    }
-
-    /**
-     * Gets list of approved admins
-     * @return Return a list of approved admins
-     */
-    public List<String> getApprovedAdmins(){
-        List<String> approvedAdmins = new ArrayList<>();
-        for(String username: admins.keySet()){
-            if(admins.get(username).isApproved()){
-                approvedAdmins.add(username);
-            }
-        }
-        return approvedAdmins;
     }
 }

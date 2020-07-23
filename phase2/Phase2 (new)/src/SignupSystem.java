@@ -24,10 +24,6 @@ public class SignupSystem extends UserSystem{
         this.adminActions = adminActions;
     }
 
-    protected void init(){
-        running = true;
-    }
-
     /**
      * The run method for signup system.
      */
@@ -112,10 +108,6 @@ public class SignupSystem extends UserSystem{
         }
         //Here we want to write the information
         stop();
-    }
-
-    protected void stop(){
-        running = false;
     }
 
     @Override

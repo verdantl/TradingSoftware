@@ -110,7 +110,7 @@ public class LoginSystem extends UserSystem{
 
     @Override
     protected void init() {
-        running = true;
+        super.init();
         System.out.println(prompts.openingMessage());
     }
 
@@ -121,9 +121,4 @@ public class LoginSystem extends UserSystem{
     protected int getNextSystem(){
         return nextSystem;
     }
-    @Override
-    protected void stop() {
-        running = false;
-    }
-
 }

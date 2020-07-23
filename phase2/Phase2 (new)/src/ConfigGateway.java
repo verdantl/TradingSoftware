@@ -12,8 +12,12 @@ public class ConfigGateway {
             input.close();
             return serializable;
         } else {
-            file.createNewFile();
-            return readInfo(path);
+            if (file.createNewFile()) {
+                return readInfo(path);
+            }
+            else{
+                return null;
+            }
         }
     }
 
