@@ -1,5 +1,3 @@
-import gateway.Configuration;
-
 import java.io.IOException;
 
 
@@ -8,20 +6,18 @@ public class MainProgram implements Runnable{
     private String username; //this will be changed in the future
     private int nextSystem; //Might change this to string depending on how we implement this.
     private boolean running;
-    private final String PATH = "src/gateway/test_dummy.csv";
 
     private final Configuration configuration;
 
     /**
      * Sets up the main program for the application.
-     * @throws IOException
      */
-    public MainProgram() throws IOException {
-        configuration = new Configuration(PATH);
+    public MainProgram() throws IOException, ClassNotFoundException {
+        configuration = new Configuration();
     }
 
-    private void init(){
-        currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
+    private void init() throws IOException, ClassNotFoundException {
+        currentSystem = new LoginSystem(configuration.getTraderManager(), configuration.getAdminActions());
     }
 
     /**
@@ -29,24 +25,39 @@ public class MainProgram implements Runnable{
      */
     @Override
     public void run() {
-        init();
+        try {
+            init();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         while (running) {
             currentSystem.run();
-            configuration.saveInfo(PATH);
+            try {
+                configuration.saveInfo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             username = currentSystem.getNextUser();
             nextSystem = currentSystem.getNextSystem();
-            setCurrentSystem();
+
+            try {
+                setCurrentSystem();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void setCurrentSystem() {
+    private void setCurrentSystem() throws IOException, ClassNotFoundException {
         switch (nextSystem){
-            case 0: currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
-            case 1: currentSystem = new SignupSystem(configuration.getTraderActions(), configuration.getAdminActions());
-            case 2: currentSystem = new TraderSystem(username, configuration.getTraderActions(),
-                    configuration.getItemManager(), configuration.getTradeManager());
-            case 3: currentSystem = new AdminSystem(username, configuration.getTraderActions(),
-                    configuration.getAdminActions(), configuration.getTradeManager());
+            case 0: currentSystem = new LoginSystem(configuration.getTraderManager(), configuration.getAdminActions());
+            case 1: currentSystem = new SignupSystem(configuration.getTraderManager(), configuration.getAdminActions(),
+                    configuration.getTradeManager());
+            case 2: currentSystem = new TraderSystem(username,
+                    configuration.getItemManager(), configuration.getTradeManager(),
+                    configuration.getTraderManager(), configuration.getMeetingManager());
+            case 3: currentSystem = new AdminSystem(username, configuration.getAdminActions(), configuration.getItemManager(),
+                    configuration.getTradeManager(), configuration.getTraderManager(), configuration.getMeetingManager());
 
             case 4: stop();
         }

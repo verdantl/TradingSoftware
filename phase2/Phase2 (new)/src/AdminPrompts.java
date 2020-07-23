@@ -83,12 +83,13 @@ public class AdminPrompts {
 
     private StringBuilder printItems(List<Item> proposedItems){
         StringBuilder items = new StringBuilder();
-        for (int i = 0; i < proposedItems.size(); i++){
-            if (items.length() > 80){
-                items.append("\n");
-            }
-            items.append(i + 1).append(". ");
-            items.append(proposedItems.get(i));
+        for (Item item: proposedItems){
+//            if (items.length() > 80){
+//                items.append("\n");
+//            }
+            items.append(item.getId()).append(". ");
+            items.append(item.toString());
+            items.append("\n");
         }
         return items;
     }
@@ -164,12 +165,12 @@ public class AdminPrompts {
 
     /**
      * Displays the menu for the item approval option for administrators.
-     * @param traders an arraylist of all traders in the system who are awaiting item approval
+     * @param items an arraylist of all items in the system that are awaiting approval
      */
-    public void displayItemMenu(List<String> traders){
-        System.out.println("Here is the list of all traders awaiting item approval:");
-        System.out.print(printUsernames(traders));
-        System.out.println("\nEnter the number beside trader that you want to view: ");
+    public void displayItemMenu(List<Item> items){
+        System.out.println("Here is the list of all items awaiting item approval:");
+        System.out.print(printItems(items));
+        System.out.println("\nEnter the number beside item that you want to approve: ");
     }
 
     /**

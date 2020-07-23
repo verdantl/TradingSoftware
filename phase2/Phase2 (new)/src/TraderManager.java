@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TraderManager {
+public class TraderManager implements Serializable {
     HashMap<String, Trader> users;
 
     /**
@@ -78,6 +79,20 @@ public class TraderManager {
     public HashMap<String, Trader> getAllUsers(){
         return users;
     }
+
+
+    //Instead of the two methods below, since we're just reading in by use case, we can just have
+    //the use case class add new users
+    /**
+     * Adds a new trader to the system
+     * @param username The username of the trader
+     * @param password The password of the trader
+     */
+    public void newTrader(String username, String password){
+        users.put(username, new Trader(username, password));
+    }
+
+
 
     /**
      * Adds a Trader object to users
@@ -160,12 +175,28 @@ public class TraderManager {
     }
 
     /**
-     * Returns the tradeIds of the given user
-     * @param username The username of the user
-     * @return trade ids of username
+     * Returns the IDs of the items in the inputted Trader's wishlist.
+     * @param username the username of the Trader in question
+     * @return a list of the IDs of the items in the inputted user's wishlist.
      */
-    public List<Integer> getTradeIds(String username){
-        return users.get(username).getTradeIds();
+    public List<Integer> getWishlistIds(String username) {return users.get(username).getWishlist();}
+
+    /**
+     * Removes an item from a Traders's wishlist.
+     * @param username the username of the Trader in question
+     * @param id the ID of the item in question
+     */
+    public void removeFromWishlist(String username, Integer id){
+        users.get(username).getWishlist().remove(id);
+    }
+
+    /**
+     * Adds an item to a Trader's wishlist.
+     * @param username the username of the Trader in question
+     * @param id the ID of the item in question
+     */
+    public void addToWishlist(String username, Integer id){
+        users.get(username).getWishlist().add(id);
     }
 
     /**

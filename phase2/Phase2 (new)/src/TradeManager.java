@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
 
-public class TradeManager {
+public class TradeManager implements Serializable {
     private final HashMap<Integer, Trade> tradeInventory;
     private final HashMap<String, List<Integer>> trades;
     private int weeklyLimit;
@@ -32,6 +33,20 @@ public class TradeManager {
         return tradeInventory.get(id);
     }
 
+    /**
+     * Returns a list of username's incomplete trades.
+     * @param username The user who's trade we wish to get
+     * @return A list of the user's incomplete trades
+     */
+    public List<Integer> getIncompleteTrades(String username){
+        List<Integer> temp = new ArrayList<>();
+        for(Integer i: trades.get(username)){
+            if(tradeInventory.get(i).getCompleted()){
+                temp.add(i);
+            }
+        }
+        return temp;
+    }
     /**get a string representation of user's trade list
      * @param user the user who wants to browse his trade list
      * @return a string representation of trade list
@@ -50,31 +65,28 @@ public class TradeManager {
     }
 
     /**create a trade
-     * @param user the user who wants to create a trade
-     * @param items a list of items involved in the trade
      * @param isPermanent whether or not the trade is permanent
      * @param initiator the initiator of the trade
      * @param receiver the receiver of the trade
-     * @param createdDate the time that the trade is created
-     * @return whether or not the trade is successfully created
+     * @return the trade whether or not the trade is successfully created
      */
-    public boolean createTrade(String user, List<Integer> items, boolean isPermanent,
-                            String initiator, String receiver, LocalDate createdDate, String tradeType){
-        Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType, counter);
+    public int createTrade(String initiator, String receiver, String tradeType, boolean isPermanent,
+                           List<Integer> items){
+        Trade trade = new Trade(counter, initiator, receiver, tradeType, isPermanent);
+        trade.setItems(items);
         counter++;
-        return addToTradeInventory(trade) && addToTrades(user, trade);
+        addToTradeInventory(trade);
+        addToTrades(initiator, trade);
+        addToTrades(receiver, trade);
+        return trade.getId();
     }
 
     /**add a trade to the tradeInventory
      * @param trade the trade needed to be added in inventory
-     * @return whether or not the trade is successfully added in inventory
      */
-    public boolean addToTradeInventory(Trade trade){
+    public void addToTradeInventory(Trade trade){
         if(!tradeInventory.containsKey(trade.getId())){
             tradeInventory.put(trade.getId(), trade);
-            return true;
-        }else{
-            return false;
         }
     }
 
@@ -94,21 +106,17 @@ public class TradeManager {
     /**add a trade to user's trade list
      * @param user the user who wants to add trade to trades
      * @param trade the trade needed to be added
-     * @return whether or not the trade is successfully added in user's trade list
      */
-    public boolean addToTrades(String user, Trade trade){
+    public void addToTrades(String user, Trade trade){
         if(!trades.containsKey(user)){
             List<Integer> list = new ArrayList<>();
             list.add(trade.getId());
             trades.put(user, list);
-            return true;
+            return;
         }
 
         if(!trades.get(user).contains(trade.getId())){
             trades.get(user).add(trade.getId());
-            return true;
-        }else{
-            return false;
         }
     }
 
@@ -169,7 +177,7 @@ public class TradeManager {
      * @param numOfBorrow the number of items that user has borrowed
      * @return whether or not the user need to lend more items
      */
-    public boolean NeedMoreLend(String user, int numOfLend, int numOfBorrow){
+    public boolean needMoreLend(String user, int numOfLend, int numOfBorrow){
         if(trades.get(user).isEmpty()){
             return false;
         }else{
@@ -269,5 +277,39 @@ public class TradeManager {
      */
     public void setMoreLend(int moreLend) {
         this.moreLend = moreLend;
+    }
+
+
+
+
+    //Returns trade info in {Created trade date, Other trade username}
+
+    /**
+     * Returns a string representation of the trade
+     * @param username Username of use who's requesting the tradeInformation
+     * @param tradeId The id of the trade
+     * @return An arraylist of info about the trade.
+     */
+    public List<String> getTradeInformation(String username, Integer tradeId){
+        List<String> temp = new ArrayList<>();
+        Trade tempTrade = tradeInventory.get(tradeId);
+        temp.add(tempTrade.getCreatedDate().toString());
+        if(tempTrade.getInitiator().equals(username)){
+            temp.add(tempTrade.getReceiver());
+        }
+        else{
+            temp.add(tempTrade.getInitiator());
+        }
+
+        return temp;
+    }
+
+    /**
+     * Returns a list of the items in the given trade
+     * @param tradeId the trade's item
+     * @return A list of item ids in the trade
+     */
+    public List<Integer> getItemIds(int tradeId){
+        return tradeInventory.get(tradeId).getItems();
     }
 }

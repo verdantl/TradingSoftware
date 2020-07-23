@@ -95,29 +95,31 @@ public class AdminSystem extends UserSystem{
     public void adminApproval(){
         adminPrompts.displayAdminApproval(adminActions.getAdminRequests());
         String option = scanner.next();
-        Boolean approved;
         if (option.equals(toMainMenu)){
             setToMainMenu();
         }
         else if (option.equals("all")) {
             System.out.println("Processing...");
-            approved = approveOrReject();
+            Boolean approved = approveOrReject();
             if (approved == null){
                 adminApproval();
             }
             else {
-                confirmApproval(adminActions.approveAllAdmins(approved));
+                List<String> requests = adminActions.getRequestedAdmins();
+                adminActions.approveAllAdmins(requests, approved);
+                confirmApproval(approved);
             }
         }
         else if (adminActions.getAdminRequests().toString().contains(option)) {
             System.out.println(option);
             System.out.println("Processing");
-            approved = approveOrReject();
+            Boolean approved = approveOrReject();
             if (approved == null){
                 adminApproval();
             }
             else {
-                confirmApproval(adminActions.approveAdmin(option, approved));
+                adminActions.approveAdmin(option, approved);
+                confirmApproval(approved);
             }
         } else {
             System.out.println("Input not recognized.");
@@ -133,10 +135,9 @@ public class AdminSystem extends UserSystem{
      * Display the menu that allows the admin to manage frozen/unfrozen accounts
      */
     public void freezeMenu() {
-        HashMap<String, Trader> traders = traderManager.getAllUsers();
         adminPrompts.displayFreezeMenu();
         String option = scanner.next();
-        HashMap<Integer, String> flagged = new HashMap<>();
+        HashMap<Integer, String> flagged;
         switch (option) {
             case toMainMenu:
                 setToMainMenu();
@@ -225,69 +226,72 @@ public class AdminSystem extends UserSystem{
      */
     public void approveItemsMenu() {
         while (true) {
-            HashMap<Integer, String> approvalNeeded = usernamesToHashMap(itemManager.getTradersNeedingItemApproval());
-            adminPrompts.displayItemMenu(itemManager.getTradersNeedingItemApproval());
+            List<Integer> approvalNeeded = itemManager.getItemsNeedingApproval();
+            List<Item> items = itemManager.getListOfItems(approvalNeeded);
+            adminPrompts.displayItemMenu(items);
             String option = scanner.next();
-            int traderID;
+            int itemNumber;
             try {
-                traderID = Integer.parseInt(option);
+                itemNumber = Integer.parseInt(option);
             } catch (NumberFormatException e) {
                 adminPrompts.commandNotRecognized();
                 break;
             }
-            if (traderID == 0) {
+            if (itemNumber == 0) {
                 setToMainMenu();
                 break;
-            } else if (approvalNeeded.containsKey(traderID)) {
-                List<Item> items = itemManager.getWantToBorrow(approvalNeeded.get(traderID));
-                adminPrompts.displayTraderProposedItems(items);
-                itemSubMenu(approvalNeeded.get(traderID));
+            } else if (approvalNeeded.contains(itemNumber)) {
+                Boolean approved = approveOrReject();
+                if (approved != null) {
+                    itemManager.approveItem(itemNumber, approved);
+                    confirmApproval(approved);
+                }
             } else {
                 adminPrompts.commandNotRecognized();
             }
         }
     }
 
-    private void itemSubMenu(String trader) {
-        String option = scanner.next();
-        Boolean approved;
-        if (option.equals("all")) {
-            approved = approveOrReject();
-            if (approved != null) {
-                itemManager.approveAllItems(trader, approved);
-                adminPrompts.confirmApproval(approved);
-            }
-        }
-        else {
-            int itemID;
-            try {
-                itemID = Integer.parseInt(option);
-            } catch (NumberFormatException e) {
-                adminPrompts.commandNotRecognized();
-                return;
-            }
-            List<Item> proposedItems = itemManager.getProposedItems(trader);
-            HashMap<Integer, Item> choiceToItem = choiceToItem(proposedItems);
+//    private void itemSubMenu(String trader) {
+//        String option = scanner.next();
+//        Boolean approved;
+//        if (option.equals("all")) {
+//            approved = approveOrReject();
+//            if (approved != null) {
+//                itemManager.approveAllItems(trader, approved);
+//                adminPrompts.confirmApproval(approved);
+//            }
+//        }
+//        else {
+//            int itemID;
+//            try {
+//                itemID = Integer.parseInt(option);
+//            } catch (NumberFormatException e) {
+//                adminPrompts.commandNotRecognized();
+//                return;
+//            }
+//            List<Item> proposedItems = itemManager.getProposedItems(trader);
+//            HashMap<Integer, Item> choiceToItem = choiceToItem(proposedItems);
+//
+//            if (choiceToItem.containsKey(itemID)) {
+//                approved = approveOrReject();
+//                if (approved!= null) {
+//                    itemManager.approveItem(trader, choiceToItem.get(itemID).getId(), approved);
+//                    confirmApproval(approved);
+//                }
+//            } else if (itemID != 0){
+//                adminPrompts.commandNotRecognized();
+//            }
+//        }
+//    }
 
-            if (choiceToItem.containsKey(itemID)) {
-                approved = approveOrReject();
-                if (approved!= null) {
-                    itemManager.approveItem(trader, choiceToItem.get(itemID).getId(), approved);
-                    confirmApproval(approved);
-                }
-            } else if (itemID != 0){
-                adminPrompts.commandNotRecognized();
-            }
-        }
-    }
-
-    private HashMap<Integer, Item> choiceToItem(List<Item> proposedItems){
-        HashMap<Integer, Item> temp = new HashMap<>();
-        for (int i = 1; i <= proposedItems.size(); i++){
-            temp.put(i, proposedItems.get(i - 1));
-        }
-        return temp;
-    }
+//    private HashMap<Integer, Item> choiceToItem(List<Item> proposedItems){
+//        HashMap<Integer, Item> temp = new HashMap<>();
+//        for (int i = 1; i <= proposedItems.size(); i++){
+//            temp.put(i, proposedItems.get(i - 1));
+//        }
+//        return temp;
+//    }
 
     private Boolean approveOrReject(){
         adminPrompts.displayApproveOrReject();
@@ -362,21 +366,21 @@ public class AdminSystem extends UserSystem{
             option = scanner.nextLine();
             switch(option){
                 case "1":
-                    adminPrompts.displayThresholdOption(traderManager.get.getMaxIncomplete());
+                    adminPrompts.displayThresholdOption(tradeManager.getMaxInComplete());
                     int newMaxIncomplete = scanner.nextInt();
-                    tradeManager.setMaxIncomplete(newMaxIncomplete);
+                    tradeManager.setMaxInComplete(newMaxIncomplete);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "2":
-                    adminPrompts.displayThresholdOption(tradeManager.getLimitOfTradesPerWeek());
+                    adminPrompts.displayThresholdOption(tradeManager.getWeeklyLimit());
                     int newLimitOfTradesPerWeek = scanner.nextInt();
-                    tradeManager.setLimitOfTradesPerWeek(newLimitOfTradesPerWeek);
+                    tradeManager.setWeeklyLimit(newLimitOfTradesPerWeek);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "3":
-                    adminPrompts.displayThresholdOption(tradeManager.getMoreLendNeeded());
+                    adminPrompts.displayThresholdOption(tradeManager.getMoreLend());
                     int newMoreLendNeeded = scanner.nextInt();
-                    tradeManager.setMoreLendNeeded(newMoreLendNeeded);
+                    tradeManager.setMoreLend(newMoreLendNeeded);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 default:

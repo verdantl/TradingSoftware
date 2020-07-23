@@ -32,6 +32,18 @@ public class Trade {
         this.id = id;
     }
 
+    //Instead of this long constructor, we can use the core details first (like the initial menu
+    //for Android) and then set additional details
+
+    public Trade(Integer id, String initator, String receiver, String tradeType, boolean isPermanent){
+        this.id = id;
+        this.initiator = initator;
+        this.receiver = receiver;
+        this.tradeType = tradeType;
+        this.isPermanent = isPermanent;
+        createdDate = LocalDate.now();
+    }
+
     public String toString(){
 
         return "-TradeID: " + getId() +
@@ -119,12 +131,4 @@ public class Trade {
         return createdDate;
     }
 
-
-//    public boolean isHasMeeting() {
-//        return hasMeeting;
-//    }
-//
-//    public void setHasMeeting(boolean hasMeeting) {
-//        this.hasMeeting = hasMeeting;
-//    }
 }
