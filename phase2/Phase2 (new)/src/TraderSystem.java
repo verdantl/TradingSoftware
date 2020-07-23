@@ -457,20 +457,40 @@ public class TraderSystem extends UserSystem{
      * Shows the user the three most recent items they have traded.
      */
     private void showThreeMostRecentItemsTraded(){
-        traderActions.getMostRecentItems(currentTrader);
-        //gives u the list of item ids that are traded^^
+        List<Integer> trades = traderManager.getTradeIds(currentTrader);
+        List<Integer> items = new ArrayList<>();
 
-        // Here, we should pass these ids into our prompts class, which will take care of the rest
-        // of the displaying stuff part of this
+        int n = trades.size();
+        for (int j = 1; j < n; j++) {
+            Integer bruh = trades.get(j);
+            int i = j-1;
+            while (i > -1 && tradeManager.getDateCreated(trades.get(i))
+                    .isAfter(tradeManager.getDateCreated(bruh))) {
+                trades.set(trades.get(i+1), trades.get(i));
+                i--;
+            }
+            trades.set(i+1, bruh);
+        }
 
-//        traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
-//        int o;
-//        do {
-//            o = Integer.parseInt(sc.nextLine());
-//            if(o != 0){
-//                traderPrompts.incorrectSelection();
-//            }
-//        }while(o != 0);
+        // This is an ugly, ugly piece of code but I'm too tired to do better.
+        // iterating over the list of this user's trades from front to back
+        for (int j = trades.size(); j >= 0; j--) {
+            // if the trade is completed, then we'll consider it
+            if (meetingManager.getMeetingStatus(trades.get(j)).equals("COMPLETED")) {
+                // iterating over the 1-2 items involved with the trade
+                for (Integer i: tradeManager.getItems(trades.get(j))) {
+                    // if the item is now owned by the appropriate trader
+                    if (itemManager.getOwner(i).equals(currentTrader)){
+                        items.add(i);
+                    }
+                }
+            }
+        }
+
+        System.out.println("Here are the items you have most recently traded:");
+        for (Integer j: items){
+            System.out.println(itemManager.getItemInString(j));
+        }
     }
 
     /**

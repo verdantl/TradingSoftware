@@ -215,6 +215,20 @@ public class TradeManager {
      */
     public String getTradeType(int id){return tradeInventory.get(id).getTradeType();}
 
+    /**
+     * Returns the given trade's dateCreated.
+     * @param id the id of the trade in question.
+     * @return the date the trade was completed.
+     */
+    public LocalDate getDateCreated(int id){return tradeInventory.get(id).getCreatedDate();}
+
+    /**
+     * Returns the items in the given trade.
+     * @param id the id of the trade in question.
+     * @return the list of ids corresponding to the items in the trade.
+     */
+    public List<Integer> getItems(int id){return tradeInventory.get(id).getItems();}
+
     /**Getter for trades
      * @return a hashMap storing in the format <trader, a list of trades(id) the trader has>
      */

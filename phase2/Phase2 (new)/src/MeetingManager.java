@@ -105,7 +105,14 @@ public class MeetingManager {
 
     }
 
-
+    /**
+     * Returns the meeting status of the inputted trade.
+     * @param id the id of the trade in question.
+     * @return the status of the meeting.
+     */
+    public String getMeetingStatus(Integer id){
+        return meetings.get(id).getTradeStatus();
+    }
 
 
     /**
