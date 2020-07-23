@@ -11,6 +11,8 @@ public class Meeting{
     private HashMap<String, Integer> numberOfEdits;
     private HashMap<String, Boolean> isAgreed;
     private HashMap<String, Boolean> isConfirmed;
+    private HashMap<String, Boolean> isReturned;
+    private boolean isPermanent;
 
     /**
      * Constructor for the meeting between two individuals that are conducting a trade
@@ -25,6 +27,7 @@ public class Meeting{
         numberOfEdits = new HashMap<>();
         isAgreed = new HashMap<>();
         isConfirmed = new HashMap<>();
+        isReturned = new HashMap<>();
         returnDate = LocalDate.of(0,0,0);
         returnLocation = "N/A";
     }
@@ -113,7 +116,7 @@ public class Meeting{
      * @param user the user who edit this meeting
      */
     public void increaseNumberOfEdits(String user) {
-        numberOfEdits.put(user, numberOfEdits.get(user) + 1);
+            numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
     }
 
     /**allow the trader to agree the meeting
@@ -121,7 +124,11 @@ public class Meeting{
      * @param agree the boolean showing whether or not the trader agree this meeting
      */
     public void setAgree(String trader, Boolean agree) {
-        isAgreed.put(trader, agree);
+        if(isAgreed.containsKey(trader)){
+            isAgreed.replace(trader, agree);
+        }else{
+            isAgreed.put(trader, agree);
+        }
     }
 
     /**allow the trader to confirm the meeting
@@ -129,7 +136,11 @@ public class Meeting{
      * @param confirm the boolean showing whether or not the trader confirm this trade
      */
     public void setConfirm(String trader, Boolean confirm) {
-        isConfirmed.put(trader, confirm);
+        if(isConfirmed.containsKey(trader)){
+            isConfirmed.replace(trader, confirm);
+        }else{
+            isConfirmed.put(trader, confirm);
+        }
     }
 
     /**
@@ -167,5 +178,30 @@ public class Meeting{
      */
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+
+    public boolean isPermanent() {
+        return isPermanent;
+    }
+
+    public void setPermanent(boolean permanent) {
+        isPermanent = permanent;
+    }
+
+    public HashMap<String, Boolean> getIsReturned() {
+        return isReturned;
+    }
+
+    public void setIsReturned(HashMap<String, Boolean> isReturned) {
+        this.isReturned = isReturned;
+    }
+
+    public void setReturn(String trader, Boolean isReturn){
+        if(isReturned.containsKey(trader)){
+            isReturned.replace(trader, isReturn);
+        }else{
+            isReturned.put(trader, isReturn);
+        }
     }
 }
