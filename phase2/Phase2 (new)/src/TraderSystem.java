@@ -528,7 +528,8 @@ public class TraderSystem extends UserSystem{
      */
     private void browseOnGoingTrades(){
         // No way to get on going trades currently
-        List<Integer> onGoingTrades = tradeManager.getTrades(currentTrader);
+        List<Integer> incompleteTrades = tradeManager.getIncompleteTrades(currentTrader);
+        List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(incompleteTrades);
 
         // The user returns to main menu if no ongoing trades
         if (onGoingTrades.size() == 0){
@@ -549,8 +550,16 @@ public class TraderSystem extends UserSystem{
         // The user selects a trade from list
         int select;
         do {
-            traderPrompts.displayString("Type number listed with trade to select it or [0] to return to main menu.");
+            System.out.println("Type number listed with trade to select it or [0] to return to main menu.");
+            //traderPrompts.displayString("Type number listed with trade to select it or [0] to return to main menu.");
             select = Integer.parseInt(sc.nextLine());
+            StringBuilder s = new StringBuilder();
+            //This is what goes in the presenter:
+            for(Integer i: onGoingTrades){
+                s.append(tradeManager.getTradeInformation(currentTrader, select));
+                s.append(tradeManager.getItemIds(select));
+                s.append("\n");
+            }
             // If user enters number greater than number of trades or less than 0
             // display incorrect selection prompt and ask to enter again
             if (select > onGoingTrades.size() || select < 0){
@@ -568,17 +577,21 @@ public class TraderSystem extends UserSystem{
         do{
             switch (option){
                 case 1:
-                    String editOption = editMeeting();
+                    String editOption = editMeeting(select);
                     traderPrompts.displayString(editOption);
                     if(editOption.equals("Cancelling edit")){
                         // traderPrompts.browseOnGoingTrades(onGoingTrades);
                     }
                     break;
                 case 2:
-                    traderPrompts.displayString(tradeManager.agreeToMeeting());
+                    meetingManager.agreeOnTrade(select, currentTrader);
+                    System.out.println("Agreed to trade");
+                    //traderPrompts.displayString(tradeManager.agreeToMeeting());
                     break;
                 case 3:
-                    traderPrompts.displayString(tradeManager.confirmTrade());
+                    meetingManager.confirmMeeting(select, currentTrader);
+                    System.out.println("Confirmed trade.");
+                    //traderPrompts.displayString(tradeManager.confirmTrade());
                     break;
                 default:
                     traderPrompts.incorrectSelection();
@@ -593,9 +606,11 @@ public class TraderSystem extends UserSystem{
     /**
      * The user inputs a new date and location for selected trade
      */
-    private String editMeeting(){
-        traderPrompts.displayString("Enter new date and location for trade meeting");
-        traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
+    private String editMeeting(Integer tradeID){
+        System.out.println(meetingManager.getMeetingDescription(tradeID));
+        System.out.println("Enter new date and location for trade meeting");
+        System.out.println("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
+
         String newDateStr;
         LocalDate newDate;
         newDateStr = sc.nextLine();
@@ -605,27 +620,30 @@ public class TraderSystem extends UserSystem{
 
         // Check if the user inputted a valid trade date
         while(true){
-
             try{
                 newDate = LocalDate.parse(newDateStr);
                 if (newDate.isAfter(LocalDate.now())) {
                     break;
                 }
                 else {
-                    traderPrompts.displayString("Please enter a date after today.");
+                    System.out.println("Please enter a date after today.");
                 }
             }
             catch (DateTimeParseException e){
-                traderPrompts.displayString("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
+                System.out.println("Please enter a date in the format YYYY-MM-DD or enter [0] to cancel the edit.");
             }
             newDateStr = sc.nextLine();
         }
         // User enters a new location
-        traderPrompts.displayString("Enter a location or enter [0] to cancel the edit:");
+        System.out.println("Enter a location or enter [0] to cancel the edit:");
         String location = sc.nextLine();
+
         if(location.equals("0")){
             return "Cancelling edit";
         }
-        return tradeManager.editTradeMeeting(newDate, location);
+        meetingManager.editDate(tradeID,newDate);
+        meetingManager.editLocation(tradeID, location);
+        meetingManager.increaseNumEdit(currentTrader,tradeID);
+        return "Edit made Successfully";
     }
 }
