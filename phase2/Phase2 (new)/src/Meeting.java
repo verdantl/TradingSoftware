@@ -11,7 +11,6 @@ public class Meeting{
     private HashMap<String, Integer> numberOfEdits;
     private HashMap<String, Boolean> isAgreed;
     private HashMap<String, Boolean> isConfirmed;
-    private final String defaultReturnLoc = "N/A";
 
     /**
      * Constructor for the meeting between two individuals that are conducting a trade
@@ -27,7 +26,7 @@ public class Meeting{
         isAgreed = new HashMap<>();
         isConfirmed = new HashMap<>();
         returnDate = LocalDate.of(0,0,0);
-        returnLocation = defaultReturnLoc;
+        returnLocation = "N/A";
     }
 
     public String toString(){

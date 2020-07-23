@@ -68,14 +68,10 @@ public class TradeManager {
 
     /**add a trade to the tradeInventory
      * @param trade the trade needed to be added in inventory
-     * @return whether or not the trade is successfully added in inventory
      */
-    public boolean addToTradeInventory(Trade trade){
+    public void addToTradeInventory(Trade trade){
         if(!tradeInventory.containsKey(trade.getId())){
             tradeInventory.put(trade.getId(), trade);
-            return true;
-        }else{
-            return false;
         }
     }
 
@@ -95,21 +91,17 @@ public class TradeManager {
     /**add a trade to user's trade list
      * @param user the user who wants to add trade to trades
      * @param trade the trade needed to be added
-     * @return whether or not the trade is successfully added in user's trade list
      */
-    public boolean addToTrades(String user, Trade trade){
+    public void addToTrades(String user, Trade trade){
         if(!trades.containsKey(user)){
             List<Integer> list = new ArrayList<>();
             list.add(trade.getId());
             trades.put(user, list);
-            return true;
+            return;
         }
 
         if(!trades.get(user).contains(trade.getId())){
             trades.get(user).add(trade.getId());
-            return true;
-        }else{
-            return false;
         }
     }
 
