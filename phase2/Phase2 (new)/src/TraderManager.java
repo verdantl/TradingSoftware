@@ -256,30 +256,6 @@ public class TraderManager implements Serializable {
         }
     }
 
-
-//    /**
-//     * Approves or rejects an item in a user's list.
-//     * @param username The account usernamecontaining the item to be approved
-//     * @param itemID The id of the item to be approved
-//     * @param approved A boolean representing if the item has been approved or not
-//     */
-//    public void approveItem(String username, int itemID, boolean approved){
-//        Trader trader = users.get(username);
-//        trader.removeFromProposedItems(itemID);
-//        if (approved) {
-//            trader.addToWishlist(itemID);
-//        }
-//    }
-
-//    /**
-//     * Approves or rejects all of the items in an account's proposed items list.
-//     * @param username The account containing the items to be approved
-//     * @param approved A boolean representing if the items are all approved or not
-//     */
-//    public void approveAllItems(String username, boolean approved){
-//        users.get(username).approveAllItems(approved);
-//    }
-
     /**Getter for weeklyLimit
      * @return the maximum number of trades a trade can have in a week
      */
