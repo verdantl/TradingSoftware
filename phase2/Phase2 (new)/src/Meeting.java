@@ -179,8 +179,7 @@ public class Meeting{
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
-
-
+    
     public boolean isPermanent() {
         return isPermanent;
     }

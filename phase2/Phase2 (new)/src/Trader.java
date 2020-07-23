@@ -8,6 +8,7 @@ public class Trader extends User {
     private int numLent, numBorrowed;
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
+    private List<Integer> trades;
 
     //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
     // for making a new trader
@@ -20,6 +21,7 @@ public class Trader extends User {
         numBorrowed = 0;
         wishlist = new ArrayList<>();
         borrowedItems = new ArrayList<>();
+        trades = new ArrayList<>();
 
     }
 
@@ -237,6 +239,20 @@ public class Trader extends User {
 
     }
 
+
+    /**return a list of trades' IDs
+     * @return A list of trades' IDs that user has
+     */
+    public List<Integer> getTrades() {
+        return trades;
+    }
+
+    /**add a trade to the user's list of trades
+     * @param id the id of the trade
+     */
+    public void addTrades(int id){
+        trades.add(id);
+    }
 
 
 }
