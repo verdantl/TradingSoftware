@@ -49,18 +49,11 @@ public class TradeManager {
         return s.toString();
     }
 
-    public boolean createTrade(String initiator, String receiver, String tradeType, boolean isPermanent){
-        Trade trade = new Trade(counter, initiator, receiver, tradeType, isPermanent);
-        counter++;
-        return addToTradeInventory(trade) && addToTrades(initiator, trade);
-    }
-
     public void setTradeItems(Integer id, List<Integer> items){
         tradeInventory.get(id).setItems(items);
 
     }
     /**create a trade
-     * @param user the user who wants to create a trade
      * @param items a list of items involved in the trade
      * @param isPermanent whether or not the trade is permanent
      * @param initiator the initiator of the trade
@@ -68,7 +61,7 @@ public class TradeManager {
      * @param createdDate the time that the trade is created
      * @return whether or not the trade is successfully created
      */
-    public boolean createTrade(String user, List<Integer> items, boolean isPermanent,
+    public boolean createTrade(List<Integer> items, boolean isPermanent,
                             String initiator, String receiver, LocalDate createdDate, String tradeType){
         Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType, counter);
         counter++;
