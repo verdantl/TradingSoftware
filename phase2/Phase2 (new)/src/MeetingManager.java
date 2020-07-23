@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * A MeetingManager class that manages meetings
  */
-public class MeetingManager {
+public class MeetingManager implements Serializable {
 
     //Each meeting is paired up with the corresponding trade's id
     private final HashMap<Integer, Meeting> meetings;
@@ -53,7 +53,9 @@ public class MeetingManager {
      */
     public boolean createMeeting(int tradeId, LocalDate tradeDate, LocalDate returnDate,
                                  String location, String returnLocation, HashMap<String, Boolean> isAgreed,
-                                 HashMap<String, Boolean> isConfirmed, HashMap<String, Integer> numberOfEdits){
+                                 HashMap<String, Boolean> isConfirmed,
+                                 HashMap<String, Integer> numberOfEdits,
+                                 HashMap<String, Boolean> isReturned, boolean isPermanent){
         Meeting m = new Meeting(tradeId);
         m.setTradeDate(tradeDate);
         m.setReturnDate(returnDate);
@@ -62,6 +64,8 @@ public class MeetingManager {
         m.setIsAgreed(isAgreed);
         m.setIsConfirmed(isConfirmed);
         m.setNumberOfEdits(numberOfEdits);
+        m.setPermanent(isPermanent);
+        m.setIsReturned(isReturned);
         if(meetings.containsKey(tradeId)){
             return false;
         }else{
@@ -72,23 +76,29 @@ public class MeetingManager {
 
 
     //Depending on when the meeting is created we can shorten the above method
-    public boolean createMeeting(int tradeId, String initiator, String receiver){
+    public boolean createMeeting(int tradeId, String initiator, String receiver, boolean isPermanent){
         if(meetings.containsKey(tradeId)){
             return false;}
         else{
         Meeting m = new Meeting(tradeId);
-        m.setIsAgreed(new HashMap<>());
-        m.setAgree(initiator, true);
+
+        m.setAgree(initiator, false);
         m.setAgree(receiver, false);
 
-        m.setIsConfirmed(new HashMap<>());
+
         m.setConfirm(initiator, false);
         m.setConfirm(receiver, false);
+
+        m.setReturn(initiator, false);
+        m.setReturn(receiver, false);
 
         HashMap<String, Integer> edits = new HashMap<>();
         edits.put(initiator, 0);
         edits.put(receiver, 0);
         m.setNumberOfEdits(edits);
+
+        m.setPermanent(isPermanent);
+
 
         meetings.put(tradeId, m);
         return true;
@@ -192,13 +202,19 @@ public class MeetingManager {
     public boolean confirmMeeting(int id, String username){
         getMeeting(id).setConfirm(username, true);
         if(checkAllConfirmed(id)){
+            if(getMeeting(id).isPermanent()){
+                getMeeting(id).setTradeStatus("Completed");
+            }else{
+                getMeeting(id).setTradeStatus("Waiting to be returned");
+            }
+            return true;
+        }else{
             getMeeting(id).setTradeStatus("Confirmed: waiting the other to confirm");
             return false;
-        }else{
-            getMeeting(id).setTradeStatus("Completed");
-            return true;
         }
     }
+
+
 
     private boolean checkAllConfirmed(int id){
         Meeting meeting = getMeeting(id);
@@ -217,11 +233,12 @@ public class MeetingManager {
     public boolean agreeOnTrade(int id, String username){
         getMeeting(id).setAgree(username, true);
         if(checkAllAgreed(id)){
-            getMeeting(id).setTradeStatus("Agreed: waiting the other to agree");
-            return false;
-        }else{
             getMeeting(id).setTradeStatus("Both Agreed: waiting to be confirmed");
             return true;
+
+        }else{
+            getMeeting(id).setTradeStatus("Agreed: waiting the other to agree");
+            return false;
         }
     }
 
@@ -229,6 +246,32 @@ public class MeetingManager {
         Meeting meeting = getMeeting(id);
         for(String user: meeting.getIsAgreed().keySet()){
             if(!meeting.getIsAgreed().get(user)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**Return True iff both traders confirm that the items are returned
+     * confirm the items are returned
+     * @param id the id of the trade
+     * @param username Username of the Trader who confirms the items are returned
+     */
+    public boolean confirmReturn(int id, String username){
+        if(checkAllReturned(id)){
+            getMeeting(id).setTradeStatus("Completed");
+            return true;
+        }else{
+            getMeeting(id).setTradeStatus("Waiting the other to confirm");
+            return false;
+        }
+
+    }
+
+    private boolean checkAllReturned(int id){
+        Meeting meeting = getMeeting(id);
+        for(String user: meeting.getIsReturned().keySet()){
+            if(!meeting.getIsReturned().get(user)){
                 return false;
             }
         }

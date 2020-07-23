@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdminActions {
+public class AdminActions implements Serializable {
     private final HashMap<String, Admin> admins;
 
     /**

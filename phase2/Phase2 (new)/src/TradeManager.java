@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
 
-public class TradeManager {
+public class TradeManager implements Serializable {
     private final HashMap<Integer, Trade> tradeInventory;
     private final HashMap<String, List<Integer>> trades;
     private int weeklyLimit;

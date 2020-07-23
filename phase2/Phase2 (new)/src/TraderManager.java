@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TraderManager {
+public class TraderManager implements Serializable {
     HashMap<String, Trader> users;
 
     /**
@@ -171,15 +172,6 @@ public class TraderManager {
         trader.setFrozen(false);
         trader.setFlagged(false);
         return true;
-    }
-
-    /**
-     * Returns the tradeIds of the given user
-     * @param username The username of the user
-     * @return trade ids of username
-     */
-    public List<Integer> getTradeIds(String username){
-        return users.get(username).getTradeIds();
     }
 
     /**
