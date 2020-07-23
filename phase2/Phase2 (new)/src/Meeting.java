@@ -33,6 +33,10 @@ public class Meeting implements Serializable {
         returnLocation = "N/A";
     }
 
+    /**
+     * String representation of this meeting
+     * @return a string representation of this meeting's details
+     */
     public String toString(){
         StringBuilder s = new StringBuilder("-TradeID: " + getTradeId() +
                 "\n" +
@@ -107,10 +111,22 @@ public class Meeting implements Serializable {
         return numberOfEdits;
     }
 
+    /**
+     * Setter for the number of edits
+     * @param numberOfEdits a hashmap representing the number of edits each user has made
+     */
     public void setNumberOfEdits(HashMap<String, Integer> numberOfEdits) {this.numberOfEdits = numberOfEdits;}
 
+    /**
+     * Setter for whether the traders have agreed
+     * @param isAgreed a hashmap representing if each user has agreed
+     */
     public void setIsAgreed(HashMap<String, Boolean> isAgreed){this.isAgreed = isAgreed;}
 
+    /**
+     * Setter for whether the traders have confirmed the meeting
+     * @param isConfirmed a hashmap representing if each user has confirmed
+     */
     public void setIsConfirmed(HashMap<String, Boolean> isConfirmed){this.isConfirmed = isConfirmed;}
 
     /**increase the number of edits when the user edits the meeting
@@ -180,23 +196,44 @@ public class Meeting implements Serializable {
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
-    
+
+    /**
+     * Getter for if the meeting is permanent or not
+     * @return a boolean representing if the meeting is permanent
+     */
     public boolean isPermanent() {
         return isPermanent;
     }
 
+    /**
+     * A setter for whether the meeting is permanent
+     * @param permanent A boolean representing if the meeting is parmanent
+     */
     public void setPermanent(boolean permanent) {
         isPermanent = permanent;
     }
 
+    /**
+     * Getter for if the items have been returned after trading
+     * @return a hashmap representing if each user has returned their item
+     */
     public HashMap<String, Boolean> getIsReturned() {
         return isReturned;
     }
 
+    /**
+     * A setter for whether the items are returned
+     * @param isReturned a hashmap representing if each user has returned their item
+     */
     public void setIsReturned(HashMap<String, Boolean> isReturned) {
         this.isReturned = isReturned;
     }
 
+    /**
+     * A setter for the hashmap representing if the items are returned
+     * @param trader the username of the trader involved in the meeting
+     * @param isReturn a boolean representing if the trader has returned their item
+     */
     public void setReturn(String trader, Boolean isReturn){
         if(isReturned.containsKey(trader)){
             isReturned.replace(trader, isReturn);

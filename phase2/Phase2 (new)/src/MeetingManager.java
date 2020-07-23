@@ -8,8 +8,6 @@ import java.util.List;
  * A MeetingManager class that manages meetings
  */
 public class MeetingManager implements Serializable {
-
-    //Each meeting is paired up with the corresponding trade's id
     private final HashMap<Integer, Meeting> meetings;
 
     /**
@@ -58,42 +56,14 @@ public class MeetingManager implements Serializable {
         return meetings.get(id).toString();
     }
 
-    /**create a trade
-     * @param tradeId the id of the trade
-     * @param tradeDate the date of the trade
-     * @param returnDate the return date of the trade
-     * @param location the location of the trade
-     * @param returnLocation the return location of the trade
-     * @param isAgreed a hashmap storing whether or not the traders agree with the meeting
-     * @param isConfirmed a hashmap storing whether or not the traders confirm the meeting
-     * @param numberOfEdits a hashmap storing traders' edit times
-     * @return whether or not the meeting is created
+    /**
+     * Creates a meeting to be added to the system
+      * @param tradeId The id of the trade that this meeting represents
+     * @param initiator the initiator of the trade
+     * @param receiver the receiver of the trade offer
+     * @param isPermanent a boolean representing if the trade is permanent
+     * @return a boolean representing if the meeting creation was successful
      */
-    public boolean createMeeting(int tradeId, LocalDate tradeDate, LocalDate returnDate,
-                                 String location, String returnLocation, HashMap<String, Boolean> isAgreed,
-                                 HashMap<String, Boolean> isConfirmed,
-                                 HashMap<String, Integer> numberOfEdits,
-                                 HashMap<String, Boolean> isReturned, boolean isPermanent){
-        Meeting m = new Meeting(tradeId);
-        m.setTradeDate(tradeDate);
-        m.setReturnDate(returnDate);
-        m.setLocation(location);
-        m.setReturnLocation(returnLocation);
-        m.setIsAgreed(isAgreed);
-        m.setIsConfirmed(isConfirmed);
-        m.setNumberOfEdits(numberOfEdits);
-        m.setPermanent(isPermanent);
-        m.setIsReturned(isReturned);
-        if(meetings.containsKey(tradeId)){
-            return false;
-        }else{
-            meetings.put(tradeId, m);
-            return true;
-        }
-    }
-
-
-    //Depending on when the meeting is created we can shorten the above method
     public boolean createMeeting(int tradeId, String initiator, String receiver, boolean isPermanent){
         if(meetings.containsKey(tradeId)){
             return false;}
@@ -102,7 +72,6 @@ public class MeetingManager implements Serializable {
 
         m.setAgree(initiator, false);
         m.setAgree(receiver, false);
-
 
         m.setConfirm(initiator, false);
         m.setConfirm(receiver, false);
@@ -123,6 +92,14 @@ public class MeetingManager implements Serializable {
         }
     }
 
+    /**
+     * A setter for the meeting information
+     * @param id the id of the meeting
+     * @param tradeDate the date of the trade
+     * @param returnDate the return date of the trade
+     * @param location the location of the meeting
+     * @param returnLocation the return location of the meeting
+     */
     public void setMeetingInfo(int id, LocalDate tradeDate, LocalDate returnDate,
                                String location, String returnLocation){
         Meeting meeting = meetings.get(id);
@@ -155,8 +132,6 @@ public class MeetingManager implements Serializable {
         }
         return false;
     }
-
-
 
     /**edit the meeting based on the new location
      * @param id id of the trade
@@ -207,10 +182,6 @@ public class MeetingManager implements Serializable {
         return meetings.get(id).getNumberOfEdits().get(user) <= 3;
     }
 
-    //if confirmTrade returns true, the program can switch trader's items in the controller class
-    //this method is enough to check whether trade is complete
-    //Based on how we define the non-meeting trade(see the comment in Trade)
-    // ,even non-meeting trade can use this method
     /**Return true iff both traders confirm the meeting
      * Confirms that the meeting happened
      * @param id Id of the trade
@@ -231,8 +202,6 @@ public class MeetingManager implements Serializable {
             return false;
         }
     }
-
-
 
     private boolean checkAllConfirmed(int id){
         Meeting meeting = getMeeting(id);

@@ -7,36 +7,18 @@ public class Item implements Serializable {
     private final int id;
     private ItemStatus status;
 
+    /**
+     * Constructor for an item
+     * @param id The id for the item
+     * @param name The name of the item
+     * @param owner The username of the trader who owns the item
+     */
     public Item(Integer id, String name, String owner) {
         this.id = id;
         this.name = name;
         this.owner = owner;
         status = ItemStatus.REQUESTED;
     }
-
-    /**
-     * Constructor of the item class for when items are read in.
-     * @param name the name of the item
-     * @param category the category of the item
-     * @param description the description of the item
-     * @param qualityRating the quality rating of the item
-     * @param id the item id
-     * @param status The status of the item
-     * @param owner The owner's username
-     */
-    public Item(String name, String category, String description, int qualityRating, int id,
-                String status, String owner){
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.qualityRating = qualityRating;
-        this.id = id;
-        this.owner = owner;
-        this.status = convertToItemStatus(status);
-    }
-
-
-
 
     /**
      * Gets the item's name.
@@ -167,11 +149,11 @@ public class Item implements Serializable {
                 ",\nID: " + id;
     }
 
-//    /**
-//     * Converts the status of the item in String to Enum
-//     * @param status The status of the item
-//     * @return Return the enum equivalent of status
-//     */
+    /**
+     * Converts the status of the item in String to Enum
+     * @param status The status of the item
+     * @return Return the enum equivalent of status
+     */
     private ItemStatus convertToItemStatus(String status){
 
         ItemStatus itemStatus = null;

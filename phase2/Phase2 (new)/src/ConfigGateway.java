@@ -1,6 +1,13 @@
 import java.io.*;
 
 public class ConfigGateway {
+    /**
+     * Reads objects from the given path
+     * @param path the string path of the file
+     * @return a Serializable object containing information for the program
+     * @throws IOException from the InputStream
+     * @throws ClassNotFoundException from ObjectInputStream
+     */
     public Serializable readInfo(String path) throws IOException, ClassNotFoundException {
         File file = new File(path);
         if (file.exists()) {
@@ -21,6 +28,12 @@ public class ConfigGateway {
         }
     }
 
+    /**
+     * Saves the information to the file
+     * @param path the string path to the file
+     * @param manager the Serializable object containing information about the file
+     * @throws IOException from the OutputStream
+     */
     public void saveInfo(String path, Serializable manager) throws IOException{
         OutputStream file = new FileOutputStream(path);
         OutputStream buffer = new BufferedOutputStream(file);

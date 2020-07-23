@@ -105,7 +105,6 @@ public class SignupSystem extends UserSystem{
         else{
             traderManager.newTrader(username, password);
         }
-        //Here we want to write the information
         stop();
     }
 

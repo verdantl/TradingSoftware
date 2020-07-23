@@ -12,6 +12,14 @@ public class TradeManager implements Serializable {
     private int moreLend;
     private int counter;
 
+    /**
+     * Construction for the TradeManager
+     * @param tradeInventory
+     * @param trades
+     * @param weeklyLimit
+     * @param maxInComplete
+     * @param moreLend
+     */
     public TradeManager(HashMap<Integer, Trade> tradeInventory, HashMap<String, List<Integer>> trades,
                         int weeklyLimit, int maxInComplete, int moreLend){
         this.tradeInventory = tradeInventory;
