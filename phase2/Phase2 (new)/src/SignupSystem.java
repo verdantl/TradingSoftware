@@ -8,7 +8,6 @@ public class SignupSystem extends UserSystem{
     private final SignupPrompts signupPrompts;
     private final Scanner scanner;
     private boolean admin;
-    private boolean running;
     private String username;
     private String password;
 

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainProgram implements Runnable{
     private UserSystem currentSystem;

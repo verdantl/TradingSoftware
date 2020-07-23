@@ -12,7 +12,6 @@ public class LoginSystem extends UserSystem{
     private int nextSystem;
     private String nextUser;
     private final BufferedReader br;
-    private boolean running;
 
     /**
      * Constructor for this login system

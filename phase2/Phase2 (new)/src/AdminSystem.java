@@ -12,7 +12,6 @@ public class AdminSystem extends UserSystem{
     private final TradeManager tradeManager;
     private final TraderManager traderManager;
     private final MeetingManager meetingManager;
-    private boolean running;
     private final String currentAdmin;
     private final Scanner scanner;
 
