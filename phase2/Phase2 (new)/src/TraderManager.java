@@ -1,8 +1,7 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 public class TraderManager implements Serializable {
     HashMap<String, Trader> users;
@@ -255,6 +254,101 @@ public class TraderManager implements Serializable {
             trader.deleteItem(id);
         }
     }
+
+
+//    /**
+//     * Approves or rejects an item in a user's list.
+//     * @param username The account usernamecontaining the item to be approved
+//     * @param itemID The id of the item to be approved
+//     * @param approved A boolean representing if the item has been approved or not
+//     */
+//    public void approveItem(String username, int itemID, boolean approved){
+//        Trader trader = users.get(username);
+//        trader.removeFromProposedItems(itemID);
+//        if (approved) {
+//            trader.addToWishlist(itemID);
+//        }
+//    }
+
+//    /**
+//     * Approves or rejects all of the items in an account's proposed items list.
+//     * @param username The account containing the items to be approved
+//     * @param approved A boolean representing if the items are all approved or not
+//     */
+//    public void approveAllItems(String username, boolean approved){
+//        users.get(username).approveAllItems(approved);
+//    }
+
+    /**check whether or not the user exceed weekly trade limit
+     * @param user the user who wants to create a new trade
+     * @param createDate the date that the user requests to create the trade
+     * @return whether or not the user exceed weekly trade limit
+     */
+    public boolean exceedWeeklyLimit(String user, LocalDate createDate){
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekNumber = createDate.get(weekFields.weekOfWeekBasedYear());
+        int n = 0;
+        for(LocalDate date: users.get(user).getTrades().values()){
+            if(date.getYear() == createDate.getYear()
+                    && date.get(weekFields.weekOfWeekBasedYear()) == weekNumber){
+                n++;
+            }
+        }
+        return n > weeklyLimit;
+    }
+
+    /**Check whether or not the user exceed the max number of incomplete trades
+     * @param user the usr who wants to request to trade
+     * @return whether or not the user exceed the max number of incomplete trades
+     */
+    public boolean exceedMaxIncomplete(String user){
+        return users.get(user).getNumIncomplete() > maxInComplete;
+    }
+
+
+    /**check whether or not the user need to lend more items
+     * @param user the user who wants to trade
+     * @return whether or not the user need to lend more items
+     */
+    public boolean needMoreLend(String user){
+        if(users.get(user).getTrades().isEmpty()){
+            return false;
+        }else{
+            return users.get(user).getNumLent() - users.get(user).getNumBorrowed() < moreLend;
+        }
+    }
+
+    /**Get a list of trades
+     * @param user the user who wants to get the list of trades
+     * @return the list of trades belonged to that user
+     */
+    public List<Integer> getTrades(String user){
+        return new ArrayList<>(users.get(user).getTrades().keySet());
+    }
+
+    /**Add a new trade to the user's list of trades
+     * @param user the user who wants to trade
+     * @param id the id of the trade
+     * @param createDate the created date for the trade
+     */
+    public void addNewTrade(String user, int id, LocalDate createDate){
+        users.get(user).addTrades(id, createDate);
+    }
+
+    /**Increase the number of incomplete trades
+     * @param user the user
+     */
+    public void increaseNumbIncomplete(String user){
+        users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() + 1);
+    }
+
+    /**Decrease the number of incomplete trades
+     * @param user the user
+     */
+    public void decreaseNumIncomplete(String user){
+        users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() - 1);
+    }
+
 
     /**Getter for weeklyLimit
      * @return the maximum number of trades a trade can have in a week

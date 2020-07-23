@@ -1,19 +1,19 @@
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Trader extends User implements Serializable {
     private boolean frozen, flagged, requestToUnfreeze;
-    private int numLent, numBorrowed;
+    private int numLent, numBorrowed, numIncomplete;
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
-    private final List<Integer> trades;
+    private HashMap<Integer, LocalDate> trades;
 
-    /**
-     * Constructor for a new trader
-     * @param username username of the trader
-     * @param password password of the trader
-     */
+    //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
+    // for making a new trader
     public Trader(String username, String password){
         super(username, password);
         frozen = false;
@@ -23,13 +23,43 @@ public class Trader extends User implements Serializable {
         numBorrowed = 0;
         wishlist = new ArrayList<>();
         borrowedItems = new ArrayList<>();
-        trades = new ArrayList<>();
+        trades = new HashMap<>();
+
     }
+
+    /**
+     * Constructor for when the user is read in
+     * @param username The user's username
+     * @param password The user's password
+     * @param dateCreated   The date the user was created
+     * @param frozen Whether the user's account is frozen
+     * @param flagged Whether this user's account is flagged for review by a moderator
+     * @param requestToUnfreeze Whether this user has requested to unfreeze.
+     * @param numLent  The number of times the user has lent an item
+     * @param numBorrowed  The number of times the user has borrowed an item
+     */
+    public Trader(String username, String password, String dateCreated, boolean frozen,
+                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed, int numIncomplete,
+                  List<Integer> wishlist, List<Integer> borrowedItems, HashMap<Integer, LocalDate> trades){
+        super(username, password, dateCreated);
+
+        this.frozen = frozen;
+        this.flagged = flagged;
+        this.numBorrowed=numBorrowed;
+        this.numLent=numLent;
+        this.requestToUnfreeze = requestToUnfreeze;
+        this.wishlist = wishlist;
+        this.borrowedItems = borrowedItems;
+        this.trades = trades;
+        this.numIncomplete = numIncomplete;
+    }
+
 
     /**
      * Converts the trader to a string representation.
      * @return a string of the admin's username, password, and date created
      */
+
     @Override
     public String toString(){
         String s = "Trader: "+ super.getUsername()+"\n";
@@ -38,6 +68,7 @@ public class Trader extends User implements Serializable {
         s += "Number of items borrowed: "+numBorrowed+" | Number of items lent: "+numLent;
         return s;
     }
+
 
     /**
      * Getter for user's frozen boolean
@@ -103,6 +134,37 @@ public class Trader extends User implements Serializable {
         this.flagged = flagged;
     }
 
+
+
+//
+//    /**
+//     * @return Return the number of transactions that are incomplete
+//     */
+//    public int getNumIncompleteTransactions(){
+//        int numIncomplete = 0;
+//        for(Trade trade: trades){
+//            if (trade.getTradeDate().isBefore(LocalDate.now()) && !trade.getIsConfirmed(trade.getInitiator()) &&
+//                    !trade.getIsConfirmed(trade.getReceiver())){
+//                numIncomplete++;
+//            }
+//        }
+//
+//        return numIncomplete;
+//    }
+
+//    /**
+//     * @return Return the number of transactions in this week
+//     */
+//    public int getNumWeeklyTransactions(){
+//        int numTransactions = 0;
+//
+//        for(Trade trade: trades){
+//            //code goes here
+//        }
+//
+//        return numTransactions;
+//    }
+
     /**
      * Whether this user has requested to unfreeze or not.
      * @return true if they have requested to unfreeze, false otherwise.
@@ -132,9 +194,11 @@ public class Trader extends User implements Serializable {
      *
      * @return Trader's borrowed items
      */
+
     public List<Integer> getBorrowedItems() {
         return borrowedItems;
     }
+
 
     /**
      * Adds the item to borrowedItems
@@ -178,18 +242,38 @@ public class Trader extends User implements Serializable {
 
     }
 
-    /**return a list of trades' IDs
-     * @return A list of trades' IDs that user has
+
+    /**Getter for the numIncomplete
+     * @return the number of incomplete trades that the trader has
      */
-    public List<Integer> getTrades() {
+    public int getNumIncomplete() {
+        return numIncomplete;
+    }
+
+    /**Setter for the numIncomplete
+     * @param numIncomplete the number of incomplete trades that the trader has
+     */
+    public void setNumIncomplete(int numIncomplete) {
+        this.numIncomplete = numIncomplete;
+    }
+
+    /**Getter for the trades
+     * @return a hashmap recording trades that the trader has
+     */
+    public HashMap<Integer, LocalDate> getTrades() {
         return trades;
     }
 
-    /**add a trade to the user's list of trades
+    /**Add a trade to the trader's trade list
      * @param id the id of the trade
+     * @param createdDate the date that the trade is created
      */
-    public void addTrades(int id){
-        trades.add(id);
+    public void addTrades(int id, LocalDate createdDate){
+        if(trades.containsKey(id)){
+            trades.replace(id, createdDate);
+        }else{
+            trades.put(id, createdDate);
+        }
     }
 
 

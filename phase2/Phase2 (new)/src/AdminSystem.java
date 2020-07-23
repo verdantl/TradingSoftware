@@ -354,21 +354,21 @@ public class AdminSystem extends UserSystem{
             option = scanner.nextLine();
             switch(option){
                 case "1":
-                    adminPrompts.displayThresholdOption(tradeManager.getMaxInComplete());
+                    adminPrompts.displayThresholdOption(traderManager.getMaxInComplete());
                     int newMaxIncomplete = scanner.nextInt();
-                    tradeManager.setMaxInComplete(newMaxIncomplete);
+                    traderManager.setMaxInComplete(newMaxIncomplete);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "2":
-                    adminPrompts.displayThresholdOption(tradeManager.getWeeklyLimit());
+                    adminPrompts.displayThresholdOption(traderManager.getWeeklyLimit());
                     int newLimitOfTradesPerWeek = scanner.nextInt();
-                    tradeManager.setWeeklyLimit(newLimitOfTradesPerWeek);
+                    traderManager.setWeeklyLimit(newLimitOfTradesPerWeek);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "3":
-                    adminPrompts.displayThresholdOption(tradeManager.getMoreLend());
+                    adminPrompts.displayThresholdOption(traderManager.getMoreLend());
                     int newMoreLendNeeded = scanner.nextInt();
-                    tradeManager.setMoreLend(newMoreLendNeeded);
+                    traderManager.setMoreLend(newMoreLendNeeded);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 default:
