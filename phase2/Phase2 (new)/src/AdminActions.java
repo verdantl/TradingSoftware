@@ -82,7 +82,7 @@ public class AdminActions {
      * @return Return true iff the username is valid
      */
     public boolean checkUsername(String username){
-        return admins.containsKey(username);
+        return admins.containsKey(username) && admins.get(username).isApproved();
     }
 
     /**
