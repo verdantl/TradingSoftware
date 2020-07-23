@@ -512,6 +512,7 @@ public class TraderSystem extends UserSystem{
         }
 
         // Holy shit, I just realised how bad this is for clean architecture lol im dumb
+        //good job
         traderManager.setRequestToUnfreeze(currentTrader,true);
         int o;
         do {
