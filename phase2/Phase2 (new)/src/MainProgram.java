@@ -6,7 +6,6 @@ public class MainProgram implements Runnable{
     private String username; //this will be changed in the future
     private int nextSystem; //Might change this to string depending on how we implement this.
     private boolean running;
-    private final String PATH = "src/gateway/test_dummy.csv";
 
     private final Configuration configuration;
 
@@ -17,7 +16,7 @@ public class MainProgram implements Runnable{
         configuration = new Configuration();
     }
 
-    private void init(){
+    private void init() throws IOException, ClassNotFoundException {
         currentSystem = new LoginSystem(configuration.getTraderManager(), configuration.getAdminActions());
     }
 
@@ -26,21 +25,35 @@ public class MainProgram implements Runnable{
      */
     @Override
     public void run() {
-        init();
+        try {
+            init();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         while (running) {
             currentSystem.run();
-            configuration.saveInfo(currentSystem, PATH);
+            try {
+                configuration.saveInfo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             username = currentSystem.getNextUser();
             nextSystem = currentSystem.getNextSystem();
-            setCurrentSystem();
+
+            try {
+                setCurrentSystem();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void setCurrentSystem() {
+    private void setCurrentSystem() throws IOException, ClassNotFoundException {
         switch (nextSystem){
             case 0: currentSystem = new LoginSystem(configuration.getTraderManager(), configuration.getAdminActions());
-            case 1: currentSystem = new SignupSystem(configuration.getTraderManager(), configuration.getAdminActions());
-            case 2: currentSystem = new TraderSystem(username, new TraderActions(),
+            case 1: currentSystem = new SignupSystem(configuration.getTraderManager(), configuration.getAdminActions(),
+                    configuration.getTradeManager());
+            case 2: currentSystem = new TraderSystem(username,
                     configuration.getItemManager(), configuration.getTradeManager(),
                     configuration.getTraderManager(), configuration.getMeetingManager());
             case 3: currentSystem = new AdminSystem(username, configuration.getAdminActions(), configuration.getItemManager(),

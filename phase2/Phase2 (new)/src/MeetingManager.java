@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -5,7 +6,7 @@ import java.util.List;
 /**
  * A MeetingManager class that manages meetings
  */
-public class MeetingManager {
+public class MeetingManager implements Serializable {
 
     //Each meeting is paired up with the corresponding trade's id
     private final HashMap<Integer, Meeting> meetings;

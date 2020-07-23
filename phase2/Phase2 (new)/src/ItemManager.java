@@ -2,9 +2,10 @@
 
 //import users.Trader;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class ItemManager {
+public class ItemManager implements Serializable {
     HashMap<Integer, Item> items;
     private int idCounter;
 
