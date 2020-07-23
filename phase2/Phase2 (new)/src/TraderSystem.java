@@ -2,8 +2,10 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class TraderSystem extends UserSystem{
 
@@ -395,7 +397,7 @@ public class TraderSystem extends UserSystem{
         // TODO: Make tradeType an enum in TradeManager/Trade
         i = tradeManager.createTrade(currentTrader, receiver, "ONEWAY", temporary, items);
 
-        meetingManager.createMeeting(i, currentTrader, receiver);
+        meetingManager.createMeeting(i, currentTrader, receiver, temporary);
 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
@@ -441,15 +443,15 @@ public class TraderSystem extends UserSystem{
 
         // TODO: Make tradeType an enum in TradeManager/Trade
         i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
-        meetingManager.createMeeting(i, currentTrader, receiver);
+        meetingManager.createMeeting(i, currentTrader, receiver, temporary);
 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            meetingManager.setMeetingInfo(i, tradeDate, null, location, location);
+            meetingManager.setMeetingInfo(i, tradeDate, returnDate, location, location);
         }
         else{
-            meetingManager.setMeetingInfo(i, tradeDate, null, location, null);
+            meetingManager.setMeetingInfo(i, tradeDate, null, location, location);
         }
     }
 
@@ -457,7 +459,7 @@ public class TraderSystem extends UserSystem{
      * Shows the user the three most recent items they have traded.
      */
     private void showThreeMostRecentItemsTraded(){
-        List<Integer> trades = traderManager.getTradeIds(currentTrader);
+        List<Integer> trades = tradeManager.getTrades().get(currentTrader);
         List<Integer> items = new ArrayList<>();
 
         int n = trades.size();
@@ -491,26 +493,45 @@ public class TraderSystem extends UserSystem{
         for (Integer j: items){
             System.out.println(itemManager.getItemInString(j));
         }
+
+        System.out.println("Press anything to return to the main menu:");
+        sc.nextLine();
     }
 
     /**
      * Shows the user their top three most frequent trading partners.
      */
     private void showTopThreeTradingPartners(){
-        traderActions.mostFrequentTradingPartners(currentTrader);
-        //gives u the list of usernames of traders most frequently traded with
+        TreeMap<String, Integer> tradingPartners = new TreeMap<String, Integer>();
+        List<Integer> trades = tradeManager.getTrades().get(currentTrader);
 
-        // Here, we should pass these usernames into our prompts class, which will take care of the
-        // rest of the displaying stuff part of this
+        // iterating over the user's trades
+        for(Integer i: trades){
+            String traderToAdd = null;
+            // getting the right trader from the pair of traders involved in the trade.
+            if (tradeManager.getTradeInitiator(i).equals(currentTrader)) {
+                traderToAdd = tradeManager.getTradeReceiver(i);
+            }
+            else {
+                traderToAdd = tradeManager.getTradeInitiator(i);
+            }
+            // putting the other trader into the hashmap
+            if (tradingPartners.keySet().contains(traderToAdd)) {
+                tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
+            }
+            else {
+                tradingPartners.put(traderToAdd, 1);
+            }
+        }
 
-//        traderPrompts.viewListOfTradingPartners();
-//        int o;
-//        do {
-//            o = Integer.parseInt(sc.nextLine());
-//            if(o!=0){
-//                traderPrompts.incorrectSelection();
-//            }
-//        }while(o!=0);
+        System.out.println("Here are your most frequent trading partners:");
+
+        // By the nature of TreeMap, the keys are already sorted in order of their values!
+        for (int j = tradingPartners.keySet().size() - 1; j >= 0; j--) {
+            System.out.println(tradingPartners.get(j));
+        }
+        System.out.println("Press anything to return to the main menu:");
+        sc.nextLine();
     }
 
     /**
