@@ -6,11 +6,8 @@ import java.util.List;
 public class Trader extends User {
     private boolean frozen, flagged, requestToUnfreeze;
     private int numLent, numBorrowed;
-    private List<Integer> tradeIds;
-    private List<Integer> wishlist;
-    private List<Integer> borrowedItems;
-//    private List<Integer> proposedItems;
-//    private List<Integer> approvedItems;
+    private final List<Integer> wishlist;
+    private final List<Integer> borrowedItems;
 
     //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
     // for making a new trader
@@ -21,7 +18,6 @@ public class Trader extends User {
         requestToUnfreeze = false;
         numLent = 0;
         numBorrowed = 0;
-        tradeIds = new ArrayList<>();
         wishlist = new ArrayList<>();
         borrowedItems = new ArrayList<>();
 
@@ -44,7 +40,6 @@ public class Trader extends User {
                   List<Integer> wishlist, List<Integer> borrowedItems){
         super(username, password, dateCreated);
 
-        this.tradeIds = ids;
         this.frozen = frozen;
         this.flagged = flagged;
         this.numBorrowed=numBorrowed;
@@ -54,13 +49,6 @@ public class Trader extends User {
         this.borrowedItems = borrowedItems;
     }
 
-    /**
-     * Adds the given trade to trades, ordering by tradeDate.
-     * @param id an id of the trade that the user has made
-     */
-    public void addToTradeIds(int id){
-        tradeIds.add(id);
-    }
 
     /**
      * Converts the trader to a string representation.
@@ -126,22 +114,6 @@ public class Trader extends User {
     }
 
     /**
-     * Getter for user's tradeIds
-     * @return an arraylist of the tradeIds the user has made
-     */
-    public List<Integer> getTradeIds() {
-        return tradeIds;
-    }
-
-    /**
-     * Setter for user's tradeIds
-     * @param tradeIds an arraylist of the trade Ids the user has made
-     */
-    public void setTradeIds(List<Integer> tradeIds) {
-        this.tradeIds = tradeIds;
-    }
-
-    /**
      * Getter for user's flagged boolean
      * @return whether the user is flagged
      */
@@ -158,14 +130,6 @@ public class Trader extends User {
     }
 
 
-
-    /**
-     * Removes the given trade id from tradeIds
-     * @param id an Id of trade from the list of trade ids
-     */
-    public void removeFromTrades(int id){
-        tradeIds.remove(id);
-    }
 
 //
 //    /**
