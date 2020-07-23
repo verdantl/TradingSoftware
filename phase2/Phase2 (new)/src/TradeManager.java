@@ -49,25 +49,22 @@ public class TradeManager {
         return s.toString();
     }
 
-    public void setTradeItems(Integer id, List<Integer> items){
-        tradeInventory.get(id).setItems(items);
-
-    }
     /**create a trade
-     * @param items a list of items involved in the trade
      * @param isPermanent whether or not the trade is permanent
      * @param initiator the initiator of the trade
      * @param receiver the receiver of the trade
-     * @param createdDate the time that the trade is created
-     * @return whether or not the trade is successfully created
+     * @return the trade whether or not the trade is successfully created
      */
-    public boolean createTrade(List<Integer> items, boolean isPermanent,
-                            String initiator, String receiver, LocalDate createdDate, String tradeType){
-        Trade trade = new Trade(items, isPermanent, initiator, receiver, createdDate, tradeType, counter);
+    public int createTrade(String initiator, String receiver, String tradeType, boolean isPermanent,
+                           List<Integer> items){
+        Trade trade = new Trade(counter, initiator, receiver, tradeType, isPermanent);
+        trade.setItems(items);
         counter++;
-        return addToTradeInventory(trade) && addToTrades(initiator, trade) && addToTrades(receiver, trade);
+        addToTradeInventory(trade);
+        addToTrades(initiator, trade);
+        addToTrades(receiver, trade);
+        return trade.getId();
     }
-    //I added an add to trades for the receiver above, remove it if it's wrong
 
     /**add a trade to the tradeInventory
      * @param trade the trade needed to be added in inventory
@@ -173,7 +170,7 @@ public class TradeManager {
      * @param numOfBorrow the number of items that user has borrowed
      * @return whether or not the user need to lend more items
      */
-    public boolean NeedMoreLend(String user, int numOfLend, int numOfBorrow){
+    public boolean needMoreLend(String user, int numOfLend, int numOfBorrow){
         if(trades.get(user).isEmpty()){
             return false;
         }else{
