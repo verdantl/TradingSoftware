@@ -1,11 +1,9 @@
 import java.io.IOException;
-import java.util.HashMap;
-
 
 public class MainProgram implements Runnable{
     private UserSystem currentSystem;
-    private String username; //this will be changed in the future
-    private int nextSystem; //Might change this to string depending on how we implement this.
+    private String username;
+    private int nextSystem;
     private boolean running;
 
     private final ConfigGateway configGateway;
@@ -31,6 +29,7 @@ public class MainProgram implements Runnable{
         meetingManager = (MeetingManager) configGateway.readInfo(MEETINGPATH);
         tradeManager = (TradeManager) configGateway.readInfo(TRADEPATH);
         traderManager = (TraderManager) configGateway.readInfo(TRADERPATH);
+
 //        HashMap<String, Admin> admins = new HashMap<>();
 //        adminActions = new AdminActions(admins);
 //        itemManager = new ItemManager(new HashMap<>());

@@ -91,6 +91,7 @@ public class AdminActions implements Serializable {
      */
     public boolean checkCredentials(String username, String password) {
         if (admins.containsKey(username)) {
+            System.out.println(admins.get(username).getPassword());
             return admins.get(username).getPassword().equals(password);
         } else {
             return false;

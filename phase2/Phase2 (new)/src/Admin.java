@@ -49,7 +49,7 @@ public class Admin extends User implements Serializable {
         return "Admin{" +
                 "username='" + super.getUsername() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
-                ", dateCreated=" + super.getDateCreated().toString() +
+                ", dateCreated=" + super.getDateCreated() +
                 '}';
     }
 }

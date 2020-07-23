@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private String username;
     private String password;
-    private final LocalDate dateCreated;
+    private final String dateCreated;
 
     /**
      * Default constructor of User's subclasses.
@@ -13,7 +14,7 @@ public abstract class User {
     public User (String username, String password){
         this.username = username;
         this.password = password;
-        dateCreated = LocalDate.now();
+        dateCreated = LocalDate.now().toString();
     }
 
     /**
@@ -25,12 +26,7 @@ public abstract class User {
     public User (String username, String password, String date){
         this.username = username;
         this.password = password;
-
-        String[] dateParsed = date.split("-");
-        int year = Integer.parseInt(dateParsed[0]);
-        int month = Integer.parseInt(dateParsed[1]);
-        int day = Integer.parseInt(dateParsed[2]);
-        this.dateCreated = LocalDate.of(year, month, day);
+        this.dateCreated = date;
     }
 
     /**
@@ -60,7 +56,7 @@ public abstract class User {
      * Getter for dateCreated
      * @return this user's dateCreated (which is a LocalDate object)
      */
-    public LocalDate getDateCreated (){
+    public String getDateCreated (){
         return dateCreated;
     }
 

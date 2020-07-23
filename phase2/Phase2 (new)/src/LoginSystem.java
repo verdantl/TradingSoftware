@@ -72,7 +72,7 @@ public class LoginSystem extends UserSystem{
         System.out.println(prompts.next());
         String username = br.readLine();
 
-        if (!traderManager.containTrader(username)) {
+        if (traderManager.containTrader(username)) {
             System.out.println(prompts.next());
             String password = br.readLine();
 
@@ -85,6 +85,7 @@ public class LoginSystem extends UserSystem{
                 System.out.println(prompts.wrongPassword());
             }
         }
+
         else if (adminActions.checkUsername(username)) {
             System.out.println(prompts.next());
             String password = br.readLine();

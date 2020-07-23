@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 
 public class LoginPrompts {
 
-    private ArrayList<String> prompts;
+    private final ArrayList<String> prompts;
     private int current = 0;
     private final String programName = "Phase 1 Book Trading Software";
 
