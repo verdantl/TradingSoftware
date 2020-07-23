@@ -1,11 +1,13 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 public class TraderManager implements Serializable {
     HashMap<String, Trader> users;
+    private int weeklyLimit;
+    private int maxInComplete;
+    private int moreLend;
 
     /**
      * Constructor for TraderManager given a HashMap
@@ -227,6 +229,8 @@ public class TraderManager implements Serializable {
         users.get(username).setRequestToUnfreeze(setting);
     }
 
+
+
 //    /**
 //     * Returns a list of the usernames of all traders that have items that need approving.
 //     * @return a list of strings representing the usernames of all traders with items needing approval
@@ -251,23 +255,6 @@ public class TraderManager implements Serializable {
         }
     }
 
-    /**
-     * Getter for the number of items lent by the trader with the given username
-     * @param username the username of the trader
-     * @return the number of items lent by the trader with the username
-     */
-    public int getNumLent(String username){
-        return users.get(username).getNumLent();
-    }
-
-    /**
-     * Getter for the number of items borrowed by the trader with the given username
-     * @param username the username of the trader
-     * @return the number of items borrowed
-     */
-    public int getNumBorrowed(String username){
-        return users.get(username).getNumBorrowed();
-    }
 
 //    /**
 //     * Approves or rejects an item in a user's list.
@@ -291,5 +278,47 @@ public class TraderManager implements Serializable {
 //    public void approveAllItems(String username, boolean approved){
 //        users.get(username).approveAllItems(approved);
 //    }
+
+    /**Getter for weeklyLimit
+     * @return the maximum number of trades a trade can have in a week
+     */
+    public int getWeeklyLimit() {
+        return weeklyLimit;
+    }
+
+    /**Setter for weeklyLimit
+     * @param weeklyLimit the maximum number of trades a trade can have in a week
+     */
+    public void setWeeklyLimit(int weeklyLimit) {
+        this.weeklyLimit = weeklyLimit;
+    }
+
+    /**Getter for maxInComplete
+     * @return the max number of incomplete trades that a user could have
+     */
+    public int getMaxInComplete() {
+        return maxInComplete;
+    }
+
+    /**Setter for maxInComplete
+     * @param maxInComplete the max number of incomplete trades that a user could have
+     */
+    public void setMaxInComplete(int maxInComplete) {
+        this.maxInComplete = maxInComplete;
+    }
+
+    /**Getter for moreLend
+     * @return the number that the trader need to lend before they can borrow
+     */
+    public int getMoreLend() {
+        return moreLend;
+    }
+
+    /**Setter for moreLend
+     * @param moreLend the number that the trader need to lend before they can borrow
+     */
+    public void setMoreLend(int moreLend) {
+        this.moreLend = moreLend;
+    }
 
 }

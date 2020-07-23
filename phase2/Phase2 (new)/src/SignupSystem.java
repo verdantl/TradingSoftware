@@ -4,7 +4,6 @@ public class SignupSystem extends UserSystem{
 
     TraderManager traderManager;
     AdminActions adminActions;
-    TradeManager tradeManager;
 
     private final SignupPrompts signupPrompts;
     private final Scanner scanner;
@@ -18,12 +17,11 @@ public class SignupSystem extends UserSystem{
      * @param traderManager The trader actions instance
      * @param adminActions The admin actions instance
      */
-    public SignupSystem(TraderManager traderManager, AdminActions adminActions, TradeManager tradeManager){
+    public SignupSystem(TraderManager traderManager, AdminActions adminActions){
         this.signupPrompts = new SignupPrompts();
         scanner = new Scanner(System.in);
         this.traderManager = traderManager;
         this.adminActions = adminActions;
-        this.tradeManager = tradeManager;
     }
 
     protected void init(){
