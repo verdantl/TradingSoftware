@@ -188,7 +188,7 @@ public class MeetingManager {
             getMeeting(id).setTradeStatus("Confirmed: waiting the other to confirm");
             return false;
         }else{
-            getMeeting(id).setTradeStatus("Both confirmed: the trade is completed");
+            getMeeting(id).setTradeStatus("Completed");
             return true;
         }
     }
