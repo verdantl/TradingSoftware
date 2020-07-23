@@ -15,7 +15,7 @@
             this.id = id;
             this.name = name;
             this.owner = owner;
-            status = ItemStatus.UNAVAILABLE;
+            status = ItemStatus.REQUESTED;
         }
 
         /**

@@ -17,14 +17,14 @@ public class ItemManager {
         idCounter = Collections.max(items.keySet()) + 1;
     }
 
-    //We add the item here. I assume all new items are unavailable, because they have to be approved
+    //We add the item here. I assume all new items are requested, because they have to be approved
     public void addItem(String username, String owner){
         Item item = new Item(idCounter, username, owner);
         items.put(idCounter, item);
         idCounter++;
     }
 
-    //Here I'm assuming all new items are unavailable, since they have to be approved
+    //Here I'm assuming all new items are requested since they have to be approved
     public void addItemDetails(Integer itemID, String category, String description, int quality){
         Item item = items.get(itemID);
         item.setCategory(category);
