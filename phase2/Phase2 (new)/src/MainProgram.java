@@ -12,7 +12,7 @@ public class MainProgram implements Runnable{
     /**
      * Sets up the main program for the application.
      */
-    public MainProgram() {
+    public MainProgram() throws IOException, ClassNotFoundException {
         configuration = new Configuration();
     }
 

@@ -1,4 +1,7 @@
+import java.io.Serializable;
+import com.sun.prism.shader.AlphaTexture_Color_AlphaTest_Loader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,6 +30,22 @@ public class MeetingManager implements Serializable {
             return null;
         }
         return meetings.get(id);
+    }
+
+    /**
+     * Returns a list of tradeIDs that have on-going meetings
+     * @param tradeIds The ids corresponding to the meetings
+     * @return A list of Trade ids where their respective meeting status is other than "Completed"
+     */
+    public List<Integer> getOnGoingMeetings(List<Integer> tradeIds){
+        List<Integer> temp = new ArrayList<>();
+        for(Integer i:tradeIds){
+            if(!getMeeting(i).getTradeStatus().equals("Completed")){
+                temp.add(i);
+            }
+
+        }
+        return temp;
     }
 
     /**Getter for description of a meeting

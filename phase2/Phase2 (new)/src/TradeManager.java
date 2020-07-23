@@ -33,6 +33,20 @@ public class TradeManager implements Serializable {
         return tradeInventory.get(id);
     }
 
+    /**
+     * Returns a list of username's incomplete trades.
+     * @param username The user who's trade we wish to get
+     * @return A list of the user's incomplete trades
+     */
+    public List<Integer> getIncompleteTrades(String username){
+        List<Integer> temp = new ArrayList<>();
+        for(Integer i: trades.get(username)){
+            if(tradeInventory.get(i).getCompleted()){
+                temp.add(i);
+            }
+        }
+        return temp;
+    }
     /**get a string representation of user's trade list
      * @param user the user who wants to browse his trade list
      * @return a string representation of trade list
@@ -277,5 +291,39 @@ public class TradeManager implements Serializable {
      */
     public void setMoreLend(int moreLend) {
         this.moreLend = moreLend;
+    }
+
+
+
+
+    //Returns trade info in {Created trade date, Other trade username}
+
+    /**
+     * Returns a string representation of the trade
+     * @param username Username of use who's requesting the tradeInformation
+     * @param tradeId The id of the trade
+     * @return An arraylist of info about the trade.
+     */
+    public List<String> getTradeInformation(String username, Integer tradeId){
+        List<String> temp = new ArrayList<>();
+        Trade tempTrade = tradeInventory.get(tradeId);
+        temp.add(tempTrade.getCreatedDate().toString());
+        if(tempTrade.getInitiator().equals(username)){
+            temp.add(tempTrade.getReceiver());
+        }
+        else{
+            temp.add(tempTrade.getInitiator());
+        }
+
+        return temp;
+    }
+
+    /**
+     * Returns a list of the items in the given trade
+     * @param tradeId the trade's item
+     * @return A list of item ids in the trade
+     */
+    public List<Integer> getItemIds(int tradeId){
+        return tradeInventory.get(tradeId).getItems();
     }
 }
