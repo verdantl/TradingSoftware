@@ -106,16 +106,27 @@ public class LoginSystem extends UserSystem{
         stop();
     }
 
+    /**
+     * Initiates the run loop for the program and prints the opening message
+     */
     @Override
     protected void init() {
         super.init();
         System.out.println(prompts.openingMessage());
     }
 
+    /**
+     * Getter for the username of the user whose account is being logged into
+     * @return A string representing the username of the trade or admin
+     */
     public String getNextUser(){
         return nextUser;
     }
 
+    /**
+     * Getter for the next system that the program should run
+     * @return an integer representing the next system that should be run
+     */
     protected int getNextSystem(){
         return nextSystem;
     }

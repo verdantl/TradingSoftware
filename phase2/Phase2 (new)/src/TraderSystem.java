@@ -14,7 +14,7 @@ public class TraderSystem extends UserSystem{
     private final TradeManager tradeManager;
     private final MeetingManager meetingManager;
 
-    private String currentTrader;
+    private final String currentTrader;
     private final Scanner sc;
 
     /**
@@ -99,14 +99,6 @@ public class TraderSystem extends UserSystem{
                     throw new IllegalStateException("Unexpected value: " + option);
             }
         }
-    }
-
-    public String getNextUser() {
-        return null;
-    }
-
-    protected int getNextSystem() {
-        return 0;
     }
 
     /**

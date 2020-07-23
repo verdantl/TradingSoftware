@@ -108,13 +108,4 @@ public class SignupSystem extends UserSystem{
         stop();
     }
 
-    @Override
-    public String getNextUser() {
-        return null;
-    }
-
-    @Override
-    protected int getNextSystem() {
-        return 0;
-    }
 }

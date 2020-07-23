@@ -77,16 +77,6 @@ public class AdminSystem extends UserSystem{
         }
     }
 
-    @Override
-    public String getNextUser() {
-        return null;
-    }
-
-    @Override
-    protected int getNextSystem() {
-        return 0;
-    }
-
     /**
      * Allows an admin to approve or reject administrative requests.
      */
