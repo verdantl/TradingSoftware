@@ -440,7 +440,7 @@ public class TraderSystem extends UserSystem{
      * Shows the user the three most recent items they have traded.
      */
     private void showThreeMostRecentItemsTraded(){
-        List<Integer> trades = tradeManager.getTrades().get(currentTrader);
+        List<Integer> trades = traderManager.getTrades(currentTrader);
         List<Integer> items = new ArrayList<>();
 
         int n = trades.size();
@@ -484,7 +484,7 @@ public class TraderSystem extends UserSystem{
      */
     private void showTopThreeTradingPartners(){
         TreeMap<String, Integer> tradingPartners = new TreeMap<>();
-        List<Integer> trades = tradeManager.getTrades().get(currentTrader);
+        List<Integer> trades = traderManager.getTrades(currentTrader);
 
         // iterating over the user's trades
         for(Integer i: trades){
@@ -552,7 +552,7 @@ public class TraderSystem extends UserSystem{
      */
     private void browseOnGoingTrades(){
         // No way to get on going trades currently
-        List<Integer> incompleteTrades = tradeManager.getIncompleteTrades(currentTrader);
+        List<Integer> incompleteTrades = tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader));
         List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(incompleteTrades);
 
         // The user returns to main menu if no ongoing trades
