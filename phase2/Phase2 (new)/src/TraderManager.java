@@ -199,6 +199,15 @@ public class TraderManager {
     }
 
     /**
+     * Adds an item to a Trader's wishlist.
+     * @param username the username of the Trader in question
+     * @param id the ID of the item in question
+     */
+    public void addToWishlist(String username, Integer id){
+        users.get(username).getWishlist().add(id);
+    }
+
+    /**
      * Returns true iff the Trader with the given username is frozen.
      * @param username the username of the Trader in question
      * @return true, iff the Trader with the given username's account is frozen.

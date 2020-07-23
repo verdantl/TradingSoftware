@@ -17,11 +17,12 @@ public class ItemManager {
         idCounter = Collections.max(items.keySet()) + 1;
     }
 
-    //We add the item here. I assume all new items are requested, because they have to be approved
-    public void addItem(String username, String owner){
-        Item item = new Item(idCounter, username, owner);
+    //We add the item here. I assume all new items are unavailable, because they have to be approved
+    public int addItem(String name, String owner){
+        Item item = new Item(idCounter, name, owner);
         items.put(idCounter, item);
         idCounter++;
+        return idCounter - 1;
     }
 
     //Here I'm assuming all new items are requested since they have to be approved
@@ -83,6 +84,28 @@ public class ItemManager {
 
         return approvedItems;
     }
+
+    /**
+     * Gets all items in the system not owned by the inputted user.
+     * Used for controllers, whom should not have access to an instance of an entity.
+     * @param username The trader's username
+     * @return Return the trader's approved items' IDs
+     */
+    public List<Integer> getAllApprovedItemsIDs(String username){
+        List<Integer> approvedItems = new ArrayList<>();
+        Set<Integer> ids = items.keySet();
+
+        for (Integer id: ids){
+            if(items.containsKey(id)) {
+                Item item = items.get(id);
+                if (!item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
+                    approvedItems.add(item.getId());
+                }
+            }
+        }
+        return approvedItems;
+    }
+
     /**
      * Converts all the approved items into a String representation
      * @param username The Trader's username
@@ -103,6 +126,15 @@ public class ItemManager {
         List<Item> proposedItems = getProposedItems(username);
 
         return convertItemListToString(proposedItems);
+    }
+
+    /**
+     * Returns a single item in string form.
+     * @param itemId the item in question.
+     * @return the string representation of the item corresponding to itemId
+     */
+    public String getItemInString(Integer itemId){
+        return items.get(itemId).toString();
     }
 
     /**
@@ -150,6 +182,15 @@ public class ItemManager {
         }
 
         return itemList;
+    }
+
+    /**
+     * Returns the username of the owner whom owns the item registered to the inputted item ID.
+     * @param itemId the item in question.
+     * @return the username of the owner of the item.
+     */
+    public String getOwner(Integer itemId){
+        return items.get(itemId).getOwner();
     }
 
     /**
