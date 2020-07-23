@@ -31,7 +31,7 @@ public class TraderSystem extends UserSystem{
         this.tradeManager = tradeManager;
         this.traderManager = traderManager;
         this.meetingManager = meetingManager;
-        this.traderPrompts = new TraderPrompts(itemManager, tradeManager);
+        this.traderPrompts = new TraderPrompts();
         sc = new Scanner(System.in);
         running = false;
     }

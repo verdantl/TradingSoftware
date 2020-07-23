@@ -1,7 +1,8 @@
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.temporal.WeekFields;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TraderManager implements Serializable {
     HashMap<String, Trader> users;

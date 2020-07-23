@@ -14,11 +14,11 @@ public class TradeManager implements Serializable {
 
     /**
      * Construction for the TradeManager
-     * @param tradeInventory
-     * @param trades
-     * @param weeklyLimit
-     * @param maxInComplete
-     * @param moreLend
+     * @param tradeInventory a hashmap mapping the trade id to the trade
+     * @param trades a hashmap mapping the username of the account to their trade ids
+     * @param weeklyLimit an integer representing the weekly limit of trades a user can propose
+     * @param maxInComplete the maximum incomplete trades a user can have
+     * @param moreLend the number of lends more than borrowing that a user must make
      */
     public TradeManager(HashMap<Integer, Trade> tradeInventory, HashMap<String, List<Integer>> trades,
                         int weeklyLimit, int maxInComplete, int moreLend){
@@ -205,11 +205,6 @@ public class TradeManager implements Serializable {
         tradeInventory.get(id).setCompleted(true);
     }
 
-
-    // You may not need this method for a trade having meeting, in the meetingManager,
-    // confirmMeeting return true iff both trader confirm the meeting
-    // which means that the meeting is completed
-    // I include this method here just in order to implement exceedMaxIncomplete
     /**
      * Checks whether the trade with the given id is completed.
      * @param id The trade id
@@ -306,11 +301,6 @@ public class TradeManager implements Serializable {
         this.moreLend = moreLend;
     }
 
-
-
-
-    //Returns trade info in {Created trade date, Other trade username}
-
     /**
      * Returns a string representation of the trade
      * @param username Username of use who's requesting the tradeInformation
@@ -327,7 +317,6 @@ public class TradeManager implements Serializable {
         else{
             temp.add(tempTrade.getInitiator());
         }
-
         return temp;
     }
 
