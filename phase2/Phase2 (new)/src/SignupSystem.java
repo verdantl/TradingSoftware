@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class SignupSystem extends UserSystem{
 
-    TraderActions traderActions;
+    TraderManager traderManager;
     AdminActions adminActions;
     private final SignupPrompts signupPrompts;
     private final Scanner scanner;
@@ -13,13 +13,13 @@ public class SignupSystem extends UserSystem{
 
     /**
      * Constructor for the signup system
-     * @param traderActions The trader actions instance
+     * @param traderManager The trader actions instance
      * @param adminActions The admin actions instance
      */
-    public SignupSystem(TraderActions traderActions, AdminActions adminActions){
+    public SignupSystem(TraderManager traderManager, AdminActions adminActions){
         this.signupPrompts = new SignupPrompts();
         scanner = new Scanner(System.in);
-        this.traderActions = traderActions;
+        this.traderManager = traderManager;
         this.adminActions = adminActions;
     }
 
@@ -77,7 +77,7 @@ public class SignupSystem extends UserSystem{
             available = adminActions.checkUsername(username);
         }
         else{
-            available = traderActions.checkUsername(username);
+            available = traderManager.isUsernameAvailable(username);
         }
         signupPrompts.displayUserAvailable(available);
         if (available){
@@ -104,12 +104,10 @@ public class SignupSystem extends UserSystem{
     public void createAccount(){
         signupPrompts.displayAccountSuccessful();
         if (admin){
-            Admin admin = new Admin(username, password);
-            adminActions.addAdminRequest(admin);
+            adminActions.newAdmin(username, password);
         }
         else{
-            Trader trader = new Trader(username, password);
-            traderActions.addTrader(trader);
+            traderManager.newTrader(username, password);
         }
         //Here we want to write the information
         stop();

@@ -38,12 +38,9 @@ public class AdminActions {
         return admins;
     }
 
-    /**
-     * Adds an admin request to the list
-     * @param admin an admin request
-     */
-    public void addAdmin(Admin admin){
-        admins.put(admin.getUsername(), admin);
+
+    public void newAdmin(String username, String password){
+        admins.put(username, new Admin(username, password));
     }
 
     /**

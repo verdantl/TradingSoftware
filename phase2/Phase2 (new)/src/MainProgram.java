@@ -1,5 +1,3 @@
-import gateway.Configuration;
-
 import java.io.IOException;
 
 
@@ -14,14 +12,13 @@ public class MainProgram implements Runnable{
 
     /**
      * Sets up the main program for the application.
-     * @throws IOException
      */
-    public MainProgram() throws IOException {
-        configuration = new Configuration(PATH);
+    public MainProgram() {
+        configuration = new Configuration();
     }
 
     private void init(){
-        currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
+        currentSystem = new LoginSystem(configuration.getTraderManager(), configuration.getAdminActions());
     }
 
     /**
@@ -32,7 +29,7 @@ public class MainProgram implements Runnable{
         init();
         while (running) {
             currentSystem.run();
-            configuration.saveInfo(PATH);
+            configuration.saveInfo(currentSystem, PATH);
             username = currentSystem.getNextUser();
             nextSystem = currentSystem.getNextSystem();
             setCurrentSystem();
@@ -41,12 +38,13 @@ public class MainProgram implements Runnable{
 
     private void setCurrentSystem() {
         switch (nextSystem){
-            case 0: currentSystem = new LoginSystem(configuration.getTraderActions(), configuration.getAdminActions());
-            case 1: currentSystem = new SignupSystem(configuration.getTraderActions(), configuration.getAdminActions());
-            case 2: currentSystem = new TraderSystem(username, configuration.getTraderActions(),
-                    configuration.getItemManager(), configuration.getTradeManager());
-            case 3: currentSystem = new AdminSystem(username, configuration.getTraderActions(),
-                    configuration.getAdminActions(), configuration.getTradeManager());
+            case 0: currentSystem = new LoginSystem(configuration.getTraderManager(), configuration.getAdminActions());
+            case 1: currentSystem = new SignupSystem(configuration.getTraderManager(), configuration.getAdminActions());
+            case 2: currentSystem = new TraderSystem(username, new TraderActions(),
+                    configuration.getItemManager(), configuration.getTradeManager(),
+                    configuration.getTraderManager(), configuration.getMeetingManager());
+            case 3: currentSystem = new AdminSystem(username, configuration.getAdminActions(), configuration.getItemManager(),
+                    configuration.getTradeManager(), configuration.getTraderManager(), configuration.getMeetingManager());
 
             case 4: stop();
         }
