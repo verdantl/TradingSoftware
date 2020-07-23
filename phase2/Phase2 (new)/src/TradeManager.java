@@ -304,7 +304,12 @@ public class TradeManager implements Serializable {
         return temp;
     }
 
-    public List<String> getItemIds(int tradeId){
-
+    /**
+     * Returns a list of the items in the given trade
+     * @param tradeId the trade's item
+     * @return A list of item ids in the trade
+     */
+    public List<Integer> getItemIds(int tradeId){
+        return tradeInventory.get(tradeId).getItems();
     }
 }
