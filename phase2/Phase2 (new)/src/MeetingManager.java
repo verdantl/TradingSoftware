@@ -88,7 +88,7 @@ public class MeetingManager {
         HashMap<String, Integer> edits = new HashMap<>();
         edits.put(initiator, 0);
         edits.put(receiver, 0);
-        m.setNumberOfEdits(new HashMap<>());
+        m.setNumberOfEdits(edits);
 
         meetings.put(tradeId, m);
         return true;
