@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Trade {
+public class Trade implements Serializable {
     private final String initiator;
     private final String receiver;
     private List<Integer> items;

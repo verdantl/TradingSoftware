@@ -19,7 +19,12 @@ public class TradeManager implements Serializable {
         this.weeklyLimit = weeklyLimit;
         this.maxInComplete = maxInComplete;
         this.moreLend = moreLend;
-        counter = Collections.max(tradeInventory.keySet()) + 1;
+        if (tradeInventory.keySet().size() != 0) {
+            counter = Collections.max(tradeInventory.keySet()) + 1;
+        }
+        else{
+            counter = 0;
+        }
     }
 
     /**return the trade by the id

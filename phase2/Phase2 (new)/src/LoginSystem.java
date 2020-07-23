@@ -54,8 +54,11 @@ public class LoginSystem extends UserSystem{
                     default:
                         if (!input.equals("exit")) {
                             System.out.println(prompts.invalidInput());
+                            break;
                         }
                         else{
+                            nextSystem = 4;
+                            stop();
                             break;
                         }
                 }

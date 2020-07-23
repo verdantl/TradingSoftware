@@ -15,7 +15,12 @@ public class ItemManager implements Serializable {
      */
     public ItemManager(HashMap<Integer, Item> items){
         this.items = items;
-        idCounter = Collections.max(items.keySet()) + 1;
+        if (items.keySet().size() != 0) {
+            idCounter = Collections.max(items.keySet()) + 1;
+        }
+        else{
+            idCounter = 0;
+        }
     }
 
     //We add the item here. I assume all new items are unavailable, because they have to be approved

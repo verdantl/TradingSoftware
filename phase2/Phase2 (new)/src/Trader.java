@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Trader extends User {
+public class Trader extends User implements Serializable {
     private boolean frozen, flagged, requestToUnfreeze;
     private int numLent, numBorrowed;
     private final List<Integer> wishlist;

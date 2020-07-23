@@ -75,7 +75,7 @@ public class SignupSystem extends UserSystem{
     private void checkUsername(String username){
         boolean available;
         if (admin){
-            available = adminActions.checkUsername(username);
+            available = !adminActions.checkUsername(username);
         }
         else{
             available = traderManager.isUsernameAvailable(username);

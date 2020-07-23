@@ -1,7 +1,8 @@
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
-public class Meeting{
+public class Meeting implements Serializable {
     private final int tradeId;
     private LocalDate tradeDate;
     private String location;

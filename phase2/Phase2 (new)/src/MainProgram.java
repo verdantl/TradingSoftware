@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.HashMap;
 
 
 public class MainProgram implements Runnable{
@@ -30,10 +31,17 @@ public class MainProgram implements Runnable{
         meetingManager = (MeetingManager) configGateway.readInfo(MEETINGPATH);
         tradeManager = (TradeManager) configGateway.readInfo(TRADEPATH);
         traderManager = (TraderManager) configGateway.readInfo(TRADERPATH);
+//        HashMap<String, Admin> admins = new HashMap<>();
+//        adminActions = new AdminActions(admins);
+//        itemManager = new ItemManager(new HashMap<>());
+//        meetingManager = new MeetingManager(new HashMap<>());
+//        tradeManager = new TradeManager(new HashMap<>(), new HashMap<>(), 3, 1, 1);
+//        traderManager = new TraderManager(new HashMap<>());
     }
 
     private void init() {
         currentSystem = new LoginSystem(traderManager, adminActions);
+        running = true;
     }
 
     /**
@@ -59,13 +67,18 @@ public class MainProgram implements Runnable{
     private void setCurrentSystem() {
         switch (nextSystem){
             case 0: currentSystem = new LoginSystem(traderManager, adminActions);
+            break;
             case 1: currentSystem = new SignupSystem(traderManager, adminActions);
+            break;
             case 2: currentSystem = new TraderSystem(username, itemManager, tradeManager, traderManager,
                     meetingManager);
+            break;
             case 3: currentSystem = new AdminSystem(username, adminActions,
                     itemManager, tradeManager, traderManager, meetingManager);
+            break;
 
             case 4: stop();
+            break;
         }
     }
 
