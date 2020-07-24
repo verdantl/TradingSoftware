@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Trade {
+public class Trade implements Serializable {
     private final String initiator;
     private final String receiver;
     private List<Integer> items;
@@ -10,40 +11,28 @@ public class Trade {
     private boolean isCompleted;
     private final String tradeType;
     private final LocalDate createdDate;
-    //Instead of having a boolean, we could just make the location store "Online" if it is
-    //a no meeting trade
-    //even if it is a no meeting, they still need to decide on a date and stuff
-//    private boolean hasMeeting;
 
     /**
-     * @param items List of item ids they are going to trade
-     * @param isPermanent Determines whether the trade is temporary
+     * Constructor for a new trade
+     * @param id The id of the trade
+     * @param initiator the initiator of the trade
+     * @param receiver the receiver of the trade
+     * @param tradeType the trade type
+     * @param isPermanent a boolean representing if the trade is permanent
      */
-    public Trade (List<Integer> items, boolean isPermanent,
-                  String initiator, String receiver, LocalDate createdDate, String tradeType, Integer id){
-        this.items = items;
-        this.isPermanent = isPermanent;
-        this.isCompleted = false;
+    public Trade(Integer id, String initiator, String receiver, String tradeType, boolean isPermanent){
+        this.id = id;
         this.initiator = initiator;
-        this.receiver = receiver;
-        this.createdDate = createdDate;
-        this.tradeType = tradeType;
-//        this.hasMeeting = hasMeeting;
-        this.id = id;
-    }
-
-    //Instead of this long constructor, we can use the core details first (like the initial menu
-    //for Android) and then set additional details
-
-    public Trade(Integer id, String initator, String receiver, String tradeType, boolean isPermanent){
-        this.id = id;
-        this.initiator = initator;
         this.receiver = receiver;
         this.tradeType = tradeType;
         this.isPermanent = isPermanent;
         createdDate = LocalDate.now();
     }
 
+    /**
+     * A string representation of this trade
+     * @return A string containing the details of the trade
+     */
     public String toString(){
 
         return "-TradeID: " + getId() +
@@ -127,6 +116,10 @@ public class Trade {
         return receiver;
     }
 
+    /**
+     * Getter for the date of the trade's creation
+     * @return the date of the trade
+     */
     public LocalDate getCreatedDate() {
         return createdDate;
     }

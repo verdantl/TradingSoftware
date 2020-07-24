@@ -4,11 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class AdminPrompts {
-    private int atLeast;
-    private int maxIncomplete;
-    private int maxWeekly;
     private final ArrayList<String> menuOptions;
-    private final int LINELENGTH = 80;
 
     /**
      * Constructor for the AdminPrompts class
@@ -16,8 +12,6 @@ public class AdminPrompts {
     public AdminPrompts(){
         menuOptions = new ArrayList<>();
 
-        //for now, I manually typed in the options
-        //we can change this to reading in files using setOptions or we can just do it in here
         setOptions(new String[]{"Add/remove new admin", "Manage Frozen/Unfrozen Accounts",
         "Approve Items", "View Trader's Status", "Change Limits", "Change Account Information",
         "Quit Program"});
@@ -28,7 +22,6 @@ public class AdminPrompts {
      * Setter for the  list of options displayed to the user
      * @param options an array of options
      */
-
     public void setOptions(String[] options){
         menuOptions.clear();
         menuOptions.addAll(Arrays.asList(options));
@@ -84,9 +77,6 @@ public class AdminPrompts {
     private StringBuilder printItems(List<Item> proposedItems){
         StringBuilder items = new StringBuilder();
         for (Item item: proposedItems){
-//            if (items.length() > 80){
-//                items.append("\n");
-//            }
             items.append(item.getId()).append(". ");
             items.append(item.toString());
             items.append("\n");
@@ -118,7 +108,8 @@ public class AdminPrompts {
     private StringBuilder printUsernames(List<String> accounts){
         StringBuilder usernames = new StringBuilder();
         for (int i = 0; i < accounts.size(); i++){
-            if (usernames.length() >  LINELENGTH){
+            int LINELENGTH = 80;
+            if (usernames.length() > LINELENGTH){
                 usernames.append("\n");
             }
             usernames.append(i + 1).append(". ");
@@ -173,15 +164,6 @@ public class AdminPrompts {
         System.out.println("\nEnter the number beside item that you want to approve: ");
     }
 
-    /**
-     * Displays the list of items awaiting approval
-     * @param items an arraylist of items awaiting approval
-     */
-    public void displayTraderProposedItems(List<Item> items){
-        System.out.print(printItems(items));
-        System.out.println("\nPlease enter the number for the item you wish to select. Enter" +
-                " [all] to select all items.");
-    }
 
     /**
      * Displays a list of admin requests and the approval option for the administrator

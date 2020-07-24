@@ -1,13 +1,17 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
-public class Trader extends User {
+public class Trader extends User implements Serializable {
     private boolean frozen, flagged, requestToUnfreeze;
-    private int numLent, numBorrowed;
+    private int numLent, numBorrowed, numIncomplete;
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
+    private HashMap<Integer, LocalDate> trades;
+    //private String homeCity; for the extension
 
     //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
     // for making a new trader
@@ -20,6 +24,7 @@ public class Trader extends User {
         numBorrowed = 0;
         wishlist = new ArrayList<>();
         borrowedItems = new ArrayList<>();
+        trades = new HashMap<>();
 
     }
 
@@ -28,16 +33,15 @@ public class Trader extends User {
      * @param username The user's username
      * @param password The user's password
      * @param dateCreated   The date the user was created
-     * @param ids The user's list of trade ids
      * @param frozen Whether the user's account is frozen
      * @param flagged Whether this user's account is flagged for review by a moderator
      * @param requestToUnfreeze Whether this user has requested to unfreeze.
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
      */
-    public Trader(String username, String password, String dateCreated, List<Integer> ids, boolean frozen,
-                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed,
-                  List<Integer> wishlist, List<Integer> borrowedItems){
+    public Trader(String username, String password, String dateCreated, boolean frozen,
+                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed, int numIncomplete,
+                  List<Integer> wishlist, List<Integer> borrowedItems, HashMap<Integer, LocalDate> trades){
         super(username, password, dateCreated);
 
         this.frozen = frozen;
@@ -47,6 +51,8 @@ public class Trader extends User {
         this.requestToUnfreeze = requestToUnfreeze;
         this.wishlist = wishlist;
         this.borrowedItems = borrowedItems;
+        this.trades = trades;
+        this.numIncomplete = numIncomplete;
     }
 
 
@@ -128,6 +134,14 @@ public class Trader extends User {
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
     }
+
+//    public String getHomeCity(){
+//        return homeCity;
+//    }
+//
+//    public void setHomeCity(String homeCity){
+//        this.homeCity = homeCity;
+//    }
 
 
 
@@ -237,6 +251,39 @@ public class Trader extends User {
 
     }
 
+
+    /**Getter for the numIncomplete
+     * @return the number of incomplete trades that the trader has
+     */
+    public int getNumIncomplete() {
+        return numIncomplete;
+    }
+
+    /**Setter for the numIncomplete
+     * @param numIncomplete the number of incomplete trades that the trader has
+     */
+    public void setNumIncomplete(int numIncomplete) {
+        this.numIncomplete = numIncomplete;
+    }
+
+    /**Getter for the trades
+     * @return a hashmap recording trades that the trader has
+     */
+    public HashMap<Integer, LocalDate> getTrades() {
+        return trades;
+    }
+
+    /**Add a trade to the trader's trade list
+     * @param id the id of the trade
+     * @param createdDate the date that the trade is created
+     */
+    public void addTrades(int id, LocalDate createdDate){
+        if(trades.containsKey(id)){
+            trades.replace(id, createdDate);
+        }else{
+            trades.put(id, createdDate);
+        }
+    }
 
 
 }

@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class LoginSystem extends UserSystem{
     private final LoginPrompts prompts;
 
@@ -12,7 +11,6 @@ public class LoginSystem extends UserSystem{
     private int nextSystem;
     private String nextUser;
     private final BufferedReader br;
-    private boolean running;
 
     /**
      * Constructor for this login system
@@ -54,8 +52,11 @@ public class LoginSystem extends UserSystem{
                     default:
                         if (!input.equals("exit")) {
                             System.out.println(prompts.invalidInput());
+                            break;
                         }
                         else{
+                            nextSystem = 4;
+                            stop();
                             break;
                         }
                 }
@@ -69,7 +70,7 @@ public class LoginSystem extends UserSystem{
         System.out.println(prompts.next());
         String username = br.readLine();
 
-        if (!traderManager.containTrader(username)) {
+        if (traderManager.containTrader(username)) {
             System.out.println(prompts.next());
             String password = br.readLine();
 
@@ -82,6 +83,7 @@ public class LoginSystem extends UserSystem{
                 System.out.println(prompts.wrongPassword());
             }
         }
+
         else if (adminActions.checkUsername(username)) {
             System.out.println(prompts.next());
             String password = br.readLine();
@@ -104,22 +106,28 @@ public class LoginSystem extends UserSystem{
         stop();
     }
 
+    /**
+     * Initiates the run loop for the program and prints the opening message
+     */
     @Override
     protected void init() {
-        running = true;
+        super.init();
         System.out.println(prompts.openingMessage());
     }
 
+    /**
+     * Getter for the username of the user whose account is being logged into
+     * @return A string representing the username of the trade or admin
+     */
     public String getNextUser(){
         return nextUser;
     }
 
+    /**
+     * Getter for the next system that the program should run
+     * @return an integer representing the next system that should be run
+     */
     protected int getNextSystem(){
         return nextSystem;
     }
-    @Override
-    protected void stop() {
-        running = false;
-    }
-
 }

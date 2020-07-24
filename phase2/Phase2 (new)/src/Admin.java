@@ -1,4 +1,6 @@
-public class Admin extends User{
+import java.io.Serializable;
+
+public class Admin extends User implements Serializable {
 
     private boolean isApproved;
     /**
@@ -32,7 +34,7 @@ public class Admin extends User{
 
     /**
      * Setter for isApproved
-     * @param approved
+     * @param approved whether or not the admin is approved
      */
     public void setApproved(boolean approved) {
         isApproved = approved;
@@ -47,7 +49,7 @@ public class Admin extends User{
         return "Admin{" +
                 "username='" + super.getUsername() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
-                ", dateCreated=" + super.getDateCreated().toString() +
+                ", dateCreated=" + super.getDateCreated() +
                 '}';
     }
 }

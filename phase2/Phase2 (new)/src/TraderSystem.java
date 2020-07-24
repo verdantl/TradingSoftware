@@ -1,9 +1,10 @@
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class TraderSystem extends UserSystem{
 
@@ -13,8 +14,7 @@ public class TraderSystem extends UserSystem{
     private final TradeManager tradeManager;
     private final MeetingManager meetingManager;
 
-    private String currentTrader;
-    private boolean running;
+    private final String currentTrader;
     private final Scanner sc;
 
     /**
@@ -31,13 +31,9 @@ public class TraderSystem extends UserSystem{
         this.tradeManager = tradeManager;
         this.traderManager = traderManager;
         this.meetingManager = meetingManager;
-        this.traderPrompts = new TraderPrompts(itemManager, tradeManager);
+        this.traderPrompts = new TraderPrompts();
         sc = new Scanner(System.in);
         running = false;
-    }
-
-    protected void init() {
-        running = true;
     }
 
     public void run() {
@@ -51,7 +47,6 @@ public class TraderSystem extends UserSystem{
             }
 
             // Present the options to the user here.
-
             traderPrompts.displayMainMenu();
 
             option = Integer.parseInt(sc.nextLine());
@@ -65,7 +60,7 @@ public class TraderSystem extends UserSystem{
             switch(option) {
                 case 0:
                     // Exit the program
-                    this.stop();
+                    stop();
                     break;
                 case 1:
                     // Propose an item to be lent
@@ -100,27 +95,16 @@ public class TraderSystem extends UserSystem{
                     // Request to unfreeze the account
                     requestUnfreeze();
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + option);
             }
         }
-    }
-
-    protected void stop() {
-        running = false;
-    }
-
-    public String getNextUser() {
-        return null;
-    }
-
-    protected int getNextSystem() {
-        return 0;
     }
 
     /**
      * Asks the user to enter the item's information that they want to propose to be added to currentTrader's wantToLend list.
      */
     private void proposeItemToLend(){
-        //I have commented out all the things related to prompts, etc. Since we're doing gui we might have to rewrite all of this.
         List<String> temp = new ArrayList<>();
         // Copied from TraderPrompts.setUpProposeItemPrompts
         temp.add("Enter \"0\" at any time to exit");//0
@@ -130,7 +114,6 @@ public class TraderSystem extends UserSystem{
         temp.add("Enter the item's quality rating from 1-10:");//4
         temp.add("Your item is waiting to be reviewed by an Administrator, please check back later.");//5
 
-//        String itemName, category, description;
         int rating;
         ArrayList<String> itemAttributes = new ArrayList<>();
 
@@ -138,7 +121,7 @@ public class TraderSystem extends UserSystem{
         itemAttributes.add("category");
         itemAttributes.add("description");
 
-        String o = null;
+        String o = "-1";
 
         int loopVar = 0;
         System.out.println(temp.get(loopVar));
@@ -216,7 +199,7 @@ public class TraderSystem extends UserSystem{
             if(o!=0){
                 traderManager.removeFromWishlist(currentTrader, o);
                 traderPrompts.displayString("Item was removed.");
-                availableOptions.remove(availableOptions.remove(o));
+                availableOptions.remove(o);
                 traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
                 traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
                 System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
@@ -248,7 +231,7 @@ public class TraderSystem extends UserSystem{
             }
             if (o != 0){
                 System.out.println(itemManager.getItemInString(o));
-                o2 = Integer.parseInt(sc.nextLine());
+                o2 = Integer.getInteger(sc.nextLine());
                 if (o2 == 1){
                     if(!traderManager.getWishlistIds(currentTrader).contains(o)) {
                         traderManager.addToWishlist(currentTrader, o);
@@ -395,12 +378,12 @@ public class TraderSystem extends UserSystem{
         // TODO: Make tradeType an enum in TradeManager/Trade
         i = tradeManager.createTrade(currentTrader, receiver, "ONEWAY", temporary, items);
 
-        meetingManager.createMeeting(i, currentTrader, receiver);
+        meetingManager.createMeeting(i, currentTrader, receiver, temporary);
 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            meetingManager.setMeetingInfo(i, tradeDate, null, location, location);
+            meetingManager.setMeetingInfo(i, tradeDate, returnDate, location, location);
         }
         else{
             meetingManager.setMeetingInfo(i, tradeDate, null, location, null);
@@ -441,15 +424,15 @@ public class TraderSystem extends UserSystem{
 
         // TODO: Make tradeType an enum in TradeManager/Trade
         i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
-        meetingManager.createMeeting(i, currentTrader, receiver);
+        meetingManager.createMeeting(i, currentTrader, receiver, temporary);
 
         if (temporary){
             // We are assuming that the return date is the date of the trade plus one month.
             LocalDate returnDate = tradeDate.plusMonths(1);
-            meetingManager.setMeetingInfo(i, tradeDate, null, location, location);
+            meetingManager.setMeetingInfo(i, tradeDate, returnDate, location, location);
         }
         else{
-            meetingManager.setMeetingInfo(i, tradeDate, null, location, null);
+            meetingManager.setMeetingInfo(i, tradeDate, null, location, location);
         }
     }
 
@@ -457,40 +440,82 @@ public class TraderSystem extends UserSystem{
      * Shows the user the three most recent items they have traded.
      */
     private void showThreeMostRecentItemsTraded(){
-        traderActions.getMostRecentItems(currentTrader);
-        //gives u the list of item ids that are traded^^
+        List<Integer> trades = traderManager.getTrades(currentTrader);
+        List<Integer> items = new ArrayList<>();
 
-        // Here, we should pass these ids into our prompts class, which will take care of the rest
-        // of the displaying stuff part of this
+        int n = trades.size();
+        for (int j = 1; j < n; j++) {
+            Integer bruh = trades.get(j);
+            int i = j-1;
+            while (i > -1 && tradeManager.getDateCreated(trades.get(i))
+                    .isAfter(tradeManager.getDateCreated(bruh))) {
+                trades.set(trades.get(i+1), trades.get(i));
+                i--;
+            }
+            trades.set(i+1, bruh);
+        }
 
-//        traderPrompts.viewListOfRecentItems(traderActions.getMostRecentItems(currentTrader));
-//        int o;
-//        do {
-//            o = Integer.parseInt(sc.nextLine());
-//            if(o != 0){
-//                traderPrompts.incorrectSelection();
-//            }
-//        }while(o != 0);
+        // This is an ugly, ugly piece of code but I'm too tired to do better.
+        // iterating over the list of this user's trades from front to back
+        for (int j = trades.size() - 1; j >= 0; j--) {
+            // if the trade is completed, then we'll consider it
+            if (meetingManager.getMeetingStatus(trades.get(j)).equals("COMPLETED")) {
+                // iterating over the 1-2 items involved with the trade
+                for (Integer i: tradeManager.getItems(trades.get(j))) {
+                    // if the item is now owned by the appropriate trader
+                    if (itemManager.getOwner(i).equals(currentTrader)){
+                        items.add(i);
+                    }
+                }
+            }
+        }
+
+        System.out.println("Here are the items you have most recently traded:");
+        for (Integer j: items){
+            System.out.println(itemManager.getItemInString(j));
+        }
+
+        System.out.println("Press anything to return to the main menu:");
+        sc.nextLine();
     }
 
     /**
      * Shows the user their top three most frequent trading partners.
      */
     private void showTopThreeTradingPartners(){
-        traderActions.mostFrequentTradingPartners(currentTrader);
-        //gives u the list of usernames of traders most frequently traded with
+        TreeMap<String, Integer> tradingPartners = new TreeMap<>();
+        List<Integer> trades = traderManager.getTrades(currentTrader);
 
-        // Here, we should pass these usernames into our prompts class, which will take care of the
-        // rest of the displaying stuff part of this
+        // iterating over the user's trades
+        for(Integer i: trades){
+            String traderToAdd;
+            // getting the right trader from the pair of traders involved in the trade.
+            if (tradeManager.getTradeInitiator(i).equals(currentTrader)) {
+                traderToAdd = tradeManager.getTradeReceiver(i);
+            }
+            else {
+                traderToAdd = tradeManager.getTradeInitiator(i);
+            }
+            // putting the other trader into the hashmap
+            if (tradingPartners.containsKey(traderToAdd)) {
+                tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
+            }
+            else {
+                tradingPartners.put(traderToAdd, 1);
+            }
+        }
 
-//        traderPrompts.viewListOfTradingPartners();
-//        int o;
-//        do {
-//            o = Integer.parseInt(sc.nextLine());
-//            if(o!=0){
-//                traderPrompts.incorrectSelection();
-//            }
-//        }while(o!=0);
+        System.out.println("Here are your most frequent trading partners:");
+
+        // By the nature of TreeMap, the keys are already sorted in order of their values!
+        TreeSet<String> traders = new TreeSet<>(tradingPartners.keySet());
+        // Getting the last 3 elements of traders.
+        for (int j = traders.size() - 1; j >= trades.size() - 4 && j >= 0; j--) {
+            System.out.println(traders.toArray()[j]);
+        }
+
+        System.out.println("Press anything to return to the main menu:");
+        sc.nextLine();
     }
 
     /**
@@ -511,7 +536,6 @@ public class TraderSystem extends UserSystem{
             traderPrompts.displayString("You have already requested to unfreeze your account. Please wait.");
         }
 
-        // Holy shit, I just realised how bad this is for clean architecture lol im dumb
         traderManager.setRequestToUnfreeze(currentTrader,true);
         int o;
         do {
@@ -528,7 +552,7 @@ public class TraderSystem extends UserSystem{
      */
     private void browseOnGoingTrades(){
         // No way to get on going trades currently
-        List<Integer> incompleteTrades = tradeManager.getIncompleteTrades(currentTrader);
+        List<Integer> incompleteTrades = tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader));
         List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(incompleteTrades);
 
         // The user returns to main menu if no ongoing trades
@@ -546,20 +570,22 @@ public class TraderSystem extends UserSystem{
         }
         // traderPrompts.browseOnGoingTrades(onGoingTrades);
 
-
         // The user selects a trade from list
         int select;
         do {
             System.out.println("Type number listed with trade to select it or [0] to return to main menu.");
             //traderPrompts.displayString("Type number listed with trade to select it or [0] to return to main menu.");
-            select = Integer.parseInt(sc.nextLine());
             StringBuilder s = new StringBuilder();
-            //This is what goes in the presenter:
             for(Integer i: onGoingTrades){
-                s.append(tradeManager.getTradeInformation(currentTrader, select));
-                s.append(tradeManager.getItemIds(select));
+                s.append(tradeManager.getTradeInformation(currentTrader, i));
+                s.append(tradeManager.getItemIds(i));
                 s.append("\n");
             }
+            select = Integer.parseInt(sc.nextLine());
+
+            //This is what goes in the presenter:
+
+            System.out.println(s);
             // If user enters number greater than number of trades or less than 0
             // display incorrect selection prompt and ask to enter again
             if (select > onGoingTrades.size() || select < 0){
@@ -581,6 +607,7 @@ public class TraderSystem extends UserSystem{
                     traderPrompts.displayString(editOption);
                     if(editOption.equals("Cancelling edit")){
                         // traderPrompts.browseOnGoingTrades(onGoingTrades);
+                        System.out.println("Cancelling edit");
                     }
                     break;
                 case 2:

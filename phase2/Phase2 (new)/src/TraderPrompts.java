@@ -1,16 +1,14 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class TraderPrompts {
     ArrayList<String> mainMenuPrompts, proposeItemPrompts;
     private final String instruction = "Please enter the number of the option " +
             "you would like to select.";
-    private final ItemManager itemManager;
-    private final TradeManager tradeManager;
 
-    public TraderPrompts(ItemManager itemManager, TradeManager tradeManager){
-        this.itemManager = itemManager;
-        this.tradeManager = tradeManager;
+    /**
+     * Constructor for the presenter of tradersystem
+     */
+    public TraderPrompts(){
         setUpMainMenuPrompts();
         setUpProposeItemPrompts();
     }

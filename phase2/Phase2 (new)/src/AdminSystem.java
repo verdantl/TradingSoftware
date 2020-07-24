@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -13,13 +12,20 @@ public class AdminSystem extends UserSystem{
     private final TradeManager tradeManager;
     private final TraderManager traderManager;
     private final MeetingManager meetingManager;
-    private boolean running;
-    private String currentAdmin;
+    private final String currentAdmin;
     private final Scanner scanner;
 
     private final String toMainMenu = "0";
 
-
+    /**
+     * Constructor for the system that admins log into
+     * @param currentAdmin the username of the current admin that is using the system
+     * @param adminActions a class that can alter admin information
+     * @param itemManager a class that can alter item information
+     * @param tradeManager a class that can alter trade information
+     * @param traderManager a class that can alter trader information
+     * @param meetingManager a class that can alter meeting information
+     */
     public AdminSystem(String currentAdmin, AdminActions adminActions, ItemManager itemManager,
                        TradeManager tradeManager, TraderManager traderManager, MeetingManager meetingManager) {
         this.adminActions = adminActions;
@@ -32,10 +38,6 @@ public class AdminSystem extends UserSystem{
         adminPrompts = new AdminPrompts();
         running = false;
         scanner = new Scanner(System.in);
-    }
-
-    protected void init() {
-        running = true;
     }
 
     /**
@@ -73,20 +75,6 @@ public class AdminSystem extends UserSystem{
                     break;
             }
         }
-    }
-
-    protected void stop() {
-        running = false;
-    }
-
-    @Override
-    public String getNextUser() {
-        return null;
-    }
-
-    @Override
-    protected int getNextSystem() {
-        return 0;
     }
 
     /**
@@ -366,21 +354,21 @@ public class AdminSystem extends UserSystem{
             option = scanner.nextLine();
             switch(option){
                 case "1":
-                    adminPrompts.displayThresholdOption(tradeManager.getMaxInComplete());
+                    adminPrompts.displayThresholdOption(traderManager.getMaxInComplete());
                     int newMaxIncomplete = scanner.nextInt();
-                    tradeManager.setMaxInComplete(newMaxIncomplete);
+                    traderManager.setMaxInComplete(newMaxIncomplete);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "2":
-                    adminPrompts.displayThresholdOption(tradeManager.getWeeklyLimit());
+                    adminPrompts.displayThresholdOption(traderManager.getWeeklyLimit());
                     int newLimitOfTradesPerWeek = scanner.nextInt();
-                    tradeManager.setWeeklyLimit(newLimitOfTradesPerWeek);
+                    traderManager.setWeeklyLimit(newLimitOfTradesPerWeek);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 case "3":
-                    adminPrompts.displayThresholdOption(tradeManager.getMoreLend());
+                    adminPrompts.displayThresholdOption(traderManager.getMoreLend());
                     int newMoreLendNeeded = scanner.nextInt();
-                    tradeManager.setMoreLend(newMoreLendNeeded);
+                    traderManager.setMoreLend(newMoreLendNeeded);
                     adminPrompts.displaySuccessMessage(1, "Limit");
                     break;
                 default:
