@@ -37,7 +37,6 @@ public class MainProgram implements Runnable{
 //        meetingManager = new MeetingManager(new HashMap<>());
 //        tradeManager = new TradeManager(new HashMap<>());
 //        traderManager = new TraderManager(new HashMap<>(), 3, 1, 1);
-        adminActions.approveAdmin("Admin", true);
     }
 
     private void init() {
