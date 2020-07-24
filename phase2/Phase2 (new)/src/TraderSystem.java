@@ -575,14 +575,17 @@ public class TraderSystem extends UserSystem{
         do {
             System.out.println("Type number listed with trade to select it or [0] to return to main menu.");
             //traderPrompts.displayString("Type number listed with trade to select it or [0] to return to main menu.");
-            select = Integer.parseInt(sc.nextLine());
             StringBuilder s = new StringBuilder();
-            //This is what goes in the presenter:
             for(Integer i: onGoingTrades){
-                s.append(tradeManager.getTradeInformation(currentTrader, select));
-                s.append(tradeManager.getItemIds(select));
+                s.append(tradeManager.getTradeInformation(currentTrader, i));
+                s.append(tradeManager.getItemIds(i));
                 s.append("\n");
             }
+            select = Integer.parseInt(sc.nextLine());
+
+            //This is what goes in the presenter:
+
+            System.out.println(s);
             // If user enters number greater than number of trades or less than 0
             // display incorrect selection prompt and ask to enter again
             if (select > onGoingTrades.size() || select < 0){
@@ -604,6 +607,7 @@ public class TraderSystem extends UserSystem{
                     traderPrompts.displayString(editOption);
                     if(editOption.equals("Cancelling edit")){
                         // traderPrompts.browseOnGoingTrades(onGoingTrades);
+                        System.out.println("Cancelling edit");
                     }
                     break;
                 case 2:
