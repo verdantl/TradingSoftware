@@ -11,6 +11,7 @@ public class Trader extends User implements Serializable {
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
     private HashMap<Integer, LocalDate> trades;
+    //private String homeCity; for the extension
 
     //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
     // for making a new trader
@@ -133,6 +134,14 @@ public class Trader extends User implements Serializable {
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
     }
+
+//    public String getHomeCity(){
+//        return homeCity;
+//    }
+//
+//    public void setHomeCity(String homeCity){
+//        this.homeCity = homeCity;
+//    }
 
 
 

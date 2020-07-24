@@ -291,17 +291,23 @@ public class ItemManager implements Serializable {
         items.get(id).setQualityRating(rating);
     }
 
-    /**
-     *
-     * @param item The Item
-     * @return Return String representation of the item
-     */
-    public String convertItemToString(Item item){
+//    public List<String> getUsersItemInString(List<String> usernames){
+//        List<Item> itemList = new ArrayList<>();
+//        for(Item item: items.values()){
+//            if(usernames.contains(item.getOwner())){
+//                itemList.add(item);
+//            }
+//        }
+//        return convertItemListToString(itemList);
+//    }
+
+
+    private String convertItemToString(Item item){
         //TODO: Implement this method
         return "";
     }
 
-    public List<String> convertItemListToString(List<Item> items){
+    private List<String> convertItemListToString(List<Item> items){
         //TODO: Implement this method
 
         List<String> stringList = new ArrayList<>();

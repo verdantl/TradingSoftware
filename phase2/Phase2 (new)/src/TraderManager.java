@@ -229,6 +229,17 @@ public class TraderManager implements Serializable {
         users.get(username).setRequestToUnfreeze(setting);
     }
 
+    // for extension
+//    public List<String> getUsersWithSameLocation(String location){
+//        List<String> usernames = new ArrayList<>();
+//        for(User u: users){
+//            if(u.getHomeCity().equals(location)){
+//                usernames.add(u.getUsername());
+//            }
+//        }
+//        return usernames;
+//    }
+
 
 
 //    /**
