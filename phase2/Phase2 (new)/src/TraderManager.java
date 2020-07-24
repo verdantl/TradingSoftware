@@ -13,8 +13,11 @@ public class TraderManager implements Serializable {
      * Constructor for TraderManager given a HashMap
      * @param users The hashmap of Traders to users.
      */
-    public TraderManager(HashMap<String, Trader> users){
+    public TraderManager(HashMap<String, Trader> users, int weeklyLimit, int maxInComplete, int moreLend){
         this.users = users;
+        this.weeklyLimit = weeklyLimit;
+        this.maxInComplete = maxInComplete;
+        this.moreLend = moreLend;
     }
 
 
