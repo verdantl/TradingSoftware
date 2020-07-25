@@ -160,12 +160,12 @@ public class TraderSystem extends UserSystem{
                 "or [0] to exit.");
 
         System.out.println(itemManager.getApprovedItemsInString(currentTrader));
-        int o = Integer.getInteger(sc.nextLine());
+        int o = Integer.parseInt(sc.nextLine());
 
         while(o!=0){
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.getInteger(sc.nextLine());
+                o = Integer.parseInt(sc.nextLine());
             }
             // If o passes while loop and isn't 0, o must be a valid input.
             if(o!=0){
@@ -189,12 +189,12 @@ public class TraderSystem extends UserSystem{
         traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
         traderPrompts.displayString("Choose the item you want to remove by typing in its respective ID: ");
         System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
-        Integer o = Integer.getInteger(sc.nextLine());
+        Integer o = Integer.parseInt(sc.nextLine());
 
         while(o!=0){
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.getInteger(sc.nextLine());
+                o = Integer.parseInt(sc.nextLine());
             }
             if(o!=0){
                 traderManager.removeFromWishlist(currentTrader, o);
@@ -203,7 +203,7 @@ public class TraderSystem extends UserSystem{
                 traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
                 traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
                 System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
-                o = Integer.getInteger(sc.nextLine());
+                o = Integer.parseInt(sc.nextLine());
             }
         }
     }
@@ -224,14 +224,14 @@ public class TraderSystem extends UserSystem{
             for (String str: itemManager.getListOfItemsInString(itemList)){
                 System.out.println(str);
             }
-            o = Integer.getInteger(sc.nextLine());
+            o = Integer.parseInt(sc.nextLine());
             while (!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.getInteger(sc.nextLine());
+                o = Integer.parseInt(sc.nextLine());
             }
             if (o != 0){
                 System.out.println(itemManager.getItemInString(o));
-                o2 = Integer.getInteger(sc.nextLine());
+                o2 = Integer.parseInt(sc.nextLine());
                 if (o2 == 1){
                     if(!traderManager.getWishlistIds(currentTrader).contains(o)) {
                         traderManager.addToWishlist(currentTrader, o);
@@ -410,7 +410,7 @@ public class TraderSystem extends UserSystem{
                 "the one you want to trade with your trading partner:");
         System.out.println(itemManager.getApprovedItemsInString(currentTrader));
 
-        int itemChoice = Integer.getInteger(sc.nextLine());
+        int itemChoice = Integer.parseInt(sc.nextLine());
 
         while(!itemManager.getApprovedItemsIDs(currentTrader).contains(itemChoice) ||
                 itemChoice < 0){
