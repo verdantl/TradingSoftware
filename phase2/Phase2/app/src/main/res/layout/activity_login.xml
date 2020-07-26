@@ -113,9 +113,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/avatar_1"
+        android:layout_width="178dp"
+        android:layout_height="169dp"
+        android:contentDescription="@string/trading_system"
+        android:src="@drawable/ic_baseline_account_circle_24"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
         app:layout_constraintEnd_toEndOf="parent"
