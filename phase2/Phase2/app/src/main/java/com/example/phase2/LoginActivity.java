@@ -1,6 +1,7 @@
 package com.example.phase2;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,16 +12,20 @@ import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.TraderManager;
 
 public class LoginActivity extends AppCompatActivity {
-    private final AdminActions adminActions;
-    private final TraderManager traderManager;
+    private AdminActions adminActions;
+    private TraderManager traderManager;
 
     private int nextSystem;
     private String nextUser;
 
-    public LoginActivity(TraderManager traderManager, AdminActions adminActions){
-        super();
-        this.traderManager = traderManager;
-        this.adminActions = adminActions;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+//        Bundle bundle = getIntent().getExtras();
+//        assert bundle != null;
+//        traderManager = (TraderManager) bundle.get("TraderManager");
+//        adminActions = (AdminActions) bundle.get("AdminActions");
     }
 
     public void onLoginClicked(View view){
