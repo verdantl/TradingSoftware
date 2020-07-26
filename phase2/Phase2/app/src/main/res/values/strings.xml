@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Phase2</string>
+    <string name="trading_system">Trading System</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
