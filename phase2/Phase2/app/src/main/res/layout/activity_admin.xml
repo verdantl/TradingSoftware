@@ -1,10 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminActivity">
 
+    <Button
+        android:id="@+id/option3Btn"
+        android:layout_width="157dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="20dp"
+        android:onClick="addRemoveItems"
+        android:text="@string/admin_option3"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toTopOf="@+id/option5Btn"
+        app:layout_constraintEnd_toStartOf="@+id/option4Btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option1Btn"
+        app:layout_constraintVertical_bias="0.086" />
+
+    <Button
+        android:id="@+id/option1Btn"
+        android:layout_width="157dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="120dp"
+        android:onClick="addRemoveAdmin"
+        android:text="@string/admin_option1"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toStartOf="@+id/option2Btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/option5Btn"
+        android:layout_width="157dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginBottom="76dp"
+        android:onClick="changeLimits"
+        android:text="@string/admin_option5"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/option6Btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/option6Btn"
+        android:layout_width="157dp"
+        android:layout_height="121dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="76dp"
+        android:onClick="changePassword"
+        android:text="@string/admin_option6"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/option4Btn"
+        android:layout_width="157dp"
+        android:layout_height="121dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:onClick="viewStatus"
+        android:text="@string/admin_option4"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toTopOf="@+id/option6Btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/option2Btn" />
+
+    <Button
+        android:id="@+id/option2Btn"
+        android:layout_width="157dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:onClick="manageAccounts"
+        android:text="@string/admin_option2"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="option2Btn,option4Btn,option6Btn,option3Btn,option5Btn,option1Btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
