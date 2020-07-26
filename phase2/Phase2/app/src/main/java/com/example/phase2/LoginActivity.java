@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     private String nextUser;
 
     public LoginActivity(TraderManager traderManager, AdminActions adminActions){
+        super();
         this.traderManager = traderManager;
         this.adminActions = adminActions;
     }
@@ -27,14 +28,16 @@ public class LoginActivity extends AppCompatActivity {
         EditText passEditText = findViewById(R.id.editTextTextPassword);
         String username = userEditText.getText().toString();
         String password = passEditText.getText().toString();
-        Intent intent;
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Next User", username);
+
         if (traderManager.login(username, password)){
-            nextUser = username;
-            nextSystem = 2;
+            intent.putExtra("NextSystem", 2);
+            startActivity(intent);
         }
         else if (adminActions.checkCredentials(username, password)){
-            nextUser = username;
-            nextSystem = 3;
+            intent.putExtra("NextSystem", 3);
+            startActivity(intent);
         }
         else{
             TextView textView = findViewById(R.id.loginerror);
