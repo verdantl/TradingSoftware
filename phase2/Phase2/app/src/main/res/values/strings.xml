@@ -6,4 +6,11 @@
     <string name="sign_up">Sign Up</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="log_in">Log In</string>
+    <string name="admin_option1">Add/Remove New Admin</string>
+    <string name="admin_option2">Manage Frozen/Unfrozen Accounts</string>
+    <string name="admin_option3">Add/Remove Item</string>
+    <string name="admin_option4">View Trader\'s Status</string>
+    <string name="admin_option5">Change Limits</string>
+    <string name="admin_option6">Change Password</string>
+
 </resources>
