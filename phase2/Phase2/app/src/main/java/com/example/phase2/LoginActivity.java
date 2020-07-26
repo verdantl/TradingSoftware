@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             TextView textView = findViewById(R.id.loginerror);
             textView.setText(R.string.login_error);
-            textView.setColo
+            textView.setTextColor(getResources().getColor(R.color.red));
         }
     }
 
