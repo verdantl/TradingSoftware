@@ -10,31 +10,31 @@
         android:id="@+id/option3Btn"
         android:layout_width="157dp"
         android:layout_height="121dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
         android:onClick="addRemoveItems"
         android:text="@string/admin_option3"
         android:textSize="21sp"
         app:layout_constraintBottom_toTopOf="@+id/option5Btn"
         app:layout_constraintEnd_toStartOf="@+id/option4Btn"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/option1Btn"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.44" />
 
     <Button
         android:id="@+id/option1Btn"
         android:layout_width="157dp"
         android:layout_height="121dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="160dp"
         android:onClick="addRemoveAdmin"
         android:text="@string/admin_option1"
         android:textSize="21sp"
         app:layout_constraintEnd_toStartOf="@+id/option2Btn"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,54 +42,61 @@
         android:id="@+id/option5Btn"
         android:layout_width="157dp"
         android:layout_height="121dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="100dp"
         android:onClick="changeLimits"
         android:text="@string/admin_option5"
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/option6Btn"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/option6Btn"
-        android:layout_width="157dp"
+        android:layout_width="0dp"
         android:layout_height="121dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="100dp"
         android:onClick="changePassword"
         android:text="@string/admin_option6"
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/option5Btn" />
 
     <Button
         android:id="@+id/option4Btn"
-        android:layout_width="157dp"
+        android:layout_width="0dp"
         android:layout_height="121dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:onClick="viewStatus"
         android:text="@string/admin_option4"
         android:textSize="21sp"
         app:layout_constraintBottom_toTopOf="@+id/option6Btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option2Btn" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/option3Btn"
+        app:layout_constraintTop_toBottomOf="@+id/option2Btn"
+        app:layout_constraintVertical_bias="0.535" />
 
     <Button
         android:id="@+id/option2Btn"
-        android:layout_width="157dp"
+        android:layout_width="0dp"
         android:layout_height="121dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:onClick="manageAccounts"
         android:text="@string/admin_option2"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/option1Btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -111,4 +118,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="option2Btn,option4Btn,option6Btn,option3Btn,option5Btn,option1Btn" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="107dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/darkBlue"
+        android:text="@string/back"
+        android:textColor="@color/white"
+        android:textColorHighlight="@android:color/holo_blue_dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

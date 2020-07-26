@@ -14,5 +14,6 @@
     <string name="admin_option4">View Trader\'s Status</string>
     <string name="admin_option5">Change Limits</string>
     <string name="admin_option6">Change Password</string>
+    <string name="back">Back</string>
 
 </resources>
