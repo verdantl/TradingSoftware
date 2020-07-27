@@ -686,6 +686,8 @@ public class TraderSystem extends UserSystem{
             for (Item traderItem : itemManager.getApprovedItems(currentTrader)){
                 if (receiverItem.getCategory().equals(traderItem.getCategory())){
                     helper = Math.abs(receiverItem.getQualityRating() - traderItem.getQualityRating());
+                    if (helper == 0)
+                        return currentItem;
                     if (helper < ratingDifference){
                         currentItem = traderItem.getId();
                         ratingDifference = helper;
