@@ -23,10 +23,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        Bundle bundle = getIntent().getExtras();
-//        assert bundle != null;
-//        traderManager = (TraderManager) bundle.get("TraderManager");
-//        adminActions = (AdminActions) bundle.get("AdminActions");
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        traderManager = (TraderManager) bundle.get("TraderManager");
+        adminActions = (AdminActions) bundle.get("AdminActions");
     }
 
     public void onLoginClicked(View view){
@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
             //textView.setText(R.string.login_error);
             //textView.setTextColor(getResources().getColor(R.color.red));
             Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
-
         }
     }
 
