@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.phase2.phase2.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private ConfigGateway configGateway;
@@ -16,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
     private TraderManager traderManager;
     private TradeManager tradeManager;
 
-    private final String ADMINPATH = "java/com/example/phase2/phase2/configfiles/admins.ser";
-    private final String ITEMPATH = "java/com/example/phase2/phase2/configfiles/items.ser";
-    private final String MEETINGPATH = "java/com/example/phase2/phase2/configfiles/meetings.ser";
-    private final String TRADERPATH = "java/com/example/phase2/phase2/configfiles/traders.ser";
-    private final String TRADEPATH = "java/com/example/phase2/phase2/configfiles/trade.ser";
+    private final String ADMINPATH = "src/main/java/com/example/phase2/phase2/configfiles/admins.ser";
+    private final String ITEMPATH = "src/main/java/com/example/phase2/phase2/configfiles/items.ser";
+    private final String MEETINGPATH = "src/main/java/com/example/phase2/phase2/configfiles/meetings.ser";
+    private final String TRADERPATH = "src/main/java/com/example/phase2/phase2/configfiles/traders.ser";
+    private final String TRADEPATH = "src/main/java/com/example/phase2/phase2/configfiles/trade.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,16 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
-//        Intent intent = new Intent(this, LoginActivity.class);
-//        intent.putExtra("TraderManager", traderManager);
-//        intent.putExtra("AdminActions", adminActions);
-//        startActivity(intent);
+        HashMap<String, Admin> admins = new HashMap<>();
+        adminActions = new AdminActions(admins);
+        itemManager = new ItemManager(new HashMap<Integer, Item>());
+        meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
+        tradeManager = new TradeManager(new HashMap<Integer, Trade>());
+        traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 1);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("AdminActions", adminActions);
+        startActivity(intent);
 
     }
 

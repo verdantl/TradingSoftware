@@ -114,8 +114,8 @@ public class AdminActions implements Serializable {
      * Gets list of requested admins
      * @return Return a list of requested admins
      */
-    public List<String> getRequestedAdmins(){
-        List<String> requestedAdmins = new ArrayList<>();
+    public ArrayList<String> getRequestedAdmins(){
+        ArrayList<String> requestedAdmins = new ArrayList<>();
         for(String username: admins.keySet()){
             if(!admins.get(username).isApproved()){
                 requestedAdmins.add(username);

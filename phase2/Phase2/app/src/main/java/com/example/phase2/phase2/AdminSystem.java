@@ -148,6 +148,7 @@ public class AdminSystem extends UserSystem{
                     break;
                 }
                 boolean freeze = traderManager.freezeAccount(flagged.get(chosenFlag));
+                itemManager.getAllApprovedItemsIDs(flagged.get(chosenFlag));
                 adminPrompts.displayFreezeConfirmation(freeze, "Freeze");
                 break;
             case "2":
