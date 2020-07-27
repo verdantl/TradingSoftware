@@ -1,3 +1,5 @@
+package com.example.phase2.phase2;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -404,6 +406,24 @@ public class TraderManager implements Serializable {
      */
     public void setMoreLend(int moreLend) {
         this.moreLend = moreLend;
+    }
+
+    /**
+     * Sets username's status to active or inactive.
+     * @param username The trader's username
+     * @param bool whether the trader will be active or inactive
+     */
+    public void setTraderInactive(String username, boolean bool){
+        users.get(username).setInactive(bool);
+    }
+
+    /**
+     * Get's the user with the given user's activity status
+     * @param username The user who's status is to be checked
+     * @return true if username is inactive, false otherwise.
+     */
+    public boolean isInactive(String username){
+        return users.get(username).getInactive();
     }
 
 }

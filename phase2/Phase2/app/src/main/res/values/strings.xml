@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Phase2</string>
+    <string name="trading_system">Trading System</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="empty"> </string>
+    <string name="login_error">Username or password is incorrect. Please try again.</string>
+    <string name="log_in">Log In</string>
+    <string name="admin_option1">Add/Remove New Admin</string>
+    <string name="admin_option2">Manage Frozen/Unfrozen Accounts</string>
+    <string name="admin_option3">Add/Remove Item</string>
+    <string name="admin_option4">View Trader\'s Status</string>
+    <string name="admin_option5">Change Limits</string>
+    <string name="admin_option6">Change Password</string>
+    <string name="back">Back</string>
+    <string name="here_are_a_list_of_admin_requests">Here are a list of Admin Requests</string>
+
+</resources>

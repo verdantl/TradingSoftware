@@ -1,3 +1,5 @@
+package com.example.phase2.phase2;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -40,6 +42,9 @@ public class TraderSystem extends UserSystem{
         init();
         int option;
         while (running){
+
+            boolean traderActivity = traderManager.isInactive(currentTrader);
+
             int numOptions = 9;
             ArrayList<Integer> validOptions = new ArrayList<>();
             for (int i = 0; i < numOptions + 1; i++) {
@@ -95,6 +100,10 @@ public class TraderSystem extends UserSystem{
                     // Request to unfreeze the account
                     requestUnfreeze();
                     break;
+                case 9:
+                    requestInactive();
+                case 10:
+                    reactivateTrader();
                 default:
                     throw new IllegalStateException("Unexpected value: " + option);
             }
@@ -160,12 +169,12 @@ public class TraderSystem extends UserSystem{
                 "or [0] to exit.");
 
         System.out.println(itemManager.getApprovedItemsInString(currentTrader));
-        int o = Integer.parseInt(sc.nextLine());
+        int o = Integer.getInteger(sc.nextLine());
 
         while(o!=0){
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.parseInt(sc.nextLine());
+                o = Integer.getInteger(sc.nextLine());
             }
             // If o passes while loop and isn't 0, o must be a valid input.
             if(o!=0){
@@ -189,12 +198,12 @@ public class TraderSystem extends UserSystem{
         traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
         traderPrompts.displayString("Choose the item you want to remove by typing in its respective ID: ");
         System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
-        Integer o = Integer.parseInt(sc.nextLine());
+        Integer o = Integer.getInteger(sc.nextLine());
 
         while(o!=0){
             while(!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.parseInt(sc.nextLine());
+                o = Integer.getInteger(sc.nextLine());
             }
             if(o!=0){
                 traderManager.removeFromWishlist(currentTrader, o);
@@ -203,7 +212,7 @@ public class TraderSystem extends UserSystem{
                 traderPrompts.displayString("Type 0 if you would like to return to the main menu.");
                 traderPrompts.displayString("Choose the item you want to remove by typing in its respective number: ");
                 System.out.println(itemManager.getListOfItemsInString(traderManager.getWishlistIds(currentTrader)));
-                o = Integer.parseInt(sc.nextLine());
+                o = Integer.getInteger(sc.nextLine());
             }
         }
     }
@@ -224,14 +233,14 @@ public class TraderSystem extends UserSystem{
             for (String str: itemManager.getListOfItemsInString(itemList)){
                 System.out.println(str);
             }
-            o = Integer.parseInt(sc.nextLine());
+            o = Integer.getInteger(sc.nextLine());
             while (!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
-                o = Integer.parseInt(sc.nextLine());
+                o = Integer.getInteger(sc.nextLine());
             }
             if (o != 0){
                 System.out.println(itemManager.getItemInString(o));
-                o2 = Integer.parseInt(sc.nextLine());
+                o2 = Integer.getInteger(sc.nextLine());
                 if (o2 == 1){
                     if(!traderManager.getWishlistIds(currentTrader).contains(o)) {
                         traderManager.addToWishlist(currentTrader, o);
@@ -410,7 +419,7 @@ public class TraderSystem extends UserSystem{
                 "the one you want to trade with your trading partner:");
         System.out.println(itemManager.getApprovedItemsInString(currentTrader));
 
-        int itemChoice = Integer.parseInt(sc.nextLine());
+        int itemChoice = Integer.getInteger(sc.nextLine());
 
         while(!itemManager.getApprovedItemsIDs(currentTrader).contains(itemChoice) ||
                 itemChoice < 0){
@@ -672,5 +681,23 @@ public class TraderSystem extends UserSystem{
         meetingManager.editLocation(tradeID, location);
         meetingManager.increaseNumEdit(currentTrader,tradeID);
         return "Edit made Successfully";
+    }
+
+    private void requestInactive(){
+        System.out.println("Do you wish to make your account inactive until you reactivate.");
+        System.out.println("If you make your account inactive your items will become invisible to others and you won't get trade offers.");
+        System.out.println("Type 1 to make your account inactive. Type 0 to return to the main menu.");
+        int option = Integer.parseInt(sc.nextLine());
+        if(option==1){
+            System.out.println("Your account status has been set to inactive until reactivate.");
+            traderManager.setTraderInactive(currentTrader,true);
+            itemManager.setItemsInactive(itemManager.getApprovedItemsIDs(currentTrader),true);
+        }
+    }
+    //
+    private void reactivateTrader(){
+        System.out.println("Your account has been reactivated.");
+        traderManager.setTraderInactive(currentTrader,false);
+        itemManager.setItemsInactive(itemManager.getApprovedItemsIDs(currentTrader), false);
     }
 }
