@@ -168,6 +168,8 @@ public class Item implements Serializable {
             case "requested":
                 itemStatus = ItemStatus.REQUESTED;
                 break;
+            case "inactive":
+                itemStatus = ItemStatus.INACTIVE;
         }
 
         return itemStatus;

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Trader extends User implements Serializable {
-    private boolean frozen, flagged, requestToUnfreeze;
+    private boolean frozen, flagged, requestToUnfreeze,inactive;
     private int numLent, numBorrowed, numIncomplete;
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
@@ -21,6 +21,7 @@ public class Trader extends User implements Serializable {
         super(username, password);
         frozen = false;
         flagged = false;
+        inactive=false;
         requestToUnfreeze = false;
         numLent = 0;
         numBorrowed = 0;
@@ -287,5 +288,20 @@ public class Trader extends User implements Serializable {
         }
     }
 
+    /**
+     * Setter for Trader's inactive.
+     * @param inactive
+     */
+    public void setInactive(boolean inactive){
+        this.inactive = inactive;
+    }
+
+    /**
+     * Returns whether the Trader is active or inactive
+     * @return true if inactive, false otherwise
+     */
+    public boolean getInactive(){
+        return inactive;
+    }
 
 }

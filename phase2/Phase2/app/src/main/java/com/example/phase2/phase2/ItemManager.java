@@ -120,7 +120,7 @@ public class ItemManager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
-                if (!item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
+                if (!item.getOwner().equals(username) && item.getStatus() == ItemStatus.AVAILABLE) {
                     approvedItems.add(item.getId());
                 }
             }
@@ -321,5 +321,29 @@ public class ItemManager implements Serializable {
         if (approved){
             items.get(id).setStatus(ItemStatus.AVAILABLE);
         }
+    }
+
+    /**
+     * If inactive is true, sets the given list of item ids to inactive if they are available.
+     * If inactive is false, sets the given list of item ids to available if they are inactive.
+     * @param inactiveItems
+     * @param inactive
+     */
+    public void setItemsInactive(List<Integer> inactiveItems, boolean inactive){
+        if(inactive){
+            for(Integer i:inactiveItems){
+                if(items.get(i).getStatus()==ItemStatus.AVAILABLE){
+                    items.get(i).setStatus(ItemStatus.INACTIVE);
+                }
+            }
+        }
+        else{
+            for(Integer i:inactiveItems){
+                if(items.get(i).getStatus()==ItemStatus.INACTIVE){
+                    items.get(i).setStatus(ItemStatus.AVAILABLE);
+                }
+            }
+        }
+
     }
 }

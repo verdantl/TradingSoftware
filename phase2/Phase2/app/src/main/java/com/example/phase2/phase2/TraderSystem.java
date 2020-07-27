@@ -42,6 +42,9 @@ public class TraderSystem extends UserSystem{
         init();
         int option;
         while (running){
+
+            boolean traderActivity = traderManager.isInactive(currentTrader);
+
             int numOptions = 9;
             ArrayList<Integer> validOptions = new ArrayList<>();
             for (int i = 0; i < numOptions + 1; i++) {
@@ -97,6 +100,10 @@ public class TraderSystem extends UserSystem{
                     // Request to unfreeze the account
                     requestUnfreeze();
                     break;
+                case 9:
+                    requestInactive();
+                case 10:
+                    reactivateTrader();
                 default:
                     throw new IllegalStateException("Unexpected value: " + option);
             }
@@ -674,5 +681,23 @@ public class TraderSystem extends UserSystem{
         meetingManager.editLocation(tradeID, location);
         meetingManager.increaseNumEdit(currentTrader,tradeID);
         return "Edit made Successfully";
+    }
+
+    private void requestInactive(){
+        System.out.println("Do you wish to make your account inactive until you reactivate.");
+        System.out.println("If you make your account inactive your items will become invisible to others and you won't get trade offers.");
+        System.out.println("Type 1 to make your account inactive. Type 0 to return to the main menu.");
+        int option = Integer.parseInt(sc.nextLine());
+        if(option==1){
+            System.out.println("Your account status has been set to inactive until reactivate.");
+            traderManager.setTraderInactive(currentTrader,true);
+            itemManager.setItemsInactive(itemManager.getApprovedItemsIDs(currentTrader),true);
+        }
+    }
+    //
+    private void reactivateTrader(){
+        System.out.println("Your account has been reactivated.");
+        traderManager.setTraderInactive(currentTrader,false);
+        itemManager.setItemsInactive(itemManager.getApprovedItemsIDs(currentTrader), false);
     }
 }
