@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = userEditText.getText().toString();
         String password = passEditText.getText().toString();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Next User", username);
+        intent.putExtra("NextUser", username);
 
         if (traderManager.login(username, password)){
             intent.putExtra("NextSystem", 2);
