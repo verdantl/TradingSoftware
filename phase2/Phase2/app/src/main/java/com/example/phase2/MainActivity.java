@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("TradeManager", tradeManager);
                 intent.putExtra("TraderManager", traderManager);
                 intent.putExtra("MeetingManager", meetingManager);
+                startActivity(intent);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + nextSystem);
