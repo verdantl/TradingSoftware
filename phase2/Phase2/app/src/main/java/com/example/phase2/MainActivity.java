@@ -26,24 +26,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        configGateway = new ConfigGateway();
-//        try {
-//            adminActions = (AdminActions) configGateway.readInfo(ADMINPATH);
-//            itemManager = (ItemManager) configGateway.readInfo(ITEMPATH);
-//            meetingManager = (MeetingManager) configGateway.readInfo(MEETINGPATH);
-//            tradeManager = (TradeManager) configGateway.readInfo(TRADEPATH);
-//            traderManager = (TraderManager) configGateway.readInfo(TRADERPATH);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-        HashMap<String, Admin> admins = new HashMap<>();
-        adminActions = new AdminActions(admins);
-        itemManager = new ItemManager(new HashMap<Integer, Item>());
-        meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
-        tradeManager = new TradeManager(new HashMap<Integer, Trade>());
-        traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 1);
+        configGateway = new ConfigGateway();
+        try {
+            adminActions = (AdminActions) configGateway.readInfo(ADMINPATH);
+            itemManager = (ItemManager) configGateway.readInfo(ITEMPATH);
+            meetingManager = (MeetingManager) configGateway.readInfo(MEETINGPATH);
+            tradeManager = (TradeManager) configGateway.readInfo(TRADEPATH);
+            traderManager = (TraderManager) configGateway.readInfo(TRADERPATH);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("AdminActions", adminActions);
