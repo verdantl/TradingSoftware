@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,9 +46,11 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else{
-            TextView textView = findViewById(R.id.loginerror);
-            textView.setText(R.string.login_error);
-            textView.setTextColor(getResources().getColor(R.color.red));
+            //TextView textView = findViewById(R.id.loginerror);
+            //textView.setText(R.string.login_error);
+            //textView.setTextColor(getResources().getColor(R.color.red));
+            Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
+
         }
     }
 
