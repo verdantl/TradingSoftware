@@ -15,7 +15,7 @@ import com.example.phase2.phase2.AdminActions;
 
 import java.util.ArrayList;
 
-public class ApproveAdminActivity extends AppCompatActivity {
+public class ApproveAdminActivity extends AppCompatActivity implements ClickableList{
     private AdminActions adminActions;
     Boolean approved = null;
     String approvedUser;
@@ -27,7 +27,7 @@ public class ApproveAdminActivity extends AppCompatActivity {
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         adminActions.newAdmin("Admin2", "Wordpass");
         adminActions.newAdmin("Sup", "nothing");
-        startApproval();
+        viewList();
     }
 
     public void onApproveClicked(View view){
@@ -50,10 +50,10 @@ public class ApproveAdminActivity extends AppCompatActivity {
             message += "denied!";
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        startApproval();
+        viewList();
     }
 
-    private void startApproval(){
+    public void viewList(){
         final ArrayList<String> adminRequests = adminActions.getRequestedAdmins();
         setContentView(R.layout.activity_approve_admin);
         ListView listView= findViewById(R.id.requested_admins);
@@ -68,7 +68,7 @@ public class ApproveAdminActivity extends AppCompatActivity {
             }
         });
     }
-    private void displayFragment() {
+    public void displayFragment() {
         ApprovalFragment approvalFragment = new ApprovalFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
