@@ -276,6 +276,40 @@ public class MeetingManager implements Serializable {
         return meetings.containsKey(id);
     }
 
+    /**
+     * Undoes the last edit made to the meeting.
+     * @param id The ID of the meeting that is to be rolled back.
+     * @param user The username of the user whose actions are to be undone.
+     */
+    public void undoEdit(int id, String user) {
+        Meeting temp = meetings.get(id);
 
+        if(!temp.getCanBeUndone()) {
+            System.out.println("You aren't allowed to do that.");
+            return;
+        }
 
+        temp.setLocation(temp.getLastLocation());
+        temp.setTradeDate(temp.getLastTradeDate());
+        temp.setReturnLocation(temp.getLastReturnLocation());
+        temp.setReturnDate(temp.getLastReturnDate());
+
+        temp.decreaseNumberOfEdits(user);
+
+        temp.resetLastInfo();
+    }
+
+    /**
+     * Undoes a user's decision to agree to the trade.
+     * Precondition: The user is involved with the trade of trade ID 'id' and the only user that has
+     * agreed to the trade is the inputted user.
+     * @param id The ID of the meeting in question.
+     * @param user The username of the user in question.
+     */
+    public void undoAgree(int id, String user) {
+        Meeting temp = meetings.get(id);
+        HashMap tempMap = temp.getIsAgreed();
+        tempMap.replace(user, false);
+        temp.setIsAgreed(tempMap);
+    }
 }
