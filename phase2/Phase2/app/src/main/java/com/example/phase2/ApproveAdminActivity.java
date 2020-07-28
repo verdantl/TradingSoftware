@@ -14,12 +14,14 @@ public class ApproveAdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adminActions = (AdminActions) getIntent().getSerializableExtra("AdminActions");
-
+        Bundle bundle = getIntent().getExtras();
+        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
+        adminActions.newAdmin("Admin2", "Wordpass");
+        setContentView(R.layout.activity_approve_admin);
         ListView listView = findViewById(R.id.requested_admins);
         ArrayAdapter<String> adminAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, adminActions.getRequestedAdmins());
         listView.setAdapter(adminAdapter);
-        setContentView(R.layout.activity_approve_admin);
+
     }
 }

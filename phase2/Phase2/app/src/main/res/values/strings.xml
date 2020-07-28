@@ -15,6 +15,7 @@
     <string name="admin_option5">Change Limits</string>
     <string name="admin_option6">Change Password</string>
     <string name="back">Back</string>
-    <string name="here_are_a_list_of_admin_requests">Here are a list of Admin Requests</string>
+    <string name="admin_requests">Admin Requests</string>
+    <string name="please_click_on">Please click on the admin you would like to approve/reject.</string>
 
 </resources>

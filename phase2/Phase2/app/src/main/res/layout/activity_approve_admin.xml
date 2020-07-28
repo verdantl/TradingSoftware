@@ -7,13 +7,22 @@
     tools:context=".ApproveAdminActivity">
 
     <TextView
-        android:id="@+id/admin_request_description"
+        android:id="@+id/admin_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:text="@string/here_are_a_list_of_admin_requests"
+        android:text="@string/admin_requests"
         android:textSize = "25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/admin_request"
+        android:id="@+id/admin_request_description"
+        android:layout_centerHorizontal="true"
+        android:text="@string/please_click_on"/>
+
 
 
     <ListView

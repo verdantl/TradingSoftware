@@ -28,9 +28,10 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adminActions = (AdminActions) getIntent().getSerializableExtra("AdminActions");
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         setContentView(R.layout.activity_admin);
-        getIntent();
     }
 
     public void addRemoveAdmin(View view){
