@@ -290,6 +290,14 @@ public class Trader extends User implements Serializable {
     }
 
     /**
+     * Removes the given trade from the user.
+     * @param id
+     */
+    public void removeTrade(int id){
+        trades.remove(id);
+    }
+
+    /**
      * Setter for Trader's inactive.
      * @param inactive
      */

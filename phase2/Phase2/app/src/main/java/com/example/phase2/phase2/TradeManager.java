@@ -176,4 +176,14 @@ public class TradeManager implements Serializable {
     public List<Integer> getItemIds(int tradeId){
         return tradeInventory.get(tradeId).getItems();
     }
+
+    /**
+     * Removes the given trade with the given id from the system.
+     * @param id The id of the trade
+     */
+    public void undoTradeProposal(int id){
+        tradeInventory.remove(id);
+    }
+
+    //Do this and also check the right user can undo
 }
