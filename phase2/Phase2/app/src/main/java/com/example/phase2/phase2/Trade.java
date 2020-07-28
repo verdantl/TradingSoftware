@@ -1,5 +1,6 @@
 package com.example.phase2.phase2;
 
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Trade implements Serializable {
      * A string representation of this trade
      * @return A string containing the details of the trade
      */
+    @Override
     public String toString(){
 
         return "-TradeID: " + getId() +

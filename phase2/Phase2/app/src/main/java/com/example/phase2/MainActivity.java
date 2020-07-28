@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    private ConfigGateway configGateway;
     private AdminActions adminActions;
     private ItemManager itemManager;
     private MeetingManager meetingManager;
@@ -21,17 +20,17 @@ public class MainActivity extends AppCompatActivity {
     private TradeManager tradeManager;
 
     //private final String ADMINPATH = "admins.ser";
-    private final String ITEMPATH = "/phase2/configfiles/items.ser";
-    private final String MEETINGPATH = "\\phase2\\configfiles\\meetings.ser";
-    private final String TRADERPATH = "src/main/java/com/example/phase2/phase2/configfiles/traders.ser";
-    private final String TRADEPATH = "src/main/java/com/example/phase2/phase2/configfiles/trade.ser";
+    //private final String ITEMPATH = "/phase2/configfiles/items.ser";
+    //private final String MEETINGPATH = "\\phase2\\configfiles\\meetings.ser";
+    //private final String TRADERPATH = "src/main/java/com/example/phase2/phase2/configfiles/traders.ser";
+    //private final String TRADEPATH = "src/main/java/com/example/phase2/phase2/configfiles/trade.ser";
 
     private String nextUser;
     private int nextSystem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configGateway = new ConfigGateway();
+        ConfigGateway configGateway = new ConfigGateway();
 //        try {
 //            adminActions = (AdminActions) configGateway.readInfo(ADMINPATH);
 //            itemManager = (ItemManager) configGateway.readInfo(ITEMPATH);
@@ -41,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (IOException | ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
+        Context context = getApplicationContext();
         try {
-            adminActions = (AdminActions) configGateway.readInfo(getApplicationContext().getFilesDir() + "admins.ser");
+            adminActions = (AdminActions) configGateway.readInfo(context.getFilesDir() + "admins.ser");
+            meetingManager = (MeetingManager) configGateway.readInfo(context.getFilesDir() + "meetings.ser");
+            itemManager = (ItemManager) configGateway.readInfo(context.getFilesDir() + "items.ser");
+            tradeManager = (TradeManager) configGateway.readInfo(context.getFilesDir() + "trades.ser");
+            traderManager = (TraderManager) configGateway.readInfo(context.getFilesDir() + "traders.ser");
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -50,15 +55,19 @@ public class MainActivity extends AppCompatActivity {
         //HashMap<String, Admin> admins = new HashMap<>();
         //admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
         //adminActions = new AdminActions(admins);
+        //itemManager = new ItemManager(new HashMap<Integer, Item>());
+        //meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
+        //tradeManager = new TradeManager(new HashMap<Integer, Trade>());
+        //traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
         //try {
-            //configGateway.saveInfo(getApplicationContext().getFilesDir() + "admins.ser", adminActions);
+            //configGateway.saveInfo(context.getFilesDir() + "admins.ser", adminActions);
+            //configGateway.saveInfo(context.getFilesDir() + "meetings.ser", meetingManager);
+            //configGateway.saveInfo(context.getFilesDir() + "traders.ser", traderManager);
+            //configGateway.saveInfo(context.getFilesDir() + "trades.ser", tradeManager);
+            //configGateway.saveInfo(context.getFilesDir() + "items.ser", itemManager);
         //} catch (IOException e) {
             //e.printStackTrace();
         //}
-        itemManager = new ItemManager(new HashMap<Integer, Item>());
-        meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
-        tradeManager = new TradeManager(new HashMap<Integer, Trade>());
-        traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 1);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             nextUser = bundle.getString("NextUser");
