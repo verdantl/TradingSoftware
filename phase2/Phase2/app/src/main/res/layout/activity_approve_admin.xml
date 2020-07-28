@@ -32,6 +32,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
   />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:name="com.example.phase2.ApprovalFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_approval" />
 
 
 </RelativeLayout>

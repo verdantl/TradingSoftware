@@ -49,6 +49,9 @@ public class AdminActions implements Serializable {
      */
     public void approveAdmin(String username, boolean approved){
         admins.get(username).setApproved(approved);
+        if (!admins.get(username).isApproved()){
+            admins.remove(username);
+        }
     }
 
     /**
