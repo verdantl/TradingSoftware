@@ -216,6 +216,13 @@ public class ItemManager implements Serializable {
     }
 
     /**
+     * Returns the item of the inputted item ID.
+     * @param itemId the item in question.
+     * @return the Item object with the inputted item ID.
+     */
+    public Item getItem(Integer itemId){ return items.get(itemId); }
+
+    /**
      * Changes the status of the item with the given id to AVAILABLE
      * @param id Id of the item
      */

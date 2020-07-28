@@ -406,7 +406,7 @@ public class TraderSystem extends UserSystem{
                 "the one you want to trade with your trading partner:");
         System.out.println(itemManager.getApprovedItemsInString(currentTrader));
         //the suggested trade
-        traderPrompts.displayString("The suggested item to trade is: " + itemManager.getItemInString(suggestedItem(receiver)));
+        traderPrompts.displayString("The suggested item to trade is: " + itemManager.getItemInString(suggestedItem(receiver, itemId)));
         int itemChoice = Integer.parseInt(sc.nextLine());
 
         while(!itemManager.getApprovedItemsIDs(currentTrader).contains(itemChoice) ||
@@ -671,65 +671,30 @@ public class TraderSystem extends UserSystem{
         return "Edit made Successfully";
     }
 
-    private int suggestedItem(String receiver){
+    private int suggestedItem(String receiver, Integer itemId){
         for(Integer receiverIDs : traderManager.getWishlistIds(receiver)){
             if(itemManager.getApprovedItemsIDs(currentTrader).contains(receiverIDs)){
                return receiverIDs;
             }
         }
-        boolean sameCategory = false;
         //the max should be 10
         int ratingDifference = 11;
         int helper = 0;
         int currentItem = -1;
-        for(Item receiverItem : itemManager.getListOfItems(traderManager.getWishlistIds(receiver))){
-            for (Item traderItem : itemManager.getApprovedItems(currentTrader)){
-                if (receiverItem.getCategory().equals(traderItem.getCategory())){
-                    helper = Math.abs(receiverItem.getQualityRating() - traderItem.getQualityRating());
+        Item receiverItem = itemManager.getItem(itemId);
+        //the suggested item is the one that is closest in quality
+        for(Item traderItem : itemManager.getApprovedItems(currentTrader)){
+                    helper = Math.abs(traderItem.getQualityRating() - receiverItem.getQualityRating());
                     if (helper == 0)
                         return currentItem;
-                    if (helper < ratingDifference){
+                    if (helper < ratingDifference) {
                         currentItem = traderItem.getId();
                         ratingDifference = helper;
-                        sameCategory = true;
+
                     }
                 }
-                else if (!sameCategory){
-                    helper = Math.abs(receiverItem.getQualityRating() - traderItem.getQualityRating());
-                    if (helper < ratingDifference){
-                        currentItem = traderItem.getId();
-                        ratingDifference = helper;
-                    }
-                }
-            }
-        }
 
         return currentItem;
-        /** a failed attempt //TODO: remove when the above is approved
-        int ratingDifference = 0;
-        int numberOfSameCategory = 0;
-        HashMap<String, Integer> categories = new HashMap<>();
-        List<Item> items = itemManager.getListOfItems(traderManager.getWishlistIds(receiver));
-        String category;
-        for(Item item : items){
-            category = item.getCategory();
-            if(categories.containsKey(category)){
-                categories.put(category, categories.get(category));
-            }
-            else{
-                categories.put(category, 1);
-            }
         }
-        for (Item item : itemManager.getApprovedItems(currentTrader)){
-            category = item.getCategory();
-            if (categories.containsKey(category)){
-                if (categories.get(category) > numberOfSameCategory){
-                    numberOfSameCategory = categories.get(category);
-                    ratingDifference = Math.abs(item.getQualityRating() - );
-                }
-            }
-        }
-         **/
 
-    }
 }
