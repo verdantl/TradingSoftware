@@ -6,15 +6,20 @@ import java.util.HashMap;
 public class Meeting implements Serializable {
     private final int tradeId;
     private LocalDate tradeDate;
+    private LocalDate lastTradeDate;
     private String location;
+    private String lastLocation;
     private String tradeStatus;
     private String returnLocation;
+    private String lastReturnLocation;
     private LocalDate returnDate;
+    private LocalDate lastReturnDate;
     private HashMap<String, Integer> numberOfEdits;
     private HashMap<String, Boolean> isAgreed;
     private HashMap<String, Boolean> isConfirmed;
     private HashMap<String, Boolean> isReturned;
     private boolean isPermanent;
+    private boolean canBeUndone;
 
     /**
      * Constructor for the meeting between two individuals that are conducting a trade
@@ -32,6 +37,10 @@ public class Meeting implements Serializable {
         isReturned = new HashMap<>();
         returnDate = LocalDate.of(0,0,0);
         returnLocation = "N/A";
+        lastTradeDate = null;
+        lastLocation = null;
+        lastReturnLocation = null;
+        canBeUndone = false;
     }
 
     /**
@@ -66,7 +75,19 @@ public class Meeting implements Serializable {
     /**Setter for the tradeDate
      * @param tradeDate the date that the trade will take place
      */
-    public void setTradeDate(LocalDate tradeDate){this.tradeDate = tradeDate;}
+    public void setTradeDate(LocalDate tradeDate){
+        lastTradeDate = this.tradeDate;
+        this.tradeDate = tradeDate;
+        canBeUndone = true;
+    }
+
+    /**
+     * Getter for the last trade date of the meeting.
+     * @return The last trade date of the meeting.
+     */
+    public LocalDate getLastTradeDate() {
+        return lastTradeDate;
+    }
 
     /**
      * Getter for the location of the meeting
@@ -77,7 +98,32 @@ public class Meeting implements Serializable {
     /**Setter for the location
      * @param location the location that the trade may take place
      */
-    public void setLocation (String location){this.location = location;}
+    public void setLocation (String location){
+        lastLocation = this.location;
+        this.location = location;
+        canBeUndone = true;
+    }
+
+    /**
+     * Getter for the last set location of the meeting
+     * @return
+     */
+    public String getLastLocation() {
+        return lastLocation;
+    }
+
+    /**
+     * Resets all the last recorded information for the meeting. Only to be used after undoing
+     * changes to a meeting.
+     * TODO: See if reseting all of the 'last' variables is necessary.
+     */
+    public void resetLastInfo() {
+        lastTradeDate = null;
+        lastLocation = null;
+        lastReturnDate = null;
+        lastReturnLocation = null;
+        canBeUndone = false;
+    }
 
     /**Getter for the trade status
      * @return the status for the trade
@@ -134,7 +180,15 @@ public class Meeting implements Serializable {
      * @param user the user who edit this meeting
      */
     public void increaseNumberOfEdits(String user) {
-            numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
+        numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
+    }
+
+    /**
+     * Decreases the number of edits when an admin undoes a chnage to the meeting.
+     * @param user the user who last edited the meeting.
+     */
+    public void decreaseNumberOfEdits(String user) {
+        numberOfEdits.replace(user, numberOfEdits.get(user) - 1);
     }
 
     /**allow the trader to agree the meeting
@@ -181,7 +235,16 @@ public class Meeting implements Serializable {
      * @param returnLocation the return meeting's location
      */
     public void setReturnLocation(String returnLocation) {
+        lastReturnLocation = this.returnLocation;
         this.returnLocation = returnLocation;
+    }
+
+    /**
+     * Getter for lastReturnLocation
+     * @return the Meeting's last return location
+     */
+    public String getLastReturnLocation() {
+        return lastReturnLocation;
     }
 
     /**Getter for returnDate
@@ -195,7 +258,16 @@ public class Meeting implements Serializable {
      * @param returnDate the return meeting's date
      */
     public void setReturnDate(LocalDate returnDate) {
+        this.lastReturnDate = this.returnDate;
         this.returnDate = returnDate;
+    }
+
+    /**
+     * Getter for the last return date.
+     * @return This meeting's last return date.
+     */
+    public LocalDate getLastReturnDate() {
+        return lastReturnDate;
     }
 
     /**
@@ -241,5 +313,13 @@ public class Meeting implements Serializable {
         }else{
             isReturned.put(trader, isReturn);
         }
+    }
+
+    /**
+     * Returns whether or not one can undo the last edit made to this meeting.
+     * @return true, iff the meeting has an edit that can be undone.
+     */
+    public boolean getCanBeUndone(){
+        return canBeUndone;
     }
 }

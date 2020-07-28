@@ -79,7 +79,6 @@ public class TraderSystem extends UserSystem{
                     //Remove an item from their wishlist
                     removeItemFromWishlist();
                     break;
-
                 case 4:
                     // Browse their inventory
                     browseInventoryOfItems();
@@ -102,8 +101,10 @@ public class TraderSystem extends UserSystem{
                     break;
                 case 9:
                     requestInactive();
+                    break;
                 case 10:
                     reactivateTrader();
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + option);
             }
