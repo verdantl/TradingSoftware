@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,10 +23,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        Bundle bundle = getIntent().getExtras();
-//        assert bundle != null;
-//        traderManager = (TraderManager) bundle.get("TraderManager");
-//        adminActions = (AdminActions) bundle.get("AdminActions");
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        traderManager = (TraderManager) bundle.get("TraderManager");
+        adminActions = (AdminActions) bundle.get("AdminActions");
     }
 
     public void onLoginClicked(View view){
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = userEditText.getText().toString();
         String password = passEditText.getText().toString();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Next User", username);
+        intent.putExtra("NextUser", username);
 
         if (traderManager.login(username, password)){
             intent.putExtra("NextSystem", 2);
@@ -45,9 +46,10 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else{
-            TextView textView = findViewById(R.id.loginerror);
-            textView.setText(R.string.login_error);
-            textView.setTextColor(getResources().getColor(R.color.red));
+            //TextView textView = findViewById(R.id.loginerror);
+            //textView.setText(R.string.login_error);
+            //textView.setTextColor(getResources().getColor(R.color.red));
+            Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
         }
     }
 
