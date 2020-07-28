@@ -33,5 +33,9 @@
     <string name="at_least_lend">At Least Value</string>
     <string name="enter_new_limit">Please enter the new limit.</string>
     <string name="successfully_changed_limit">Successfully changed the limit.</string>
+    <string name="FrozenMenu">Please click on what you want to do</string>
+    <string name="FlaggedAccount">VIEW FLAGGED ACCOUNTS</string>
+    <string name="AllTraders">VIEW ALL TRADER ACCOUNTS</string>
+    <string name="unfreeze">VIEW UNFREEZE REQUESTS</string>
 
 </resources>
