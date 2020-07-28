@@ -57,6 +57,8 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void changePassword(View view){
-
+        Intent i =  new Intent(this, ChangePasswordActivity.class);
+        i.putExtra("AdminActions", adminActions);
+        startActivity(i);
     }
 }

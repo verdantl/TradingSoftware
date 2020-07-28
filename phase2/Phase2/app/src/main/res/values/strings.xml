@@ -17,5 +17,7 @@
     <string name="back">Back</string>
     <string name="admin_requests">Admin Requests</string>
     <string name="please_click_on">Please click on the admin you would like to approve/reject.</string>
+    <string name="enter_password">Enter your new password</string>
+    <string name="enter">Enter</string>
 
 </resources>
