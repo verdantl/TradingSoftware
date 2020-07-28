@@ -22,5 +22,7 @@
     <string name="reject">Reject</string>
     <string name="enter_password">Enter your new password</string>
     <string name="enter">Enter</string>
+    <string name="please_click_on_the_trader_you_d_like_to_view">Please click on the trader you\'d like to view.</string>
+    <string name="view_traders">View Traders</string>
 
 </resources>

@@ -75,8 +75,8 @@ public class TraderManager implements Serializable {
     /**
      * @return A list of strings of all usernames in the system.
      */
-    public List<String> getTraders(){
-        List<String> temp = new ArrayList<>();
+    public ArrayList<String> getTraders(){
+        ArrayList<String> temp = new ArrayList<>();
         for(Map.Entry<String, Trader> usernames: this.users.entrySet()){
             temp.add(usernames.getKey());
         }
@@ -88,6 +88,14 @@ public class TraderManager implements Serializable {
     }
 
 
+    public String getTraderInfo(String username){
+        if (!isUsernameAvailable(username)){
+            return Objects.requireNonNull(users.get(username)).toString();
+        }
+        else{
+            return "";
+        }
+    }
     //Instead of the two methods below, since we're just reading in by use case, we can just have
     //the use case class add new users
     /**

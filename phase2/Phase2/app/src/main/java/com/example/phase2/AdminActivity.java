@@ -31,6 +31,10 @@ public class AdminActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
+        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
+        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         setContentView(R.layout.activity_admin);
     }
 
@@ -49,7 +53,9 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void viewStatus(View view){
-
+        Intent intent = new Intent(this, ViewTradersActivity.class);
+        intent.putExtra("TraderManager", traderManager);
+        startActivity(intent);
     }
 
     public void changeLimits(View view){
