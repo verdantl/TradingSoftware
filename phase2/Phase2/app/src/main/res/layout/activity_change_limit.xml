@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeLimitActivity">
+
+    <Button
+        android:id="@+id/weeklyLimitBtn"
+        android:layout_width="129dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="152dp"
+        android:onClick="changeWeeklyLimit"
+        android:text="@string/weekly_limit"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/maxIncompleteBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/maxIncompleteBtn"
+        android:layout_width="129dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="40dp"
+        android:onClick="changeMaxIncomplete"
+        android:text="@string/max_incomplete_transaction"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weeklyLimitBtn" />
+
+    <Button
+        android:id="@+id/atLeastBtn"
+        android:layout_width="129dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="152dp"
+        android:onClick="changeAtLeast"
+        android:text="@string/at_least_lend"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxIncompleteBtn"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/clickOnLimit"
+        android:layout_width="261dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="@string/change_limit"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/weeklyLimitBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.971" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,5 +27,11 @@
     <string name="create_new_account">Create New Account</string>
     <string name="admin_request">Admin Request</string>
     <string name="new_trader">New Trader</string>
+    <string name="change_limit">Please click on the limit you\'d like to change.</string>
+    <string name="weekly_limit">Weekly Limit</string>
+    <string name="max_incomplete_transaction">Max. Incomplete Transaction</string>
+    <string name="at_least_lend">At Least Value</string>
+    <string name="enter_new_limit">Please enter the new limit.</string>
+    <string name="successfully_changed_limit">Successfully changed the limit.</string>
 
 </resources>
