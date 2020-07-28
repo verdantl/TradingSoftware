@@ -2,10 +2,12 @@ package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import com.example.phase2.phase2.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private TraderManager traderManager;
     private TradeManager tradeManager;
 
-    private final String ADMINPATH = "admins.ser";
+    //private final String ADMINPATH = "admins.ser";
     private final String ITEMPATH = "/phase2/configfiles/items.ser";
     private final String MEETINGPATH = "\\phase2\\configfiles\\meetings.ser";
     private final String TRADERPATH = "src/main/java/com/example/phase2/phase2/configfiles/traders.ser";
@@ -39,9 +41,20 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (IOException | ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
-        HashMap<String, Admin> admins = new HashMap<>();
-        admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
-        adminActions = new AdminActions(admins);
+        try {
+            adminActions = (AdminActions) configGateway.readInfo(getApplicationContext().getFilesDir() + "admins.ser");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        //HashMap<String, Admin> admins = new HashMap<>();
+        //admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
+        //adminActions = new AdminActions(admins);
+        //try {
+            //configGateway.saveInfo(getApplicationContext().getFilesDir() + "admins.ser", adminActions);
+        //} catch (IOException e) {
+            //e.printStackTrace();
+        //}
         itemManager = new ItemManager(new HashMap<Integer, Item>());
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());

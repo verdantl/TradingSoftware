@@ -2,6 +2,7 @@ package com.example.phase2.phase2;
 
 import java.io.*;
 
+
 public class ConfigGateway {
     /**
      * Reads objects from the given path
