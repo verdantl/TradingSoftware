@@ -312,4 +312,18 @@ public class MeetingManager implements Serializable {
         tempMap.replace(user, false);
         temp.setIsAgreed(tempMap);
     }
+
+    /**
+     * Undoes a user's decision to agree to the trade.
+     * Precondition: The user is involved with the trade of trade ID 'id' and the only user that has
+     * agreed to the trade is the inputted user.
+     * @param id The ID of the meeting in question.
+     * @param user The username of the user in question.
+     */
+    public void undoConfirm(int id, String user) {
+        Meeting temp = meetings.get(id);
+        HashMap tempMap = temp.getIsConfirmed();
+        tempMap.replace(user, false);
+        temp.setIsConfirmed(tempMap);
+    }
 }

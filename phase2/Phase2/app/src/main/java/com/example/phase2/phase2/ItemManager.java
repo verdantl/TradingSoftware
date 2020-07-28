@@ -240,12 +240,26 @@ public class ItemManager implements Serializable {
     }
 
     /**
-     * Removes them item with the given id
+     * Changes the status of the item with the given id to REMOVED
+     * @param id Id of the item
+     */
+    public void changeStatusToRemoved(Integer id){
+        items.get(id).setStatus(ItemStatus.REMOVED);
+    }
+
+    /**
+     * Sets the status of the item with the given ID to 'REMOVED'
      * @param id Id of the item to remove
      */
     public void removeItem(Integer id){
-        items.remove(id);
+        changeStatusToRemoved(id);
     }
+
+    /**
+     * Deletes the item with the given id from the system.
+     * @param id Id of the item to delete
+     */
+    public void deleteItem(Integer id) { items.remove(id); }
 
     /**
      * Adds new item to the hash map
