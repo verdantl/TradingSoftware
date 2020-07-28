@@ -25,23 +25,18 @@ public class AdminActivity extends AppCompatActivity {
     private MeetingManager meetingManager;
     private String currentAdmin;
 
-    private ApproveAdminFragment approveAdminFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adminActions = (AdminActions) getIntent().getSerializableExtra("AdminActions");
         setContentView(R.layout.activity_admin);
         getIntent();
     }
 
     public void addRemoveAdmin(View view){
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Admin Requests", adminActions.getRequestedAdmins());
-        approveAdminFragment = new ApproveAdminFragment();
-        approveAdminFragment.setArguments(bundle);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, approveAdminFragment);
-        ft.commit();
+        Intent intent = new Intent(this, ApproveAdminActivity.class);
+        intent.putExtra("AdminActions", adminActions);
+        startActivity(intent);
     }
 
     public void manageAccounts(View view){

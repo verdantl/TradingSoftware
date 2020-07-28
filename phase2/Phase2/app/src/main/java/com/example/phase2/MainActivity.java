@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TraderManager traderManager;
     private TradeManager tradeManager;
 
-    private final String ADMINPATH = "/phase2/phase2/configfiles/admins.ser";
+    private final String ADMINPATH = "admins.ser";
     private final String ITEMPATH = "/phase2/configfiles/items.ser";
     private final String MEETINGPATH = "\\phase2\\configfiles\\meetings.ser";
     private final String TRADERPATH = "src/main/java/com/example/phase2/phase2/configfiles/traders.ser";
