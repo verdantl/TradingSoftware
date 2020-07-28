@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-//
-//        HashMap<String, Admin> admins = new HashMap<>();
-//        admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
-//        adminActions = new AdminActions(admins);
-//        itemManager = new ItemManager(new HashMap<Integer, Item>());
-//        meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
-//        tradeManager = new TradeManager(new HashMap<Integer, Trade>());
-//        traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
-//        traderManager.addTrader(new Trader("Trader", "Password"));
+
+        //HashMap<String, Admin> admins = new HashMap<>();
+        //admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
+        //adminActions = new AdminActions(admins);
+        //itemManager = new ItemManager(new HashMap<Integer, Item>());
+        //meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
+        //tradeManager = new TradeManager(new HashMap<Integer, Trade>());
+        //traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
+        //traderManager.addTrader(new Trader("Trader", "Password"));
         //try {
             //configGateway.saveInfo(context.getFilesDir() + "admins.ser", adminActions);
             //configGateway.saveInfo(context.getFilesDir() + "meetings.ser", meetingManager);

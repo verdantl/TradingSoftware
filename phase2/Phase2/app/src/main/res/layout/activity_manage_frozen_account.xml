@@ -24,6 +24,7 @@
         android:layout_height="110dp"
         android:text="@string/FlaggedAccount"
         android:textSize="24sp"
+        android:onClick="viewFlaggedAccounts"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

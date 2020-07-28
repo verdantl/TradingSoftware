@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ManageFrozenAccount"></activity>
+        <activity android:name=".FlaggedAccountsMenu"></activity>
+        <activity android:name=".ManageFrozenAccount" />
         <activity android:name=".DisplayChangeLimitActivity" />
         <activity android:name=".ChangeLimitActivity" />
         <activity android:name=".ViewTradersActivity" />
