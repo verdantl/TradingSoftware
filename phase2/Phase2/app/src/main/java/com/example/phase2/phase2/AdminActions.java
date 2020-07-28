@@ -71,7 +71,7 @@ public class AdminActions implements Serializable {
      * @return Return true iff the username is valid
      */
     public boolean checkUsername(String username){
-        return admins.containsKey(username) && admins.get(username).isApproved();
+        return !admins.containsKey(username);
     }
 
     /**
@@ -83,7 +83,7 @@ public class AdminActions implements Serializable {
     public boolean checkCredentials(String username, String password) {
         if (admins.containsKey(username)) {
             System.out.println(admins.get(username).getPassword());
-            return admins.get(username).getPassword().equals(password);
+            return admins.get(username).isApproved() && admins.get(username).getPassword().equals(password);
         } else {
             return false;
         }

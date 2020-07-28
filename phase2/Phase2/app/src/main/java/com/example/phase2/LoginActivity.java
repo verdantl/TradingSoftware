@@ -46,15 +46,14 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else{
-            //TextView textView = findViewById(R.id.loginerror);
-            //textView.setText(R.string.login_error);
-            //textView.setTextColor(getResources().getColor(R.color.red));
             Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
         }
     }
 
     public void onSignupClicked(View view){
         Intent intent = new Intent(this, SignupActivity.class);
+        intent.putExtra("AdminActions", adminActions);
+        intent.putExtra("TraderManager", traderManager);
         startActivity(intent);
     }
 }
