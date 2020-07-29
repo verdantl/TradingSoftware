@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
+        <activity android:name=".TraderActivity"/>
         <activity android:name=".AdminActivity" />
         <activity android:name=".ApproveAdminActivity" />
         <activity android:name=".SignupActivity" />
