@@ -343,4 +343,11 @@ public class MeetingManager implements Serializable {
     public void undoMeetingProposal(int id){
         meetings.remove(id);
     }
+
+    /**
+     * Returns the edits made to the given meeting.
+     * @param id The id of the meeting
+     * @return A hashmap representing the edits made to the meeting
+     */
+    public HashMap<String, Integer> getEdits(int id) { return meetings.get(id).getNumberOfEdits(); }
 }

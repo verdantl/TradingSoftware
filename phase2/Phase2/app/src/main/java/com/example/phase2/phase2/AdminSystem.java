@@ -467,13 +467,71 @@ public class AdminSystem extends UserSystem{
         int type = Integer.parseInt(scanner.nextLine());
         //For now assume 1 = undo proposing trades
         switch(type){
-            case 1:
+            case 4:
                 undoProposeTrade(username);
                 break;
-            case 2:
+            case 6:
                 undoRemoveFromWantToLend(username);
+                break;
+            case 1:
+                undoEditTrade(username);
+                break;
         }
+    }
 
+    public void undoEditTrade(String username){
+        int choice;
+        do {
+            List<Integer> tempMeetings = new ArrayList<>();
+            // Adding all of the given user's incomplete trades to a list.
+            for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))){
+                if (!meetingManager.meetingCanBeUndone(i)){
+                    tempMeetings.add(i);
+                }
+            }
+            // Removing all of the trades where the trader with the given username was not the last
+            // to edit.
+            for (Integer i : tempMeetings) {
+                HashMap<String, Integer> tempHash = meetingManager.getEdits(i);
+                // If the given trader was the initiator, if he was the last to edit then both
+                // traders should have the same number of edits.
+                if (tradeManager.getTradeInitiator(i).equals(username)){
+                    if (tempHash.get(username) < tempHash.get(tradeManager.getTradeReceiver(i))) {
+                        tempMeetings.remove(i);
+                    }
+                }
+                // If the given trader was the initiator, if he was the last to edit then he should
+                // have more trades than the other trader.
+                else{
+                    if (tempHash.get(username) == tempHash.get(tradeManager.getTradeReceiver(i))) {
+                        tempMeetings.remove(i);
+                    }
+                }
+            }
+
+            System.out.println("Type 0 to return to main menu.");
+            System.out.println("Type the number of the proposed trade you wish to unedit:");
+            StringBuilder s = new StringBuilder();
+            int j = 1;
+            for (Integer i : tempMeetings) {
+                s.append(j);
+                s.append(" - ");
+                s.append(meetingManager.getMeeting(i).toString());
+                s.append("\n");
+            }
+            choice = Integer.parseInt(scanner.nextLine())-1;
+            if(choice!=-1){
+                while(choice!=-1) {
+                    if (choice > -1 && choice < tempMeetings.size()) {
+                        meetingManager.undoEdit(tempMeetings.get(choice), username);
+                        System.out.println("Trade was unedited.");
+                    } else if(choice != -1) {
+                        System.out.println("Please enter a valid option.");
+                        choice = Integer.parseInt(scanner.nextLine())-1;
+                    }
+                }
+            }
+        }while (choice != 0);
     }
 
     public void undoProposeTrade(String username){
