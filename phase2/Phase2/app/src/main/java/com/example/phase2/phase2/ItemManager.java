@@ -108,6 +108,26 @@ public class ItemManager implements Serializable {
     }
 
     /**
+     * Gets username's list of removedItems
+     * @param username
+     * @return
+     */
+    public List<Integer> getRemovedItemIds(String username){
+        List<Integer> removedItems = new ArrayList<>();
+        Set<Integer> ids = items.keySet();
+
+        for (Integer id: ids){
+            if(items.containsKey(id)) {
+                Item item = items.get(id);
+                if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.REMOVED) {
+                    removedItems.add(item.getId());
+                }
+            }
+        }
+        return removedItems;
+    }
+
+    /**
      * Gets all items in the system not owned by the inputted user.
      * Used for controllers, whom should not have access to an instance of an entity.
      * @param username The trader's username
@@ -359,5 +379,13 @@ public class ItemManager implements Serializable {
             }
         }
 
+    }
+
+    /**
+     * Makes the removed item available once again.
+     * @param id the id of the removed item.
+     */
+    public void undoRemoval(int id){
+        items.get(id).setStatus(ItemStatus.AVAILABLE);
     }
 }

@@ -75,6 +75,7 @@ public class AdminSystem extends UserSystem{
                 case 9:
                     stop();
                     break;
+
                 default:
                     System.out.println("Command not recognized. Try again.");
                     break;
@@ -456,6 +457,9 @@ public class AdminSystem extends UserSystem{
         if(type == 1){
             undoProposeTrade(username);
         }
+        else if(type ==2){
+            undoRemoveFromWantToLend(username);
+        }
 
     }
 
@@ -496,5 +500,35 @@ public class AdminSystem extends UserSystem{
                 }
             }
         }while(choice!=-1);
+    }
+
+    public void undoRemoveFromWantToLend(String username){
+        int choice;
+        do {
+            List<Integer> removedItems = itemManager.getRemovedItemIds(username);
+            System.out.println("Type 0 to return to main menu.");
+            System.out.println("Type the number of the removed Item you wish to undo:");
+            StringBuilder s = new StringBuilder();
+            int j=1;
+            for(Integer i: removedItems){
+                s.append(j);
+                s.append(" - ");
+                s.append(itemManager.getItemInString(i));
+                s.append("\n");
+            }
+            choice = Integer.parseInt(scanner.nextLine())-1;
+            if(choice!=1){
+                while(choice!=-1) {
+                    if (choice > -1 && choice < removedItems.size()) {
+                        itemManager.undoRemoval(removedItems.get(choice));
+                        System.out.println("Removal was undone");
+                    } else if(choice>removedItems.size()) {
+                        System.out.println("Please enter a valid option.");
+                        choice = Integer.parseInt(scanner.nextLine())-1;
+                    }
+                }
+            }
+        }while(choice!=-1);
+
     }
 }
