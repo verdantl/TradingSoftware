@@ -7,28 +7,28 @@
     tools:context=".ApproveAdminActivity">
 
     <TextView
-        android:id="@+id/unfreezeRequests"
+        android:id="@+id/allTraders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/unfreezeRequest"
+        android:text="@string/allTraders"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/unfreezeDescription"
+        android:id="@+id/allTradersDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/unfreezeRequests"
+        android:layout_below="@+id/allTraders"
         android:layout_centerHorizontal="true"
-        android:text="@string/unfreezeChoice" />
+        android:text="@string/freezeTraders" />
 
 
 
     <ListView
-        android:layout_below="@+id/unfreezeDescription"
+        android:layout_below="@+id/allTradersDescription"
         android:layout_marginTop="10dp"
-        android:id="@+id/unfreeze"
+        android:id="@+id/freezeTrader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

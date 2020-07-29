@@ -39,5 +39,9 @@
     <string name="unfreeze">VIEW UNFREEZE REQUESTS</string>
     <string name="FlaggedAccounts">Flagged Accounts</string>
     <string name="FreezeAccountDescription">Please click on the account you would like to freeze</string>
+    <string name="unfreezeRequest">Unfreeze Request</string>
+    <string name="unfreezeChoice">Please choose the account you want to unfreeze</string>
+    <string name="allTraders">All Traders</string>
+    <string name="freezeTraders">Please click on the trader you want to freeze</string>
 
 </resources>
