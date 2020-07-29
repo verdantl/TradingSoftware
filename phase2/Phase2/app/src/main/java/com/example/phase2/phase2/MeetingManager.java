@@ -314,7 +314,7 @@ public class MeetingManager implements Serializable {
     }
 
     /**
-     * Undoes a user's decision to agree to the trade.
+     * Undoes a user's decision to confirm the trade.
      * Precondition: The user is involved with the trade of trade ID 'id' and the only user that has
      * agreed to the trade is the inputted user.
      * @param id The ID of the meeting in question.
@@ -325,5 +325,22 @@ public class MeetingManager implements Serializable {
         HashMap tempMap = temp.getIsConfirmed();
         tempMap.replace(user, false);
         temp.setIsConfirmed(tempMap);
+    }
+
+    /**
+     * Checks whether the meeting with the given id can be undone.
+     * @param id
+     * @return
+     */
+    public boolean meetingCanBeUndone(int id){
+        return meetings.get(id).isEdited();
+    }
+
+    /**
+     * Undoes the given meeting, effectively deleting it from the system.
+     * @param id The id of the meeting
+     */
+    public void undoMeetingProposal(int id){
+        meetings.remove(id);
     }
 }

@@ -322,4 +322,14 @@ public class Meeting implements Serializable {
     public boolean getCanBeUndone(){
         return canBeUndone;
     }
+
+    /**
+     * Checks whether the meeting has been edited.
+     * @return true if an edit has been made, false otherwise.
+     */
+    public boolean isEdited(){
+        return this.numberOfEdits.isEmpty();
+    }
+
+
 }

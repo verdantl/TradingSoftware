@@ -1,5 +1,6 @@
 package com.example.phase2.phase2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -69,9 +70,12 @@ public class AdminSystem extends UserSystem{
                 case 6:
                     changeUserInfo();
                     break;
-                case 7:
+                case 8:
+                    undoActions();
+                case 9:
                     stop();
                     break;
+
                 default:
                     System.out.println("Command not recognized. Try again.");
                     break;
@@ -442,5 +446,102 @@ public class AdminSystem extends UserSystem{
         adminPrompts.setToMainMenu();
         stop();
         init();
+    }
+
+    public void undoActions(){
+        System.out.println("Please enter the username of the user whose actions you would like to" +
+                "undo:");
+        String username = scanner.nextLine();
+        while(!traderManager.isUsernameAvailable(username)) {
+            adminPrompts.displayErrorMessage();
+            username = scanner.nextLine();
+        }
+        System.out.println("Please select the type of action you would like to undo, or [0] to" +
+                "exit.");
+        System.out.println("1 - Undo edit to trade meeting.");
+        System.out.println("2 - Undo agreeing to a trade.");
+        System.out.println("3 - Undo confirming a trade.");
+        System.out.println("4 - Undo proposing a trade.");
+        System.out.println("5 - Undo proposing an item.");
+        System.out.println("6 - Undo removing an item.");
+        int type = Integer.parseInt(scanner.nextLine());
+        //For now assume 1 = undo proposing trades
+        switch(type){
+            case 1:
+                undoProposeTrade(username);
+                break;
+            case 2:
+                undoRemoveFromWantToLend(username);
+        }
+
+    }
+
+    public void undoProposeTrade(String username){
+        int choice;
+        do {
+            List<Integer> tempMeetings = new ArrayList<>();
+            for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))) {
+                if (tradeManager.getTradeInitiator(i).equals(username)) {
+                    if (meetingManager.meetingCanBeUndone(i)) {
+                        tempMeetings.add(i);
+                    }
+                }
+            }
+            System.out.println("Type 0 to return to main menu.");
+            System.out.println("Type the number of the proposed trade you wish to undo:");
+            StringBuilder s = new StringBuilder();
+            int j = 1;
+            for (Integer i : tempMeetings) {
+                s.append(j);
+                s.append(" - ");
+                s.append(meetingManager.getMeeting(i).toString());
+                s.append("\n");
+            }
+
+            choice = Integer.parseInt(scanner.nextLine())-1;
+            if(choice!=1){
+                while(choice!=-1) {
+                    if (choice > -1 && choice < tempMeetings.size()) {
+                        meetingManager.undoMeetingProposal(tempMeetings.get(choice));
+                        tradeManager.undoTradeProposal(tempMeetings.get(choice));
+                        traderManager.undoTradeProposal(tempMeetings.get(choice));
+                        System.out.println("Trade was undone.");
+                    } else if(choice>tempMeetings.size()) {
+                        System.out.println("Please enter a valid option.");
+                        choice = Integer.parseInt(scanner.nextLine())-1;
+                    }
+                }
+            }
+        }while(choice!=-1);
+    }
+
+    public void undoRemoveFromWantToLend(String username){
+        int choice;
+        do {
+            List<Integer> removedItems = itemManager.getRemovedItemIds(username);
+            System.out.println("Type 0 to return to main menu.");
+            System.out.println("Type the number of the removed Item you wish to undo:");
+            StringBuilder s = new StringBuilder();
+            int j=1;
+            for(Integer i: removedItems){
+                s.append(j);
+                s.append(" - ");
+                s.append(itemManager.getItemInString(i));
+                s.append("\n");
+            }
+            choice = Integer.parseInt(scanner.nextLine())-1;
+            if(choice!=1){
+                while(choice!=-1) {
+                    if (choice > -1 && choice < removedItems.size()) {
+                        itemManager.undoRemoval(removedItems.get(choice));
+                        System.out.println("Removal was undone");
+                    } else if(choice>removedItems.size()) {
+                        System.out.println("Please enter a valid option.");
+                        choice = Integer.parseInt(scanner.nextLine())-1;
+                    }
+                }
+            }
+        }while(choice!=-1);
+
     }
 }

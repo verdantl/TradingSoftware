@@ -434,4 +434,13 @@ public class TraderManager implements Serializable {
         return users.get(username).getInactive();
     }
 
+    /**
+     * Removes the trade with the given id from the respective users' trades.
+     * @param id The id of the trade.
+     */
+    public void undoTradeProposal(int id){
+        for(Trader t: users.values()){
+            t.removeTrade(id);
+        }
+    }
 }

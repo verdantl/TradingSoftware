@@ -179,7 +179,7 @@ public class TraderSystem extends UserSystem{
             }
             // If o passes while loop and isn't 0, o must be a valid input.
             if(o!=0){
-                traderManager.deleteItem(o);
+                itemManager.deleteItem(o);
                 traderPrompts.displayString("Item was removed.");
                 availableOptions.remove(availableOptions.size()-1);
                 System.out.println(itemManager.getApprovedItemsInString(currentTrader));

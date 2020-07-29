@@ -252,7 +252,6 @@ public class Trader extends User implements Serializable {
     public void deleteItem(Integer id){
         wishlist.remove(id);
         borrowedItems.remove(id);
-
     }
 
 
@@ -287,6 +286,14 @@ public class Trader extends User implements Serializable {
         }else{
             trades.put(id, createdDate);
         }
+    }
+
+    /**
+     * Removes the given trade from the user.
+     * @param id
+     */
+    public void removeTrade(int id){
+        trades.remove(id);
     }
 
     /**

@@ -45,7 +45,9 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void manageAccounts(View view){
-
+        Intent intent = new Intent(this, ManageFrozenAccount.class);
+        intent.putExtra("TraderManager", traderManager);
+        startActivity(intent);
     }
 
     public void addRemoveItems(View view){
