@@ -43,5 +43,8 @@
     <string name="unfreezeChoice">Please choose the account you want to unfreeze</string>
     <string name="allTraders">All Traders</string>
     <string name="freezeTraders">Please click on the trader you want to freeze</string>
+    <string name="confirmFreeze">Are you sure you want to freeze this account?</string>
+    <string name="freezeAction">Freeze</string>
+    <string name="cancelAction">Cancel</string>
 
 </resources>
