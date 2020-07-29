@@ -449,13 +449,27 @@ public class AdminSystem extends UserSystem{
     }
 
     public void undoActions(){
-        System.out.println("Enter the username of the user you wish to edit actions for:");
+        System.out.println("Please enter the username of the user whose actions you would like to" +
+                "undo:");
         String username = scanner.nextLine();
-        System.out.println("Enter the type of action you would like to undo:");
+        while(!traderManager.isUsernameAvailable(username)) {
+            adminPrompts.displayErrorMessage();
+            username = scanner.nextLine();
+        }
+        System.out.println("Please select the type of action you would like to undo, or [0] to" +
+                "exit.");
+        System.out.println("1 - Undo edit to trade meeting.");
+        System.out.println("2 - Undo agreeing to a trade.");
+        System.out.println("3 - Undo confirming a trade.");
+        System.out.println("4 - Undo proposing a trade.");
+        System.out.println("5 - Undo proposing an item.");
+        System.out.println("6 - Undo removing an item.");
         int type = Integer.parseInt(scanner.nextLine());
         //For now assume 1 = undo proposing trades
-        if(type == 1){
-            undoProposeTrade(username);
+        switch(type){
+            case 1:
+                undoProposeTrade(username);
+                break;
         }
         else if(type ==2){
             undoRemoveFromWantToLend(username);
