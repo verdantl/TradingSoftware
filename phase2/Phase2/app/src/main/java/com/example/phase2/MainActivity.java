@@ -41,34 +41,34 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
         Context context = getApplicationContext();
-        try {
-            adminActions = (AdminActions) configGateway.readInfo(context.getFilesDir() + "admins.ser");
-            meetingManager = (MeetingManager) configGateway.readInfo(context.getFilesDir() + "meetings.ser");
-            itemManager = (ItemManager) configGateway.readInfo(context.getFilesDir() + "items.ser");
-            tradeManager = (TradeManager) configGateway.readInfo(context.getFilesDir() + "trades.ser");
-            traderManager = (TraderManager) configGateway.readInfo(context.getFilesDir() + "traders.ser");
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //HashMap<String, Admin> admins = new HashMap<>();
-        //admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
-        //adminActions = new AdminActions(admins);
-        //itemManager = new ItemManager(new HashMap<Integer, Item>());
-        //meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
-        //tradeManager = new TradeManager(new HashMap<Integer, Trade>());
-        //traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
-        //traderManager.addTrader(new Trader("Trader", "Password"));
         //try {
-            //configGateway.saveInfo(context.getFilesDir() + "admins.ser", adminActions);
-            //configGateway.saveInfo(context.getFilesDir() + "meetings.ser", meetingManager);
-            //configGateway.saveInfo(context.getFilesDir() + "traders.ser", traderManager);
-            //configGateway.saveInfo(context.getFilesDir() + "trades.ser", tradeManager);
-            //configGateway.saveInfo(context.getFilesDir() + "items.ser", itemManager);
-        //} catch (IOException e) {
+            //adminActions = (AdminActions) configGateway.readInfo(context.getFilesDir() + "admins.ser");
+            //meetingManager = (MeetingManager) configGateway.readInfo(context.getFilesDir() + "meetings.ser");
+            //itemManager = (ItemManager) configGateway.readInfo(context.getFilesDir() + "items.ser");
+            //tradeManager = (TradeManager) configGateway.readInfo(context.getFilesDir() + "trades.ser");
+            //traderManager = (TraderManager) configGateway.readInfo(context.getFilesDir() + "traders.ser");
+
+        //} catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
         //}
+
+        HashMap<String, Admin> admins = new HashMap<>();
+        admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
+        adminActions = new AdminActions(admins);
+        itemManager = new ItemManager(new HashMap<Integer, Item>());
+        meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
+        tradeManager = new TradeManager(new HashMap<Integer, Trade>());
+        traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
+        traderManager.addTrader(new Trader("Trader", "Password"));
+        try {
+            configGateway.saveInfo(context.getFilesDir() + "admins.ser", adminActions);
+            configGateway.saveInfo(context.getFilesDir() + "meetings.ser", meetingManager);
+            configGateway.saveInfo(context.getFilesDir() + "traders.ser", traderManager);
+            configGateway.saveInfo(context.getFilesDir() + "trades.ser", tradeManager);
+            configGateway.saveInfo(context.getFilesDir() + "items.ser", itemManager);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             nextUser = bundle.getString("NextUser");
