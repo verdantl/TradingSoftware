@@ -470,9 +470,8 @@ public class AdminSystem extends UserSystem{
             case 1:
                 undoProposeTrade(username);
                 break;
-        }
-        else if(type ==2){
-            undoRemoveFromWantToLend(username);
+            case 2:
+                undoRemoveFromWantToLend(username);
         }
 
     }
