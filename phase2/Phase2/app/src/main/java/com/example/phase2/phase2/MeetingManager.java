@@ -314,6 +314,32 @@ public class MeetingManager implements Serializable {
     }
 
     /**
+     * A method that checks if the
+     * @param id
+     * @param username
+     * @return
+     */
+    public boolean canUndoAgree(int id, String username){
+        Meeting temp = meetings.get(id);
+        temp.getIsAgreed().values().size();
+        int counter = 0;
+        for(boolean b: temp.getIsAgreed().values()){
+            if(b){
+                counter+=1;
+            }
+        }
+        if(counter == temp.getIsAgreed().values().size()){
+            return false;
+        }
+        else{
+            if(temp.getIsAgreed().get(username)){
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
      * Undoes a user's decision to confirm the trade.
      * Precondition: The user is involved with the trade of trade ID 'id' and the only user that has
      * agreed to the trade is the inputted user.
