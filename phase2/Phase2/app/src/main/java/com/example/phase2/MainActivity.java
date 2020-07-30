@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
         traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
         traderManager.addTrader(new Trader("Trader1", "Password"));
         traderManager.addTrader(new Trader("Trader2", "Password2"));
+        Trader traderFlagged = new Trader("Arjun", "Password3");
+        traderFlagged.setFlagged(true);
+        traderManager.addTrader(traderFlagged);
+        Trader traderUnfreeze = new Trader("Jeffrey", "Password4");
+        traderUnfreeze.setFrozen(true);
+        traderUnfreeze.setRequestToUnfreeze(true);
+        traderManager.addTrader(traderUnfreeze);
         try {
             configGateway.saveInfo(context.getFilesDir() + "admins.ser", adminActions);
             configGateway.saveInfo(context.getFilesDir() + "meetings.ser", meetingManager);
