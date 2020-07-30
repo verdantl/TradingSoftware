@@ -314,11 +314,12 @@ public class MeetingManager implements Serializable {
     }
 
     /**
-     * A method that checks if the
-     * @param id
-     * @param username
-     * @return
-     */
+     * A method that checks if the meeting can be unagreed by the inputted user.
+     * @param id ID of the trade the meeting is attatched to.
+     * @param username The username of the user in question.
+     * @return true, iff the user was the last one to agree to a meeting date and both traders
+     * involved haven't mutually agreed.
+     * */
     public boolean canUndoAgree(int id, String username){
         Meeting temp = meetings.get(id);
         temp.getIsAgreed().values().size();
@@ -333,6 +334,33 @@ public class MeetingManager implements Serializable {
         }
         else{
             if(temp.getIsAgreed().get(username)){
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * A method that checks if the meeting can be unconfirmed by the inputted user.
+     * @param id ID of the trade the meeting is attatched to.
+     * @param username The username of the user in question.
+     * @return true, iff the user was the last one to confirm a meeting meeting happened and both
+     * traders involved haven't mutually confirmed.
+     * */
+    public boolean canUndoConfirm(int id, String username){
+        Meeting temp = meetings.get(id);
+        temp.getIsConfirmed().values().size();
+        int counter = 0;
+        for(boolean b: temp.getIsConfirmed().values()){
+            if(b){
+                counter+=1;
+            }
+        }
+        if(counter == temp.getIsConfirmed().values().size()){
+            return false;
+        }
+        else{
+            if(temp.getIsConfirmed().get(username)){
                 return true;
             }
             return false;
