@@ -13,7 +13,7 @@
     <string name="admin_option3">Add/Remove Item</string>
     <string name="admin_option4">View Trader\'s Status</string>
     <string name="admin_option5">Change Limits</string>
-    <string name="admin_option6">Change Password</string>
+    <string name="change_password">Change Password</string>
     <string name="back">Back</string>
     <string name="admin_requests">Admin Requests</string>
     <string name="please_click_on">Please click on the admin you would like to approve/reject.</string>
@@ -49,6 +49,14 @@
     <string name="confirmFreezeFlagged">Are you sure you want to freeze this flagged account?</string>
     <string name="confirmUnfreeze">Are you sure you want to unfreeze this account?</string>
     <string name="unfreezeAccount">UNFREEZE</string>
+    <string name="trader_option1">Browse Available Items</string>
+    <string name="trader_option2">Browse My On-Going Trades</string>
+    <string name="trader_option3">Edit Inventory</string>
+    <string name="trader_option4">Edit Wishlist</string>
+    <string name="trader_option5">Automatic Trade Suggestion</string>
+    <string name="trader_option6">View My User Info</string>
+    <string name="trader_option7">Request To Unfreeze</string>
+    <string name="successfully_changed_password">Successfully changed the password.</string>
 
 
 </resources>
