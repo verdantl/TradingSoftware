@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FlaggedAccountsMenu">
+    tools:context=".ApproveAdminActivity">
 
     <TextView
         android:id="@+id/flaggedAccounts"
@@ -34,11 +34,10 @@
         />
 
     <FrameLayout
-        android:id="@+id/fragment_freezeFlagged_container"
+        android:id="@+id/fragment_freeze_container"
         android:name="com.example.phase2.FreezeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
