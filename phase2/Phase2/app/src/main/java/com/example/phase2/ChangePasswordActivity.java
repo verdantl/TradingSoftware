@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
+import com.example.phase2.phase2.TraderManager;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -21,8 +22,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         EditText et = (EditText) findViewById(R.id.enterPassword);
         AdminActions adminActions = (AdminActions) getIntent().getSerializableExtra("AdminActions");
         assert adminActions != null;
-        adminActions.changePassword(getIntent().getStringExtra("NextUser"), et.getText().toString());
-        Toast.makeText(this, "Successfully changed the password. Returning to main menu...", Toast.LENGTH_SHORT).show();
+        adminActions.changePassword(getIntent().getStringExtra("CurrentAdmin"), et.getText().toString());
+        Toast.makeText(this, R.string.successfully_changed_password, Toast.LENGTH_SHORT).show();
         finish();
     }
 }
