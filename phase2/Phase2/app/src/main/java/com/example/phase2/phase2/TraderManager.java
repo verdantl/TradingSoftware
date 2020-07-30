@@ -454,4 +454,13 @@ public class TraderManager implements Serializable {
             users.get(username).setPassword(newPassword);
         }
     }
+
+    /**
+     * Gets the user's home city with the given username
+     * @param username The user who's home city is to be get
+     * @return the string representing the trader's home city
+     */
+    public String getHomeCity(String username){
+        return users.get(username).getHomeCity();
+    }
 }

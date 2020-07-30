@@ -225,15 +225,28 @@ public class TraderSystem extends UserSystem{
         List<Integer> availableOptions = new ArrayList<>();
         List<Integer> itemList = itemManager.getAllApprovedItemsIDs(currentTrader);
 
-        availableOptions.add(0);
-        availableOptions.addAll(itemList);
+        traderPrompts.displayString("To you wish to search base on your home city? for yes press 1 for no press 2.");
+        Integer input;
+        input = Integer.parseInt(sc.nextLine());
+        if (input == 1){
+            String location = traderManager.getHomeCity(currentTrader);
+            for(Integer item : itemList){
+                //TODO: check if we should make a method in itemManager for traderManager.getHomeCity(itemManager.getOwner(item))
+                if(traderManager.getHomeCity(itemManager.getOwner(item)).equals(location)){
+                    availableOptions.add(item);
+                }
+            }
+        }else {
+            availableOptions.add(0);
+            availableOptions.addAll(itemList);
+        }
 
         Integer o;
         Integer o2;
         do{
             for (String str: itemManager.getListOfItemsInString(itemList)){
                 System.out.println(str);
-            }
+            } //TODO: change getint to parseint (i think)
             o = Integer.getInteger(sc.nextLine());
             while (!availableOptions.contains(o)){
                 traderPrompts.incorrectSelection();
