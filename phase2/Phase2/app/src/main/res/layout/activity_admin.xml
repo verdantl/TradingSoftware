@@ -58,10 +58,9 @@
         android:layout_width="157dp"
         android:layout_height="121dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginBottom="40dp"
         android:onClick="changePassword"
-        android:text="@string/admin_option6"
+        android:text="@string/change_password"
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
