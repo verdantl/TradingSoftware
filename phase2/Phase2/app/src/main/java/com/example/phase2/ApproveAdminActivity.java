@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
@@ -68,8 +70,15 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
             }
         });
     }
+
     public void displayFragment() {
         ApprovalFragment approvalFragment = new ApprovalFragment();
+        TextView textView = findViewById(R.id.question);
+        textView.setText(R.string.approve_or_reject);
+        Button approve  = findViewById(R.id.approve);
+        Button reject = findViewById(R.id.reject);
+        approve.setText(R.string.approve);
+        reject.setText(R.string.reject);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();

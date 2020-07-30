@@ -4,6 +4,7 @@ import java.io.*;
 
 
 public class ConfigGateway {
+
     /**
      * Reads objects from the given path
      * @param path the string path of the file
@@ -11,6 +12,7 @@ public class ConfigGateway {
      * @throws IOException from the InputStream
      * @throws ClassNotFoundException from ObjectInputStream
      */
+
     public Serializable readInfo(String path) throws IOException, ClassNotFoundException {
         File file = new File(path);
         if (file.exists()) {
