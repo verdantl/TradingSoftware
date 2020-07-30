@@ -6,13 +6,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.phase2.phase2.AdminActions;
+import com.example.phase2.phase2.ItemManager;
+import com.example.phase2.phase2.MeetingManager;
+import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
+import com.example.phase2.phase2.TraderPrompts;
 
 public class TraderActivity extends AppCompatActivity {
+
+    private TraderPrompts traderPrompts;
+    private TraderManager traderManager;
+    private ItemManager itemManager;
+    private TradeManager tradeManager;
+    private MeetingManager meetingManager;
+
+    private String currentTrader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
+        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         setContentView(R.layout.activity_trader);
     }
 /*
@@ -32,7 +51,9 @@ public class TraderActivity extends AppCompatActivity {
 
  */
     public void browseAvailableItems(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this, BrowseItemsActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        startActivity(intent);
     }
 
     public void browseOnGoingTrades(View view){
