@@ -443,4 +443,15 @@ public class TraderManager implements Serializable {
             t.removeTrade(id);
         }
     }
+
+    /**
+     * Changes the password of the Trader with the given username to new password
+     * @param username Trader's username that is changing the password
+     * @param newPassword New password
+     */
+    public void changePassword(String username, String newPassword){
+        if(users.containsKey(username)) {
+            users.get(username).setPassword(newPassword);
+        }
+    }
 }
