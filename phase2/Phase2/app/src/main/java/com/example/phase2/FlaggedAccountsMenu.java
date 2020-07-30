@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.phase2.phase2.TraderManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlaggedAccountsMenu extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class FlaggedAccountsMenu extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        viewList();
     }
 
     public void onClickFreeze(View view) {
@@ -44,23 +46,23 @@ public class FlaggedAccountsMenu extends AppCompatActivity {
     }
 
     public void viewList(){
-        final List<String> allTraders = traderManager.getListOfFlagged();
+        final List<String> allFlaggedTraders = traderManager.getListOfFlagged();
         setContentView(R.layout.activity_flagged_accounts_menu);
         ListView listView = findViewById(R.id.flagged);
         ArrayAdapter<String> allTraderAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, allTraders);
+                android.R.layout.simple_list_item_1, allFlaggedTraders);
         listView.setAdapter(allTraderAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 displayFragment();
-                frozenTrader = allTraders.get(i);
+                frozenTrader = allFlaggedTraders.get(i);
             }
         });
     }
 
     public void displayFragment() {
-        FreezeFragment freezeFragment = new FreezeFragment();
+        FreezeFlagged freezeFragment = new FreezeFlagged();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();

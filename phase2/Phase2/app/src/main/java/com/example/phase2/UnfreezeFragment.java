@@ -8,20 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FreezeFlagged extends Fragment {
+public class UnfreezeFragment extends Fragment {
 
-
-
-    public FreezeFlagged() {
+    public UnfreezeFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_freeze_flagged, container, false);
+        return inflater.inflate(R.layout.fragment_unfreeze, container, false);
     }
 }

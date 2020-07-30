@@ -47,5 +47,8 @@
     <string name="freezeAction">Freeze</string>
     <string name="cancelAction">Cancel</string>
     <string name="confirmFreezeFlagged">Are you sure you want to freeze this flagged account?</string>
+    <string name="confirmUnfreeze">Are you sure you want to unfreeze this account?</string>
+    <string name="unfreezeAccount">UNFREEZE</string>
+
 
 </resources>

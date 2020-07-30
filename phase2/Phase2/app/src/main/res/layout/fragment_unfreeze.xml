@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FlaggedAccountsMenu">
+    tools:context=".RequestedUnfrozenMenu">
 
     <TextView
         android:layout_width="305dp"
         android:layout_height="106dp"
         android:layout_gravity="center"
         android:layout_marginBottom="100dp"
-        android:text="@string/confirmFreezeFlagged"
+        android:text="@string/confirmUnfreeze"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/freezeFlagged"
+        android:id="@+id/confirmUnfreeze"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:background="#CE043667"
-        android:onClick="onClickFreeze"
-        android:text="@string/freezeAction"
+        android:onClick="onClickUnfreeze"
+        android:text="@string/unfreezeAccount"
         android:textColor="#FFFFFF" />
 
     <Button
