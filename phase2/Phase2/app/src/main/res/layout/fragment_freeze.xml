@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ApproveAdminActivity">
+    tools:context=".AllTradersMenu">
 
     <TextView
         android:layout_width="305dp"
@@ -21,7 +21,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:background="#CE043667"
-        android:onClick="onApproveClicked"
+        android:onClick="onClickFreeze"
         android:text="@string/freezeAction"
         android:textColor="#FFFFFF" />
 
@@ -32,7 +32,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="250dp"
         android:layout_marginTop="50dp"
-        android:onClick="onRejectClicked"
+        android:onClick="onClickCancel"
         android:text="@string/cancelAction" />
 
 
