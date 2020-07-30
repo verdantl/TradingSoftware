@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());
         traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
-        traderManager.addTrader(new Trader("Trader", "Password"));
+        traderManager.addTrader(new Trader("Trader1", "Password"));
+        traderManager.addTrader(new Trader("Trader2", "Password2"));
         try {
             configGateway.saveInfo(context.getFilesDir() + "admins.ser", adminActions);
             configGateway.saveInfo(context.getFilesDir() + "meetings.ser", meetingManager);
