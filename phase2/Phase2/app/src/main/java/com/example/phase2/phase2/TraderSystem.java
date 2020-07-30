@@ -81,7 +81,7 @@ public class TraderSystem extends UserSystem{
                     break;
                 case 4:
                     // Browse their inventory
-                    browseInventoryOfItems();
+                    browseInventoryOfItems(traderActivity);
                     break;
                 case 5:
                     // Browse list of On-Going trades
@@ -221,7 +221,11 @@ public class TraderSystem extends UserSystem{
     /**
      * This is the method where the user browses the inventory, and decides if they want to add items to their wantToBorrow list or propose trades.
      */
-    private void browseInventoryOfItems(){
+    private void browseInventoryOfItems(boolean traderActivity){
+        if(traderActivity){
+            System.out.println("An inactive user cannot browse items.");
+            return;
+        }
         List<Integer> availableOptions = new ArrayList<>();
         List<Integer> itemList = itemManager.getAllApprovedItemsIDs(currentTrader);
 
