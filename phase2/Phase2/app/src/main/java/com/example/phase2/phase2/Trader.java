@@ -13,7 +13,7 @@ public class Trader extends User implements Serializable {
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
     private HashMap<Integer, LocalDate> trades;
-    //private String homeCity; for the extension
+    private String homeCity; //for the extension
 
     //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
     // for making a new trader
@@ -41,7 +41,7 @@ public class Trader extends User implements Serializable {
      * @param requestToUnfreeze Whether this user has requested to unfreeze.
      * @param numLent  The number of times the user has lent an item
      * @param numBorrowed  The number of times the user has borrowed an item
-     */
+     */ //TODO: add the location to the constructor
     public Trader(String username, String password, String dateCreated, boolean frozen,
                   boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed, int numIncomplete,
                   List<Integer> wishlist, List<Integer> borrowedItems, HashMap<Integer, LocalDate> trades){
@@ -312,4 +312,15 @@ public class Trader extends User implements Serializable {
         return inactive;
     }
 
+    /**
+     * returns the trader's current home city
+     * @return the string representing the trader's home city
+     */
+    public String getHomeCity(){return homeCity;}
+
+    /**
+     * Setter for Trader's home city.
+     * @param newHomeCity the string representing the new home city
+     */
+    public void setHomeCity(String newHomeCity){homeCity = newHomeCity;}
 }
