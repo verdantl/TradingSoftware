@@ -462,22 +462,27 @@ public class AdminSystem extends UserSystem{
         System.out.println("2 - Undo agreeing to a trade.");
         System.out.println("3 - Undo confirming a trade.");
         System.out.println("4 - Undo proposing a trade.");
-        System.out.println("5 - Undo proposing an item.");
-        System.out.println("6 - Undo removing an item.");
+        System.out.println("5 - Undo removing an item.");
         int type = Integer.parseInt(scanner.nextLine());
         //For now assume 1 = undo proposing trades
         switch (type) {
-            case 4:
-                undoProposeTrade(username);
-                break;
-            case 6:
-                undoRemoveFromWantToLend(username);
-                break;
-            case 3:
-                undoAgreeTrade(username);
+            case 0:
+                System.out.println("Returning to Main Menu.");
                 break;
             case 1:
                 undoEditTrade(username);
+                break;
+            case 2:
+                undoAgreeTrade(username);
+                break;
+            case 3:
+                undoConfirmTrade(username);
+                break;
+            case 4:
+                undoProposeTrade(username);
+                break;
+            case 5:
+                undoRemoveFromWantToLend(username);
                 break;
         }
     }
@@ -534,6 +539,64 @@ public class AdminSystem extends UserSystem{
                 }
             }
         }while (choice != 0);
+    }
+
+    /**
+     * Method that is used to undo a trade agreement for a user, given the right conditions are met.
+     * @param username The username of the user
+     */
+    public void undoAgreeTrade(String username){
+        Integer option;
+        do {
+            System.out.println("Press 0 to go back.");
+            System.out.println("Enter the trade agreement you wish to undo:");
+            List<Integer> incompleteTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(username));
+            List<Integer> undoableMeetingAgreements = new ArrayList<>();
+            for (Integer i : incompleteTrades) {
+                if (meetingManager.canUndoAgree(i, username)) {
+                    undoableMeetingAgreements.add(i);
+                }
+            }
+            for (Integer i : undoableMeetingAgreements) {
+                System.out.println(meetingManager.getMeetingDescription(i));
+            }
+            option = Integer.parseInt(scanner.nextLine());
+            if(option ==0){
+                break;
+            }
+            while (!undoableMeetingAgreements.contains(option)) {
+                System.out.println("Please enter a valid option");
+                option = Integer.parseInt(scanner.nextLine());
+            }
+            meetingManager.undoAgree(option, username);
+        }while(option!=0);
+    }
+
+    public void undoConfirmTrade(String username){
+        Integer option;
+        do {
+            System.out.println("Press 0 to go back.");
+            System.out.println("Enter the trade confirmation you wish to undo:");
+            List<Integer> incompleteTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(username));
+            List<Integer> undoableMeetingConfirmations = new ArrayList<>();
+            for (Integer i : incompleteTrades) {
+                if (meetingManager.canUndoConfirm(i, username)) {
+                    undoableMeetingConfirmations.add(i);
+                }
+            }
+            for (Integer i : undoableMeetingConfirmations) {
+                System.out.println(meetingManager.getMeetingDescription(i));
+            }
+            option = Integer.parseInt(scanner.nextLine());
+            if(option ==0){
+                break;
+            }
+            while (!undoableMeetingConfirmations.contains(option)) {
+                System.out.println("Please enter a valid option");
+                option = Integer.parseInt(scanner.nextLine());
+            }
+            meetingManager.undoConfirm(option, username);
+        }while(option!=0);
     }
 
     public void undoProposeTrade(String username){
@@ -602,38 +665,6 @@ public class AdminSystem extends UserSystem{
                 }
             }
         }while(choice!=-1);
-
-    }
-
-    /**
-     * Method that is used to undo a trade agreement for a user, given the right conditions are met.
-     * @param username The username of the user
-     */
-    public void undoAgreeTrade(String username){
-        Integer option;
-        do {
-            System.out.println("Press 0 to go back.");
-            System.out.println("Enter the trade agreement you wish to undo:");
-            List<Integer> incompleteTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(username));
-            List<Integer> undoableMeetingAgreements = new ArrayList<>();
-            for (Integer i : incompleteTrades) {
-                if (meetingManager.canUndoAgree(i, username)) {
-                    undoableMeetingAgreements.add(i);
-                }
-            }
-            for (Integer i : undoableMeetingAgreements) {
-                System.out.println(meetingManager.getMeetingDescription(i));
-            }
-            option = Integer.parseInt(scanner.nextLine());
-            if(option ==0){
-                break;
-            }
-            while (!undoableMeetingAgreements.contains(option)) {
-                System.out.println("Please enter a valid option");
-                option = Integer.parseInt(scanner.nextLine());
-            }
-            meetingManager.undoAgree(option, username);
-        }while(option!=0);
 
     }
 }
