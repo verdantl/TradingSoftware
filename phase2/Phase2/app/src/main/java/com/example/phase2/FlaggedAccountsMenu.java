@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.TraderManager;
@@ -30,10 +32,10 @@ public class FlaggedAccountsMenu extends AppCompatActivity {
     }
 
     public void onClickFreeze(View view) {
-        if(traderManager.freezeAccount(frozenTrader)){
+        if (traderManager.freezeAccount(frozenTrader)) {
             Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
 
-        }else{
+        } else {
             Toast.makeText(this,
                     "Fail: the account is already frozen", Toast.LENGTH_SHORT).show();
         }
@@ -45,14 +47,14 @@ public class FlaggedAccountsMenu extends AppCompatActivity {
         viewList();
     }
 
-    public void viewList(){
+    public void viewList() {
         final List<String> allFlaggedTraders = traderManager.getListOfFlagged();
         setContentView(R.layout.activity_flagged_accounts_menu);
         ListView listView = findViewById(R.id.flagged);
         ArrayAdapter<String> allTraderAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, allFlaggedTraders);
         listView.setAdapter(allTraderAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 displayFragment();
@@ -62,11 +64,27 @@ public class FlaggedAccountsMenu extends AppCompatActivity {
     }
 
     public void displayFragment() {
-        FreezeFlagged freezeFragment = new FreezeFlagged();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.fragment_freezeFlagged_container, freezeFragment).commit();
+    FreezeFlagged freezeFragment = new FreezeFlagged();
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager
+    .beginTransaction();
+    fragmentTransaction.add(R.id.fragment_freezeFlagged_container, freezeFragment).commit();
     }
 
+    //public void displayFragment() {
+        //ApprovalFragment approvalFragment = new ApprovalFragment();
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        //FragmentTransaction fragmentTransaction = fragmentManager
+                //.beginTransaction();
+        //TextView textView = findViewById(R.id.question);
+        //textView.setText(R.string.confirmFreeze);
+        //Button freeze = findViewById(R.id.approve);
+        //Button cancel = findViewById(R.id.reject);
+        //freeze.setText(R.string.freezeAction);
+        //cancel.setText(R.string.cancelAction);
+        //fragmentTransaction.add(R.id.fragment_freezeFlagged_container, approvalFragment).commit();
+        //this doesn't work, now in order not to destroy the whole program, I keep the container contains
+        //flagged_freeze_fragment, if you want to test, you can change into approve_fragment
+    //}
 }
+
