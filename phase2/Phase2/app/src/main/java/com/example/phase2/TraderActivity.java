@@ -32,6 +32,7 @@ public class TraderActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+        currentTrader = (String) bundle.getSerializable("CurrentTrader");
         setContentView(R.layout.activity_trader);
     }
 /*
@@ -53,6 +54,7 @@ public class TraderActivity extends AppCompatActivity {
     public void browseAvailableItems(View view){
         Intent intent = new Intent(this, BrowseItemsActivity.class);
         intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
     }
 

@@ -4,45 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FlaggedAccountsMenu">
+    tools:context=".BrowseItemsActivity">
 
     <TextView
-        android:id="@+id/flaggedAccounts"
+        android:id="@+id/availableItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/FlaggedAccounts"
+        android:text="@string/allItems"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/flaggedDescription"
+        android:id="@+id/allItemsDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/flaggedAccounts"
+        android:layout_below="@+id/availableItems"
         android:layout_centerHorizontal="true"
-        android:text="@string/FreezeAccountDescription" />
-
-
+        android:text="@string/selectAnItem" />
 
     <ListView
-        android:layout_below="@+id/flaggedDescription"
+        android:layout_below="@+id/allItemsDescription"
         android:layout_marginTop="10dp"
-        android:id="@+id/flagged"
+        android:id="@+id/selectItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <FrameLayout
-        android:id="@+id/fragment_freezeFlagged_container"
+        android:id="@+id/fragment_freeze_container"
         android:name="com.example.phase2.FreezeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#00FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_freeze_flagged"
-        />
+        tools:layout="@layout/fragment_freeze" />
 
+    <fragment android:name="com.example.phase2.LocationChoiceFragment"
+        android:id="@+id/location_choice_fragment"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

@@ -57,6 +57,10 @@
     <string name="trader_option6">View My User Info</string>
     <string name="trader_option7">Request To Unfreeze</string>
     <string name="successfully_changed_password">Successfully changed the password.</string>
-
+    <string name="allItems">All Available Items:</string>
+    <string name="selectAnItem">Please select the item you would like to view.</string>
+    <string name="yes">Yes.</string>
+    <string name="no">No.</string>
+    <string name="search_home_city">Do you wish to search base on your home city?</string>
 
 </resources>

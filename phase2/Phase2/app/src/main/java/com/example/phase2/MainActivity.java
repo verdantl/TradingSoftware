@@ -85,33 +85,16 @@ public class MainActivity extends AppCompatActivity {
         else{
             nextSystem = 0;
         }
-        setSystem();
 
-        }
-
-    private void setSystem(){
-        Intent intent;
-        switch (nextSystem){
-            case 0:
-                intent = new Intent(this, LoginActivity.class);
-                intent.putExtra("TraderManager", traderManager);
-                intent.putExtra("AdminActions", adminActions);
-                break;
-            case 3:
-                intent = new Intent(this, AdminActivity.class);
-                intent.putExtra("Username", nextUser);
-                intent.putExtra("AdminActions", adminActions);
-                intent.putExtra("ItemManager", itemManager);
-                intent.putExtra("TradeManager", tradeManager);
-                intent.putExtra("TraderManager", traderManager);
-                intent.putExtra("MeetingManager", meetingManager);
-                startActivity(intent);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + nextSystem);
-        }
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TradeManager", tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("AdminActions", adminActions);
         startActivity(intent);
     }
+
 
 
 }
