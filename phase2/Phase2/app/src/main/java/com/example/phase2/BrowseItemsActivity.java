@@ -7,6 +7,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
@@ -27,7 +30,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
-        displayLocationChoice();
+        displayLocationChoiceFragment();
         viewList();
     }
 
@@ -60,11 +63,11 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
     }
 
-    public void displayLocationChoice(){
-
-    }
-
     public void displayLocationChoiceFragment(){
-
+        LocationChoiceFragment lcFragment = new LocationChoiceFragment();
+        FragmentManager fragManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragManager
+                .beginTransaction();
+        fragmentTransaction.add(R.id.location_choice_fragment, lcFragment).commit();
     }
 }
