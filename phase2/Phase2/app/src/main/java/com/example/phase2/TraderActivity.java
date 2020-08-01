@@ -13,7 +13,7 @@ import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 import com.example.phase2.phase2.TraderPrompts;
 
-public class TraderActivity extends AppCompatActivity {
+public class    TraderActivity extends AppCompatActivity {
 
     private TraderPrompts traderPrompts;
     private TraderManager traderManager;
@@ -59,7 +59,13 @@ public class TraderActivity extends AppCompatActivity {
     }
 
     public void browseOnGoingTrades(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this,BrowseTradesActivity.class);
+        intent.putExtra("TradeManager",tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("TraderManager",traderManager);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        startActivity(intent);
     }
 
     public void editInventory(View view){

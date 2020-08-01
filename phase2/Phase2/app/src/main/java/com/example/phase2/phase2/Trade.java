@@ -128,4 +128,18 @@ public class Trade implements Serializable {
         return createdDate;
     }
 
+    /**
+     * Returns the username of the other user in the trade.
+     * @param username The username of one trader
+     * @return The username of the other trader.
+     */
+    public String getOtherTrader(String username){
+        if(initiator.equals(username)){
+            return receiver;
+        }
+        else{
+            return initiator;
+        }
+    }
+
 }

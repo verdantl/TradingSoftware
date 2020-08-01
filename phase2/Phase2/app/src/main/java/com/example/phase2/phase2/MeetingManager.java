@@ -404,4 +404,26 @@ public class MeetingManager implements Serializable {
      * @return A hashmap representing the edits made to the meeting
      */
     public HashMap<String, Integer> getEdits(int id) { return meetings.get(id).getNumberOfEdits(); }
+
+    /**
+     * Returns the meeting's date in string format
+     * @param id the id of the meeting
+     * @return The date in yyyy-mm-dd format
+     */
+    public String getMeetingDate(int id){
+        return meetings.get(id).getTradeDate().toString();
+    }
+
+    /**
+     * Returns the meeting's current location
+     * @param id The id of the meeting
+     * @return The location
+     */
+    public String getMeetingLocation(int id){
+        return meetings.get(id).getLocation();
+    }
+
+    public Integer getEditsLeft(int id, String username){
+        return 3-meetings.get(id).getNumberOfEdits().get(username);
+    }
 }

@@ -185,5 +185,23 @@ public class TradeManager implements Serializable {
         tradeInventory.remove(id);
     }
 
+    /**
+     * Method to check if the given trade id is permanent.
+     * @param id The id of the trade
+     * @return true iff trade is permanent.
+     */
+    public boolean isTradePermanent(int id){
+        return tradeInventory.get(id).isPermanent();
+    }
+
+    /**
+     * Returns the other trader in the trade with the given id
+     * @param id The trade id
+     * @param username The trader's username
+     * @return The other trader's username
+     */
+    public String getOtherTrader(int id, String username){
+        return tradeInventory.get(id).getOtherTrader(username);
+    }
     //Do this and also check the right user can undo
 }

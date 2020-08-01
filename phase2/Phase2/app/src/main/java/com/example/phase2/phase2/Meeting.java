@@ -331,7 +331,14 @@ public class Meeting implements Serializable {
         return this.numberOfEdits.isEmpty();
     }
 
-
+    /**
+     * Returns whether the user has agreed to the given meeting
+     * @param username The username of the user
+     * @return true if agreed, false otherwise
+     */
+    public boolean isAgreed(String username){
+        return isAgreed.get(username);
+    }
 
 
 }

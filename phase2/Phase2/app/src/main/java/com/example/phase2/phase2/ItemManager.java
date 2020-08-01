@@ -388,4 +388,40 @@ public class ItemManager implements Serializable {
     public void undoRemoval(int id){
         items.get(id).setStatus(ItemStatus.AVAILABLE);
     }
+
+    /**
+     * Method for returning the item name with the given id
+     * @param id the id of the item
+     * @return the item name
+     */
+    public String getItemName(int id){
+        return items.get(id).getName();
+    }
+
+    /**
+     * Method for returning the item description with the given id
+     * @param id the id of the item
+     * @return the item description
+     */
+    public String getItemDescription(int id){
+        return items.get(id).getDescription();
+    }
+
+    /**
+     * Method for returning the item owner with the given id
+     * @param id The item id
+     * @return The item's owner's name
+     */
+    public String getItemOwner(int id){
+        return items.get(id).getOwner();
+    }
+
+    /**
+     * Method for returning the item's quality rating with the given id
+     * @param id The item id
+     * @return The item's quality rating.
+     */
+    public String getItemQuality(int id){
+        return Integer.toString(items.get(id).getQualityRating());
+    }
 }
