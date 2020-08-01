@@ -426,4 +426,99 @@ public class MeetingManager implements Serializable {
     public Integer getEditsLeft(int id, String username){
         return 3-meetings.get(id).getNumberOfEdits().get(username);
     }
+
+    /**
+     * Returns true if the user has agreed to the meeting.
+     * @param id The id of the meeting
+     * @param username The username of the user
+     * @return true iff the user has agreed to the meeting.
+     */
+    public boolean hasAgreed(int id, String username){
+        if(meetings.get(id).getIsAgreed().containsKey(username)){
+            return meetings.get(id).isAgreed(username);
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * Returns whether both users in the given meeting have agreed to the meeting location.
+     * @param id The id of the meeting
+     * @return true iff both have agreed.
+     */
+    public boolean bothAgreed(int id){
+        if(meetings.get(id).getIsAgreed().values().size()==2){
+            for(boolean b: (meetings.get(id).getIsAgreed().values())){
+                if(!b){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns whether the user has agreed to the meeting with the given id
+     * @param id The id of the meeting
+     * @param username The username of the user
+     * @return true iff they have agreed.
+     */
+    public boolean hasConfirmed(int id, String username){
+        return meetings.get(id).hasConfirmed(username);
+    }
+
+    /**
+     * Returns whether the user has confirmed the meeting with the given id.
+     * @param id The id of the meeting.
+     * @return true iff they have both agreed.
+     */
+    public boolean bothConfirmed(int id){
+        if(meetings.get(id).getIsConfirmed().values().size()==2){
+            for(boolean b: (meetings.get(id).getIsConfirmed().values())){
+                if(!b){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Used to set up the second meeting for a temporary trade.
+     * @param id
+     */
+    public void setReturnInfo(int id){
+        meetings.get(id).setReturnLocation(meetings.get(id).getLocation());
+        meetings.get(id).setReturnDate(meetings.get(id).getTradeDate().plusMonths(1));
+        meetings.get(id).setBothConfirm(false);
+    }
+
+    /**
+     * Sets the given meeting status to completed.
+     * @param id The id of the meeting.
+     */
+    public void setMeetingCompleted(int id){
+        meetings.get(id).setTradeStatus("Completed");
+    }
+
+    /**
+     * Returns the return location of the meeting.
+     * @param id The id of the meeting
+     * @return The location of the meeting.
+     */
+    public String getReturnLocation(int id){
+        return meetings.get(id).getReturnLocation();
+    }
+
+    /**
+     * Returns the return date of the trade with the given id.
+     * @param id The id of the trade
+     * @return The date of the return.
+     */
+    public String getReturnDate(int id){
+        return meetings.get(id).getReturnDate().toString();
+    }
 }

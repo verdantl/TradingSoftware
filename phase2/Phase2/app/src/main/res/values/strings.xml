@@ -67,4 +67,6 @@
     <string name="EditMeetingHeader">Meeting Information:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="already_agreed">You have already agreed.</string>
+    <string name = "return_meeting_popup">Return meeting information updated.</string>
 </resources>

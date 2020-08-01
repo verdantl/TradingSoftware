@@ -340,5 +340,26 @@ public class Meeting implements Serializable {
         return isAgreed.get(username);
     }
 
+    /**
+     * Returns whether the user with the given username has agreed to this meeting.
+     * @param username The user's username
+     * @return true iff they have agreed.
+     */
+    public boolean hasConfirmed(String username){
+        if(isConfirmed.containsKey(username)){
+            return isConfirmed.get(username);
+        }
+        return false;
+    }
+
+    /**
+     * Sets both user's confirmations to the given boolean value.
+     * @param b the boolean
+     */
+    public void setBothConfirm(boolean b){
+        for(String s:isConfirmed.keySet()){
+            isConfirmed.replace(s, b);
+        }
+    }
 
 }
