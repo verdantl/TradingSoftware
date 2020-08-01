@@ -9,9 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditTradeActivity"></activity>
-        <activity android:name=".BrowseTradesActivity" />
-        <activity android:name=".ChangeTraderPassword" />
+        <activity android:name=".ChangeTraderPassword"/>
         <activity android:name=".AllTradersMenu" />
         <activity android:name=".RequestedUnfrozenMenu" />
         <activity android:name=".FlaggedAccountsMenu" />
