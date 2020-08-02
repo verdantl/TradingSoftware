@@ -51,7 +51,9 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void addRemoveItems(View view){
-
+        Intent intent = new Intent(this, ApproveItems.class);
+        intent.putExtra("ItemManager", itemManager);
+        startActivity(intent);
     }
 
     public void viewStatus(View view){
