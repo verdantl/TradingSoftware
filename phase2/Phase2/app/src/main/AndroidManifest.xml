@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LocationChoiceActivity"></activity>
         <activity android:name=".ChangeTraderPassword" />
+        <activity android:name=".ApproveItems"></activity>
         <activity android:name=".AllTradersMenu" />
         <activity android:name=".RequestedUnfrozenMenu" />
         <activity android:name=".FlaggedAccountsMenu" />
