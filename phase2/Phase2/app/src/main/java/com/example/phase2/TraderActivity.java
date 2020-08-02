@@ -32,7 +32,7 @@ public class    TraderActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        currentTrader = (String) bundle.getSerializable("Username");
         setContentView(R.layout.activity_trader);
     }
 /*
@@ -62,7 +62,7 @@ public class    TraderActivity extends AppCompatActivity {
         Intent intent = new Intent(this,BrowseTradesActivity.class);
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("TraderManager",traderManager);
+        intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
@@ -94,4 +94,5 @@ public class    TraderActivity extends AppCompatActivity {
         i.putExtra("CurrentTrader", currentTrader);
         startActivity(i);
     }
+
 }

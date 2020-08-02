@@ -1,44 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BrowseTradesActivity">
+   <TextView
+       android:id="@+id/allTrades"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="30dp"
+       android:text="@string/on_going_trades"
+       android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/allTraders"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="@string/on_going_trades"
-            android:textSize="25sp" />
+   <TextView
+       android:id="@+id/allTradesDescription"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/allTrades"
+       android:layout_centerHorizontal="true"
+       android:text="@string/on_going_trades_desc" />
 
-        <TextView
-            android:id="@+id/allTradersDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/allTraders"
-            android:layout_centerHorizontal="true"
-            android:text="@string/on_going_trades_desc" />
+   <ListView
+       android:id="@+id/tradesList1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/allTradesDescription" />
 
-
-        <ListView
-            android:id="@+id/tradesList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/allTradersDescription" />
-
-        <FrameLayout
-            android:id="@+id/fragment_freeze_container"
-            android:name="com.example.phase2.FreezeFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00FFFFFF"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout="@layout/fragment_freeze" />
-
-    </RelativeLayout>
+</RelativeLayout>

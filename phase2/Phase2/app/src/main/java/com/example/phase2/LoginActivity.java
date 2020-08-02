@@ -30,6 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         assert bundle != null;
         traderManager = (TraderManager) bundle.get("TraderManager");
         adminActions = (AdminActions) bundle.get("AdminActions");
+        tradeManager = (TradeManager) bundle.get("TradeManager");
+        meetingManager = (MeetingManager) bundle.get("MeetingManager");
+        itemManager = (ItemManager) bundle.get("ItemManager");
     }
 
     public void onLoginClicked(View view){

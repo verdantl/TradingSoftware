@@ -101,7 +101,6 @@ public class EditTradeActivity extends AppCompatActivity {
         TextView editInfo = findViewById(R.id.editInformation);
         editInfo.setText(tempEditNumber);
 
-
         //Checks to see if both users agreed to the meeting
         if(meetingManager.bothAgreed(trade)){
             //If both users have agreed, removes the edit meeting/confirm meeting buttons.
@@ -120,15 +119,6 @@ public class EditTradeActivity extends AppCompatActivity {
 
     public void onEditMeetingClicked(View view){
         //Do something
-
-
-
-
-
-
-
-
-
     }
 
     public void onAgreeMeetingClicked(View view){
@@ -169,6 +159,7 @@ public class EditTradeActivity extends AppCompatActivity {
         TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
         selfTraderAgree.setText(tempConfirmStatus);
         if(meetingManager.bothConfirmed(trade)){
+            //If trade is not permanent
             if(!tradeManager.isTradePermanent(trade)){
                 if(meetingManager.getReturnLocation(trade).equals("N/A")){
                     meetingManager.setReturnInfo(trade);
@@ -180,12 +171,14 @@ public class EditTradeActivity extends AppCompatActivity {
                 else{
                     meetingManager.setMeetingCompleted(trade);
                     tradeManager.setTradeCompleted(trade);
+                    Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
                     this.finish();
                 }
             }
             else{
                 meetingManager.setMeetingCompleted(trade);
                 tradeManager.setTradeCompleted(trade);
+                Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
                 this.finish();
             }
 

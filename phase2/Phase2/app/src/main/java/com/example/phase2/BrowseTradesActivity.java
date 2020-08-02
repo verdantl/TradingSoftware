@@ -28,7 +28,6 @@ public class BrowseTradesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse_trades);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
@@ -39,29 +38,19 @@ public class BrowseTradesActivity extends AppCompatActivity {
     }
 
     public void viewList(){
-        List<Integer> incompleteTrades = tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader));
-        final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(incompleteTrades);
+        final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader)));
         setContentView(R.layout.activity_browse_trades);
-        ListView listView = findViewById(R.id.tradesList);
-        ArrayAdapter<Integer> allTraderAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, onGoingTrades);
-        listView.setAdapter(allTraderAdapter);
+        ListView listView = findViewById(R.id.tradesList1);
+        ArrayAdapter<Integer> allTradesAdapter = new ArrayAdapter<Integer>(this,
+               android.R.layout.simple_list_item_1, onGoingTrades);
+        listView.setAdapter(allTradesAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 displayEditTrade();
                 trade = onGoingTrades.get(i);
             }
-        });
-    }
-
-
-    public void displayFragment() {
-        FreezeFragment freezeFragment = new FreezeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.fragment_freeze_container, freezeFragment).commit();
+       });
     }
 
     public void displayEditTrade(){

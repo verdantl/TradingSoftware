@@ -42,7 +42,6 @@ public class MeetingManager implements Serializable {
             if(!getMeeting(i).getTradeStatus().equals("Completed")){
                 temp.add(i);
             }
-
         }
         return temp;
     }
@@ -109,7 +108,6 @@ public class MeetingManager implements Serializable {
         meeting.setReturnDate(returnDate);
         meeting.setLocation(location);
         meeting.setReturnLocation(returnLocation);
-
     }
 
     /**
@@ -521,4 +519,5 @@ public class MeetingManager implements Serializable {
     public String getReturnDate(int id){
         return meetings.get(id).getReturnDate().toString();
     }
+
 }

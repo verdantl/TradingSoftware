@@ -28,7 +28,6 @@ public class Trader extends User implements Serializable {
         wishlist = new ArrayList<>();
         borrowedItems = new ArrayList<>();
         trades = new HashMap<>();
-
     }
 
     /**
