@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,7 +38,16 @@ public class BrowseItemsActivity extends AppCompatActivity {
     }
 
     public void viewList(){
-        final List<Integer> itemList = itemManager.getAllApprovedItemsIDs(currentTrader);
+        List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
+        if (useLocation){
+            String location = traderManager.getHomeCity(currentTrader);
+            for (Integer i: tempItemList){
+                if(!traderManager.getHomeCity(itemManager.getOwner(i)).equals(location)){
+                    tempItemList.remove(i);
+                }
+            }
+        }
+        final List<Integer> itemList = tempItemList;
         List<String> itemNameList = new ArrayList<>();
         List<String> itemDescription = new ArrayList<>();
         for (Integer item : itemList) {
@@ -54,13 +64,19 @@ public class BrowseItemsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                displayItemOptions();
                 chosenItem = itemList.get(i);
             }
         });
     }
 
-    public void displayFragment(){
-
+    public void displayItemOptions(){
+        Intent intent = new Intent(this, ItemOptionsActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra("LocationChoice", useLocation);
+        intent.putExtra("ChosenItem", chosenItem);
+        startActivity(intent);
     }
 }

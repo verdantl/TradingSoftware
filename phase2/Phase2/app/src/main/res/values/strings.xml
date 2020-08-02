@@ -72,4 +72,7 @@
     <string name="trade_completed">Trade Completed.</string>
     <string name="proposedItems">Proposed Items</string>
     <string name="proposedItemsDescription">Please click on the item you want to approve/reject</string>
+    <string name="itemChoiceMenu">Please choose what you would like to do with this item</string>
+    <string name="addToWishlist">Add item to your wishlist</string>
+    <string name="proposeTrade">Propose a trade</string>
 </resources>
