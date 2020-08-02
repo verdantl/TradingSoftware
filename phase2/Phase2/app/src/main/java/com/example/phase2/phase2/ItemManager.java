@@ -180,6 +180,20 @@ public class ItemManager implements Serializable {
     }
 
     /**
+     * Getter for item name.
+     * @param itemId The ID of the item in question.
+     * @return the item's name.
+     */
+    public String getItemName(Integer itemId) { return items.get(itemId).getName(); }
+
+    /**
+     * Getter for item description.
+     * @param itemId The ID of the item in question.
+     * @return the item's description.
+     */
+    public String getItemDescription(Integer itemId) { return items.get(itemId).getDescription(); }
+
+    /**
      * Converts the list of items with the given list of item ids into a String representation
      * @param itemIds List of item ids
      * @return Return the string representation of the list of items

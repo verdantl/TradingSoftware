@@ -55,7 +55,13 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String, Admin> admins = new HashMap<>();
         admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
         adminActions = new AdminActions(admins);
-        itemManager = new ItemManager(new HashMap<Integer, Item>());
+        Item item1 = new Item(1, "Bruh", "Arjun");
+        item1.setStatus(ItemStatus.AVAILABLE);
+        item1.setCategory("What do you think?");
+        item1.setDescription("bruhbruhbruh");
+        HashMap<Integer, Item> tempMap = new HashMap<>();
+        tempMap.put(1, item1);
+        itemManager = new ItemManager(tempMap);
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());
         traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);

@@ -61,13 +61,13 @@
     <string name="selectAnItem">Please select the item you would like to view.</string>
     <string name="yes">Yes.</string>
     <string name="no">No.</string>
-    <string name="search_home_city">Do you wish to search base on your home city?</string>
+    <string name="search_home_city">Do you wish to search based on your home city?</string>
     <string name="on_going_trades">Your On-Going Trades</string>
     <string name="on_going_trades_desc">Please select the trade you wish to view/edit.</string>
     <string name="EditMeetingHeader">Meeting Information:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="already_agreed">You have already agreed.</string>
-    <string name = "return_meeting_popup">Return meeting information updated.</string>
-    <string name = "trade_completed">Trade Completed.</string>
+    <string name="return_meeting_popup">Return meeting information updated.</string>
+    <string name="trade_completed">Trade Completed.</string>
 </resources>

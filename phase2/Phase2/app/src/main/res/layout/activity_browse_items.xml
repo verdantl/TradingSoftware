@@ -42,10 +42,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_freeze" />
 
-    <fragment android:name="com.example.phase2.LocationChoiceFragment"
-        android:id="@+id/location_choice_fragment"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
-
 </RelativeLayout>
