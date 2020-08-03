@@ -4,42 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BrowseItemsActivity">
+    tools:context=".ApproveItems">
 
     <TextView
-        android:id="@+id/availableItems"
+        android:id="@+id/Approve_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/allItems"
+        android:text="@string/proposedItems"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/allItemsDescription"
+        android:id="@+id/Approve_items_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/availableItems"
+        android:layout_below="@+id/Approve_items"
         android:layout_centerHorizontal="true"
-        android:text="@string/selectAnItem" />
+        android:text="@string/proposedItemsDescription" />
+
+
 
     <ListView
-        android:layout_below="@+id/allItemsDescription"
+        android:layout_below="@+id/Approve_items_description"
         android:layout_marginTop="10dp"
-        android:id="@+id/selectItem"
+        android:id="@+id/processedItems"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-
     <FrameLayout
-        android:id="@+id/fragment_freeze_container"
-        android:name="com.example.phase2.FreezeFragment"
+        android:id="@+id/items_container"
+        android:name="com.example.phase2.ApproveItemsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_freeze" />
+        tools:layout="@layout/fragment_approve_items" />
+
 
 </RelativeLayout>

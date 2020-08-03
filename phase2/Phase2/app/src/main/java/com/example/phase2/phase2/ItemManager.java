@@ -163,11 +163,11 @@ public class ItemManager implements Serializable {
 
     /**
      * Converts all the proposed items into a String representation
-     * @param username The Trader's username
+     * @param ids the ids of the proposed items
      * @return Return the string representation of proposed items of the Trader with the given username
      */
-    public List<String> getProposedItemsInString(String username){
-        List<Item> proposedItems = getProposedItems(username);
+    public List<String> getProposedItemsInString(List<Integer> ids){
+        List<Item> proposedItems = getListOfItems(ids);
 
         return convertItemListToString(proposedItems);
     }
@@ -180,6 +180,20 @@ public class ItemManager implements Serializable {
     public String getItemInString(Integer itemId){
         return items.get(itemId).toString();
     }
+
+    /**
+     * Getter for item name.
+     * @param itemId The ID of the item in question.
+     * @return the item's name.
+     */
+    public String getItemName(Integer itemId) { return items.get(itemId).getName(); }
+
+    /**
+     * Getter for item description.
+     * @param itemId The ID of the item in question.
+     * @return the item's description.
+     */
+    public String getItemDescription(Integer itemId) { return items.get(itemId).getDescription(); }
 
     /**
      * Converts the list of items with the given list of item ids into a String representation
@@ -235,6 +249,14 @@ public class ItemManager implements Serializable {
      */
     public String getOwner(Integer itemId){
         return items.get(itemId).getOwner();
+    }
+
+    /**Return the status of the given item
+     * @param id the id of the item
+     * @return the status of the item
+     */
+    public ItemStatus getItemStatus(Integer id){
+        return items.get(id).getStatus();
     }
 
     /**

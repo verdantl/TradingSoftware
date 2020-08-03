@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import java.util.List;
 public class BrowseItemsActivity extends AppCompatActivity {
 
     private ItemManager itemManager;
+    private TraderManager traderManager;
     private String currentTrader;
     private int chosenItem;
     private boolean useLocation;
@@ -29,45 +31,52 @@ public class BrowseItemsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
-        displayLocationChoiceFragment();
+        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        currentTrader = (String) bundle.getString("CurrentTrader");
+        useLocation = (Boolean) bundle.getBoolean("LocationChoice");
         viewList();
     }
 
     public void viewList(){
-        final List<Integer> itemList = itemManager.getAllApprovedItemsIDs(currentTrader);
-
+        List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
+        if (useLocation){
+            String location = traderManager.getHomeCity(currentTrader);
+            for (Integer i: tempItemList){
+                if(!traderManager.getHomeCity(itemManager.getOwner(i)).equals(location)){
+                    tempItemList.remove(i);
+                }
+            }
+        }
+        final List<Integer> itemList = tempItemList;
+        List<String> itemNameList = new ArrayList<>();
+        List<String> itemDescription = new ArrayList<>();
+        for (Integer item : itemList) {
+            itemNameList.add(itemManager.getItemName(item));
+        }
+        for (Integer item : itemList) {
+            itemDescription.add(itemManager.getItemDescription(item));
+        }
         setContentView(R.layout.activity_browse_items);
         ListView listView = findViewById(R.id.selectItem);
-        ArrayAdapter<Integer> allItemsAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, itemList);
+        ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, itemNameList);
         listView.setAdapter(allItemsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                displayItemOptions();
                 chosenItem = itemList.get(i);
             }
         });
     }
 
-    public void onClickUseLocation(View view) {
-        useLocation = true;
-    }
-
-    public void onClickDontUseLocation(View view) {
-        useLocation = false;
-    }
-
-    public void displayFragment(){
-
-    }
-
-    public void displayLocationChoiceFragment(){
-        LocationChoiceFragment lcFragment = new LocationChoiceFragment();
-        FragmentManager fragManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.location_choice_fragment, lcFragment).commit();
+    public void displayItemOptions(){
+        Intent intent = new Intent(this, ItemOptionsActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra("LocationChoice", useLocation);
+        intent.putExtra("ChosenItem", chosenItem);
+        startActivity(intent);
     }
 }
