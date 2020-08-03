@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".undo"></activity>
         <activity android:name=".RemoveItemWishlistActivity" />
         <activity android:name=".AddNewItemActivity" />
         <activity android:name=".RemoveItemInventoryActivity" />
         <activity android:name=".ItemOptionsActivity" />
-        <activity android:name=".SelectItemActivity"/>
+        <activity android:name=".SelectItemActivity" />
         <activity android:name=".EnterInfoProposeTradeActivity" />
         <activity android:name=".DisplayTradeOptions2Activity" />
         <activity android:name=".DisplayTradeOptions1Activity" />

@@ -11,7 +11,6 @@
         android:layout_width="157dp"
         android:layout_height="121dp"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="20dp"
         android:onClick="addRemoveItems"
         android:text="@string/admin_option3"
@@ -21,15 +20,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/option1Btn"
-        app:layout_constraintVertical_bias="0.228" />
+        app:layout_constraintVertical_bias="0.41" />
 
     <Button
         android:id="@+id/option1Btn"
         android:layout_width="157dp"
         android:layout_height="121dp"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="148dp"
         android:onClick="addRemoveAdmin"
         android:text="@string/admin_option1"
         android:textSize="21sp"
@@ -43,8 +41,7 @@
         android:layout_width="157dp"
         android:layout_height="121dp"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="88dp"
         android:onClick="changeLimits"
         android:text="@string/admin_option5"
         android:textSize="21sp"
@@ -58,7 +55,7 @@
         android:layout_width="157dp"
         android:layout_height="121dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="88dp"
         android:onClick="changePassword"
         android:text="@string/change_password"
         android:textSize="21sp"
@@ -70,19 +67,19 @@
         android:layout_width="157dp"
         android:layout_height="121dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:onClick="viewStatus"
         android:text="@string/admin_option4"
         android:textSize="21sp"
         app:layout_constraintBottom_toTopOf="@+id/option6Btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option2Btn" />
+        app:layout_constraintTop_toBottomOf="@+id/option2Btn"
+        app:layout_constraintVertical_bias="0.337" />
 
     <Button
         android:id="@+id/option2Btn"
         android:layout_width="157dp"
         android:layout_height="121dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="156dp"
         android:layout_marginEnd="32dp"
         android:onClick="manageAccounts"
         android:text="@string/admin_option2"
@@ -122,5 +119,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.056" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="110dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:background="#173D4E"
+        android:onClick="undoMenu"
+        android:text="@string/undo"
+        android:textColor="#FDFFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

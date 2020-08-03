@@ -75,4 +75,9 @@ public class AdminActivity extends AppCompatActivity {
         i.putExtra("CurrentAdmin", currentAdmin);
         startActivity(i);
     }
+
+    public void undoMenu(View view){
+        Intent i = new Intent(this, undo.class);
+        startActivity(i);
+    }
 }
