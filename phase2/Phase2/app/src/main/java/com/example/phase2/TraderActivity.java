@@ -71,11 +71,18 @@ public class    TraderActivity extends AppCompatActivity {
     }
 
     public void editInventory(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this, EditInventoryActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        startActivity(intent);
     }
 
     public void editWishlist(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this, EditWishlistActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        startActivity(intent);
     }
 
     public void automaticTradeSuggestion(View view){

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.phase2">
 
     <application
@@ -9,12 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ItemOptionsActivity"/>
+        <activity android:name=".RemoveItemWishlistActivity" />
+        <activity android:name=".AddNewItemActivity" />
+        <activity android:name=".RemoveItemInventoryActivity" />
+        <activity android:name=".ItemOptionsActivity" />
         <activity android:name=".LocationChoiceActivity" />
         <activity android:name=".ChangeTraderPassword" />
         <activity android:name=".ApproveItems" />
-        <activity android:name=".EditMeetingActivity"></activity>
-        <activity android:name=".ChangeTraderPassword" />
+        <activity android:name=".EditMeetingActivity" />
         <activity android:name=".AllTradersMenu" />
         <activity android:name=".RequestedUnfrozenMenu" />
         <activity android:name=".FlaggedAccountsMenu" />
@@ -40,7 +43,8 @@
         <activity android:name=".OneItemActivity" />
         <activity android:name=".TwoItemActivity" />
         <activity android:name=".BrowseItemsActivity" />
-        <activity android:name=".BrowseTradesActivity" />
+        <activity android:name=".EditInventoryActivity" />
+        <activity android:name=".EditWishlistActivity" />
     </application>
 
 </manifest>
