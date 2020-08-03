@@ -1,24 +1,26 @@
 package com.example.phase2;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class LocationChoiceActivity extends AppCompatActivity {
+public class DisplayTradeOptions1Activity extends AppCompatActivity {
 
     private ItemManager itemManager;
     private TraderManager traderManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private String currentTrader;
-    private boolean useLocation;
+    private Integer chosenItem;
+    private boolean oneWay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,31 +32,37 @@ public class LocationChoiceActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getString("CurrentTrader");
+        chosenItem = (Integer) bundle.getInt("ChosenItem");
         viewStart();
     }
 
-    public void viewStart(){
-        setContentView(R.layout.activity_location_choice);
+    public void viewStart() { setContentView(R.layout.activity_item_options); }
+
+    public void oneWayChoice(View view) {
+        oneWay = true;
+        continuing(view);
     }
 
-    public void onClickUseLocation(View view){
-        useLocation = true;
-        continueToNextScreen(view);
+    public void twoWayChoice(View view) {
+        if (itemManager.getApprovedItemsIDs(currentTrader).size() < 1){
+            Toast.makeText(this, "You must have items in your inventory to be able to " +
+                    "initiate a two-way trade.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            oneWay = false;
+            continuing(view);
+        }
     }
 
-    public void onClickDontUseLocation(View view){
-        useLocation = false;
-        continueToNextScreen(view);
-    }
-
-    public void continueToNextScreen(View view){
-        Intent intent = new Intent(this, BrowseItemsActivity.class);
+    public void continuing(View view) {
+        Intent intent = new Intent(this, DisplayTradeOptions2Activity.class);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("LocationChoice", useLocation);
+        intent.putExtra("ChosenItem", chosenItem);
+        intent.putExtra("OneWay", oneWay);
         startActivity(intent);
         finish();
     }

@@ -75,4 +75,15 @@
     <string name="itemChoiceMenu">Please choose what you would like to do with this item</string>
     <string name="addToWishlist">Add item to your wishlist</string>
     <string name="proposeTrade">Propose a trade</string>
+    <string name="oneWay">One-way</string>
+    <string name="twoWay">Two-way</string>
+    <string name="tradeOption">Please choose the type of trade you would like to make</string>
+    <string name="temp">Temporary</string>
+    <string name="perm">Permanent</string>
+    <string name="set_info">Please enter the following information regarding your trade:</string>
+    <string name="enter_location">Enter a location</string>
+    <string name="enter_date">Enter a date (DD-MM-YYYY)</string>
+    <string name="set">Set</string>
+    <string name="continue_to_next">Continue</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,24 +1,26 @@
 package com.example.phase2;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class LocationChoiceActivity extends AppCompatActivity {
+public class DisplayTradeOptions2Activity extends AppCompatActivity {
 
     private ItemManager itemManager;
     private TraderManager traderManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private String currentTrader;
-    private boolean useLocation;
+    private Integer chosenItem;
+    private boolean oneWay;
+    private boolean temporary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,31 +32,40 @@ public class LocationChoiceActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getString("CurrentTrader");
+        chosenItem = (Integer) bundle.getInt("ChosenItem");
+        oneWay = (Boolean) bundle.getBoolean("OneWay");
         viewStart();
     }
 
-    public void viewStart(){
-        setContentView(R.layout.activity_location_choice);
+    public void viewStart() { setContentView(R.layout.activity_item_options); }
+
+    public void tempChoice(View view) {
+        temporary = true;
+        continuing(view);
     }
 
-    public void onClickUseLocation(View view){
-        useLocation = true;
-        continueToNextScreen(view);
+    public void permChoice(View view) {
+        temporary = false;
+        continuing(view);
     }
 
-    public void onClickDontUseLocation(View view){
-        useLocation = false;
-        continueToNextScreen(view);
-    }
-
-    public void continueToNextScreen(View view){
-        Intent intent = new Intent(this, BrowseItemsActivity.class);
+    public void continuing(View view) {
+        Intent intent;
+        if (oneWay) {
+            intent = new Intent(this, EnterInfoProposeTradeActivity.class);
+            intent.putExtra("MyItem", -1);
+        }
+        else {
+            intent = new Intent(this, SelectItemActivity.class);
+        }
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("LocationChoice", useLocation);
+        intent.putExtra("ChosenItem", chosenItem);
+        intent.putExtra("Temporary", temporary);
+        intent.putExtra("OneWay", oneWay);
         startActivity(intent);
         finish();
     }

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemOptionsActivity">
+    tools:context=".DisplayTradeOptions2Activity">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="287dp"
         android:layout_height="92dp"
         android:layout_marginTop="32dp"
-        android:text="@string/itemChoiceMenu"
+        android:text="@string/tradeOption"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -23,8 +23,8 @@
         android:layout_width="225dp"
         android:layout_height="110dp"
         android:layout_marginTop="112dp"
-        android:onClick="addToWishList"
-        android:text="@string/addToWishlist"
+        android:onClick="tempChoice"
+        android:text="@string/temp"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
         android:layout_width="225dp"
         android:layout_height="110dp"
         android:layout_marginTop="120dp"
-        android:onClick="proposeTrade1"
-        android:text="@string/proposeTrade"
+        android:onClick="permChoice"
+        android:text="@string/perm"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

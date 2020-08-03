@@ -1,13 +1,14 @@
 package com.example.phase2;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
@@ -17,15 +18,17 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseItemsActivity extends AppCompatActivity {
+public class SelectItemActivity extends AppCompatActivity {
 
     private ItemManager itemManager;
     private TraderManager traderManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private String currentTrader;
-    private int chosenItem;
-    private boolean useLocation;
+    private Integer chosenItem;
+    private Integer myItem;
+    private boolean oneWay;
+    private boolean temporary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +40,14 @@ public class BrowseItemsActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getString("CurrentTrader");
-        useLocation = (Boolean) bundle.getBoolean("LocationChoice");
+        chosenItem = (Integer) bundle.getInt("ChosenItem");
+        oneWay = (Boolean) bundle.getBoolean("OneWay");
+        temporary = (Boolean) bundle.getBoolean("Temporary");
         viewList();
     }
 
     public void viewList(){
-        List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
-        if (useLocation){
-            String location = traderManager.getHomeCity(currentTrader);
-            for (Integer i: tempItemList){
-                if(!traderManager.getHomeCity(itemManager.getOwner(i)).equals(location)){
-                    tempItemList.remove(i);
-                }
-            }
-        }
-        final List<Integer> itemList = tempItemList;
+        final List<Integer> itemList = itemManager.getApprovedItemsIDs(currentTrader);
         List<String> itemNameList = new ArrayList<>();
         List<String> itemDescription = new ArrayList<>();
         for (Integer item : itemList) {
@@ -60,7 +56,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
         for (Integer item : itemList) {
             itemDescription.add(itemManager.getItemDescription(item));
         }
-        setContentView(R.layout.activity_browse_items);
+        setContentView(R.layout.activity_select_item);
         ListView listView = findViewById(R.id.selectItem);
         ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, itemNameList);
@@ -68,21 +64,23 @@ public class BrowseItemsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayItemOptions();
-                chosenItem = itemList.get(i);
+                continuing();
+                myItem = itemList.get(i);
             }
         });
     }
 
-    public void displayItemOptions(){
-        Intent intent = new Intent(this, ItemOptionsActivity.class);
+    public void continuing() {
+        Intent intent = new Intent(this, EnterInfoProposeTradeActivity.class);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("LocationChoice", useLocation);
         intent.putExtra("ChosenItem", chosenItem);
+        intent.putExtra("MyItem", myItem);
+        intent.putExtra("Temporary", temporary);
+        intent.putExtra("OneWay", oneWay);
         startActivity(intent);
         finish();
     }

@@ -54,8 +54,10 @@ public class    TraderActivity extends AppCompatActivity {
     public void browseAvailableItems(View view){
         Intent intent = new Intent(this, LocationChoiceActivity.class);
         intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("TradeManager", tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
     }
 
