@@ -2,31 +2,23 @@ package com.example.phase2;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 
-import java.util.Objects;
-
-public class OneItemFragment extends Fragment {
+public class TwoItemActivity extends AppCompatActivity {
     TradeManager tradeManager;
     Integer trade;
     ItemManager itemManager;
-    public OneItemFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle= this.getArguments();
+        Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
@@ -34,28 +26,32 @@ public class OneItemFragment extends Fragment {
         //traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         //currentTrader = (String) bundle.getSerializable("CurrentTrader");
         trade = (Integer) bundle.getSerializable("Trade");
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View originalView = inflater.inflate(R.layout.fragment_one_item, container, false);
+        setContentView(R.layout.activity_two_item);
 
         String tempItemName = itemManager.getItemName(tradeManager.getItems(trade).get(0));
-        TextView itemName=originalView.findViewById(R.id.tradeType);
+        TextView itemName=findViewById(R.id.itemName2);
         itemName.setText(tempItemName);
 
         String tempItemDescription = itemManager.getItemDescription(tradeManager.getItems(trade).get(0));
-        TextView itemDescription = originalView.findViewById(R.id.descriptionText);
+        TextView itemDescription = findViewById(R.id.descriptionText2);
         itemDescription.setText(tempItemDescription);
 
-        String tempItemRating = itemManager.getItemQuality(tradeManager.getItems(trade).get(0));
-        TextView itemRating = originalView.findViewById(R.id.itemRating);
+        String tempItemRating = "Rating: " + itemManager.getItemQuality(tradeManager.getItems(trade).get(0));
+        TextView itemRating = findViewById(R.id.itemRating2);
         itemRating.setText(tempItemRating);
 
-        return inflater.inflate(R.layout.fragment_one_item, container, false);
 
+        String tempItemName2 = itemManager.getItemName(tradeManager.getItems(trade).get(1));
+        TextView itemName2=findViewById(R.id.secondItem);
+        itemName2.setText(tempItemName2);
+
+        String tempItemDescription2 = itemManager.getItemDescription(tradeManager.getItems(trade).get(1));
+        TextView itemDescription2 = findViewById(R.id.descriptionText3);
+        itemDescription2.setText(tempItemDescription2);
+
+        String tempItemRating2 = itemManager.getItemQuality(tradeManager.getItems(trade).get(1));
+        TextView itemRating2 = findViewById(R.id.itemRating3);
+        itemRating2.setText(tempItemRating2);
     }
+
 }

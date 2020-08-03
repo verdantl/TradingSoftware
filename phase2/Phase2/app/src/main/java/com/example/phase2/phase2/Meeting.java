@@ -35,7 +35,7 @@ public class Meeting implements Serializable {
         isAgreed = new HashMap<>();
         isConfirmed = new HashMap<>();
         isReturned = new HashMap<>();
-        returnDate = LocalDate.of(0,0,0);
+        returnDate = LocalDate.of(0,1,1);
         returnLocation = "N/A";
         lastTradeDate = null;
         lastLocation = null;
@@ -359,6 +359,15 @@ public class Meeting implements Serializable {
     public void setBothConfirm(boolean b){
         for(String s:isConfirmed.keySet()){
             isConfirmed.replace(s, b);
+        }
+    }
+
+    /**
+     * Makes both users in this meeting disagree with the meeting.
+     */
+    public void bothDisagree(){
+        for(String user: isAgreed.keySet()){
+            isAgreed.replace(user,false);
         }
     }
 

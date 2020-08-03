@@ -107,8 +107,6 @@ public class TraderManager implements Serializable {
         users.put(username, new Trader(username, password));
     }
 
-
-
     /**
      * Adds a Trader object to users
      * @param t The trader object to add
@@ -462,5 +460,32 @@ public class TraderManager implements Serializable {
      */
     public String getHomeCity(String username){
         return users.get(username).getHomeCity();
+    }
+
+    /**
+     * If the item is in username's wishlist, it removes the item.
+     * @param username The user's username
+     * @param itemID The item's id.
+     */
+    public void removeItemFromWishlist(String username, Integer itemID){
+        users.get(username).removeFromWishlist(itemID);
+    }
+
+    /**
+     * Adds the given item to username's borrowed items
+     * @param username The username of the user
+     * @param itemID The item id
+     */
+    public void addToBorrowedItems(String username, Integer itemID){
+        users.get(username).addToBorrowedItems(itemID);
+    }
+
+    /**
+     * Removes the given item from username's borrowed items
+     * @param username
+     * @param itemID
+     */
+    public void removeFromBorrowedItems(String username, Integer itemID){
+        users.get(username).removeFromBorrowedItems(itemID);
     }
 }

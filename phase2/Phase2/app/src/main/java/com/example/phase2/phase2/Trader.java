@@ -233,7 +233,9 @@ public class Trader extends User implements Serializable {
      * @param id the id of the item to be removed
      */
     public void removeFromWishlist(Integer id){
-        this.wishlist.remove(id);
+        if(this.wishlist.contains(id)) {
+            this.wishlist.remove(id);
+        }
     }
 
     /**
@@ -322,4 +324,6 @@ public class Trader extends User implements Serializable {
      * @param newHomeCity the string representing the new home city
      */
     public void setHomeCity(String newHomeCity){homeCity = newHomeCity;}
+
+
 }

@@ -48,6 +48,8 @@ public class ItemManager implements Serializable {
         item.setCategory(category);
         item.setDescription(description);
         item.setQualityRating(quality);
+        //TODO REMOVE tHIS
+        item.setStatus(ItemStatus.AVAILABLE);
     }
 
     /**
@@ -423,5 +425,14 @@ public class ItemManager implements Serializable {
      */
     public String getItemQuality(int id){
         return Integer.toString(items.get(id).getQualityRating());
+    }
+
+    /**
+     * Sets the items owner to the given username
+     * @param id The id of the item
+     * @param owner The owner of the item
+     */
+    public void setItemOwner(int id, String owner){
+        items.get(id).setOwner(owner);
     }
 }

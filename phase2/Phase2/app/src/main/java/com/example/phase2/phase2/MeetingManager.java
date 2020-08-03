@@ -520,4 +520,12 @@ public class MeetingManager implements Serializable {
         return meetings.get(id).getReturnDate().toString();
     }
 
+    /**
+     * Makes both users in a meeting disagree to the meeting.
+     * @param id The id of the meeting.
+     */
+    public void setBothDisagree(int id){
+        meetings.get(id).bothDisagree();
+    }
+
 }
