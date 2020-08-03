@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.get("TradeManager");
         meetingManager = (MeetingManager) bundle.get("MeetingManager");
         itemManager = (ItemManager) bundle.get("ItemManager");
+
     }
 
     public void onLoginClicked(View view){
@@ -70,5 +71,6 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("AdminActions", adminActions);
     }
 }

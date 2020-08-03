@@ -20,7 +20,7 @@ public class    TraderActivity extends AppCompatActivity {
     private ItemManager itemManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
-
+    private AdminActions adminActions;
     private String currentTrader;
 
     @Override
@@ -33,6 +33,7 @@ public class    TraderActivity extends AppCompatActivity {
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getString("Username");
+        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         setContentView(R.layout.activity_trader);
     }
 /*
@@ -72,11 +73,18 @@ public class    TraderActivity extends AppCompatActivity {
     }
 
     public void editInventory(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this, EditInventoryActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        startActivity(intent);
     }
 
     public void editWishlist(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this, EditWishlistActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+        startActivity(intent);
     }
 
     public void automaticTradeSuggestion(View view){
@@ -95,6 +103,7 @@ public class    TraderActivity extends AppCompatActivity {
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         i.putExtra("TraderManager", traderManager);
         i.putExtra("CurrentTrader", currentTrader);
+        i.putExtra("AdminActions",adminActions);
         startActivity(i);
     }
 

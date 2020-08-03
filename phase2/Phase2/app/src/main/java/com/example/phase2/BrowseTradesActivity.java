@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
@@ -25,6 +26,7 @@ public class BrowseTradesActivity extends AppCompatActivity {
     private TraderManager traderManager;
     private String currentTrader;
     private Integer trade;
+    private ItemManager itemManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +36,16 @@ public class BrowseTradesActivity extends AppCompatActivity {
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+
         viewList();
     }
 
     public void viewList(){
-        final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader)));
+        //System.out.println(traderManager.getTrades(currentTrader));
+        //System.out.println(tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader)));
+        //System.out.println(meetingManager.getOnGoingMeetings((traderManager.getTrades(currentTrader))));
+        final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(currentTrader));
         setContentView(R.layout.activity_browse_trades);
         ListView listView = findViewById(R.id.tradesList1);
         ArrayAdapter<Integer> allTradesAdapter = new ArrayAdapter<Integer>(this,
@@ -47,8 +54,8 @@ public class BrowseTradesActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               trade = onGoingTrades.get(i);
                 displayEditTrade();
-                trade = onGoingTrades.get(i);
             }
        });
     }
@@ -59,6 +66,7 @@ public class BrowseTradesActivity extends AppCompatActivity {
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("Trade", trade);
+        intent.putExtra("ItemManager", itemManager);
         startActivity(intent);
     }
 }

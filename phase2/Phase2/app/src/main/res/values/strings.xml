@@ -68,6 +68,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="already_agreed">You have already agreed.</string>
+    <string name="invalid_location_edit">Please enter a valid location.</string>
+    <string name="invalid_date_edit">Please enter a valid date</string>
+    <string name="invalid_date_location">Please enter valid information</string>
     <string name="return_meeting_popup">Return meeting information updated.</string>
     <string name="trade_completed">Trade Completed.</string>
     <string name="proposedItems">Proposed Items</string>

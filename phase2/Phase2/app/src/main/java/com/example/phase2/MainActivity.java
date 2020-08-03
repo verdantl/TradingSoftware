@@ -10,7 +10,9 @@ import com.example.phase2.phase2.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private AdminActions adminActions;
@@ -67,9 +69,25 @@ public class MainActivity extends AppCompatActivity {
         traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
         traderManager.addTrader(new Trader("Trader1", "Password"));
         traderManager.addTrader(new Trader("Trader2", "Password2"));
+
         Trader traderFlagged = new Trader("Arjun", "Password3");
         traderFlagged.setFlagged(true);
         traderManager.addTrader(traderFlagged);
+        List<Integer> tempTradeItems = new ArrayList<>();
+        tempTradeItems.add(itemManager.addItem("Bike", "Arjun"));
+        itemManager.addItemDetails(tempTradeItems.get(0), "Transportation", "Its a bike", 10);
+        //CREATES THE TRADE AND ADDS IT TO TRADE INVENTORY
+        Integer tradeId = tradeManager.createTrade("Arjun", "Trader1", "ONEWAY", true, tempTradeItems);
+        LocalDate tempDate = LocalDate.now();
+        traderManager.addNewTrade("Arjun", tradeId,tempDate);
+        traderManager.addNewTrade("Trader1", tradeId, tempDate);
+
+        //CREATES THE MEETING
+        meetingManager.createMeeting(tradeId, "Arjun", "Trader1", true);
+        meetingManager.setMeetingInfo(tradeId, LocalDate.now(), LocalDate.now(),
+                "Toronto", "Toronto");
+
+
         Trader traderUnfreeze = new Trader("Jeffrey", "Password4");
         traderUnfreeze.setFrozen(true);
         traderUnfreeze.setRequestToUnfreeze(true);

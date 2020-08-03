@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RemoveItemInventoryActivity">
+
+    <TextView
+        android:id="@+id/itemInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Item Info"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/removeItemPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/itemInfo"
+        android:text="Press the Remove Item button to remove item"/>
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/removeItemPrompt"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="125dp"
+        android:text="Name:"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/actualName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/itemName"
+        android:layout_below="@+id/removeItemPrompt"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/itemRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemName"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="125dp"
+        android:text="Rating:"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/actualRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/itemRating"
+        android:layout_below="@+id/itemName"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/itemDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemRating"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="Description:"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/actualDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/itemDescription"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/removeItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemDescription"
+        android:layout_marginTop="250dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="removeItemInventory"
+        android:text="Remove Item"/>
+
+</RelativeLayout>
