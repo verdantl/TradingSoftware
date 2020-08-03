@@ -49,7 +49,7 @@ public class ItemManager implements Serializable {
         item.setDescription(description);
         item.setQualityRating(quality);
         //TODO REMOVE tHIS
-        item.setStatus(ItemStatus.AVAILABLE);
+        item.setStatus(ItemStatus.REQUESTED);
     }
 
     /**
@@ -361,8 +361,7 @@ public class ItemManager implements Serializable {
 
 
     private String convertItemToString(Item item){
-        //TODO: Implement this method
-        return "";
+        return "Item: " + item.getName() + "\n" +  "Owner: " + item.getOwner();
     }
 
     private List<String> convertItemListToString(List<Item> items){
