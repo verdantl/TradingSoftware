@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".undo"></activity>
+        <activity android:name=".undoMenu"></activity>
+        <activity android:name=".undo" />
         <activity android:name=".RemoveItemWishlistActivity" />
         <activity android:name=".AddNewItemActivity" />
         <activity android:name=".RemoveItemInventoryActivity" />
