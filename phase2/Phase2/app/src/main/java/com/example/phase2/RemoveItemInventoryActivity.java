@@ -2,6 +2,7 @@ package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class RemoveItemInventoryActivity extends AppCompatActivity {
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         chosenItem = (int) bundle.getSerializable("ChosenItem");
+        setContentView(R.layout.activity_remove_item_inventory);
         setValues();
     }
 
@@ -36,8 +38,6 @@ public class RemoveItemInventoryActivity extends AppCompatActivity {
         actualName.setText(name);
         actualRating.setText(rating);
         actualDescription.setText(description);
-
-        setContentView(R.layout.activity_remove_item_inventory);
     }
 
     public void removeItemInventory(View view){

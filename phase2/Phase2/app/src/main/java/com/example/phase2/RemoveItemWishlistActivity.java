@@ -24,6 +24,7 @@ public class RemoveItemWishlistActivity extends AppCompatActivity {
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         chosenItem = (int) bundle.getSerializable("ChosenItem");
+        setContentView(R.layout.activity_remove_item_wishlist);
         setValues();
     }
 
@@ -39,8 +40,6 @@ public class RemoveItemWishlistActivity extends AppCompatActivity {
         actualName.setText(name);
         actualRating.setText(rating);
         actualDescription.setText(description);
-
-        setContentView(R.layout.activity_remove_item_wishlist);
     }
 
     public void removeItemWishlist(View view){
