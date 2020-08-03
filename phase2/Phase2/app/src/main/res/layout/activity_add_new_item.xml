@@ -28,11 +28,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/enterItemDetailsPrompt"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="125dp"
+        android:labelFor="@id/enterActualName"
         android:text="Name:"
-        android:textSize="20sp"
-        android:labelFor="@+id/enterActualName"/>
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/enterActualName"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/enterItemDetailsPrompt"
         android:layout_marginStart="2dp"
         android:layout_marginTop="19dp"
-        android:layout_toEndOf="@+id/enterName"
+        android:layout_toEndOf="@id/enterName"
         android:autofillHints="Enter Item Name"
         android:hint="Enter Item Name"
         android:ems="10"
@@ -53,10 +53,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/enterName"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="125dp"
+        android:layout_marginStart="50dp"
         android:text="Rating:"
         android:textSize="20sp"
-        android:labelFor="@+id/enterActualRating"/>
+        android:labelFor="@id/enterActualRating"/>
 
     <EditText
         android:id="@+id/enterActualRating"
@@ -65,17 +65,40 @@
         android:layout_below="@+id/enterName"
         android:layout_marginStart="2dp"
         android:layout_marginTop="19dp"
-        android:layout_toEndOf="@+id/enterName"
+        android:layout_toEndOf="@+id/enterRating"
         android:autofillHints="Enter Item Rating"
         android:hint="Enter Item Rating"
         android:ems="10"
         android:inputType="number" />
 
     <TextView
-        android:id="@+id/enterDescription"
+        android:id="@+id/enterCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enterRating"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="50dp"
+        android:text="Category"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/enterActualCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enterRating"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="19dp"
+        android:layout_toEndOf="@+id/enterCategory"
+        android:autofillHints="Enter Item Category"
+        android:hint="Enter Item Category"
+        android:ems="10"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/enterDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enterCategory"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:text="Description:"
