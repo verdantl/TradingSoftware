@@ -20,7 +20,7 @@ public class    TraderActivity extends AppCompatActivity {
     private ItemManager itemManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
-
+    private AdminActions adminActions;
     private String currentTrader;
 
     @Override
@@ -33,6 +33,7 @@ public class    TraderActivity extends AppCompatActivity {
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getString("Username");
+        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         setContentView(R.layout.activity_trader);
     }
 /*
@@ -93,6 +94,7 @@ public class    TraderActivity extends AppCompatActivity {
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         i.putExtra("TraderManager", traderManager);
         i.putExtra("CurrentTrader", currentTrader);
+        i.putExtra("AdminActions",adminActions);
         startActivity(i);
     }
 
