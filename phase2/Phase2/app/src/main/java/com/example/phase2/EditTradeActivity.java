@@ -144,13 +144,13 @@ public class EditTradeActivity extends AppCompatActivity{
         Intent intent = new Intent(this, BrowseTradesActivity.class);
         bundleM.remove("TradeManager");
         bundleM.remove("MeetingManager");
-        bundleM.remove("TraderManager");
+        //bundleM.remove("TraderManager");
         bundleM.remove("ItemManager");
         bundleM.remove("CurrentTrader");
         intent.putExtras(bundleM);
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("TraderManager", traderManager);
+        //intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("CurrentTrader", currentTrader);
 

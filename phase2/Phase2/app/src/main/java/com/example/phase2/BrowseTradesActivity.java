@@ -37,7 +37,6 @@ public class BrowseTradesActivity extends AppCompatActivity {
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-
         viewList();
     }
 
@@ -67,6 +66,7 @@ public class BrowseTradesActivity extends AppCompatActivity {
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("Trade", trade);
         intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
         startActivity(intent);
     }
 }
