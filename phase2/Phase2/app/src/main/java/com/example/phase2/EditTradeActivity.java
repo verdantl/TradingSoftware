@@ -139,22 +139,23 @@ public class EditTradeActivity extends AppCompatActivity{
         startActivity(intent);
 
     }
-    public void onBackPressed(View view) {
+    @Override
+    public void onBackPressed() {
         Intent intent = new Intent(this, BrowseTradesActivity.class);
         bundleM.remove("TradeManager");
         bundleM.remove("MeetingManager");
         bundleM.remove("TraderManager");
         bundleM.remove("ItemManager");
         bundleM.remove("CurrentTrader");
+        intent.putExtras(bundleM);
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtras(bundleM);
-        startActivity(intent);
 
         startActivity(intent);
+
     }
 
     public void onAgreeMeetingClicked(View view){
