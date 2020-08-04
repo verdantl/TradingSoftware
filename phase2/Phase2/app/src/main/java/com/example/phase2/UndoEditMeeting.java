@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class undoConfirmTrade extends AppCompatActivity {
+public class UndoEditMeeting extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_undo_confirm_trade);
+        setContentView(R.layout.activity_undo_edit_meeting);
     }
 }

@@ -21,7 +21,7 @@ public class UndoMenu extends AppCompatActivity {
     }
 
     public void undoEditMeeting(View view){
-        Intent intent = new Intent(this, undoEditMeeting.class);
+        Intent intent = new Intent(this, UndoEditMeeting.class);
         intent.putExtra("username", username);
         intent.putExtra("TradeManager",
                 getIntent().getSerializableExtra("TradeManager"));
@@ -41,17 +41,17 @@ public class UndoMenu extends AppCompatActivity {
     }
 
     public void undoConfirmTrade(View view){
-        Intent intent = new Intent(this, undoConfirmTrade.class);
+        Intent intent = new Intent(this, UndoConfirmTrade.class);
         intent.putExtra("username", username);
-        intent.putExtra("TradeManager",
-                getIntent().getSerializableExtra("TradeManager"));
+        intent.putExtra("TraderManager",
+                getIntent().getSerializableExtra("TraderManager"));
         intent.putExtra("MeetingManager",
                 getIntent().getSerializableExtra("MeetingManager"));
         startActivity(intent);
     }
 
     public void undoProposeTrade(View view){
-        Intent intent = new Intent(this, undoProposeTrade.class);
+        Intent intent = new Intent(this, UndoProposeTrade.class);
         intent.putExtra("username", username);
         intent.putExtra("TradeManager",
                 getIntent().getSerializableExtra("TradeManager"));
@@ -61,7 +61,7 @@ public class UndoMenu extends AppCompatActivity {
     }
 
     public void undoRemoveItem(View view){
-        Intent intent = new Intent(this, undoRemoveItem.class);
+        Intent intent = new Intent(this, UndoRemoveItem.class);
         intent.putExtra("username", username);
         intent.putExtra("ItemManager",
                 getIntent().getSerializableExtra("ItemManager"));
