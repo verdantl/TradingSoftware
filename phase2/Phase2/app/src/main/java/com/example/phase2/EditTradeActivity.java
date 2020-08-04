@@ -31,15 +31,14 @@ public class EditTradeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
-        Bundle bundle = getIntent().getExtras();
-        this.bundleM = bundle;
-        assert bundle != null;
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        trade = (Integer) bundle.getSerializable("Trade");
+        this.bundleM = getIntent().getExtras();
+        assert bundleM != null;
+        tradeManager = (TradeManager) bundleM.getSerializable("TradeManager");
+        meetingManager = (MeetingManager) bundleM.getSerializable("MeetingManager");
+        traderManager = (TraderManager) bundleM.getSerializable("TraderManager");
+        currentTrader = (String) bundleM.getSerializable("CurrentTrader");
+        itemManager = (ItemManager) bundleM.getSerializable("ItemManager");
+        trade = (Integer) bundleM.getSerializable("Trade");
 
         //Trade type text
         String tempTradeType = "Trade Type: " + tradeManager.getTradeType(trade);
@@ -140,14 +139,21 @@ public class EditTradeActivity extends AppCompatActivity{
         startActivity(intent);
 
     }
-    public void onBackClicked(View view) {
+    public void onBackPressed(View view) {
+        Intent intent = new Intent(this, BrowseTradesActivity.class);
         bundleM.remove("TradeManager");
         bundleM.remove("MeetingManager");
         bundleM.remove("TraderManager");
         bundleM.remove("ItemManager");
         bundleM.remove("CurrentTrader");
-        Intent intent = new Intent(this, BrowseTradesActivity.class);
+        intent.putExtra("TradeManager",tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtras(bundleM);
+        startActivity(intent);
+
         startActivity(intent);
     }
 
