@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startLogin();
+
         loadClasses();
+        startLogin();
 
     }
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void downloadInitial(){
+        final File contextFilesDir = getApplicationContext().getFilesDir();
         HashMap<String, Admin> admins = new HashMap<>();
         admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
         adminActions = new AdminActions(admins);
@@ -100,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
         traderUnfreeze.setRequestToUnfreeze(true);
         traderManager.addTrader(traderUnfreeze);
         try {
-            configGateway.saveInfo(ADMINPATH, adminActions);
-            configGateway.saveInfo(MEETINGPATH, meetingManager);
-            configGateway.saveInfo(TRADERPATH, traderManager);
-            configGateway.saveInfo(TRADEPATH, tradeManager);
-            configGateway.saveInfo(ITEMPATH, itemManager);
+            configGateway.saveInfo(contextFilesDir + ADMINPATH, adminActions);
+            configGateway.saveInfo(contextFilesDir + MEETINGPATH, meetingManager);
+            configGateway.saveInfo(contextFilesDir + TRADERPATH, traderManager);
+            configGateway.saveInfo(contextFilesDir + TRADEPATH, tradeManager);
+            configGateway.saveInfo(contextFilesDir + ITEMPATH, itemManager);
         } catch (IOException e) {
             e.printStackTrace();
         }
