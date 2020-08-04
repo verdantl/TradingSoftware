@@ -32,6 +32,13 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
         viewList();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState
+                .putSerializable("AdminActions", adminActions);
+    }
+
     public void onApproveClicked(View view){
         approved = true;
         approveReject();
@@ -73,12 +80,12 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
 
     public void displayFragment() {
         ApprovalFragment approvalFragment = new ApprovalFragment();
-        TextView textView = findViewById(R.id.question);
-        textView.setText(R.string.approve_or_reject);
-        Button approve  = findViewById(R.id.approve);
-        Button reject = findViewById(R.id.reject);
-        approve.setText(R.string.approve);
-        reject.setText(R.string.reject);
+//        TextView textView = findViewById(R.id.question);
+//        textView.setText(R.string.approve_or_reject);
+//        Button approve  = findViewById(R.id.approve);
+//        Button reject = findViewById(R.id.reject);
+//        approve.setText(R.string.approve);
+//        reject.setText(R.string.reject);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();

@@ -27,12 +27,14 @@ public class AddNewItemActivity extends AppCompatActivity {
         EditText nameText = findViewById(R.id.enterActualName);
         EditText ratingText = findViewById(R.id.enterActualRating);
         EditText descriptionText = findViewById(R.id.enterActualDescription);
+        EditText categoryText = findViewById(R.id.enterActualCategory);
         String name = nameText.getText().toString();
         int rating = Integer.parseInt(ratingText.getText().toString());
         String description = descriptionText.getText().toString();
+        String category = categoryText.getText().toString();
 
         int itemID = itemManager.addItem(name, currentTrader);
-        itemManager.addItemDetails(itemID, "None", description, rating);
+        itemManager.addItemDetails(itemID, category, description, rating);
         itemManager.changeStatusToRequested(itemID);
         Toast.makeText(this, "Item requested. Check back later.",
                 Toast.LENGTH_LONG).show();

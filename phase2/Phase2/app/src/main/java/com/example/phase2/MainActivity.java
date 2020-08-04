@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         //} catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
         //}
-
         HashMap<String, Admin> admins = new HashMap<>();
         admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
         adminActions = new AdminActions(admins);
@@ -118,7 +117,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("AdminActions", adminActions);
         startActivity(intent);
     }
-
-
-
 }
