@@ -96,4 +96,5 @@
     <string name="undo">UNDO</string>
     <string name="askundo">Please enter the username of the user whose actions you would like to undo</string>
     <string name="undoUser">Undo User</string>
+    <string name="current_limit">The current limit is</string>
 </resources>

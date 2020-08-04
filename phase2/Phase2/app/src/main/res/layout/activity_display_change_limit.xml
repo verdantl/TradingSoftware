@@ -23,7 +23,7 @@
         android:id="@+id/enterNewLimit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="224dp"
         android:text="@string/enter_new_limit"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +34,7 @@
         android:id="@+id/enterLimitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="enterNewLimit"
         android:text="@string/enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,4 +42,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editNewLimit"
         app:layout_constraintVertical_bias="0.14" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="121dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,7 +64,7 @@ public class AdminActivity extends AppCompatActivity {
 
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
-        i.putExtra("TraderManager", tradeManager);
+        i.putExtra("TraderManager", traderManager);
         startActivity(i);
 
     }

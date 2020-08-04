@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.phase2.phase2.Admin;
+import com.example.phase2.phase2.TraderManager;
 
 public class ChangeLimitActivity extends AppCompatActivity {
 
