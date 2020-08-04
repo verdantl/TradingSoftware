@@ -102,4 +102,11 @@
     <string name="UndoRemove">Undo Remove Item</string>
     <string name="undoTradeDescription">Please click on the trade you want to help the user undo</string>
     <string name="undoItemDescription">Please click on the removed item you want to help the user undo</string>
+    <string name="UserInfo_username" />
+    <string name="UserInfo_status" />
+    <string name="UserInfo_location" />
+    <string name="current_limit" />
+    <string name="Trader_request_to_unfreeze_already_sent" />
+    <string name="Trader_request_to_unfreeze_sent" />
+    <string name="Trader_request_to_unfreeze_not_frozen" />
 </resources>

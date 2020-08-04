@@ -12,10 +12,10 @@
         <activity android:name=".undoRemoveItem"></activity>
         <activity android:name=".undoProposeTrade" />
         <activity android:name=".undoConfirmTrade" />
-        <activity android:name=".undoAgreeTrade" />
+        <activity android:name=".UndoAgreeTrade" />
         <activity android:name=".undoEditMeeting" />
-        <activity android:name=".undoMenu" />
-        <activity android:name=".undo" />
+        <activity android:name=".UndoMenu" />
+        <activity android:name=".Undo" />
         <activity android:name=".RemoveItemWishlistActivity" />
         <activity android:name=".AddNewItemActivity" />
         <activity android:name=".RemoveItemInventoryActivity" />

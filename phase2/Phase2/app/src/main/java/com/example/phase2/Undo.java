@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.phase2.phase2.TraderManager;
 
-public class undo extends AppCompatActivity {
+public class Undo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class undo extends AppCompatActivity {
                 (TraderManager) getIntent().getSerializableExtra("TraderManager");
         assert traderManager != null;
         if(traderManager.containTrader(chosenTrader)){
-            Intent intent = new Intent(this, undoMenu.class);
+            Intent intent = new Intent(this, UndoMenu.class);
             intent.putExtra("username", chosenTrader);
             intent.putExtra("TradeManager",
                     getIntent().getSerializableExtra("TradeManager"));
@@ -33,6 +33,8 @@ public class undo extends AppCompatActivity {
                     getIntent().getSerializableExtra("ItemManager"));
             intent.putExtra("MeetingManager",
                     getIntent().getSerializableExtra("MeetingManager"));
+            intent.putExtra("TraderManager",
+                    getIntent().getSerializableExtra("TraderManager"));
             startActivity(intent);
         }else{
             Toast.makeText(this, "User doesn't exist", Toast.LENGTH_SHORT).show();

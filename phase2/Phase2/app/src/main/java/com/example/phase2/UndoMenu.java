@@ -10,7 +10,7 @@ import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 
-public class undoMenu extends AppCompatActivity {
+public class UndoMenu extends AppCompatActivity {
     private String username;
 
     @Override
@@ -31,10 +31,10 @@ public class undoMenu extends AppCompatActivity {
     }
 
     public void undoAgreeTrade(View view){
-        Intent intent = new Intent(this, undoAgreeTrade.class);
+        Intent intent = new Intent(this, UndoAgreeTrade.class);
         intent.putExtra("username", username);
-        intent.putExtra("TradeManager",
-                getIntent().getSerializableExtra("TradeManager"));
+        intent.putExtra("TraderManager",
+                getIntent().getSerializableExtra("TraderManager"));
         intent.putExtra("MeetingManager",
                 getIntent().getSerializableExtra("MeetingManager"));
         startActivity(intent);
