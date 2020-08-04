@@ -23,11 +23,12 @@ public class    TraderActivity extends AppCompatActivity {
     private MeetingManager meetingManager;
     private AdminActions adminActions;
     private String currentTrader;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
@@ -109,4 +110,21 @@ public class    TraderActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onBackPressed(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        bundle.remove("TradeManager");
+        bundle.remove("MeetingManager");
+        bundle.remove("TraderManager");
+        bundle.remove("ItemManager");
+        bundle.remove("CurrentTrader");
+        bundle.remove("AdminActions");
+        intent.putExtras(bundle);
+        intent.putExtra("Username", currentTrader);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TradeManager", tradeManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("AdminActions", adminActions);
+        startActivity(intent);
+    }
 }

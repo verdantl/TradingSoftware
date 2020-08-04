@@ -141,21 +141,7 @@ public class EditTradeActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, BrowseTradesActivity.class);
-        bundleM.remove("TradeManager");
-        bundleM.remove("MeetingManager");
-        //bundleM.remove("TraderManager");
-        bundleM.remove("ItemManager");
-        bundleM.remove("CurrentTrader");
-        intent.putExtras(bundleM);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        //intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("CurrentTrader", currentTrader);
-
-        startActivity(intent);
-
+        returnToTrades();
     }
 
     public void onAgreeMeetingClicked(View view){
@@ -184,7 +170,6 @@ public class EditTradeActivity extends AppCompatActivity{
             TextView selfTraderAgree2 = findViewById(R.id.opposingTradeAgree);
             selfTraderAgree2.setText(tempAgreeStatus2);
         }
-
 
     }
     public void onConfirmMeetingClicked(View view){
@@ -234,7 +219,7 @@ public class EditTradeActivity extends AppCompatActivity{
                     meetingManager.setMeetingCompleted(trade);
                     tradeManager.setTradeCompleted(trade);
                     Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
-                    this.finish();
+                    returnToTrades();
                 }
             }
             else{
@@ -256,12 +241,29 @@ public class EditTradeActivity extends AppCompatActivity{
                 meetingManager.setMeetingCompleted(trade);
                 tradeManager.setTradeCompleted(trade);
                 Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
-                this.finish();
+
+                returnToTrades();
             }
 
         }
     }
 
+    public void returnToTrades(){
+        Intent intent = new Intent(this, BrowseTradesActivity.class);
+        bundleM.remove("TradeManager");
+        bundleM.remove("MeetingManager");
+        bundleM.remove("TraderManager");
+        bundleM.remove("ItemManager");
+        bundleM.remove("CurrentTrader");
+        intent.putExtras(bundleM);
+        intent.putExtra("TradeManager",tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
+
+        startActivity(intent);
+    }
     public void onViewItemInformationClicked(View view){
         if(tradeManager.getTradeType(trade).equals("ONEWAY")){
             displayFragmentOneWay();

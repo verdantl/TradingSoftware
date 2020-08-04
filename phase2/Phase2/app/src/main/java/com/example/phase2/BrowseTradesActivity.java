@@ -27,10 +27,11 @@ public class BrowseTradesActivity extends AppCompatActivity {
     private String currentTrader;
     private Integer trade;
     private ItemManager itemManager;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
@@ -44,6 +45,7 @@ public class BrowseTradesActivity extends AppCompatActivity {
         //System.out.println(traderManager.getTrades(currentTrader));
         //System.out.println(tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader)));
         //System.out.println(meetingManager.getOnGoingMeetings((traderManager.getTrades(currentTrader))));
+        //System.out.println(currentTrader==null);
         final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(currentTrader));
         setContentView(R.layout.activity_browse_trades);
         ListView listView = findViewById(R.id.tradesList1);
@@ -69,6 +71,23 @@ public class BrowseTradesActivity extends AppCompatActivity {
         intent.putExtra("TraderManager", traderManager);
         startActivity(intent);
     }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(this, TraderActivity.class);
+        bundle.remove("TradeManager");
+        bundle.remove("MeetingManager");
+        bundle.remove("TraderManager");
+        bundle.remove("ItemManager");
+        intent.putExtras(bundle);
+        intent.putExtra("TradeManager",tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("Username", currentTrader);
+
+        startActivity(intent);
+    }
+
 }
 
 
