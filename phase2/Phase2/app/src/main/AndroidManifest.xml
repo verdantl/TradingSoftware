@@ -55,7 +55,6 @@
         <activity android:name=".BrowseItemsActivity" />
         <activity android:name=".EditInventoryActivity" />
         <activity android:name=".EditWishlistActivity" />
-        <activity android:name=".UndoConfirmTrade" />
     </application>
 
 </manifest>
