@@ -74,4 +74,13 @@ public class UndoConfirmTrade extends AppCompatActivity {
                 .beginTransaction();
         fragmentTransaction.add(R.id.confirmedTrade, undoFragment).commit();
     }
+
+    private void onUndoClick(){
+        meetingManager.undoConfirm(chosenTrade, username);
+        Toast.makeText(this, "Successfully undo confirm", Toast.LENGTH_SHORT).show();
+    }
+
+    private void onCancel(){
+        Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+    }
 }

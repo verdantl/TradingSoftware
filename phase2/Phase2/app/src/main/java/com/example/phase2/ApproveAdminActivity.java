@@ -39,6 +39,15 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, AdminActivity.class);
+        bundle.remove("AdminActions");
+        intent.putExtras(bundle);
+        intent.putExtra("AdminActions", adminActions);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
