@@ -89,4 +89,10 @@
     <string name="set">Set</string>
     <string name="continue_to_next">Continue</string>
     <string name="cancel">Cancel</string>
+    <string name="UserInfo_username">Username: </string>
+    <string name="UserInfo_location">Homecity: </string>
+    <string name="UserInfo_status">Status: </string>
+    <string name="Trader_request_to_unfreeze_sent">Request sent.</string>
+    <string name="Trader_request_to_unfreeze_not_frozen">User is not currently frozen.</string>
+    <string name="Trader_request_to_unfreeze_already_sent">User has already sent request.</string>
 </resources>
