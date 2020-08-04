@@ -27,6 +27,8 @@ public class UndoMenu extends AppCompatActivity {
                 getIntent().getSerializableExtra("TradeManager"));
         intent.putExtra("MeetingManager",
                 getIntent().getSerializableExtra("MeetingManager"));
+        intent.putExtra("TraderManager",
+                getIntent().getSerializableExtra("TraderManager"));
         startActivity(intent);
     }
 
@@ -57,6 +59,8 @@ public class UndoMenu extends AppCompatActivity {
                 getIntent().getSerializableExtra("TradeManager"));
         intent.putExtra("MeetingManager",
                 getIntent().getSerializableExtra("MeetingManager"));
+        intent.putExtra("TraderManager",
+                getIntent().getSerializableExtra("TraderManager"));
         startActivity(intent);
     }
 

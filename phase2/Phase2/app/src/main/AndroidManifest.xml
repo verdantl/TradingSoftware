@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UndoRemoveItem"></activity>
+        <activity android:name=".UndoRemoveItem"/>
         <activity android:name=".UndoProposeTrade" />
         <activity android:name=".UndoConfirmTrade" />
         <activity android:name=".UndoAgreeTrade" />
