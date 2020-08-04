@@ -16,7 +16,7 @@ import com.example.phase2.phase2.AdminActions;
 
 import java.util.ArrayList;
 
-public class ApproveAdminActivity extends AppCompatActivity implements ClickableList, BackButton{
+public class ApproveAdminActivity extends AppCompatActivity implements ClickableList{
     private AdminActions adminActions;
     private Bundle bundle;
     Boolean approved = null;
@@ -29,14 +29,6 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
 
         viewList();
-    }
-
-    public void onBackClicked(View view) {
-        Intent intent = new Intent(this, AdminActivity.class);
-        bundle.remove("AdminActions");
-        intent.putExtras(bundle);
-        intent.putExtra("AdminActions", adminActions);
-        startActivity(intent);
     }
 
     @Override

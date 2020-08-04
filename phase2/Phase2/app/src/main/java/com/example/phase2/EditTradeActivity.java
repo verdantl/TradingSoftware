@@ -19,7 +19,7 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class EditTradeActivity extends AppCompatActivity implements BackButton {
+public class EditTradeActivity extends AppCompatActivity{
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private TraderManager traderManager;
