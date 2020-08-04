@@ -64,7 +64,7 @@ public class AdminActivity extends AppCompatActivity {
 
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
-        i.putExtra("TraderManager", tradeManager);
+        i.putExtra("TraderManager", traderManager);
         startActivity(i);
 
     }
@@ -78,6 +78,10 @@ public class AdminActivity extends AppCompatActivity {
 
     public void undoMenu(View view){
         Intent i = new Intent(this, undo.class);
+        i.putExtra("TraderManager", traderManager);
+        i.putExtra("TradeManager", tradeManager);
+        i.putExtra("ItemManager", itemManager);
+        i.putExtra("MeetingManager", meetingManager);
         startActivity(i);
     }
 }

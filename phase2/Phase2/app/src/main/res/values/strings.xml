@@ -90,4 +90,16 @@
     <string name="undo">UNDO</string>
     <string name="askundo">Please enter the username of the user whose actions you would like to undo</string>
     <string name="undoUser">Undo User</string>
+    <string name="undoEdit">UNDO EDIT MEETING</string>
+    <string name="undoAgree">UNDO AGREE MEETING</string>
+    <string name="undoConfirm">UNDO CONFIRM MEETING</string>
+    <string name="undoProposeTrade">UNDO PROPOSE TRADE</string>
+    <string name="undoRemoveItem">UNDO REMOVE ITEM</string>
+    <string name="undoEditing">Undo Edit Meeting</string>
+    <string name="undoAgreeTrade">Undo Agree Trade</string>
+    <string name="undoConfirmTrade">Undo Confirm Trade</string>
+    <string name="UndoPropose">Undo Propose Trade</string>
+    <string name="UndoRemove">Undo Remove Item</string>
+    <string name="undoTradeDescription">Please click on the trade you want to help the user undo</string>
+    <string name="undoItemDescription">Please click on the removed item you want to help the user undo</string>
 </resources>
