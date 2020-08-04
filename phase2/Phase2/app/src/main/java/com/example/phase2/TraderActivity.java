@@ -37,22 +37,7 @@ public class    TraderActivity extends AppCompatActivity {
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         setContentView(R.layout.activity_trader);
     }
-/*
-    Methods here will be called when the corresponding button is clicked
 
-    You can pass around use case classes by calling Intent.putExtra(String key, UseCase class)
-    (Just like the dictionary)
-
-
-    You can get Use Case classes by calling getIntent().getSerializableExtra(String key)
-    (Don't forget to cast it)
-
-    You can pass around Strings, Integers, and other primitives through putExtra and get them through
-    getStringExtra()... etc.
-
-    If you reached the end of the activity (so no more activity to call), then insert finish();
-
- */
     public void browseAvailableItems(View view){
         Intent intent = new Intent(this, LocationChoiceActivity.class);
         intent.putExtra("ItemManager", itemManager);

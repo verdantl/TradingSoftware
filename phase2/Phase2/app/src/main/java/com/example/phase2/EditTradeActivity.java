@@ -19,7 +19,7 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class EditTradeActivity extends AppCompatActivity {
+public class EditTradeActivity extends AppCompatActivity implements BackButton {
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private TraderManager traderManager;
@@ -139,6 +139,16 @@ public class EditTradeActivity extends AppCompatActivity {
         intent.putExtra("ItemManager", itemManager);
         startActivity(intent);
 
+    }
+    public void onBackClicked(View view) {
+        bundleM.remove("TradeManager");
+        bundleM.remove("MeetingManager");
+        bundleM.remove("TraderManager");
+        bundleM.remove("ItemManager");
+        bundleM.remove("CurrentTrader");
+        Intent intent = new Intent(this, BrowseTradesActivity.class);
+        intent.putExtras(bundleM);
+        startActivity(intent);
     }
 
     public void onAgreeMeetingClicked(View view){
