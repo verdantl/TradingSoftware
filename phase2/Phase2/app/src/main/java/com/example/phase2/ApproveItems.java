@@ -20,7 +20,7 @@ import java.util.List;
 import static com.example.phase2.phase2.ItemStatus.AVAILABLE;
 import static com.example.phase2.phase2.ItemStatus.REMOVED;
 
-public class ApproveItems extends AppCompatActivity {
+public class ApproveItems extends AppCompatActivity implements ClickableList{
     private ItemManager itemManager;
     private Integer processedItem;
 
