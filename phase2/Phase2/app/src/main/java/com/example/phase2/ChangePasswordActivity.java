@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
-import com.example.phase2.phase2.TraderManager;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 

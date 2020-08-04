@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
@@ -32,7 +33,7 @@ public class    TraderActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getString("Username");
+        currentTrader = bundle.getString("Username");
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         setContentView(R.layout.activity_trader);
     }
@@ -92,11 +93,27 @@ public class    TraderActivity extends AppCompatActivity {
     }
 
     public void viewUserInfo(View view){
-        //TODO: Implement this method
+        Intent intent = new Intent(this, ViewMyUserInfo.class);
+        intent.putExtra("TradeManager",tradeManager);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("ItemManager", itemManager);
+        startActivity(intent);
     }
 
     public void requestToUnfreeze(View view){
-        //TODO: Implement this method
+        if(traderManager.getIsFrozen(currentTrader)) {
+            if(traderManager.getRequestToUnfreeze(currentTrader)){
+                Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_LONG).show();
+            }
+            else{
+            Toast.makeText(this, R.string.Trader_request_to_unfreeze_sent, Toast.LENGTH_LONG).show();
+            traderManager.setRequestToUnfreeze(currentTrader, true);
+            }
+        }
+        else{
+            Toast.makeText(this, R.string.Trader_request_to_unfreeze_not_frozen, Toast.LENGTH_LONG).show();
+        }
     }
 
     public void changeTraderPassword(View view){
