@@ -16,7 +16,7 @@ import com.example.phase2.phase2.AdminActions;
 
 import java.util.ArrayList;
 
-public class ApproveAdminActivity extends AppCompatActivity implements ClickableList{
+public class ApproveAdminActivity extends AppCompatActivity implements ClickableList, BackButton{
     private AdminActions adminActions;
     private Bundle bundle;
     Boolean approved = null;
