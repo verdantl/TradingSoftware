@@ -2,6 +2,7 @@ package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import com.example.phase2.phase2.TraderManager;
 
 public class DisplayChangeLimitActivity extends AppCompatActivity {
 
+    private TraderManager tm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +23,7 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
         int currLimit = 0;
         int limitToChange = getLimitToChange();
 
-        TraderManager tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
+        tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
         assert tm != null;
 
         switch (limitToChange){
@@ -57,11 +60,10 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
                 tm.setMaxInComplete(newLimit);
 
         }
-        getIntent().putExtra("TraderManager", tm);
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("TraderManager", tm);
         Toast.makeText(this, R.string.successfully_changed_limit, Toast.LENGTH_SHORT).show();
-        System.out.println("Weekly Limit"+tm.getWeeklyLimit());
-        System.out.println("Max Incomplete"+tm.getMaxInComplete());
-        System.out.println("More Lend"+tm.getMoreLend());
+        setResult(RESULT_FIRST_USER, resultIntent);
         finish();
 
     }
