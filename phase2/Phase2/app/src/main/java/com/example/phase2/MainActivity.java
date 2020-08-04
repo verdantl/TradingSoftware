@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
         meetingManager.setMeetingInfo(tradeId, LocalDate.now(), LocalDate.now(),
                 "Toronto", "Toronto");
 
-
+        adminActions.newAdmin("Admin2", "Wordpass");
+        adminActions.newAdmin("Sup", "nothing");
         Trader traderUnfreeze = new Trader("Jeffrey", "Password4");
         traderUnfreeze.setFrozen(true);
         traderUnfreeze.setRequestToUnfreeze(true);

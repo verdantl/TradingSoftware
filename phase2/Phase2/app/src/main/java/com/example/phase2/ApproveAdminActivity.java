@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
@@ -19,18 +18,27 @@ import java.util.ArrayList;
 
 public class ApproveAdminActivity extends AppCompatActivity implements ClickableList{
     private AdminActions adminActions;
+    private Bundle bundle;
     Boolean approved = null;
     String approvedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
-        adminActions.newAdmin("Admin2", "Wordpass");
-        adminActions.newAdmin("Sup", "nothing");
+
         viewList();
     }
+
+    public void onBackClicked(View view) {
+        Intent intent = new Intent(this, AdminActivity.class);
+        bundle.remove("AdminActions");
+        intent.putExtras(bundle);
+        intent.putExtra("AdminActions", adminActions);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
