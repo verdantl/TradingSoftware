@@ -17,11 +17,12 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoAgreeTrade extends AppCompatActivity {
+public class UndoConfirmTrade extends AppCompatActivity {
     private String username;
     private TraderManager traderManager;
     private MeetingManager meetingManager;
     private Integer chosenTrade;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,54 +33,45 @@ public class UndoAgreeTrade extends AppCompatActivity {
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         viewList();
+
     }
 
-    public void viewList(){
-        List<Integer> incompleteTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(username));
-        final List<Integer> undoableMeetingAgreements = new ArrayList<>();
+    private void viewList() {
+        List<Integer> incompleteTrades =
+                meetingManager.getOnGoingMeetings(traderManager.getTrades(username));
+        final List<Integer> undoableMeetingConfirmations = new ArrayList<>();
         for (Integer i : incompleteTrades) {
-            if (meetingManager.canUndoAgree(i, username)) {
-                undoableMeetingAgreements.add(i);
+            if (meetingManager.canUndoConfirm(i, username)) {
+                undoableMeetingConfirmations.add(i);
             }
         }
-        ArrayList<String> undoPresentation = new ArrayList<>();
-        for (Integer i : undoableMeetingAgreements) {
-            undoPresentation.add(meetingManager.getMeetingDescription(i));
+        ArrayList<String> confirmationPresenter = new ArrayList<>();
+        for (Integer i : undoableMeetingConfirmations) {
+            confirmationPresenter.add(meetingManager.getMeetingDescription(i));
         }
-        setContentView(R.layout.activity_undo_agree_trade);
-        ListView listView = findViewById(R.id.agreedTrade);
-        ArrayAdapter<String> agreeAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, undoPresentation);
-        listView.setAdapter(agreeAdapter);
+        setContentView(R.layout.activity_undo_confirm_trade);
+        ListView listView = findViewById(R.id.confirmedTrade);
+        ArrayAdapter<String> confirmAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, confirmationPresenter);
+        listView.setAdapter(confirmAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 displayFragment();
-                chosenTrade = undoableMeetingAgreements.get(i);
+                chosenTrade = undoableMeetingConfirmations.get(i);
             }
         });
+
     }
 
-    public void displayFragment(){
+    private void displayFragment() {
         UndoFragment undoFragment = new UndoFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("undoType", "undoAgree");
+        bundle.putString("undoType", "undoConfirm");
         undoFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-        fragmentTransaction.add(R.id.agreedTrade, undoFragment).commit();
-
-    }
-
-    public void OnUndoClick(View view){
-        meetingManager.undoAgree(chosenTrade, username);
-        Toast.makeText(this, "Successfully undo agree!", Toast.LENGTH_SHORT).show();
-        viewList();
-    }
-
-    public void OnCancelClick(View view){
-        Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show();
-        viewList();
+        fragmentTransaction.add(R.id.confirmedTrade, undoFragment).commit();
     }
 }

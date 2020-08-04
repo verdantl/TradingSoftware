@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".undoRemoveItem"></activity>
-        <activity android:name=".undoProposeTrade" />
-        <activity android:name=".undoConfirmTrade" />
+        <activity android:name=".UndoRemoveItem"></activity>
+        <activity android:name=".UndoProposeTrade" />
+        <activity android:name=".UndoConfirmTrade" />
         <activity android:name=".UndoAgreeTrade" />
-        <activity android:name=".undoEditMeeting" />
+        <activity android:name=".UndoEditMeeting" />
         <activity android:name=".UndoMenu" />
         <activity android:name=".Undo" />
         <activity android:name=".RemoveItemWishlistActivity" />
@@ -55,6 +55,7 @@
         <activity android:name=".BrowseItemsActivity" />
         <activity android:name=".EditInventoryActivity" />
         <activity android:name=".EditWishlistActivity" />
+        <activity android:name=".UndoConfirmTrade" />
     </application>
 
 </manifest>
