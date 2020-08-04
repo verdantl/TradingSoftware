@@ -88,6 +88,7 @@ public class    TraderActivity extends AppCompatActivity {
     }
 
     public void requestToUnfreeze(View view){
+        //testing to see commit issues
         if(traderManager.getIsFrozen(currentTrader)) {
             if(traderManager.getRequestToUnfreeze(currentTrader)){
                 Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_LONG).show();
