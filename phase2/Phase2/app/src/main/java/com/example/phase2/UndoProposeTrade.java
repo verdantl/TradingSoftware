@@ -18,7 +18,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoProposeTrade extends AppCompatActivity {
+public class UndoProposeTrade extends AppCompatActivity implements UndoFragment.UndoClick {
     private String username;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
@@ -69,24 +69,30 @@ public class UndoProposeTrade extends AppCompatActivity {
 
     private void displayFragment() {
         UndoFragment undoFragment = new UndoFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("undoType", "undoPropose");
-        undoFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
         fragmentTransaction.add(R.id.proposedTrade, undoFragment).commit();
     }
 
-    public void onUndoClick(){
+
+
+    @Override
+    public void onUndoClick(View view) {
         meetingManager.undoMeetingProposal(chosenTrade);
         tradeManager.undoTradeProposal(chosenTrade);
         traderManager.undoTradeProposal(chosenTrade);
         Toast.makeText(this, "Successfully undo propose", Toast.LENGTH_SHORT).show();
+        viewList();
+
     }
 
-    public void onCancel(){
+
+    @Override
+    public void onCancelClick(View view) {
         Toast.makeText(this,
                 "Cancelled", Toast.LENGTH_SHORT).show();
+        viewList();
+
     }
 }

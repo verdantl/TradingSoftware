@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class UndoEditMeeting extends AppCompatActivity {
+public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.UndoClick {
     private String username;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
@@ -82,24 +82,28 @@ public class UndoEditMeeting extends AppCompatActivity {
 
     private void displayFragment() {
         UndoFragment undoFragment = new UndoFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("undoType", "undoEdit");
-        undoFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-        fragmentTransaction.add(R.id.editedTrade, undoFragment).commit();
+        fragmentTransaction.add(R.id.undoEditedTrade_container, undoFragment).commit();
     }
 
-    public void onUndoClick(){
+
+
+
+    @Override
+    public void onUndoClick(View view) {
         meetingManager.undoEdit(chosenTrade, username);
         Toast.makeText(this, "Successfully undo edit", Toast.LENGTH_SHORT).show();
+        viewList();
     }
 
-    public void onCancel(){
+
+    @Override
+    public void onCancelClick(View view) {
         Toast.makeText(this,
                 "Cancelled", Toast.LENGTH_SHORT).show();
+        viewList();
+
     }
-
-
 }

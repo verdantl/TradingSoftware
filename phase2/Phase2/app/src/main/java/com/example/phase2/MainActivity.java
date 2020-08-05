@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         List<Integer> tempTradeItems = new ArrayList<>();
         tempTradeItems.add(itemManager.addItem("Bike", "Arjun"));
         itemManager.addItemDetails(tempTradeItems.get(0), "Transportation", "Its a bike", 10);
+        itemManager.changeStatusToRemoved(tempTradeItems.get(0));
+
         //CREATES THE TRADE AND ADDS IT TO TRADE INVENTORY
         Integer tradeId = tradeManager.createTrade("Arjun", "Trader1", "ONEWAY", true, tempTradeItems);
         LocalDate tempDate = LocalDate.now();
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         traderUnfreeze.setFrozen(true);
         traderUnfreeze.setRequestToUnfreeze(true);
         traderManager.addTrader(traderUnfreeze);
+
         try {
             configGateway.saveInfo(contextFilesDir + ADMINPATH, adminActions);
             configGateway.saveInfo(contextFilesDir + MEETINGPATH, meetingManager);
