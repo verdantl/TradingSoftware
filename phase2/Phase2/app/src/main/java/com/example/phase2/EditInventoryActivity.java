@@ -18,15 +18,27 @@ public class EditInventoryActivity extends AppCompatActivity {
     private ItemManager itemManager;
     private String currentTrader;
     private int chosenItem;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
         viewList();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, TraderActivity.class);
+        bundle.remove("ItemManager");
+        bundle.remove("CurrentTrader");
+        intent.putExtras(bundle);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("Username", currentTrader);
+        startActivity(intent);
     }
 
     public void viewList(){
