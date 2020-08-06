@@ -157,22 +157,17 @@ public class Item implements Serializable {
      */
     private ItemStatus convertToItemStatus(String status){
 
-        ItemStatus itemStatus = null;
         switch (status){
             case "available":
-                itemStatus = ItemStatus.AVAILABLE;
-                break;
+               return ItemStatus.AVAILABLE;
             case "unavailable":
-                itemStatus = ItemStatus.UNAVAILABLE;
-                break;
+                return ItemStatus.UNAVAILABLE;
             case "requested":
-                itemStatus = ItemStatus.REQUESTED;
-                break;
-            case "inactive":
-                itemStatus = ItemStatus.INACTIVE;
+                return ItemStatus.REQUESTED;
+            default:
+                return ItemStatus.INACTIVE;
         }
 
-        return itemStatus;
     }
 
     /**
