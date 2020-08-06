@@ -21,16 +21,16 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_change_limit);
         TextView tv = (TextView) findViewById(R.id.textView7);
         int currLimit = 0;
-        int limitToChange = getLimitToChange();
+        LimitType limitToChange = getLimitToChange();
 
         tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
         assert tm != null;
 
         switch (limitToChange){
-            case ChangeLimitActivity.WEEKLY_LIMIT:
+            case WEEKLY_LIMIT:
                 currLimit = tm.getWeeklyLimit();
                 break;
-            case ChangeLimitActivity.AT_LEAST:
+            case MORE_LEND:
                 currLimit = tm.getMoreLend();
                 break;
             default:
@@ -45,15 +45,15 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
     public void enterNewLimit(View view){
         EditText editText = (EditText) findViewById(R.id.editNewLimit);
         int newLimit = Integer.parseInt(editText.getText().toString());
-        int limitToChange = getLimitToChange();
+        LimitType limitToChange = getLimitToChange();
 
-        TraderManager tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
+        //TraderManager tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
         assert tm!= null;
         switch (limitToChange){
-            case ChangeLimitActivity.WEEKLY_LIMIT:
+            case WEEKLY_LIMIT:
                 tm.setWeeklyLimit(newLimit);
                 break;
-                case ChangeLimitActivity.AT_LEAST:
+            case MORE_LEND:
                     tm.setMoreLend(newLimit);
                     break;
             default:
@@ -68,7 +68,13 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
 
     }
 
-    private int getLimitToChange(){
-        return getIntent().getIntExtra("limit", 0);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(RESULT_OK, new Intent());
+    }
+
+    private LimitType getLimitToChange(){
+        return (LimitType) getIntent().getSerializableExtra(LimitType.class.getName());
     }
 }

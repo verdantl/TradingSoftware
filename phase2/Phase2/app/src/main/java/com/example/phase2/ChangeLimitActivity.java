@@ -11,9 +11,8 @@ import com.example.phase2.phase2.TraderManager;
 
 public class ChangeLimitActivity extends AppCompatActivity {
 
-    public static final int WEEKLY_LIMIT = 1;
-    public static final int MAX_INCOMPLETE = 2;
-    public static final int AT_LEAST = 3;
+    //used for onActivityResult
+    private int result = 5;
 
     private TraderManager tm;
 
@@ -28,16 +27,18 @@ public class ChangeLimitActivity extends AppCompatActivity {
         Intent i = new Intent(this, DisplayChangeLimitActivity.class);
         //i.putExtra("TraderManager", getIntent().getSerializableExtra("TraderManager"));
         i.putExtra("TraderManager", tm);
-        i.putExtra("limit", WEEKLY_LIMIT);
+        i.putExtra(LimitType.class.getName(), LimitType.WEEKLY_LIMIT);
         startActivityForResult(i, RESULT_FIRST_USER);
+        //setResult(RESULT_FIRST_USER, i);
     }
 
     public void changeMaxIncomplete(View view){
         Intent i = new Intent(this, DisplayChangeLimitActivity.class);
         //i.putExtra("TraderManager", getIntent().getSerializableExtra("TraderManager"));
         i.putExtra("TraderManager", tm);
-        i.putExtra("limit", MAX_INCOMPLETE);
+        i.putExtra(LimitType.class.getName(), LimitType.MAX_INCOMPLETE);
         startActivityForResult(i, RESULT_FIRST_USER);
+        //setResult(RESULT_FIRST_USER, i);
 
     }
 
@@ -45,16 +46,22 @@ public class ChangeLimitActivity extends AppCompatActivity {
         Intent i = new Intent(this, DisplayChangeLimitActivity.class);
         //i.putExtra("TraderManager", getIntent().getSerializableExtra("TraderManager"));
         i.putExtra("TraderManager", tm);
-        i.putExtra("limit", AT_LEAST);
+        i.putExtra(LimitType.class.getName(), LimitType.MORE_LEND);
         startActivityForResult(i, RESULT_FIRST_USER);
+        //setResult(RESULT_FIRST_USER, i);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("This was called");
         assert data != null;
-        tm = (TraderManager) data.getSerializableExtra("TraderManager");
+        if(resultCode == RESULT_FIRST_USER) {
+            tm = (TraderManager) data.getSerializableExtra("TraderManager");
+        }
+        Intent i = new Intent();
+        i.putExtra("TraderManager", tm);
+        setResult(RESULT_FIRST_USER, i);
     }
+
 
 }
