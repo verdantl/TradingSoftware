@@ -1,25 +1,22 @@
 package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.TraderManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FlaggedAccountsMenu extends AppCompatActivity implements ClickableList{
+    private Bundle bundle;
     private TraderManager traderManager;
     private String frozenTrader;
     private Dialog dialog;
@@ -28,12 +25,22 @@ public class FlaggedAccountsMenu extends AppCompatActivity implements ClickableL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flagged_accounts_menu);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         dialog = new Dialog(this);
         viewList();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ManageFrozenAccount.class);
+        bundle.remove("TraderManager");
+        bundle.putSerializable("TraderManager", traderManager);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 
     public void onClickFreeze(View view) {
         if (traderManager.freezeAccount(frozenTrader)) {

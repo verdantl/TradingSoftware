@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,19 +19,30 @@ import java.util.List;
 
 public class RequestedUnfrozenMenu extends AppCompatActivity implements ClickableList {
     private TraderManager traderManager;
+    private Bundle bundle;
     private String unfreezeRequest;
     private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         dialog = new Dialog(this);
         assert bundle != null;
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
 
         viewList();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ManageFrozenAccount.class);
+        bundle.remove("TraderManager");
+        bundle.putSerializable("TraderManager", traderManager);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     public void viewList(){
         final List<String> allUnfreezeRequests = traderManager.getAllRequestsToUnfreeze();
         setContentView(R.layout.activity_requested_unfrozen_menu);
@@ -56,11 +68,13 @@ public class RequestedUnfrozenMenu extends AppCompatActivity implements Clickabl
             Toast.makeText(this,
                     "Fail: the account is already unfrozen", Toast.LENGTH_SHORT).show();
         }
+        dialog.hide();
         viewList();
     }
 
     public void onClickCancel(View view) {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+        dialog.hide();
         viewList();
     }
 
