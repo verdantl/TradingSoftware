@@ -10,52 +10,50 @@
         android:id="@+id/button21"
         android:layout_width="156dp"
         android:layout_height="104dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="40dp"
         android:onClick="browseAvailableItems"
         android:text="@string/trader_option1"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@+id/button24"
         app:layout_constraintEnd_toStartOf="@+id/button23"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomTraderTv" />
 
     <Button
         android:id="@+id/button24"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="52dp"
         android:onClick="editInventory"
         android:text="@string/trader_option3"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@+id/button28"
         app:layout_constraintEnd_toStartOf="@+id/button25"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button21" />
 
     <Button
         android:id="@+id/button28"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="52dp"
         android:onClick="automaticTradeSuggestion"
         android:text="@string/trader_option5"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@+id/button29"
         app:layout_constraintEnd_toStartOf="@+id/button26"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button24" />
 
     <Button
         android:id="@+id/button29"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="48dp"
         android:onClick="requestToUnfreeze"
@@ -63,58 +61,58 @@
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button27"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button28"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button23"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
         android:onClick="browseOnGoingTrades"
         android:text="@string/trader_option2"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@+id/button25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button21"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomTraderTv" />
 
     <Button
         android:id="@+id/button25"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="52dp"
         android:onClick="editWishlist"
         android:text="@string/trader_option4"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@+id/button26"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button24" />
+        app:layout_constraintStart_toEndOf="@+id/button24"
+        app:layout_constraintTop_toBottomOf="@+id/button23" />
 
     <Button
         android:id="@+id/button26"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="52dp"
         android:onClick="viewUserInfo"
         android:text="@string/trader_option6"
         android:textSize="21sp"
-        app:layout_constraintBottom_toTopOf="@+id/button27"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button28" />
+        app:layout_constraintStart_toEndOf="@+id/button28"
+        app:layout_constraintTop_toBottomOf="@+id/button25" />
 
     <Button
         android:id="@+id/button27"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="48dp"
         android:onClick="changeTraderPassword"
@@ -122,21 +120,22 @@
         android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button29" />
+        app:layout_constraintStart_toEndOf="@+id/button29"
+        app:layout_constraintTop_toBottomOf="@+id/button26"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/welcomTraderTv"
         android:layout_width="117dp"
         android:layout_height="37dp"
+        android:layout_marginTop="60dp"
         android:text="@string/welcome"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView15"
