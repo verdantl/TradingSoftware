@@ -14,16 +14,27 @@ import com.example.phase2.phase2.ItemManager;
 public class RemoveItemInventoryActivity extends AppCompatActivity {
     private ItemManager itemManager;
     private int chosenItem;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         chosenItem = (int) bundle.getSerializable("ChosenItem");
         setContentView(R.layout.activity_remove_item_inventory);
         setValues();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, EditInventoryActivity.class);
+        bundle.remove("ItemManager");
+        bundle.remove("ChosenItem");
+        intent.putExtras(bundle);
+        intent.putExtra("ItemManager", itemManager);
+        startActivity(intent);
     }
 
     public void setValues(){
@@ -45,7 +56,7 @@ public class RemoveItemInventoryActivity extends AppCompatActivity {
         itemManager.changeStatusToRemoved(chosenItem);
         Toast.makeText(this, "Successfully removed the item",
                 Toast.LENGTH_LONG).show();
-        finish();
+        onBackPressed();
     }
 
 }
