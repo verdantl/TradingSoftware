@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,14 +16,16 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.List;
 
-public class RequestedUnfrozenMenu extends AppCompatActivity {
+public class RequestedUnfrozenMenu extends AppCompatActivity implements ClickableList {
     private TraderManager traderManager;
     private String unfreezeRequest;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
+        dialog = new Dialog(this);
         assert bundle != null;
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
 
@@ -38,7 +41,7 @@ public class RequestedUnfrozenMenu extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                displayDialog();
                 unfreezeRequest = allUnfreezeRequests.get(i);
             }
         });
@@ -61,11 +64,8 @@ public class RequestedUnfrozenMenu extends AppCompatActivity {
         viewList();
     }
 
-    public void displayFragment() {
-        UnfreezeFragment unfreezeFragment = new UnfreezeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.fragment_unfreeze_container, unfreezeFragment).commit();
+    public void displayDialog() {
+        dialog.setContentView(R.layout.fragment_unfreeze);
+        dialog.show();
     }
 }
