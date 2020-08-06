@@ -38,8 +38,7 @@ public class ManageFrozenAccount extends AppCompatActivity {
 
     public void viewAllTraders(View view){
         Intent intent = new Intent (this, AllTradersMenu.class);
-        intent.putExtra("TraderManager",
-                getIntent().getSerializableExtra("TraderManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }

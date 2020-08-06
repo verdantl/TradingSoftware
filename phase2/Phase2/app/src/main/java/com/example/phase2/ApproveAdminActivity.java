@@ -48,11 +48,13 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
     }
 
     public void onApproveClicked(View view){
+        dialog.hide();
         approved = true;
         approveReject();
     }
 
     public void onRejectClicked(View view){
+        dialog.hide();
         approved = false;
         approveReject();
     }
