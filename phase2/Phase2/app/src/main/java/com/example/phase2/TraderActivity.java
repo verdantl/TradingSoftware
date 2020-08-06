@@ -41,7 +41,7 @@ public class TraderActivity extends AppCompatActivity {
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         setContentView(R.layout.activity_trader);
         TextView textView = findViewById(R.id.textView15);
-        textView.setText(bundle.getString("UserName"));
+        textView.setText(bundle.getString("Username"));
     }
 
     public void browseAvailableItems(View view){

@@ -12,9 +12,9 @@ import android.widget.Toast;
 import com.example.phase2.phase2.AdminActions;
 
 public class ChangePasswordActivity extends AppCompatActivity {
-
     private AdminActions adminActions;
     private String currentAdmin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

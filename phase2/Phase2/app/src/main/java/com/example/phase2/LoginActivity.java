@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             configGateway.saveBundle(bundle);
+            bundle.remove("Username");
         }
         traderManager = (TraderManager) bundle.get("TraderManager");
         adminActions = (AdminActions) bundle.get("AdminActions");
@@ -52,14 +53,14 @@ public class LoginActivity extends AppCompatActivity {
         if (traderManager.login(username, password)){
             Intent intent = new Intent(this, TraderActivity.class);
             putAllUseCases(intent, username);
-            intent.putExtra("UserName", username);
+            intent.putExtra("Username", username);
             startActivity(intent);
         }
         else if (adminActions.checkCredentials(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             putAllUseCases(intent, username);
             intent.putExtra("AdminActions", adminActions);
-            intent.putExtra("UserName", username);
+            intent.putExtra("Username", username);
             startActivity(intent);
         }
         else{

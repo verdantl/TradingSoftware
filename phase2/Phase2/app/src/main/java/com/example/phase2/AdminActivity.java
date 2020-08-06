@@ -46,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         TextView textView = findViewById(R.id.textView14);
-        textView.setText(bundle.getString("UserName"));
+        textView.setText(bundle.getString("Username"));
     }
 
     @Override
