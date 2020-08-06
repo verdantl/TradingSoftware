@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         meetingManager.createMeeting(tradeId2, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId2, LocalDate.now(), LocalDate.now(),
-                "Toronto", "Toronto");
+                "Toronto", "N/A");
 
         //Set up a one-way trade that is temporary
 

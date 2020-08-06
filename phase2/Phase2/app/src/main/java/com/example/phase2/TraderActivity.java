@@ -123,12 +123,13 @@ public class TraderActivity extends AppCompatActivity {
 
     public void onBackPressed(){
         Intent intent = new Intent(this, LoginActivity.class);
+        bundle.remove("CurrentTrader");
         intent.putExtras(bundle);
 //        bundle.remove("TradeManager");
 //        bundle.remove("MeetingManager");
 //        bundle.remove("TraderManager");
 //        bundle.remove("ItemManager");
-//        bundle.remove("CurrentTrader");
+
 //        bundle.remove("AdminActions");
 //        intent.putExtras(bundle);
 //        intent.putExtra("Username", currentTrader);

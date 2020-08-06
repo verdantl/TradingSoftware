@@ -162,6 +162,29 @@ public class ConfigGateway {
         meetingManager.setMeetingInfo(tradeId2, LocalDate.now(), LocalDate.now(),
                 "Toronto", "Toronto");
 
+        //Adds temporary one way trade
+
+        //Adds temporary two-way trade
+        List<Integer> tempTradeItems4 = new ArrayList<>();
+        Integer temp6 = itemManager.addItem("Laptop", "Trader1");
+        Integer temp7 = itemManager.addItem("Phone", "Arjun");
+        tempTradeItems4.add(temp6);
+        tempTradeItems4.add(temp7);
+        itemManager.addItemDetails(temp6, "Technology", "Its a laptop", 7);
+        itemManager.addItemDetails(temp7, "Technology", "Its a Phone", 5);
+        itemManager.changeStatusToUnavailable(temp6);
+        itemManager.changeStatusToUnavailable(temp7);
+
+        Integer tradeId4 = tradeManager.createTrade("Arjun", "Trader1", "TWOWAY", false, tempTradeItems4);
+
+        LocalDate tempDate4 = LocalDate.now();
+        traderManager.addNewTrade("Arjun", tradeId4,tempDate4);
+        traderManager.addNewTrade("Trader1", tradeId4, tempDate4);
+
+        meetingManager.createMeeting(tradeId4, "Arjun", "Trader1", false);
+        meetingManager.setMeetingInfo(tradeId4, LocalDate.now(), LocalDate.now(),
+                "Toronto", "N/A");
+
         try {
             saveInfo(contextFilesDir + ADMINPATH, adminActions);
             saveInfo(contextFilesDir + MEETINGPATH, meetingManager);
