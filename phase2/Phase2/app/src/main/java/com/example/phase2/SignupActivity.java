@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,14 +13,14 @@ import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.TraderManager;
 
 public class SignupActivity extends AppCompatActivity {
-
+    private Bundle bundle;
     private AdminActions adminActions;
     private TraderManager traderManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
@@ -42,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
             }
             Toast.makeText(this, "Account created successfully!",
                     Toast.LENGTH_SHORT).show();
+            backToLogin();
         }
         else{
             Toast.makeText(this, "That username is taken. Please try again.",
@@ -54,5 +56,15 @@ public class SignupActivity extends AppCompatActivity {
             return false;
         }
         return adminActions.checkUsername(username) && traderManager.isUsernameAvailable(username);
+    }
+
+    private void backToLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        bundle.remove("TraderManager");
+        bundle.putSerializable("TraderManager", traderManager);
+        bundle.remove("AdminActions");
+        bundle.putSerializable("AdminActions", adminActions);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
