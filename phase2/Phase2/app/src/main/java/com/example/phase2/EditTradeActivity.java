@@ -138,6 +138,7 @@ public class EditTradeActivity extends AppCompatActivity{
             intent.putExtra("MeetingManager", meetingManager);
             intent.putExtra("Trade", trade);
             intent.putExtra("ItemManager", itemManager);
+            intent.putExtra("TraderManager", traderManager);
             startActivity(intent);
         }
         else{

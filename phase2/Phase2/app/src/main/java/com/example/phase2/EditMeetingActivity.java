@@ -92,8 +92,12 @@ public class EditMeetingActivity extends AppCompatActivity {
     public void onSubmitClick(){
         Intent intent = new Intent(this, EditTradeActivity.class);
         bundle.remove("MeetingManager");
+        bundle.remove("CurrentTrader");
+        bundle.remove("Trade");
         intent.putExtras(bundle);
         intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("Trade", trade);
+        intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
     }
 
