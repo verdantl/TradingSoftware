@@ -18,15 +18,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adminActions = (AdminActions) getIntent().getSerializableExtra(adminActions.getClass().getName());
-        currentAdmin = getIntent().getStringExtra(currentAdmin.getClass().getName());
+        adminActions = (AdminActions) getIntent().getSerializableExtra("AdminActions");
+        currentAdmin = getIntent().getStringExtra("Username");
         setContentView(R.layout.activity_change_password);
     }
 
     public void submitPassword(View view){
         EditText et = (EditText) findViewById(R.id.enterPassword);
         assert adminActions != null;
-        adminActions.changePassword(getIntent().getStringExtra("CurrentAdmin"), et.getText().toString());
+        adminActions.changePassword(currentAdmin, et.getText().toString());
         Toast.makeText(this, R.string.successfully_changed_password, Toast.LENGTH_SHORT).show();
 
         Intent resultIntent = new Intent();

@@ -39,6 +39,8 @@ public class AdminActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+
+        currentAdmin = bundle.getString("Username");
         setContentView(R.layout.activity_admin);
     }
 
@@ -75,8 +77,8 @@ public class AdminActivity extends AppCompatActivity {
 
     public void changePassword(View view){
         Intent i =  new Intent(this, ChangePasswordActivity.class);
-        i.putExtra(adminActions.getClass().getName(), adminActions);
-        i.putExtra("currentAdmin", currentAdmin);
+        i.putExtra("AdminActions", adminActions);
+        i.putExtra("Username", currentAdmin);
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
