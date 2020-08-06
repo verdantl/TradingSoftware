@@ -10,25 +10,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ConfigGateway;
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
 public class LoginActivity extends AppCompatActivity {
+    private Bundle bundle;
     private AdminActions adminActions;
     private TraderManager traderManager;
-    private ItemManager itemManager;
-    private MeetingManager meetingManager;
-    private TradeManager tradeManager;
-    private ConfigGateway configGateway;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
-        Bundle bundle = getIntent().getExtras();
+        ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
+        bundle = getIntent().getExtras();
         if (bundle == null){
             bundle = configGateway.getBundle();
         }
@@ -38,10 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         traderManager = (TraderManager) bundle.get("TraderManager");
         adminActions = (AdminActions) bundle.get("AdminActions");
-        tradeManager = (TradeManager) bundle.get("TradeManager");
-        meetingManager = (MeetingManager) bundle.get("MeetingManager");
-        itemManager = (ItemManager) bundle.get("ItemManager");
-
     }
 
     public void onLoginClicked(View view){
@@ -52,36 +42,28 @@ public class LoginActivity extends AppCompatActivity {
 
         if (traderManager.login(username, password)){
             Intent intent = new Intent(this, TraderActivity.class);
-            putAllUseCases(intent, username);
-            intent.putExtra("Username", username);
-            startActivity(intent);
+            login(intent, username);
         }
 
         else if (adminActions.checkCredentials(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
-            putAllUseCases(intent, username);
-            intent.putExtra("AdminActions", adminActions);
-            intent.putExtra("Username", username);
-            startActivity(intent);
+            login(intent, username);
         }
         else{
-            Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.login_error,
+                    Toast.LENGTH_LONG).show();
         }
     }
 
     public void onSignupClicked(View view){
         Intent intent = new Intent(this, SignupActivity.class);
-        intent.putExtra("AdminActions", adminActions);
-        intent.putExtra("TraderManager", traderManager);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    private void putAllUseCases(Intent intent, String username){
+    private void login(Intent intent, String username){
+        intent.putExtras(bundle);
         intent.putExtra("Username", username);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TradeManager", tradeManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("AdminActions", adminActions);
+        startActivity(intent);
     }
 }
