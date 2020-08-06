@@ -2,7 +2,6 @@ package com.example.phase2;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +13,6 @@ import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
-
-import java.util.ArrayList;
 
 public class AdminActivity extends AppCompatActivity {
     private Bundle bundle;
@@ -94,11 +91,8 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void undoMenu(View view){
-        Intent i = new Intent(this, Undo.class);
-        i.putExtra("TraderManager", traderManager);
-        i.putExtra("TradeManager", tradeManager);
-        i.putExtra("ItemManager", itemManager);
-        i.putExtra("MeetingManager", meetingManager);
+        Intent i = new Intent(this, UndoActivity.class);
+        i.putExtras(bundle);
         startActivity(i);
     }
 
