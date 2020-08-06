@@ -15,7 +15,6 @@ public class ManageFrozenAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         setContentView(R.layout.activity_manage_frozen_account);
-
     }
 
     @Override
@@ -25,17 +24,15 @@ public class ManageFrozenAccount extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void viewFlaggedAccounts(View view) {
         Intent intent = new Intent(this, FlaggedAccountsMenu.class);
-        intent.putExtra("TraderManager",
-                bundle.getSerializable("TraderManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void viewUnfreezeRequests(View view){
         Intent intent = new Intent(this, RequestedUnfrozenMenu.class);
-        intent.putExtra("TraderManager", bundle.getSerializable("TraderManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
