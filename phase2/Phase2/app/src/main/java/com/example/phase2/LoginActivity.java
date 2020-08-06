@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phase2.phase2.AdminActions;
+import com.example.phase2.phase2.ConfigGateway;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
@@ -20,13 +21,20 @@ public class LoginActivity extends AppCompatActivity {
     private ItemManager itemManager;
     private MeetingManager meetingManager;
     private TradeManager tradeManager;
+    private ConfigGateway configGateway;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
         Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
+        if (bundle == null){
+            bundle = configGateway.getBundle();
+        }
+        else{
+            configGateway.saveBundle(bundle);
+        }
         traderManager = (TraderManager) bundle.get("TraderManager");
         adminActions = (AdminActions) bundle.get("AdminActions");
         tradeManager = (TradeManager) bundle.get("TradeManager");

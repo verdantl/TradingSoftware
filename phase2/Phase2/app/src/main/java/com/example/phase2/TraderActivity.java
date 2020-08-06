@@ -14,9 +14,8 @@ import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 import com.example.phase2.phase2.TraderPrompts;
 
-public class    TraderActivity extends AppCompatActivity {
+public class  TraderActivity extends AppCompatActivity {
 
-    private TraderPrompts traderPrompts;
     private TraderManager traderManager;
     private ItemManager itemManager;
     private TradeManager tradeManager;
