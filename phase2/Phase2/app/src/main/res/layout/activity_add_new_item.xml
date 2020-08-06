@@ -124,6 +124,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
         android:layout_centerHorizontal="true"
-        android:onClick="AddItemButton"
+        android:onClick="addItemButton"
         android:text="Add Item"/>
 </RelativeLayout>

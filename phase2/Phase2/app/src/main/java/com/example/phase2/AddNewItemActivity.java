@@ -36,7 +36,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void AddItemButton(View view){
+    public void addItemButton(View view){
         EditText nameText = findViewById(R.id.enterActualName);
         EditText ratingText = findViewById(R.id.enterActualRating);
         EditText descriptionText = findViewById(R.id.enterActualDescription);
