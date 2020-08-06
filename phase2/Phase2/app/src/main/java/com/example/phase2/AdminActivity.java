@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
@@ -48,6 +49,7 @@ public class AdminActivity extends AppCompatActivity {
 
     public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
+        bundle.remove("Username");
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -110,5 +112,11 @@ public class AdminActivity extends AppCompatActivity {
             default:
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this,
+                "You have reached the main menu!", Toast.LENGTH_SHORT).show();
     }
 }

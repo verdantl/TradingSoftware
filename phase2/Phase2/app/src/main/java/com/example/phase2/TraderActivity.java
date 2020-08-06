@@ -111,10 +111,10 @@ public class TraderActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void onBackPressed(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        bundle.remove("CurrentTrader");
-        intent.putExtras(bundle);
+    //public void onBackPressed(){
+        //Intent intent = new Intent(this, LoginActivity.class);
+        //bundle.remove("CurrentTrader");
+        //intent.putExtras(bundle);
 //        bundle.remove("TradeManager");
 //        bundle.remove("MeetingManager");
 //        bundle.remove("TraderManager");
@@ -129,6 +129,19 @@ public class TraderActivity extends AppCompatActivity {
 //        intent.putExtra("MeetingManager", meetingManager);
 //        intent.putExtra("AdminActions", adminActions);
 //        System.out.println(adminActions==null);
+        //startActivity(intent);
+    //}
+
+    public void onLogoutClicked(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        bundle.remove("CurrentTrader");
+        intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this,
+                "You have reached the main menu!", Toast.LENGTH_SHORT).show();
     }
 }
