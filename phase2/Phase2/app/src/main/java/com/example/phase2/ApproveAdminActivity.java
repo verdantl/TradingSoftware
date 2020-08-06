@@ -14,9 +14,8 @@ import com.example.phase2.phase2.AdminActions;
 
 import java.util.ArrayList;
 
-public class ApproveAdminActivity extends AppCompatActivity implements ClickableList{
+public class ApproveAdminActivity extends BundleActivity implements ClickableList{
     private AdminActions adminActions;
-    private Bundle bundle;
     private Dialog dialog;
     private Boolean approved = null;
     private String approvedUser;
@@ -24,7 +23,6 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         dialog = new Dialog(this);
         viewList();
@@ -37,14 +35,6 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
         intent.putExtras(bundle);
         intent.putExtra("AdminActions", adminActions);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState
-                .putSerializable("AdminActions", adminActions);
     }
 
     public void onApproveClicked(View view){
