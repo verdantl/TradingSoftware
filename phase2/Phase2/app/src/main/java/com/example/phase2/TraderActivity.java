@@ -14,8 +14,12 @@ import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 import com.example.phase2.phase2.TraderPrompts;
 
-public class  TraderActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
+public class    TraderActivity extends AppCompatActivity {
+
+    private TraderPrompts traderPrompts;
     private TraderManager traderManager;
     private ItemManager itemManager;
     private TradeManager tradeManager;
@@ -45,6 +49,7 @@ public class  TraderActivity extends AppCompatActivity {
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra("adminActions", adminActions);
         startActivity(intent);
     }
 
@@ -55,6 +60,7 @@ public class  TraderActivity extends AppCompatActivity {
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra("AdminActions", adminActions);
         startActivity(intent);
     }
 
@@ -128,6 +134,7 @@ public class  TraderActivity extends AppCompatActivity {
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("AdminActions", adminActions);
+        System.out.println(adminActions==null);
         startActivity(intent);
     }
 }

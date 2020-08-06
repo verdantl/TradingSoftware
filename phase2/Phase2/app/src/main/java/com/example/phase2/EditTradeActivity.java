@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
@@ -261,25 +262,18 @@ public class EditTradeActivity extends AppCompatActivity{
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("CurrentTrader", currentTrader);
-
         startActivity(intent);
     }
     public void onViewItemInformationClicked(View view){
         if(tradeManager.getTradeType(trade).equals("ONEWAY")){
             displayFragmentOneWay();
         }
-//        else{
-//            displayFragmentTwoWay();
-//        }
+        else{
+            displayFragmentTwoWay();
+        }
     }
 
     public void displayFragmentOneWay() {
-//        OneItemFragment oneItemFragment = new OneItemFragment();
-//        oneItemFragment.setArguments(bundleM);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.itemFragmentContainer, oneItemFragment).commit();
-
         Intent intent = new Intent(this, OneItemActivity.class);
         intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtra("TradeManager",tradeManager);

@@ -49,9 +49,19 @@ public class TwoItemActivity extends AppCompatActivity {
         TextView itemDescription2 = findViewById(R.id.descriptionText3);
         itemDescription2.setText(tempItemDescription2);
 
-        String tempItemRating2 = itemManager.getItemQuality(tradeManager.getItems(trade).get(1));
+        String tempItemRating2 = "Rating: "+itemManager.getItemQuality(tradeManager.getItems(trade).get(1));
         TextView itemRating2 = findViewById(R.id.itemRating3);
         itemRating2.setText(tempItemRating2);
+
+
+
+        String tempOwner = "Owned by: " + itemManager.getItemOwner(tradeManager.getItems(trade).get(0));
+        TextView itemOwner = findViewById(R.id.ownedBy2);
+        itemOwner.setText(tempOwner);
+
+        String tempOwner2 = "Owned by: " + itemManager.getItemOwner(tradeManager.getItems(trade).get(1));
+        TextView itemOwner2 = findViewById(R.id.ownedBy3);
+        itemOwner2.setText(tempOwner2);
     }
 
 }
