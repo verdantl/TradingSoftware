@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra("Username", username);
             startActivity(intent);
         }
+
         else if (adminActions.checkCredentials(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             putAllUseCases(intent, username);

@@ -141,6 +141,27 @@ public class ConfigGateway {
         traderUnfreeze.setRequestToUnfreeze(true);
         traderManager.addTrader(traderUnfreeze);
 
+        //Adds two way trade
+        List<Integer> tempTradeItems2 = new ArrayList<>();
+        Integer temp2 = itemManager.addItem("Jacket", "Trader1");
+        Integer temp3 = itemManager.addItem("Watch", "Arjun");
+        tempTradeItems2.add(temp2);
+        tempTradeItems2.add(temp3);
+        itemManager.addItemDetails(temp2, "Clothing", "Its a jacket", 7);
+        itemManager.addItemDetails(temp3, "Accessories", "Its a watch", 5);
+        itemManager.changeStatusToUnavailable(temp2);
+        itemManager.changeStatusToUnavailable(temp3);
+
+        Integer tradeId2 = tradeManager.createTrade("Arjun", "Trader1", "TWOWAY", true, tempTradeItems2);
+
+        LocalDate tempDate2 = LocalDate.now();
+        traderManager.addNewTrade("Arjun", tradeId2,tempDate2);
+        traderManager.addNewTrade("Trader1", tradeId2, tempDate2);
+
+        meetingManager.createMeeting(tradeId2, "Arjun", "Trader1", true);
+        meetingManager.setMeetingInfo(tradeId2, LocalDate.now(), LocalDate.now(),
+                "Toronto", "Toronto");
+
         try {
             saveInfo(contextFilesDir + ADMINPATH, adminActions);
             saveInfo(contextFilesDir + MEETINGPATH, meetingManager);

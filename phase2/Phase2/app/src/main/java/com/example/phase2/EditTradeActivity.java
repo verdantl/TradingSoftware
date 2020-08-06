@@ -1,20 +1,15 @@
 package com.example.phase2;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
@@ -136,7 +131,7 @@ public class EditTradeActivity extends AppCompatActivity{
             intent.putExtra("CurrentTrader", currentTrader);
             intent.putExtra("TradeManager",tradeManager);
             intent.putExtra("MeetingManager", meetingManager);
-            intent.putExtra("Trade", trade);
+
             intent.putExtra("ItemManager", itemManager);
             intent.putExtra("TraderManager", traderManager);
             startActivity(intent);

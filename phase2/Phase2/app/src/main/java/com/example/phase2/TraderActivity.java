@@ -50,7 +50,7 @@ public class TraderActivity extends AppCompatActivity {
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra("Username", currentTrader);
         intent.putExtra("adminActions", adminActions);
         startActivity(intent);
     }

@@ -60,12 +60,8 @@ public class BrowseTradesActivity extends AppCompatActivity {
 
     public void displayEditTrade(){
         Intent intent = new Intent(this, EditTradeActivity.class);
-        intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("Trade", trade);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
