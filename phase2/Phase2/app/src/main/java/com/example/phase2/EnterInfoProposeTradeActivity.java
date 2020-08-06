@@ -20,7 +20,6 @@ import java.util.List;
 
 public class EnterInfoProposeTradeActivity extends AppCompatActivity {
     private ItemManager itemManager;
-    private TraderManager traderManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private String currentTrader;
@@ -37,13 +36,12 @@ public class EnterInfoProposeTradeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getString("CurrentTrader");
-        chosenItem = (Integer) bundle.getInt("ChosenItem");
-        myItem = (Integer) bundle.getInt("MyItem");
-        oneWay = (Boolean) bundle.getBoolean("OneWay");
+        currentTrader = bundle.getString("CurrentTrader");
+        chosenItem = bundle.getInt("ChosenItem");
+        myItem = bundle.getInt("MyItem");
+        oneWay = bundle.getBoolean("OneWay");
         viewStart();
     }
 
