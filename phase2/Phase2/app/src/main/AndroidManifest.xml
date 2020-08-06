@@ -57,6 +57,7 @@
         <activity android:name=".BrowseItemsActivity" />
         <activity android:name=".EditInventoryActivity" />
         <activity android:name=".EditWishlistActivity" />
+        <activity android:name=".ViewMyUserInfoActivity" />
     </application>
 
 </manifest>

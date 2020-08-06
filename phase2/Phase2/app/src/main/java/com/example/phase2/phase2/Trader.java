@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Trader extends User implements Serializable {
-    private boolean frozen, flagged, requestToUnfreeze,inactive;
+    private boolean frozen, flagged, requestToUnfreeze, inactive;
     private int numLent, numBorrowed, numIncomplete;
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
@@ -206,7 +206,7 @@ public class Trader extends User implements Serializable {
      *
      * @return Trader's borrowed items
      */
-
+    //TODO: unused method
     public List<Integer> getBorrowedItems() {
         return borrowedItems;
     }
@@ -224,6 +224,7 @@ public class Trader extends User implements Serializable {
      * Adds the item to wishlist
      * @param id the id of the item to be added
      */
+    //TODO: unused method
     public void addToWishlist(Integer id){
         this.wishlist.add(id);
     }
@@ -323,6 +324,7 @@ public class Trader extends User implements Serializable {
      * Setter for Trader's home city.
      * @param newHomeCity the string representing the new home city
      */
+    //TODO: unused method
     public void setHomeCity(String newHomeCity){homeCity = newHomeCity;}
 
 

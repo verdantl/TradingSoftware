@@ -298,6 +298,7 @@ public class Meeting implements Serializable {
      * A setter for whether the items are returned
      * @param isReturned a hashmap representing if each user has returned their item
      */
+    //TODO: unused method
     public void setIsReturned(HashMap<String, Boolean> isReturned) {
         this.isReturned = isReturned;
     }

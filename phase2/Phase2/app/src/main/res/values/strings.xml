@@ -106,9 +106,9 @@
     <string name="UserInfo_status" />
     <string name="UserInfo_location" />
     <string name="current_limit">The current limit is</string>
-    <string name="Trader_request_to_unfreeze_already_sent" />
-    <string name="Trader_request_to_unfreeze_sent" />
-    <string name="Trader_request_to_unfreeze_not_frozen" />
+    <string name="Trader_request_to_unfreeze_already_sent">Request to unfreeze has already been sent</string>
+    <string name="Trader_request_to_unfreeze_sent">Request to unfreeze has been sent</string>
+    <string name="Trader_request_to_unfreeze_not_frozen">Trader is not currently frozen</string>
     <string name="undoQuestion">Are you sure that you want to undo this action?</string>
     <string name="welcome">Welcome,</string>
     <string name="cannotEdit">You cannot edit the meeting any more.</string>

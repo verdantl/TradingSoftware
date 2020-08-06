@@ -41,6 +41,7 @@ public class Item implements Serializable {
      * Gets the item's category.
      * @return the string the item is categorized as
      */
+    //TODO: unused method
     public String getCategory(){
         return category;
     }
@@ -175,6 +176,7 @@ public class Item implements Serializable {
      * @param status The status of the item
      * @return Return the string equivalent of status
      */
+    //TODO: unused method
     public String convertToString(ItemStatus status){
 
         switch (status){
