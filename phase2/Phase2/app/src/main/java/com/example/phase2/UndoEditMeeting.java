@@ -42,7 +42,7 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoActivity.class);
+        Intent intent = new Intent(this, UndoMenu.class);
         bundle.remove("TradeManager");
         bundle.remove("MeetingManager");
         bundle.remove("TraderManager");

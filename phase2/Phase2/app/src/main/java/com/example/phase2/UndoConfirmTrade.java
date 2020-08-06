@@ -40,7 +40,7 @@ public class UndoConfirmTrade extends AppCompatActivity implements UndoFragment.
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoActivity.class);
+        Intent intent = new Intent(this, UndoMenu.class);
         bundle.remove("MeetingManager");
         bundle.remove("TraderManager");
         bundle.putSerializable("MeetingManager", meetingManager);

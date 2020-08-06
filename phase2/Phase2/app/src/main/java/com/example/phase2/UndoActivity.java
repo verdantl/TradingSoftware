@@ -23,7 +23,7 @@ public class UndoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ManageFrozenAccount.class);
+        Intent intent = new Intent(this, AdminActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
     }

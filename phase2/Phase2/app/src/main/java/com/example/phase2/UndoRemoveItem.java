@@ -37,7 +37,7 @@ public class UndoRemoveItem extends AppCompatActivity implements UndoFragment.Un
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoActivity.class);
+        Intent intent = new Intent(this, UndoMenu.class);
         bundle.remove("ItemManager");
         bundle.putSerializable("ItemManager", itemManager);
         intent.putExtras(bundle);
