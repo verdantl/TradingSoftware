@@ -123,7 +123,7 @@ public class ConfigGateway {
         List<Integer> tempTradeItems = new ArrayList<>();
         tempTradeItems.add(itemManager.addItem("Bike", "Arjun"));
         itemManager.addItemDetails(tempTradeItems.get(0), "Transportation", "Its a bike", 10);
-        itemManager.changeStatusToRemoved(tempTradeItems.get(0));
+        itemManager.changeStatusToUnavailable(tempTradeItems.get(0));
 
         //CREATES THE TRADE AND ADDS IT TO TRADE INVENTORY
         Integer tradeId = tradeManager.createTrade("Arjun", "Trader1", "ONEWAY", true, tempTradeItems);
@@ -163,6 +163,20 @@ public class ConfigGateway {
                 "Toronto", "Toronto");
 
         //Adds temporary one way trade
+        List<Integer> tempTradeItems3 = new ArrayList<>();
+        tempTradeItems3.add(itemManager.addItem("Light", "Arjun"));
+        itemManager.addItemDetails(tempTradeItems3.get(0), "Home", "Its a light", 10);
+        itemManager.changeStatusToUnavailable(tempTradeItems3.get(0));
+
+        //CREATES THE TRADE AND ADDS IT TO TRADE INVENTORY
+        Integer tradeId3 = tradeManager.createTrade("Arjun", "Trader1", "ONEWAY", false, tempTradeItems3);
+        LocalDate tempDate3 = LocalDate.now();
+        traderManager.addNewTrade("Arjun", tradeId3,tempDate3);
+        traderManager.addNewTrade("Trader1", tradeId3, tempDate3);
+        //CREATES THE MEETING
+        meetingManager.createMeeting(tradeId3, "Arjun", "Trader1", false);
+        meetingManager.setMeetingInfo(tradeId3, LocalDate.now(), LocalDate.now(),
+                "Toronto", "N/A");
 
         //Adds temporary two-way trade
         List<Integer> tempTradeItems4 = new ArrayList<>();
