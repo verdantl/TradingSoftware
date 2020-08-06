@@ -42,12 +42,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if (traderManager.login(username, password)){
             Intent intent = new Intent(this, TraderActivity.class);
-            login(intent, username);
+            startIntent(intent, username);
         }
 
         else if (adminActions.checkCredentials(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
-            login(intent, username);
+            startIntent(intent, username);
         }
         else{
             Toast.makeText(this, R.string.login_error,
@@ -57,11 +57,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onSignupClicked(View view){
         Intent intent = new Intent(this, SignupActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        startIntent(intent, "");
     }
 
-    private void login(Intent intent, String username){
+    private void startIntent(Intent intent, String username){
         intent.putExtras(bundle);
         intent.putExtra("Username", username);
         startActivity(intent);

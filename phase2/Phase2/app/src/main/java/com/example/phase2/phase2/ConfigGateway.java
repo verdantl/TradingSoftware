@@ -1,9 +1,7 @@
 package com.example.phase2.phase2;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.phase2.LoginActivity;
 
 import java.io.*;
 import java.time.LocalDate;
