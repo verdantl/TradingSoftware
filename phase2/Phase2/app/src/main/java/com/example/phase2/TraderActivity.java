@@ -79,11 +79,12 @@ public class    TraderActivity extends AppCompatActivity {
     }
 
     public void viewUserInfo(View view){
-        Intent intent = new Intent(this, ViewMyUserInfo.class);
+        Intent intent = new Intent(this, ViewMyUserInfoActivity.class);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
     }
 

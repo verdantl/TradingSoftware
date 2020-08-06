@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class ViewMyUserInfo extends AppCompatActivity {
+public class ViewMyUserInfoActivity extends AppCompatActivity {
 
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
@@ -45,9 +45,9 @@ public class ViewMyUserInfo extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = bundle.getString("CurrentTrader");
-
-        changeText((TextView) findViewById(R.id.textView7), "Username: "+currentTrader);
-
+/**
+        TextView textView = (TextView) findViewById(R.id.textView7);
+        changeText(textView, "Username: "+currentTrader);
         changeText((TextView) findViewById(R.id.textView8), "Homecity: "+traderManager.getHomeCity(currentTrader));
 
         if(traderManager.getIsFrozen(currentTrader)){
@@ -68,8 +68,9 @@ public class ViewMyUserInfo extends AppCompatActivity {
                         }
                 }
         }
-
-        setContentView(R.layout.activity_view_my_user_info);
+*/
+        viewList();
+        //setContentView(R.layout.activity_view_my_user_info);
     }
 
     /**
@@ -83,7 +84,7 @@ public class ViewMyUserInfo extends AppCompatActivity {
         ArrayAdapter<Integer> allTradesAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, recentTrades);
         listView.setAdapter(allTradesAdapter);
-
+/**
         //if the code below doesn't work just delete and add the "}"'s
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -92,6 +93,7 @@ public class ViewMyUserInfo extends AppCompatActivity {
                 displayEditTrade();
             }
         });
+ */
     }
 
     //this msy cause a bug in the future since a back button wasn't implemented
@@ -106,7 +108,7 @@ public class ViewMyUserInfo extends AppCompatActivity {
     }
 
     private void changeText(TextView textView, String message){
-        textView.setText(message);
+            textView.setText(message);
     }
 
     private TreeSet<String> findsTopTraders(List<Integer> trades){
