@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.Intent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
@@ -19,15 +21,16 @@ import java.util.ArrayList;
 public class ApproveAdminActivity extends AppCompatActivity implements ClickableList{
     private AdminActions adminActions;
     private Bundle bundle;
-    Boolean approved = null;
-    String approvedUser;
+    private Dialog dialog;
+    private Boolean approved = null;
+    private String approvedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
-
+        dialog = new Dialog(this);
         viewList();
     }
 
@@ -81,24 +84,15 @@ public class ApproveAdminActivity extends AppCompatActivity implements Clickable
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                displayDialog();
                 approvedUser = adminRequests.get(i);
             }
         });
     }
 
-    public void displayFragment() {
-        ApprovalFragment approvalFragment = new ApprovalFragment();
-//        TextView textView = findViewById(R.id.question);
-//        textView.setText(R.string.approve_or_reject);
-//        Button approve  = findViewById(R.id.approve);
-//        Button reject = findViewById(R.id.reject);
-//        approve.setText(R.string.approve);
-//        reject.setText(R.string.reject);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, approvalFragment).commit();
+    public void displayDialog() {
+        dialog.setContentView(R.layout.fragment_approval);
+        dialog.show();
     }
 
 }

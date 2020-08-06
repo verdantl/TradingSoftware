@@ -35,6 +35,7 @@ public class ApproveItems extends AppCompatActivity implements ClickableList{
         bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        dialog = new Dialog(this);
         viewList();
     }
 
