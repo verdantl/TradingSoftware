@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             //configGateway.saveBundle(bundle);
-            //bundle.remove("Username");
+            bundle.remove("Username");
         }
         traderManager = (TraderManager) bundle.get("TraderManager");
         adminActions = (AdminActions) bundle.get("AdminActions");
