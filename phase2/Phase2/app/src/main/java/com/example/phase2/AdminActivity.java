@@ -2,11 +2,11 @@ package com.example.phase2;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
@@ -14,9 +14,8 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-import java.util.ArrayList;
-
 public class AdminActivity extends AppCompatActivity {
+    private Bundle bundle;
 
     private AdminActions adminActions;
 
@@ -32,7 +31,7 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
@@ -42,23 +41,32 @@ public class AdminActivity extends AppCompatActivity {
 
         currentAdmin = bundle.getString("Username");
         setContentView(R.layout.activity_admin);
+
+        TextView textView = findViewById(R.id.textView14);
+        textView.setText(bundle.getString("Username"));
+    }
+
+    public void onLogoutClicked(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void addRemoveAdmin(View view){
         Intent intent = new Intent(this, ApproveAdminActivity.class);
-        intent.putExtra("AdminActions", adminActions);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void manageAccounts(View view){
         Intent intent = new Intent(this, ManageFrozenAccount.class);
-        intent.putExtra("TraderManager", traderManager);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void addRemoveItems(View view){
         Intent intent = new Intent(this, ApproveItems.class);
-        intent.putExtra("ItemManager", itemManager);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -83,11 +91,8 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void undoMenu(View view){
-        Intent i = new Intent(this, Undo.class);
-        i.putExtra("TraderManager", traderManager);
-        i.putExtra("TradeManager", tradeManager);
-        i.putExtra("ItemManager", itemManager);
-        i.putExtra("MeetingManager", meetingManager);
+        Intent i = new Intent(this, UndoActivity.class);
+        i.putExtras(bundle);
         startActivity(i);
     }
 

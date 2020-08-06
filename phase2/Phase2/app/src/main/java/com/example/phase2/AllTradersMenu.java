@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +16,8 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 
-public class AllTradersMenu extends AppCompatActivity {
+public class AllTradersMenu extends AppCompatActivity implements ClickableList {
+    private Bundle bundle;
     private TraderManager traderManager;
     private String frozenTrader;
 
@@ -23,13 +25,21 @@ public class AllTradersMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         viewList();
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ManageFrozenAccount.class);
+        bundle.remove("TraderManager");
+        bundle.putSerializable("TraderManager", traderManager);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
     public void onClickFreeze(View view) {
         if(traderManager.freezeAccount(frozenTrader)){
@@ -58,13 +68,13 @@ public class AllTradersMenu extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                displayDialog();
                 frozenTrader = allTraders.get(i);
             }
         });
     }
 
-    public void displayFragment() {
+    public void displayDialog() {
         FreezeFragment freezeFragment = new FreezeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager

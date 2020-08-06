@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UndoAgreeTrade extends AppCompatActivity implements UndoFragment.UndoClick {
+    private Bundle bundle;
     private String username;
     private TraderManager traderManager;
     private MeetingManager meetingManager;
@@ -27,12 +29,23 @@ public class UndoAgreeTrade extends AppCompatActivity implements UndoFragment.Un
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         username = bundle.getString("username");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         viewList();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, UndoMenu.class);
+        bundle.remove("MeetingManager");
+        bundle.remove("TraderManager");
+        bundle.putSerializable("MeetingManager", meetingManager);
+        bundle.putSerializable("TraderManager", traderManager);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void viewList(){

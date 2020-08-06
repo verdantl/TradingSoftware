@@ -11,64 +11,51 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 
 public class UndoMenu extends AppCompatActivity {
-    private String username;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        username = getIntent().getStringExtra("username");
+        bundle = getIntent().getExtras();
+        assert bundle != null;
         setContentView(R.layout.activity_undo_menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, UndoActivity.class);
+        bundle.remove("username");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void undoEditMeeting(View view){
         Intent intent = new Intent(this, UndoEditMeeting.class);
-        intent.putExtra("username", username);
-        intent.putExtra("TradeManager",
-                getIntent().getSerializableExtra("TradeManager"));
-        intent.putExtra("MeetingManager",
-                getIntent().getSerializableExtra("MeetingManager"));
-        intent.putExtra("TraderManager",
-                getIntent().getSerializableExtra("TraderManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void undoAgreeTrade(View view){
         Intent intent = new Intent(this, UndoAgreeTrade.class);
-        intent.putExtra("username", username);
-        intent.putExtra("TraderManager",
-                getIntent().getSerializableExtra("TraderManager"));
-        intent.putExtra("MeetingManager",
-                getIntent().getSerializableExtra("MeetingManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void undoConfirmTrade(View view){
         Intent intent = new Intent(this, UndoConfirmTrade.class);
-        intent.putExtra("username", username);
-        intent.putExtra("TraderManager",
-                getIntent().getSerializableExtra("TraderManager"));
-        intent.putExtra("MeetingManager",
-                getIntent().getSerializableExtra("MeetingManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void undoProposeTrade(View view){
         Intent intent = new Intent(this, UndoProposeTrade.class);
-        intent.putExtra("username", username);
-        intent.putExtra("TradeManager",
-                getIntent().getSerializableExtra("TradeManager"));
-        intent.putExtra("MeetingManager",
-                getIntent().getSerializableExtra("MeetingManager"));
-        intent.putExtra("TraderManager",
-                getIntent().getSerializableExtra("TraderManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void undoRemoveItem(View view){
         Intent intent = new Intent(this, UndoRemoveItem.class);
-        intent.putExtra("username", username);
-        intent.putExtra("ItemManager",
-                getIntent().getSerializableExtra("ItemManager"));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

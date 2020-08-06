@@ -3,6 +3,7 @@ package com.example.phase2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,11 +26,12 @@ public class EditMeetingActivity extends AppCompatActivity {
     private Integer trade;
     private String currentTrader;
     private LocalDate newDate;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_meeting);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
@@ -72,7 +74,7 @@ public class EditMeetingActivity extends AppCompatActivity {
                         meetingManager.increaseNumEdit(currentTrader, trade);
                         meetingManager.setBothDisagree(trade);
                         //TODO SAVE THE DATA SOMEHOW
-                        EditMeetingActivity.this.finish();
+                        onSubmitClick();
                     }
                 }
                 else{
@@ -87,9 +89,16 @@ public class EditMeetingActivity extends AppCompatActivity {
         });
     }
 
-    public void onSubmitClick(View view){
-
-
+    public void onSubmitClick(){
+        Intent intent = new Intent(this, EditTradeActivity.class);
+        bundle.remove("MeetingManager");
+        bundle.remove("CurrentTrader");
+        bundle.remove("Trade");
+        intent.putExtras(bundle);
+        intent.putExtra("MeetingManager", meetingManager);
+        intent.putExtra("Trade", trade);
+        intent.putExtra("CurrentTrader", currentTrader);
+        startActivity(intent);
     }
 
 

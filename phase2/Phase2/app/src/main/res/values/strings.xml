@@ -110,4 +110,14 @@
     <string name="Trader_request_to_unfreeze_sent">Request to unfreeze has been sent</string>
     <string name="Trader_request_to_unfreeze_not_frozen">Trader is not currently frozen</string>
     <string name="undoQuestion">Are you sure that you want to undo this action?</string>
+    <string name="welcome">Welcome,</string>
+    <string name="cannotEdit">You cannot edit the meeting any more.</string>
+    <string name="requestAdminPrompt">This page allows you to make the following requests to admins:</string>
+    <string name="requestActivateAccount">Activate Account</string>
+    <string name="requestInactivateAccount">Inactivate Account</string>
+    <string name="Account_already_activated">Account already activated</string>
+    <string name="Account_already_deactivated">Account already deactivated</string>
+    <string name="Activation_request_sent">Activation request sent</string>
+    <string name="Deactivation_request_sent">Deactivation request sent</string>
+    <string name="log_out">Log Out</string>
 </resources>

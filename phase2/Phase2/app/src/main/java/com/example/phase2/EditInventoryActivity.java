@@ -63,7 +63,8 @@ public class EditInventoryActivity extends AppCompatActivity {
     }
     public void displayRemoveItem(){
         Intent intent = new Intent(this, RemoveItemInventoryActivity.class);
-        intent.putExtra("ItemManager", itemManager);
+        intent.putExtras(bundle);
+        //intent.putExtra("ItemManager", itemManager);
         intent.putExtra("ChosenItem", chosenItem);
         startActivity(intent);
     }

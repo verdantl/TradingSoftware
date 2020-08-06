@@ -53,7 +53,7 @@ public class RemoveItemInventoryActivity extends AppCompatActivity {
 
     public void removeItemInventory(View view){
         itemManager.removeItem(chosenItem);
-        itemManager.changeStatusToRemoved(chosenItem);
+        //itemManager.changeStatusToRemoved(chosenItem);
         Toast.makeText(this, "Successfully removed the item",
                 Toast.LENGTH_LONG).show();
         onBackPressed();

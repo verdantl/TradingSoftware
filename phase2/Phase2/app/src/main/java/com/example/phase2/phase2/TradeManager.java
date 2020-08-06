@@ -10,6 +10,7 @@ public class TradeManager implements Serializable {
     private final HashMap<Integer, Trade> tradeInventory;
     private int counter;
 
+
     public TradeManager(HashMap<Integer, Trade> tradeInventory){
         this.tradeInventory = tradeInventory;
         if (tradeInventory.keySet().size() != 0) {
@@ -54,9 +55,10 @@ public class TradeManager implements Serializable {
      * @param receiver the receiver of the trade
      * @return the trade whether or not the trade is successfully created
      */
-    public int createTrade(String initiator, String receiver, String tradeType, boolean isPermanent,
+    public Integer createTrade(String initiator, String receiver, String tradeType, boolean isPermanent,
                            List<Integer> items){
         Trade trade = new Trade(counter, initiator, receiver, tradeType, isPermanent);
+        trade.setCompleted(false);
         trade.setItems(items);
         counter++;
         addToTradeInventory(trade);

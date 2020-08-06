@@ -48,8 +48,6 @@ public class ItemManager implements Serializable {
         item.setCategory(category);
         item.setDescription(description);
         item.setQualityRating(quality);
-        //TODO REMOVE tHIS
-        item.setStatus(ItemStatus.REQUESTED);
     }
 
     /**
@@ -100,7 +98,7 @@ public class ItemManager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
-                if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
+                if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.AVAILABLE) {
                     approvedItems.add(item.getId());
                 }
             }
