@@ -70,7 +70,7 @@ public class TraderActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditInventoryActivity.class);
         intent.putExtras(bundle);
         //intent.putExtra("ItemManager", itemManager);
-        //intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
     }
 
