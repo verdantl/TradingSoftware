@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
@@ -42,10 +43,6 @@ public class BrowseTradesActivity extends AppCompatActivity {
     }
 
     public void viewList(){
-        //System.out.println(traderManager.getTrades(currentTrader));
-        //System.out.println(tradeManager.getIncompleteTrades(traderManager.getTrades(currentTrader)));
-        //System.out.println(meetingManager.getOnGoingMeetings((traderManager.getTrades(currentTrader))));
-        //System.out.println(currentTrader==null);
         final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(currentTrader));
         setContentView(R.layout.activity_browse_trades);
         ListView listView = findViewById(R.id.tradesList1);
@@ -84,7 +81,6 @@ public class BrowseTradesActivity extends AppCompatActivity {
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("Username", currentTrader);
-
         startActivity(intent);
     }
 

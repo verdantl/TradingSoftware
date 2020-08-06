@@ -48,8 +48,6 @@ public class ItemManager implements Serializable {
         item.setCategory(category);
         item.setDescription(description);
         item.setQualityRating(quality);
-        //TODO REMOVE tHIS
-        item.setStatus(ItemStatus.REQUESTED);
     }
 
     /**
