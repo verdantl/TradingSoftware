@@ -118,7 +118,6 @@ public class TraderActivity extends AppCompatActivity {
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         i.putExtra("TraderManager", traderManager);
         i.putExtra("CurrentTrader", currentTrader);
-        i.putExtra("AdminActions",adminActions);
         startActivity(i);
     }
 
