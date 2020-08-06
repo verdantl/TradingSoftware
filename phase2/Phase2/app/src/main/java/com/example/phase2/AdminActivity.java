@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
@@ -42,6 +43,9 @@ public class AdminActivity extends AppCompatActivity {
 
         currentAdmin = bundle.getString("Username");
         setContentView(R.layout.activity_admin);
+
+        TextView textView = findViewById(R.id.textView14);
+        textView.setText(bundle.getString("UserName"));
     }
 
     public void addRemoveAdmin(View view){
