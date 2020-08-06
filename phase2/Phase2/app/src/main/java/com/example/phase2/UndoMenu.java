@@ -23,7 +23,7 @@ public class UndoMenu extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ManageFrozenAccount.class);
+        Intent intent = new Intent(this, UndoActivity.class);
         bundle.remove("username");
         intent.putExtras(bundle);
         startActivity(intent);
