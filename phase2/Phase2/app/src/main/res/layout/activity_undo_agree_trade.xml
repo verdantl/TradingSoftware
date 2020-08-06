@@ -33,7 +33,7 @@
 
     <FrameLayout
         android:id="@+id/undoAgreeTrade_container"
-        android:name="com.example.phase2.undoFragment"
+        android:name="com.example.phase2.UndoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00FFFFFF"

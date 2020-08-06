@@ -20,16 +20,30 @@ public class EditWishlistActivity extends AppCompatActivity {
     private TraderManager traderManager;
     private String currentTrader;
     private int chosenItem;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
         viewList();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, TraderActivity.class);
+        bundle.remove("ItemManager");
+        bundle.remove("TraderManager");
+        bundle.remove("CurrentTrader");
+        intent.putExtras(bundle);
+        intent.putExtra("ItemManager", itemManager);
+        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra("Username", currentTrader);
+        startActivity(intent);
     }
 
     public void viewList() {

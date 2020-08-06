@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoAgreeTrade extends AppCompatActivity {
+public class UndoAgreeTrade extends AppCompatActivity implements UndoFragment.UndoClick {
     private String username;
     private TraderManager traderManager;
     private MeetingManager meetingManager;
@@ -62,23 +63,22 @@ public class UndoAgreeTrade extends AppCompatActivity {
 
     public void displayFragment(){
         UndoFragment undoFragment = new UndoFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("undoType", "undoAgree");
-        undoFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-        fragmentTransaction.add(R.id.agreedTrade, undoFragment).commit();
-
+        fragmentTransaction.add(R.id.undoAgreeTrade_container, undoFragment).commit();
     }
 
-    public void OnUndoClick(View view){
+
+    @Override
+    public void onUndoClick(View view){
         meetingManager.undoAgree(chosenTrade, username);
         Toast.makeText(this, "Successfully undo agree!", Toast.LENGTH_SHORT).show();
         viewList();
     }
 
-    public void OnCancelClick(View view){
+    @Override
+    public void onCancelClick(View view){
         Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show();
         viewList();
     }

@@ -105,8 +105,9 @@
     <string name="UserInfo_username" />
     <string name="UserInfo_status" />
     <string name="UserInfo_location" />
-    <string name="current_limit" />
+    <string name="current_limit">The current limit is</string>
     <string name="Trader_request_to_unfreeze_already_sent" />
     <string name="Trader_request_to_unfreeze_sent" />
     <string name="Trader_request_to_unfreeze_not_frozen" />
+    <string name="undoQuestion">Are you sure that you want to undo this action?</string>
 </resources>

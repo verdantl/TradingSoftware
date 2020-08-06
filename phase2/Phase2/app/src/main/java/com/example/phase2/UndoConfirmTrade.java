@@ -17,7 +17,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoConfirmTrade extends AppCompatActivity {
+public class UndoConfirmTrade extends AppCompatActivity implements UndoFragment.UndoClick {
     private String username;
     private TraderManager traderManager;
     private MeetingManager meetingManager;
@@ -72,15 +72,23 @@ public class UndoConfirmTrade extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-        fragmentTransaction.add(R.id.confirmedTrade, undoFragment).commit();
+        fragmentTransaction.add(R.id.undoConfirmTrade_container, undoFragment).commit();
     }
 
-    public void onUndoClick(){
+
+
+    @Override
+    public void onUndoClick(View view) {
         meetingManager.undoConfirm(chosenTrade, username);
         Toast.makeText(this, "Successfully undo confirm", Toast.LENGTH_SHORT).show();
+        viewList();
     }
 
-    public void onCancel(){
+
+    @Override
+    public void onCancelClick(View view) {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+        viewList();
+
     }
 }

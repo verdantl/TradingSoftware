@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,6 +26,9 @@ public class AdminActivity extends AppCompatActivity {
     private MeetingManager meetingManager;
     private String currentAdmin;
 
+    private final int CHANGE_LIMIT_REQ = 5;
+    private final int CHANGE_PASSWORD_REQ = 6;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,8 @@ public class AdminActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+
+        currentAdmin = bundle.getString("Username");
         setContentView(R.layout.activity_admin);
     }
 
@@ -65,15 +71,15 @@ public class AdminActivity extends AppCompatActivity {
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
         i.putExtra("TraderManager", traderManager);
-        startActivity(i);
+        startActivityForResult(i, CHANGE_LIMIT_REQ);
 
     }
 
     public void changePassword(View view){
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         i.putExtra("AdminActions", adminActions);
-        i.putExtra("CurrentAdmin", currentAdmin);
-        startActivity(i);
+        i.putExtra("Username", currentAdmin);
+        startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
     public void undoMenu(View view){
@@ -83,5 +89,21 @@ public class AdminActivity extends AppCompatActivity {
         i.putExtra("ItemManager", itemManager);
         i.putExtra("MeetingManager", meetingManager);
         startActivity(i);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        assert data != null;
+        switch(requestCode){
+            case CHANGE_LIMIT_REQ:
+                traderManager = (TraderManager) data.getSerializableExtra("TraderManager");
+                break;
+            case CHANGE_PASSWORD_REQ:
+                adminActions = (AdminActions) data.getSerializableExtra("AdminActions");
+                break;
+            default:
+
+        }
     }
 }
