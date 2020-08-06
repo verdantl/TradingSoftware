@@ -4,5 +4,5 @@ public interface ClickableList {
 
     void viewList();
 
-    void displayFragment();
+    void displayDialog();
 }

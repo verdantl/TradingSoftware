@@ -29,6 +29,7 @@ public class BrowseTradesActivity extends AppCompatActivity {
     private Integer trade;
     private ItemManager itemManager;
     private Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

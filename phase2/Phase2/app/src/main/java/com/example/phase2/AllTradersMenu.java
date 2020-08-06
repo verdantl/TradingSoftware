@@ -15,7 +15,7 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 
-public class AllTradersMenu extends AppCompatActivity {
+public class AllTradersMenu extends AppCompatActivity implements ClickableList {
     private TraderManager traderManager;
     private String frozenTrader;
 
@@ -58,13 +58,13 @@ public class AllTradersMenu extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                displayDialog();
                 frozenTrader = allTraders.get(i);
             }
         });
     }
 
-    public void displayFragment() {
+    public void displayDialog() {
         FreezeFragment freezeFragment = new FreezeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
