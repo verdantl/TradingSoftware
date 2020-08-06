@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
@@ -130,13 +131,19 @@ public class EditTradeActivity extends AppCompatActivity{
 
     public void onEditMeetingClicked(View view){
         //Do something
-        Intent intent = new Intent(this, EditMeetingActivity.class);
-        intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("Trade", trade);
-        intent.putExtra("ItemManager", itemManager);
-        startActivity(intent);
+        if(meetingManager.isValid(currentTrader, trade)){
+            Intent intent = new Intent(this, EditMeetingActivity.class);
+            intent.putExtra("CurrentTrader", currentTrader);
+            intent.putExtra("TradeManager",tradeManager);
+            intent.putExtra("MeetingManager", meetingManager);
+            intent.putExtra("Trade", trade);
+            intent.putExtra("ItemManager", itemManager);
+            intent.putExtra("TraderManager", traderManager);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(EditTradeActivity.this, R.string.cannotEdit, Toast.LENGTH_LONG).show();
+        }
 
     }
     @Override
@@ -229,7 +236,7 @@ public class EditTradeActivity extends AppCompatActivity{
                 else{
                     itemManager.setItemOwner(tradeManager.getItems(trade).get(0), currentTrader);
                 }
-                if(!tradeManager.getTradeType(trade).equals("ONEWAY")){
+                if(tradeManager.getTradeType(trade).equals("TWOWAY")){
                     if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
                         itemManager.setItemOwner(tradeManager.getItems(trade).get(1), tradeManager.getOtherTrader(trade,currentTrader));
                     }
@@ -261,25 +268,18 @@ public class EditTradeActivity extends AppCompatActivity{
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
         intent.putExtra("CurrentTrader", currentTrader);
-
         startActivity(intent);
     }
     public void onViewItemInformationClicked(View view){
         if(tradeManager.getTradeType(trade).equals("ONEWAY")){
             displayFragmentOneWay();
         }
-//        else{
-//            displayFragmentTwoWay();
-//        }
+        else{
+            displayFragmentTwoWay();
+        }
     }
 
     public void displayFragmentOneWay() {
-//        OneItemFragment oneItemFragment = new OneItemFragment();
-//        oneItemFragment.setArguments(bundleM);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.itemFragmentContainer, oneItemFragment).commit();
-
         Intent intent = new Intent(this, OneItemActivity.class);
         intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtra("TradeManager",tradeManager);
