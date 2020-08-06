@@ -128,12 +128,7 @@ public class EditTradeActivity extends AppCompatActivity{
         //Do something
         if(meetingManager.isValid(currentTrader, trade)){
             Intent intent = new Intent(this, EditMeetingActivity.class);
-            intent.putExtra("CurrentTrader", currentTrader);
-            intent.putExtra("TradeManager",tradeManager);
-            intent.putExtra("MeetingManager", meetingManager);
-
-            intent.putExtra("ItemManager", itemManager);
-            intent.putExtra("TraderManager", traderManager);
+            intent.putExtras(bundleM);
             startActivity(intent);
         }
         else{
