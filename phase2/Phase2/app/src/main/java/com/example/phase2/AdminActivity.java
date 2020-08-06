@@ -49,8 +49,7 @@ public class AdminActivity extends AppCompatActivity {
         textView.setText(bundle.getString("Username"));
     }
 
-    @Override
-    public void onBackPressed() {
+    public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -58,19 +57,19 @@ public class AdminActivity extends AppCompatActivity {
 
     public void addRemoveAdmin(View view){
         Intent intent = new Intent(this, ApproveAdminActivity.class);
-        intent.putExtra("AdminActions", adminActions);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void manageAccounts(View view){
         Intent intent = new Intent(this, ManageFrozenAccount.class);
-        intent.putExtra("TraderManager", traderManager);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     public void addRemoveItems(View view){
         Intent intent = new Intent(this, ApproveItems.class);
-        intent.putExtra("ItemManager", itemManager);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

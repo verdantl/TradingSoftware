@@ -119,4 +119,5 @@
     <string name="Account_already_deactivated">Account already deactivated</string>
     <string name="Activation_request_sent">Activation request sent</string>
     <string name="Deactivation_request_sent">Deactivation request sent</string>
+    <string name="log_out">Log Out</string>
 </resources>

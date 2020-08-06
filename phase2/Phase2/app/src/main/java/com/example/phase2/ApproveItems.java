@@ -67,7 +67,6 @@ public class ApproveItems extends AppCompatActivity implements ClickableList{
 
     public void displayDialog(){
         dialog.setContentView(R.layout.fragment_approve_items);
-
         dialog.show();
     }
 
@@ -93,6 +92,7 @@ public class ApproveItems extends AppCompatActivity implements ClickableList{
             Toast.makeText(this,
                     "Successfully rejected!", Toast.LENGTH_SHORT).show();
         }
+        dialog.hide();
         viewList();
     }
 }
