@@ -39,7 +39,6 @@ public class    TraderActivity extends AppCompatActivity {
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = bundle.getString("Username");
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
-        System.out.println(adminActions==null);
         setContentView(R.layout.activity_trader);
     }
 
