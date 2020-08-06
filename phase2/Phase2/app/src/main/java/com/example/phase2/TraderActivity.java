@@ -18,16 +18,15 @@ import com.example.phase2.phase2.TraderPrompts;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    TraderActivity extends AppCompatActivity {
+public class TraderActivity extends AppCompatActivity {
 
-    private TraderPrompts traderPrompts;
+    private Bundle bundle;
     private TraderManager traderManager;
     private ItemManager itemManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private AdminActions adminActions;
     private String currentTrader;
-    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,20 +123,21 @@ public class    TraderActivity extends AppCompatActivity {
 
     public void onBackPressed(){
         Intent intent = new Intent(this, LoginActivity.class);
-        bundle.remove("TradeManager");
-        bundle.remove("MeetingManager");
-        bundle.remove("TraderManager");
-        bundle.remove("ItemManager");
-        bundle.remove("CurrentTrader");
-        bundle.remove("AdminActions");
         intent.putExtras(bundle);
-        intent.putExtra("Username", currentTrader);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TradeManager", tradeManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("AdminActions", adminActions);
-        System.out.println(adminActions==null);
+//        bundle.remove("TradeManager");
+//        bundle.remove("MeetingManager");
+//        bundle.remove("TraderManager");
+//        bundle.remove("ItemManager");
+//        bundle.remove("CurrentTrader");
+//        bundle.remove("AdminActions");
+//        intent.putExtras(bundle);
+//        intent.putExtra("Username", currentTrader);
+//        intent.putExtra("ItemManager", itemManager);
+//        intent.putExtra("TradeManager", tradeManager);
+//        intent.putExtra("TraderManager", traderManager);
+//        intent.putExtra("MeetingManager", meetingManager);
+//        intent.putExtra("AdminActions", adminActions);
+//        System.out.println(adminActions==null);
         startActivity(intent);
     }
 }

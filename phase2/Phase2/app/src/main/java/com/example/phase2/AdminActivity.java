@@ -18,6 +18,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 
 public class AdminActivity extends AppCompatActivity {
+    private Bundle bundle;
 
     private AdminActions adminActions;
 
@@ -33,7 +34,7 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         assert bundle != null;
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
@@ -46,6 +47,13 @@ public class AdminActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.textView14);
         textView.setText(bundle.getString("UserName"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void addRemoveAdmin(View view){
