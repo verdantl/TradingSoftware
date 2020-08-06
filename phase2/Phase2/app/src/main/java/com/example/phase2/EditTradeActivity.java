@@ -222,18 +222,23 @@ public class EditTradeActivity extends AppCompatActivity{
             else{
                 if(itemManager.getOwner(tradeManager.getItems(trade).get(0)).equals(currentTrader)){
                     itemManager.setItemOwner(tradeManager.getItems(trade).get(0), tradeManager.getOtherTrader(trade,currentTrader));
+                    itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
                 }
                 else{
                     itemManager.setItemOwner(tradeManager.getItems(trade).get(0), currentTrader);
+                    itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
                 }
                 if(tradeManager.getTradeType(trade).equals("TWOWAY")){
                     if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
                         itemManager.setItemOwner(tradeManager.getItems(trade).get(1), tradeManager.getOtherTrader(trade,currentTrader));
+                        itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
                     }
                     else{
                         itemManager.setItemOwner(tradeManager.getItems(trade).get(1), currentTrader);
+                        itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
                     }
                 }
+
 
                 meetingManager.setMeetingCompleted(trade);
                 tradeManager.setTradeCompleted(trade);
