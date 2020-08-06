@@ -110,4 +110,6 @@
     <string name="Trader_request_to_unfreeze_sent" />
     <string name="Trader_request_to_unfreeze_not_frozen" />
     <string name="undoQuestion">Are you sure that you want to undo this action?</string>
+    <string name="welcome">Welcome,</string>
+    <string name="cannotEdit">You cannot edit the meeting any more.</string>
 </resources>

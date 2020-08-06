@@ -179,7 +179,7 @@ public class MeetingManager implements Serializable {
      * @return whether or not the user is valid to edit the trade
      */
     public boolean isValid(String user, int id){
-        return meetings.get(id).getNumberOfEdits().get(user) <= 3;
+        return meetings.get(id).getNumberOfEdits().get(user) < 3;
     }
 
     /**Return true iff both traders confirm the meeting

@@ -131,13 +131,19 @@ public class EditTradeActivity extends AppCompatActivity{
 
     public void onEditMeetingClicked(View view){
         //Do something
-        Intent intent = new Intent(this, EditMeetingActivity.class);
-        intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("Trade", trade);
-        intent.putExtra("ItemManager", itemManager);
-        startActivity(intent);
+        if(meetingManager.isValid(currentTrader, trade)){
+            Intent intent = new Intent(this, EditMeetingActivity.class);
+            intent.putExtra("CurrentTrader", currentTrader);
+            intent.putExtra("TradeManager",tradeManager);
+            intent.putExtra("MeetingManager", meetingManager);
+            intent.putExtra("Trade", trade);
+            intent.putExtra("ItemManager", itemManager);
+            intent.putExtra("TraderManager", traderManager);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(EditTradeActivity.this, R.string.cannotEdit, Toast.LENGTH_LONG).show();
+        }
 
     }
     @Override
@@ -230,7 +236,7 @@ public class EditTradeActivity extends AppCompatActivity{
                 else{
                     itemManager.setItemOwner(tradeManager.getItems(trade).get(0), currentTrader);
                 }
-                if(!tradeManager.getTradeType(trade).equals("ONEWAY")){
+                if(tradeManager.getTradeType(trade).equals("TWOWAY")){
                     if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
                         itemManager.setItemOwner(tradeManager.getItems(trade).get(1), tradeManager.getOtherTrader(trade,currentTrader));
                     }

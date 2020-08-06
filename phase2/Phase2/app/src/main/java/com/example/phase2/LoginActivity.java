@@ -52,12 +52,14 @@ public class LoginActivity extends AppCompatActivity {
         if (traderManager.login(username, password)){
             Intent intent = new Intent(this, TraderActivity.class);
             putAllUseCases(intent, username);
+            intent.putExtra("UserName", username);
             startActivity(intent);
         }
         else if (adminActions.checkCredentials(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             putAllUseCases(intent, username);
             intent.putExtra("AdminActions", adminActions);
+            intent.putExtra("UserName", username);
             startActivity(intent);
         }
         else{
