@@ -66,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this,"Cannot go back to previous page", Toast.LENGTH_SHORT).show();
+    }
 }
