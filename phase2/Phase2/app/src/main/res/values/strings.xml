@@ -124,5 +124,5 @@
     <string name="newLocation">NewLocation:</string>
     <string name="locationTypeIn">Enter a new location</string>
     <string name="selectMeeting">+ Select a new date</string>
-    <string name="editing">Editing Appointment</string>
+    <string name="editing">Editing Meeting</string>
 </resources>
