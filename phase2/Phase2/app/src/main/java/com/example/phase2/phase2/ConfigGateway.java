@@ -11,11 +11,6 @@ import java.util.List;
 
 
 public class ConfigGateway {
-    private final String ADMINPATH = "admins.ser";
-    private final String ITEMPATH = "items.ser";
-    private final String MEETINGPATH = "meetings.ser";
-    private final String TRADERPATH = "traders.ser";
-    private final String TRADEPATH = "trade.ser";
 
     private AdminActions adminActions;
     private ItemManager itemManager;
@@ -198,10 +193,15 @@ public class ConfigGateway {
                 "Toronto", "N/A");
 
         try {
+            String ADMINPATH = "admins.ser";
             saveInfo(contextFilesDir + ADMINPATH, adminActions);
+            String MEETINGPATH = "meetings.ser";
             saveInfo(contextFilesDir + MEETINGPATH, meetingManager);
+            String TRADERPATH = "traders.ser";
             saveInfo(contextFilesDir + TRADERPATH, traderManager);
+            String TRADEPATH = "trade.ser";
             saveInfo(contextFilesDir + TRADEPATH, tradeManager);
+            String ITEMPATH = "items.ser";
             saveInfo(contextFilesDir + ITEMPATH, itemManager);
         } catch (IOException e) {
             e.printStackTrace();

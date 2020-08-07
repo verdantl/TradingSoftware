@@ -35,7 +35,7 @@ public class UndoActivity extends AppCompatActivity {
         assert traderManager != null;
         if(traderManager.containTrader(chosenTrader)){
             Intent intent = new Intent(this, UndoMenu.class);
-            intent.putExtra("username", chosenTrader);
+            intent.putExtra("Username", chosenTrader);
             intent.putExtras(bundle);
             startActivity(intent);
         }else{
