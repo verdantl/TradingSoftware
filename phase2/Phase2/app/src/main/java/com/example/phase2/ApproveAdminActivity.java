@@ -18,14 +18,14 @@ public class ApproveAdminActivity extends ClickableListActivity{
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         setContentView(R.layout.activity_approve_admin);
-        adminActions = (AdminActions) bundle.getSerializable(adminKey);
+        adminActions = (AdminActions) bundle.getSerializable(ADMINKEY);
         viewList(R.id.requested_admins);
     }
 
     @Override
     public void onBackPressed(){
-        bundle.remove(adminKey);
-        bundle.putSerializable(adminKey, adminActions);
+        bundle.remove(ADMINKEY);
+        bundle.putSerializable(ADMINKEY, adminActions);
         super.onBackPressed();
     }
 

@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BundleActivity extends AppCompatActivity {
     protected Bundle bundle;
-    protected final String adminKey = "AdminActions";
-    protected final String itemKey = "ItemManager";
-    protected final String traderKey = "TraderManager";
-    protected final String tradeKey = "TradeManager";
-    protected final String meetingKey = "MeetingManager";
-    protected final String username = "Username";
+    protected final String ADMINKEY = "AdminActions";
+    protected final String ITEMKEY = "ItemManager";
+    protected final String TRADERKEY = "TraderManager";
+    protected final String TRADEKEY = "TradeManager";
+    protected final String MEETINGKEY = "MeetingManager";
+    protected final String USERNAMEKEY = "Username";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

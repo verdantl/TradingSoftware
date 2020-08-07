@@ -14,7 +14,7 @@ public class ViewTradersActivity extends ClickableListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager) getIntent().getExtras().getSerializable(traderKey);
+        traderManager = (TraderManager) getIntent().getExtras().getSerializable(TRADERKEY);
         setContentView(R.layout.activity_view_traders);
         viewList(R.id.traders);
     }
