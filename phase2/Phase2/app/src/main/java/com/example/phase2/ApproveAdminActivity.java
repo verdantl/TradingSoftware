@@ -1,31 +1,27 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
 
-import java.util.ArrayList;
 
-public class ApproveAdminActivity extends DialogActivity{
+public class ApproveAdminActivity extends ClickableListActivity{
     private AdminActions adminActions;
-    private Dialog dialog;
     private Boolean approved = null;
     private String approvedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_approve_admin);
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
-        dialog = new Dialog(this);
-        viewList();
+        viewList(R.id.requested_admins);
     }
 
     @Override
@@ -59,28 +55,20 @@ public class ApproveAdminActivity extends DialogActivity{
             message += "denied!";
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        viewList();
+        viewList(R.id.requested_admins);
     }
 
-    public void viewList(){
-        final ArrayList<String> adminRequests = adminActions.getRequestedAdmins();
-        setContentView(R.layout.activity_approve_admin);
-        ListView listView= findViewById(R.id.requested_admins);
-        ArrayAdapter<String> adminAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, adminRequests);
-        listView.setAdapter(adminAdapter);
+    protected void viewList(Integer listViewID){
+        selections = adminActions.getRequestedAdmins();
+        super.viewList(listViewID);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayDialog();
-                approvedUser = adminRequests.get(i);
+                displayDialog(R.layout.fragment_approval);
+                approvedUser = selections.get(i);
             }
         });
     }
 
-    public void displayDialog() {
-        dialog.setContentView(R.layout.fragment_approval);
-        dialog.show();
-    }
 
 }

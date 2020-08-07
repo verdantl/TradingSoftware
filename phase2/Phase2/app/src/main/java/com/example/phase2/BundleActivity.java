@@ -20,6 +20,7 @@ public abstract class BundleActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
