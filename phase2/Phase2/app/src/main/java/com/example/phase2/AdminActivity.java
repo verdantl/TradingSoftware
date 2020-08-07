@@ -105,9 +105,15 @@ public class AdminActivity extends AppCompatActivity {
         switch(requestCode){
             case CHANGE_LIMIT_REQ:
                 traderManager = (TraderManager) data.getSerializableExtra("TraderManager");
+                bundle.remove("TraderManager");
+                bundle.putSerializable("TraderManager", traderManager);
                 break;
             case CHANGE_PASSWORD_REQ:
-                adminActions = (AdminActions) data.getSerializableExtra("AdminActions");
+                if(resultCode == RESULT_FIRST_USER) {
+                    adminActions = (AdminActions) data.getSerializableExtra("AdminActions");
+                }
+                bundle.remove("AdminActions");
+                bundle.putSerializable("AdminActions", adminActions);
                 break;
             default:
 
