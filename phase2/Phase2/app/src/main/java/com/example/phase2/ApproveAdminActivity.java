@@ -14,7 +14,7 @@ import com.example.phase2.phase2.AdminActions;
 
 import java.util.ArrayList;
 
-public class ApproveAdminActivity extends BundleActivity implements ClickableList{
+public class ApproveAdminActivity extends DialogActivity{
     private AdminActions adminActions;
     private Dialog dialog;
     private Boolean approved = null;

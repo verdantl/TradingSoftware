@@ -14,7 +14,6 @@ public class AddNewItemActivity extends AppCompatActivity {
     private ItemManager itemManager;
     private String currentTrader;
     private Bundle bundle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
