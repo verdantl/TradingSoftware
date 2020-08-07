@@ -1,9 +1,11 @@
 package com.example.phase2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public abstract class BundleActivity extends AppCompatActivity {
     protected Bundle bundle;
@@ -23,6 +25,6 @@ public abstract class BundleActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        ActivityCompat.getReferrer(this);
     }
 }

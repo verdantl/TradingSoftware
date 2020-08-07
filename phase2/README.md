@@ -10,3 +10,7 @@ However, we realized that separating them would lead to three major problems:
     (b) It would cause coupling (since the xml files depend on the properties of the Activity, we
     would have to pass in a parameter of this into the presenter)
     (c) 
+4. We had to put two instances of the String keys for the use cases in BundleActivity and in 
+ConfigGateway. We had a BundleActivity class to keep the String keys in to reduce the hard coding
+and maintain consistency across all of the Activities. We also created this class to take care of 
+the bundle variable and reduce the repeated bundle code.
