@@ -12,7 +12,6 @@ import com.example.phase2.phase2.TraderManager;
 public class ChangeLimitActivity extends AppCompatActivity {
 
     //used for onActivityResult
-    private int result = 5;
 
     private TraderManager tm;
 
@@ -63,5 +62,9 @@ public class ChangeLimitActivity extends AppCompatActivity {
         setResult(RESULT_FIRST_USER, i);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(RESULT_OK);
+    }
 }
