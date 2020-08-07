@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+
 
 public abstract class BundleActivity extends AppCompatActivity {
     protected Bundle bundle;
@@ -22,9 +22,18 @@ public abstract class BundleActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        assert data != null;
+        bundle = data.getExtras();
+    }
 
     @Override
     public void onBackPressed() {
-        ActivityCompat.getReferrer(this);
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        setResult(RESULT_FIRST_USER, intent);
+        finish();
     }
 }

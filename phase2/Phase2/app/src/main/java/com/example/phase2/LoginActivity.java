@@ -15,7 +15,7 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
     private ItemManager itemManager;
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         if (bundle == null){
             bundle = configGateway.getBundle();
         }
@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.get("TradeManager");
         meetingManager = (MeetingManager) bundle.get("MeetingManager");
         itemManager = (ItemManager) bundle.get("ItemManager");
-
     }
 
     public void onLoginClicked(View view){
@@ -59,10 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 
         else if (adminActions.checkCredentials(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
-            putAllUseCases(intent, username);
-            intent.putExtra("AdminActions", adminActions);
-            intent.putExtra("Username", username);
-            startActivity(intent);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, RESULT_OK);
         }
         else{
             Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();

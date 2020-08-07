@@ -15,9 +15,7 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class AdminActivity extends AppCompatActivity {
-    private Bundle bundle;
-
+public class AdminActivity extends BundleActivity {
     private AdminActions adminActions;
 
     private ItemManager itemManager;
@@ -32,8 +30,6 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
@@ -57,7 +53,7 @@ public class AdminActivity extends AppCompatActivity {
     public void addRemoveAdmin(View view){
         Intent intent = new Intent(this, ApproveAdminActivity.class);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void manageAccounts(View view){
@@ -82,7 +78,6 @@ public class AdminActivity extends AppCompatActivity {
         Intent i = new Intent(this, ChangeLimitActivity.class);
         i.putExtra("TraderManager", traderManager);
         startActivityForResult(i, CHANGE_LIMIT_REQ);
-
     }
 
     public void changePassword(View view){
@@ -97,31 +92,32 @@ public class AdminActivity extends AppCompatActivity {
         i.putExtras(bundle);
         startActivity(i);
     }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        assert data != null;
+//        switch(requestCode){
+//            case CHANGE_LIMIT_REQ:
+//                if(resultCode == RESULT_FIRST_USER) {
+//                    traderManager = (TraderManager) data.getSerializableExtra("TraderManager");
+//                    bundle.remove("TraderManager");
+//                    bundle.putSerializable("TraderManager", traderManager);
+//                }
+//                break;
+//            case CHANGE_PASSWORD_REQ:
+//                if(resultCode == RESULT_FIRST_USER) {
+//                    adminActions = (AdminActions) data.getSerializableExtra("AdminActions");
+//
+//                    bundle.remove("AdminActions");
+//                    bundle.putSerializable("AdminActions", adminActions);
+//                }
+//                break;
+//            default:
+//
+//        }
+//    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        assert data != null;
-        switch(requestCode){
-            case CHANGE_LIMIT_REQ:
-                if(resultCode == RESULT_FIRST_USER) {
-                    traderManager = (TraderManager) data.getSerializableExtra("TraderManager");
-                    bundle.remove("TraderManager");
-                    bundle.putSerializable("TraderManager", traderManager);
-                }
-                break;
-            case CHANGE_PASSWORD_REQ:
-                if(resultCode == RESULT_FIRST_USER) {
-                    adminActions = (AdminActions) data.getSerializableExtra("AdminActions");
-
-                    bundle.remove("AdminActions");
-                    bundle.putSerializable("AdminActions", adminActions);
-                }
-                break;
-            default:
-
-        }
-    }
 
     @Override
     public void onBackPressed() {

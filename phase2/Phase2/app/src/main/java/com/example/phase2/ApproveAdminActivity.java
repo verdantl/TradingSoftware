@@ -1,6 +1,4 @@
 package com.example.phase2;
-
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +17,7 @@ public class ApproveAdminActivity extends ClickableListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_approve_admin);
         adminActions = (AdminActions) bundle.getSerializable("AdminActions");
         viewList(R.id.requested_admins);
@@ -26,11 +25,9 @@ public class ApproveAdminActivity extends ClickableListActivity{
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(this, AdminActivity.class);
         bundle.remove("AdminActions");
-        intent.putExtras(bundle);
-        intent.putExtra("AdminActions", adminActions);
-        startActivity(intent);
+        bundle.putSerializable("AdminActions", adminActions);
+        super.onBackPressed();
     }
 
     public void onApproveClicked(View view){
@@ -60,6 +57,7 @@ public class ApproveAdminActivity extends ClickableListActivity{
 
     protected void viewList(Integer listViewID){
         selections = adminActions.getRequestedAdmins();
+
         super.viewList(listViewID);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
