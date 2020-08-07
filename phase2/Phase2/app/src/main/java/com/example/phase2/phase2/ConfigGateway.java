@@ -134,7 +134,7 @@ public class ConfigGateway {
         traderUnfreeze.setRequestToUnfreeze(true);
         traderManager.addTrader(traderUnfreeze);
 
-        //Adds two way trade
+        //Adds permanent two way trade
         List<Integer> tempTradeItems2 = new ArrayList<>();
         Integer temp2 = itemManager.addItem("Jacket", "Trader1");
         Integer temp3 = itemManager.addItem("Watch", "Arjun");
@@ -193,19 +193,41 @@ public class ConfigGateway {
                 "Toronto", "N/A");
 
 
-        //Creates an online meeting:
+        //Creates an online one-way meeting:
         List<Integer> tempTradeItems5 = new ArrayList<>();
         Integer temp8 = itemManager.addItem("E-Book", "Trader1");
+        tempTradeItems5.add(temp8);
+        itemManager.changeStatusToUnavailable(temp8);
         itemManager.addItemDetails(temp8, "Online", "Its an ebook", 10);
-        Integer tradeId5 = tradeManager.createTrade("Arjun", "Trader1", "ONLINE", true, tempTradeItems5);
+        Integer tradeId5 = tradeManager.createTrade("Arjun", "Trader1", "ONLINE-ONEWAY", true, tempTradeItems5);
         LocalDate tempDate5 = LocalDate.now();
         traderManager.addNewTrade("Arjun", tradeId5,tempDate5);
         traderManager.addNewTrade("Trader1", tradeId5, tempDate5);
         //CREATES THE MEETING
         meetingManager.createMeeting(tradeId5, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId5, LocalDate.now(), LocalDate.now(),
-                "Online", "N/A");
+                "Online", "Online");
 
+        //Creates an online two-way meeting
+        List<Integer> tempTradeItems6 = new ArrayList<>();
+        Integer temp9 = itemManager.addItem("E-Book-2", "Trader1");
+        Integer temp10 = itemManager.addItem("E-Textbook", "Arjun");
+        tempTradeItems6.add(temp9);
+        tempTradeItems6.add(temp10);
+        itemManager.addItemDetails(temp9, "Online", "Its a ebook", 7);
+        itemManager.addItemDetails(temp10, "Online", "Its a textbook", 5);
+        itemManager.changeStatusToUnavailable(temp9);
+        itemManager.changeStatusToUnavailable(temp10);
+
+        Integer tradeId6 = tradeManager.createTrade("Arjun", "Trader1", "ONLINE-TWOWAY", true, tempTradeItems6);
+
+        LocalDate tempDate6 = LocalDate.now();
+        traderManager.addNewTrade("Arjun", tradeId6,tempDate6);
+        traderManager.addNewTrade("Trader1", tradeId6, tempDate6);
+
+        meetingManager.createMeeting(tradeId6, "Arjun", "Trader1", true);
+        meetingManager.setMeetingInfo(tradeId6, LocalDate.now(), LocalDate.now(),
+                "ONLINE", "N/A");
 
         try {
             String ADMINPATH = "admins.ser";

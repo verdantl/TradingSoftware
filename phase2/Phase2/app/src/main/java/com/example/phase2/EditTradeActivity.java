@@ -128,7 +128,7 @@ public class EditTradeActivity extends AppCompatActivity{
         //Do something
         if(meetingManager.isValid(currentTrader, trade)){
             Intent intent = new Intent(this, EditMeetingActivity.class);
-            if(tradeManager.getTradeType(trade).equals("ONLINE")){
+            if(tradeManager.getTradeType(trade).contains("ONLINE")){
                 intent.putExtra("Online", true);
             }
             else{
@@ -203,7 +203,7 @@ public class EditTradeActivity extends AppCompatActivity{
                         traderManager.addToBorrowedItems(currentTrader, tradeManager.getItems(trade).get(0));
                         traderManager.removeFromWishlist(currentTrader, tradeManager.getItems(trade).get(1));
                     }
-                    if(!tradeManager.getTradeType(trade).equals("ONEWAY")){
+                    if(!tradeManager.getTradeType(trade).contains("ONEWAY")){
                         itemManager.changeStatusToUnavailable(tradeManager.getItems(trade).get(1));
                         if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
                             traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), tradeManager.getItems(trade).get(1));
@@ -225,7 +225,7 @@ public class EditTradeActivity extends AppCompatActivity{
                 }
                 else{
                     itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
-                    if(!tradeManager.getTradeType(trade).equals("ONEWAY")){
+                    if(!tradeManager.getTradeType(trade).contains("ONEWAY")){
                         itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
                     }
                     meetingManager.setMeetingCompleted(trade);
@@ -243,7 +243,7 @@ public class EditTradeActivity extends AppCompatActivity{
                     itemManager.setItemOwner(tradeManager.getItems(trade).get(0), currentTrader);
                     itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
                 }
-                if(tradeManager.getTradeType(trade).equals("TWOWAY")){
+                if(tradeManager.getTradeType(trade).contains("TWOWAY")){
                     if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
                         itemManager.setItemOwner(tradeManager.getItems(trade).get(1), tradeManager.getOtherTrader(trade,currentTrader));
                         itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
@@ -281,7 +281,7 @@ public class EditTradeActivity extends AppCompatActivity{
         startActivity(intent);
     }
     public void onViewItemInformationClicked(View view){
-        if(tradeManager.getTradeType(trade).equals("ONEWAY")){
+        if(tradeManager.getTradeType(trade).contains("ONEWAY")){
             displayFragmentOneWay();
         }
         else{

@@ -55,15 +55,12 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
 
     private void viewList() {
         final List<Integer> tempMeetings = new ArrayList<>();
-        //System.out.println(username);
         for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))){
             if (meetingManager.meetingCanBeUndone(i)){
                 tempMeetings.add(i);
             }
         }
 
-        //System.out.println(tempMeetings.size());
-        //Copies tempMeetings to tempMeetings2
         List<Integer> tempMeetings2 = new ArrayList<>();
 
 
