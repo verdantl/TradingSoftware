@@ -31,7 +31,6 @@ public class UndoMenu extends AppCompatActivity {
 
     public void undoEditMeeting(View view){
         Intent intent = new Intent(this, UndoEditMeeting.class);
-        //System.out.println(bundle.getSerializable("Username"));
         intent.putExtras(bundle);
         startActivity(intent);
     }
