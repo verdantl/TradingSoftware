@@ -86,6 +86,25 @@ public class TraderActivity extends AppCompatActivity {
         //TODO: Implement this method
     }
 
+    /**
+     * sends a request to unfreeze the user and gives a responds based on the current state of the user
+     * @param view a standard  viable for andoird methods
+     */
+    public void requestToUnfreeze(View view){
+        if(traderManager.getIsFrozen(currentTrader)) {
+            if(traderManager.getRequestToUnfreeze(currentTrader)){
+                Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(this, R.string.Trader_request_to_unfreeze_sent, Toast.LENGTH_LONG).show();
+                traderManager.setRequestToUnfreeze(currentTrader, true);
+            }
+        }
+        else{
+            Toast.makeText(this, R.string.Trader_request_to_unfreeze_not_frozen, Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void viewUserInfo(View view){
         Intent intent = new Intent(this, ViewMyUserInfoActivity.class);
         intent.putExtra("ItemManager", itemManager);
