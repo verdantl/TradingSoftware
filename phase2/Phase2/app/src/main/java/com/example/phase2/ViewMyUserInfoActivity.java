@@ -45,7 +45,8 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = bundle.getString("CurrentTrader");
-/**
+        setContentView(R.layout.activity_view_my_user_info);
+
         TextView textView = (TextView) findViewById(R.id.textView7);
         changeText(textView, "Username: "+currentTrader);
         changeText((TextView) findViewById(R.id.textView8), "Homecity: "+traderManager.getHomeCity(currentTrader));
@@ -59,18 +60,17 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         List<Integer> trades = traderManager.getTrades(currentTrader);
         TreeSet<String> traders = findsTopTraders(trades);
         if(traders.size() >= 1) {
-            changeText((TextView) findViewById(R.id.textView13), traders.toArray()[trades.size() - 1].toString());
-                if(trades.size() >= 2) {
-                    changeText((TextView) findViewById(R.id.textView11), traders.toArray()[trades.size() - 2].toString());
-                        if(trades.size() >= 3) {
-                            changeText((TextView) findViewById(R.id.textView12), traders.toArray()[trades.size() - 3].toString());
+            changeText((TextView) findViewById(R.id.textView13), traders.toArray()[traders.size() - 1].toString());
+                if(traders.size() >= 2) {
+                    changeText((TextView) findViewById(R.id.textView11), traders.toArray()[traders.size() - 2].toString());
+                        if(traders.size() >= 3) {
+                            changeText((TextView) findViewById(R.id.textView12), traders.toArray()[traders.size() - 3].toString());
 
                         }
                 }
         }
-*/
-        viewList();
-        //setContentView(R.layout.activity_view_my_user_info);
+
+        viewList();        //setContentView(R.layout.activity_view_my_user_info);
     }
 
     /**
