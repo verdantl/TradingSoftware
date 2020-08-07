@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ConfigGateway;
 import com.example.phase2.phase2.ItemManager;
@@ -21,13 +18,12 @@ public class LoginActivity extends BundleActivity {
     private ItemManager itemManager;
     private MeetingManager meetingManager;
     private TradeManager tradeManager;
-    private ConfigGateway configGateway;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
+        ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
         bundle = getIntent().getExtras();
         if (bundle == null){
             bundle = configGateway.getBundle();
@@ -56,7 +52,7 @@ public class LoginActivity extends BundleActivity {
             startActivity(intent);
         }
 
-        else if (adminActions.checkCredentials(username, password)){
+        else if (adminActions.login(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             intent.putExtras(bundle);
             startActivityForResult(intent, RESULT_OK);

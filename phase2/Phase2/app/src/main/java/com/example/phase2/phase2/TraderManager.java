@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
-public class TraderManager implements Serializable {
+public class TraderManager implements Serializable, Loginable {
     HashMap<String, Trader> users;
     private int weeklyLimit;
     private int maxInComplete;
@@ -31,7 +31,7 @@ public class TraderManager implements Serializable {
      */
     public boolean login(String username, String password){
         if(users.containsKey(username)){
-            return users.get(username).getPassword().equals(password);
+            return Objects.requireNonNull(users.get(username)).getPassword().equals(password);
         }
         return false;
     }
@@ -68,7 +68,7 @@ public class TraderManager implements Serializable {
      * @param username The username to be checked
      * @return true if username is taken, false otherwise
      */
-    public boolean isUsernameAvailable(String username){
+    public boolean checkUsername(String username){
         return !users.containsKey(username);
     }
 
@@ -89,7 +89,7 @@ public class TraderManager implements Serializable {
 
 
     public String getTraderInfo(String username){
-        if (!isUsernameAvailable(username)){
+        if (!checkUsername(username)){
             return Objects.requireNonNull(users.get(username)).toString();
         }
         else{

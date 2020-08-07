@@ -55,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
         if (username.isEmpty()){
             return false;
         }
-        return adminActions.checkUsername(username) && traderManager.isUsernameAvailable(username);
+        return adminActions.checkUsername(username) && traderManager.checkUsername(username);
     }
 
     private void backToLogin(){

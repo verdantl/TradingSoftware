@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdminActions implements Serializable {
+public class AdminActions implements Serializable, Loginable{
     private final HashMap<String, Admin> admins;
 
     /**
@@ -70,6 +70,7 @@ public class AdminActions implements Serializable {
      * @param username the username that needs to be checked
      * @return Return true iff the username is valid
      */
+    @Override
     public boolean checkUsername(String username){
         return !admins.containsKey(username);
     }
@@ -80,7 +81,7 @@ public class AdminActions implements Serializable {
      * @param password the password for the login
      * @return a boolean representing if the login was successful or not
      */
-    public boolean checkCredentials(String username, String password) {
+    public boolean login(String username, String password) {
         if (admins.containsKey(username)) {
             System.out.println(admins.get(username).getPassword());
             return admins.get(username).isApproved() && admins.get(username).getPassword().equals(password);
