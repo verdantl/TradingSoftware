@@ -23,6 +23,7 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
         traderManager = (TraderManager)
                 Objects.requireNonNull(getIntent().getExtras()).getSerializable(TRADERKEY);
         setContentView(R.layout.activity_view_traders);
+        dialog = new Dialog(this);
         viewList();
     }
 
