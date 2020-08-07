@@ -12,14 +12,13 @@ import com.example.phase2.phase2.ItemManager;
 
 public class TutorialActivity extends AppCompatActivity {
     private ItemManager itemManager;
-    private Bundle bundle;
     private Dialog dialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
         dialog = new Dialog(this);
@@ -29,9 +28,6 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(this, LoginActivity.class);
-        bundle.remove("ItemManager");
-        intent.putExtras(bundle);
-        intent.putExtra("ItemManager", itemManager);
         startActivity(intent);
     }
 
