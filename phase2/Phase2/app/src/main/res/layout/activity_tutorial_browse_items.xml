@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".TutorialBrowseItemsActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/prompt"-->
-<!--        android:layout_width="357dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="36dp"-->
-<!--        //android:text="@string/tutorialBrowseItemsPrompt"-->
-<!--        android:textSize="17sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <TextView
+        android:id="@+id/prompt"
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/tutorialBrowseItemsPrompt"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/itemsList"
