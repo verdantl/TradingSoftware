@@ -48,7 +48,8 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_my_user_info);
 
         TextView textView = (TextView) findViewById(R.id.textView7);
-        changeText(textView, "Username: "+currentTrader);
+        String temp = "Username: "+currentTrader;
+        textView.setText(temp);
         changeText((TextView) findViewById(R.id.textView8), "Homecity: "+traderManager.getHomeCity(currentTrader));
 
         if(traderManager.getIsFrozen(currentTrader)){
