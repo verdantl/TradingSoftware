@@ -56,13 +56,17 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
     private void viewList() {
         final List<Integer> tempMeetings = new ArrayList<>();
         for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))){
-            if (!meetingManager.meetingCanBeUndone(i)){
+            if (meetingManager.meetingCanBeUndone(i)){
                 tempMeetings.add(i);
             }
         }
 
+        //System.out.println(tempMeetings.size());
+        //Copies tempMeetings to tempMeetings2
+        List<Integer> tempMeetings2 = new ArrayList<>();
 
-        for (Integer i : tempMeetings) {
+
+        for (Integer i : tempMeetings2) {
             HashMap<String, Integer> tempHash = meetingManager.getEdits(i);
             if (tradeManager.getTradeInitiator(i).equals(username)) {
                 if (tempHash.get(username) <
@@ -76,6 +80,7 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
                 }
             }
         }
+        //System.out.println(tempMeetings.size());
         ArrayList<String> editMeeting = new ArrayList<>();
         for(Integer i: tempMeetings){
             editMeeting.add(meetingManager.getMeeting(i).toString());

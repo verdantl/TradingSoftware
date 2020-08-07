@@ -47,9 +47,9 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         currentTrader = bundle.getString("CurrentTrader");
         setContentView(R.layout.activity_view_my_user_info);
 
-        TextView textView = (TextView) findViewById(R.id.textView7);
+        TextView textView2 = (TextView) findViewById(R.id.textView7);
         String temp = "Username: "+currentTrader;
-        textView.setText(temp);
+        textView2.setText(temp);
         changeText((TextView) findViewById(R.id.textView8), "Homecity: "+traderManager.getHomeCity(currentTrader));
 
         if(traderManager.getIsFrozen(currentTrader)){
@@ -70,7 +70,6 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
                         }
                 }
         }
-
         viewList();        //setContentView(R.layout.activity_view_my_user_info);
     }
 
@@ -79,7 +78,7 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
      */
     public void viewList(){
         final List<Integer> recentTrades = findRecentTrades();
-        setContentView(R.layout.activity_view_my_user_info);
+        //setContentView(R.layout.activity_view_my_user_info);
         ListView listView = findViewById(R.id.recent_trades);
         //unsure about this line
         ArrayAdapter<Integer> allTradesAdapter = new ArrayAdapter<>(this,

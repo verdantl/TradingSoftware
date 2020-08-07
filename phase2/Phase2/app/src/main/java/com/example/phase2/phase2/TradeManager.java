@@ -38,10 +38,9 @@ public class TradeManager implements Serializable {
      * @return A list of the user's incomplete trades
      */
     public List<Integer> getIncompleteTrades(List<Integer> trades){
-        System.out.println("test");
         List<Integer> temp = new ArrayList<>();
         for(Integer i: trades){
-            if(tradeInventory.get(i).getCompleted()){
+            if(!tradeInventory.get(i).getCompleted()){
                 temp.add(i);
             }
         }

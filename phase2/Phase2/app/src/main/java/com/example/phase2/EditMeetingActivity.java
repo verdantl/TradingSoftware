@@ -73,7 +73,6 @@ public class EditMeetingActivity extends AppCompatActivity {
                         meetingManager.editLocation(trade, location.getText().toString());
                         meetingManager.increaseNumEdit(currentTrader, trade);
                         meetingManager.setBothDisagree(trade);
-                        //TODO SAVE THE DATA SOMEHOW
                         onSubmitClick();
                     }
                 }

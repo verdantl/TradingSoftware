@@ -329,7 +329,13 @@ public class Meeting implements Serializable {
      * @return true if an edit has been made, false otherwise.
      */
     public boolean isEdited(){
-        return this.numberOfEdits.isEmpty();
+        //System.out.println(this.numberOfEdits.size());
+        for(Integer i:numberOfEdits.values()){
+            if(i!=0){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
