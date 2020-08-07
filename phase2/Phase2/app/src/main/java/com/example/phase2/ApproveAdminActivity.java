@@ -3,7 +3,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
-import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
@@ -19,14 +18,14 @@ public class ApproveAdminActivity extends ClickableListActivity{
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         setContentView(R.layout.activity_approve_admin);
-        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
+        adminActions = (AdminActions) bundle.getSerializable(adminKey);
         viewList(R.id.requested_admins);
     }
 
     @Override
     public void onBackPressed(){
-        bundle.remove("AdminActions");
-        bundle.putSerializable("AdminActions", adminActions);
+        bundle.remove(adminKey);
+        bundle.putSerializable(adminKey, adminActions);
         super.onBackPressed();
     }
 
