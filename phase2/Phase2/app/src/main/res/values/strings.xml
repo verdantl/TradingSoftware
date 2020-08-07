@@ -120,4 +120,9 @@
     <string name="Activation_request_sent">Activation request sent</string>
     <string name="Deactivation_request_sent">Deactivation request sent</string>
     <string name="log_out">Log Out</string>
+    <string name="newDate">NewDate:</string>
+    <string name="newLocation">NewLocation:</string>
+    <string name="locationTypeIn">Enter a new location</string>
+    <string name="selectMeeting">+ Select a new date</string>
+    <string name="editing">Editing Meeting</string>
 </resources>
