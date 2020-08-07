@@ -192,6 +192,21 @@ public class ConfigGateway {
         meetingManager.setMeetingInfo(tradeId4, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
 
+
+        //Creates an online meeting:
+        List<Integer> tempTradeItems5 = new ArrayList<>();
+        Integer temp8 = itemManager.addItem("E-Book", "Trader1");
+        itemManager.addItemDetails(temp8, "Online", "Its an ebook", 10);
+        Integer tradeId5 = tradeManager.createTrade("Arjun", "Trader1", "ONLINE", true, tempTradeItems5);
+        LocalDate tempDate5 = LocalDate.now();
+        traderManager.addNewTrade("Arjun", tradeId5,tempDate5);
+        traderManager.addNewTrade("Trader1", tradeId5, tempDate5);
+        //CREATES THE MEETING
+        meetingManager.createMeeting(tradeId5, "Arjun", "Trader1", true);
+        meetingManager.setMeetingInfo(tradeId5, LocalDate.now(), LocalDate.now(),
+                "Online", "N/A");
+
+
         try {
             String ADMINPATH = "admins.ser";
             saveInfo(contextFilesDir + ADMINPATH, adminActions);

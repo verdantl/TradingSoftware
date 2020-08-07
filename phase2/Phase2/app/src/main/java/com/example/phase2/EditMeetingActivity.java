@@ -27,6 +27,7 @@ public class EditMeetingActivity extends AppCompatActivity {
     private String currentTrader;
     private LocalDate newDate;
     private Bundle bundle;
+    private boolean online;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,16 @@ public class EditMeetingActivity extends AppCompatActivity {
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         currentTrader = (String) bundle.getSerializable("CurrentTrader");
         trade = (Integer) bundle.getSerializable("Trade");
+        online = (boolean) bundle.get("Online");
+
+        EditText location=findViewById(R.id.meetingLocationEdit);
+        TextView newLocation = findViewById(R.id.newLocation);
+        if(online){
+            location.setVisibility(View.GONE);
+            newLocation.setVisibility(View.GONE);
+        }
+
+
         Button button = findViewById(R.id.submit_button);
 
         final TextView datePickerText = findViewById(R.id.editTextDate);
@@ -64,26 +75,41 @@ public class EditMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText location=findViewById(R.id.meetingLocationEdit);
-                if(!location.getText().toString().isEmpty() && !location.getText().toString().equals("Please Enter a Location")){
-                    if(datePickerText.getText().toString().equals("Please Select a Date")){
+                if(online){
+
+                    if(datePickerText.getText().toString().equals("+ Select a new date")){
                         Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_edit, Toast.LENGTH_LONG).show();
                     }
-                    else {
+                    else{
                         meetingManager.editDate(trade, newDate);
-                        meetingManager.editLocation(trade, location.getText().toString());
                         meetingManager.increaseNumEdit(currentTrader, trade);
                         meetingManager.setBothDisagree(trade);
                         onSubmitClick();
                     }
                 }
                 else{
-                    if(datePickerText.getText().toString().equals("Please Select a Date")){
-                        Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_location, Toast.LENGTH_LONG).show();
+                    if(!location.getText().toString().isEmpty() && !location.getText().toString().equals("Please Enter a Location")){
+                        if(datePickerText.getText().toString().equals("+ Select a new date")){
+                            Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_edit, Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            meetingManager.editDate(trade, newDate);
+                            meetingManager.editLocation(trade, location.getText().toString());
+                            meetingManager.increaseNumEdit(currentTrader, trade);
+                            meetingManager.setBothDisagree(trade);
+                            onSubmitClick();
+                        }
                     }
                     else{
-                        Toast.makeText(EditMeetingActivity.this, R.string.invalid_location_edit, Toast.LENGTH_LONG).show();
+                        if(datePickerText.getText().toString().equals("Please Select a Date")){
+                            Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_location, Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(EditMeetingActivity.this, R.string.invalid_location_edit, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
+
             }
         });
     }
@@ -93,6 +119,7 @@ public class EditMeetingActivity extends AppCompatActivity {
         bundle.remove("MeetingManager");
         bundle.remove("CurrentTrader");
         bundle.remove("Trade");
+        bundle.remove("Online");
         intent.putExtras(bundle);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("Trade", trade);

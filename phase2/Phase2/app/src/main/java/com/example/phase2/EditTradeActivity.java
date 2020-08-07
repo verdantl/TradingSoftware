@@ -89,10 +89,10 @@ public class EditTradeActivity extends AppCompatActivity{
                 tempAgreeStatus = "You have not confirmed the meeting.";
             }
             if(meetingManager.hasConfirmed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has confirmed the meeting.";
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has confirmed the item transfer.";
             }
             else{
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the meeting.";
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the item transfer.";
             }
         }
         TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
@@ -128,7 +128,15 @@ public class EditTradeActivity extends AppCompatActivity{
         //Do something
         if(meetingManager.isValid(currentTrader, trade)){
             Intent intent = new Intent(this, EditMeetingActivity.class);
+            if(tradeManager.getTradeType(trade).equals("ONLINE")){
+                intent.putExtra("Online", true);
+            }
+            else{
+                intent.putExtra("Online", false);
+            }
+
             intent.putExtras(bundleM);
+
             startActivity(intent);
         }
         else{
@@ -160,10 +168,10 @@ public class EditTradeActivity extends AppCompatActivity{
             linearLayout.setVisibility(View.GONE);
             Button button = findViewById(R.id.confirmButton);
             button.setVisibility(View.VISIBLE);
-            String tempAgreeStatus = "You have not confirmed the meeting.";
+            String tempAgreeStatus = "You have not confirmed the item transfer.";
             TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
             selfTraderAgree.setText(tempAgreeStatus);
-            String tempAgreeStatus2= tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the meeting.";
+            String tempAgreeStatus2= tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the item transfer.";
             TextView selfTraderAgree2 = findViewById(R.id.opposingTradeAgree);
             selfTraderAgree2.setText(tempAgreeStatus2);
         }
@@ -210,7 +218,7 @@ public class EditTradeActivity extends AppCompatActivity{
                     button.setVisibility(View.VISIBLE);
                     String tempStringStatus2 = "You have not confirmed the meeting.";
                     selfTraderAgree.setText(tempStringStatus2);
-                    String tempStringStatus3 = tradeManager.getOtherTrader(trade,currentTrader)+" has not confirmed the meeting.";
+                    String tempStringStatus3 = tradeManager.getOtherTrader(trade,currentTrader)+" has not confirmed the item transfer.";
                     otherTraderAgree.setText(tempStringStatus3);
 
 
