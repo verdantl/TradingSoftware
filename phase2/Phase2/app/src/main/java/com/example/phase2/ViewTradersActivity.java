@@ -1,39 +1,47 @@
 package com.example.phase2;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.phase2.phase2.TraderManager;
 
-public class ViewTradersActivity extends ClickableListActivity{
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class ViewTradersActivity extends BundleActivity implements ClickableList, Dialogable{
+    private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager) getIntent().getExtras().getSerializable(TRADERKEY);
+        traderManager = (TraderManager)
+                Objects.requireNonNull(getIntent().getExtras()).getSerializable(TRADERKEY);
         setContentView(R.layout.activity_view_traders);
-        viewList(R.id.traders);
+        viewList();
     }
 
-    public void viewList(Integer listViewID){
-        setSelections(traderManager.getTraders());
-        super.viewList(listViewID);
+    public void viewList(){
+        final ArrayList<String> traders = traderManager.getTraders();
+        ListView listView = findViewById(R.id.traders);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                userInfo = traderManager.getTraderInfo(selections.get(i));
-                displayDialog(R.layout.fragment_info);
+                userInfo = traderManager.getTraderInfo(traders.get(i));
+                displayDialog();
             }
         });
     }
 
-    public void displayDialog(Integer viewID){
-        super.displayDialog(viewID);
+    public void displayDialog() {
+        dialog.setContentView(R.layout.fragment_info);
         TextView close = dialog.findViewById(R.id.trader_info);
         close.setText(userInfo);
+        dialog.show();
     }
 }
