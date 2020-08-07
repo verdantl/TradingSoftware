@@ -33,7 +33,7 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         assert bundle != null;
-        username = bundle.getString("username");
+        username = (String) bundle.getSerializable("username");
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
@@ -55,6 +55,7 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
 
     private void viewList() {
         final List<Integer> tempMeetings = new ArrayList<>();
+        //System.out.println(username);
         for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))){
             if (meetingManager.meetingCanBeUndone(i)){
                 tempMeetings.add(i);

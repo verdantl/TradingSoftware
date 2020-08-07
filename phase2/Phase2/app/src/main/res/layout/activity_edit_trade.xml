@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="32dp"
         android:onClick="onConfirmMeetingClicked"
-        android:text="Confirm Meeting"
+        android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Meeting Status:"
+        android:text="Appointment Status:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -165,14 +165,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onAgreeMeetingClicked"
-            android:text="Agree to Meeting" />
+            android:text="Agree" />
 
         <Button
             android:id="@+id/editMeeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onEditMeetingClicked"
-            android:text="Edit The Meeting" />
+            android:text="Edit" />
 
     </LinearLayout>
 

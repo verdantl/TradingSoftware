@@ -32,10 +32,12 @@ public class UndoActivity extends AppCompatActivity {
         EditText undoTraderText = findViewById(R.id.undoUser);
         String chosenTrader = undoTraderText.getText().toString();
         TraderManager traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+
         assert traderManager != null;
         if(traderManager.containTrader(chosenTrader)){
             Intent intent = new Intent(this, UndoMenu.class);
-            intent.putExtra("Username", chosenTrader);
+            System.out.println(chosenTrader);
+            intent.putExtra("username", chosenTrader);
             intent.putExtras(bundle);
             startActivity(intent);
         }else{

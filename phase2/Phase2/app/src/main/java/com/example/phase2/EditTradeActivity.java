@@ -71,22 +71,22 @@ public class EditTradeActivity extends AppCompatActivity{
         String tempAgreeStatus2;
         if(!meetingManager.bothAgreed(trade)) {
             if (meetingManager.hasAgreed(trade, currentTrader)) {
-                tempAgreeStatus = "You have agreed to the meeting.";
+                tempAgreeStatus = "You have agreed to the appointment.";
             } else {
-                tempAgreeStatus = "You have not agreed to the meeting.";
+                tempAgreeStatus = "You have not agreed to the appointment.";
             }
             if(meetingManager.hasAgreed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has agreed to the meeting.";
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has agreed to the appointment.";
             }
             else{
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not agreed to the meeting.";
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not agreed to the appointment.";
             }
         }
         else{
             if(meetingManager.hasConfirmed(trade,currentTrader)){
-                tempAgreeStatus = "You have confirmed the meeting.";
+                tempAgreeStatus = "You have confirmed the appointment.";
             }else{
-                tempAgreeStatus = "You have not confirmed the meeting.";
+                tempAgreeStatus = "You have not confirmed the appointment.";
             }
             if(meetingManager.hasConfirmed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
                 tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has confirmed the item transfer.";
@@ -158,7 +158,7 @@ public class EditTradeActivity extends AppCompatActivity{
         else{
             //Agrees on the trade and sets the agree status to the right one
             meetingManager.agreeOnTrade(trade, currentTrader);
-            String tempAgreeStatus = "You have agreed to the meeting.";
+            String tempAgreeStatus = "You have agreed to the appointment.";
             TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
             selfTraderAgree.setText(tempAgreeStatus);
         }
@@ -182,7 +182,7 @@ public class EditTradeActivity extends AppCompatActivity{
         meetingManager.confirmMeeting(trade, currentTrader);
         Button button = findViewById(R.id.confirmButton);
         button.setVisibility(View.GONE);
-        String tempConfirmStatus = "You have confirmed the meeting.";
+        String tempConfirmStatus = "You have confirmed the appointment.";
         TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
         TextView otherTraderAgree = findViewById(R.id.opposingTradeAgree);
         selfTraderAgree.setText(tempConfirmStatus);
@@ -216,7 +216,7 @@ public class EditTradeActivity extends AppCompatActivity{
 
                     Toast.makeText(this, R.string.return_meeting_popup, Toast.LENGTH_LONG).show();
                     button.setVisibility(View.VISIBLE);
-                    String tempStringStatus2 = "You have not confirmed the meeting.";
+                    String tempStringStatus2 = "You have not confirmed the appointment.";
                     selfTraderAgree.setText(tempStringStatus2);
                     String tempStringStatus3 = tradeManager.getOtherTrader(trade,currentTrader)+" has not confirmed the item transfer.";
                     otherTraderAgree.setText(tempStringStatus3);
