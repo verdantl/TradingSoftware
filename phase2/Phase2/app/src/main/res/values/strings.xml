@@ -125,4 +125,7 @@
     <string name="locationTypeIn">Enter a new location</string>
     <string name="selectMeeting">+ Select a new date</string>
     <string name="editing">Editing Meeting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tutorialBrowseItemsPrompt">Here, you will see all available items for trading. Click on an item to view its info. With an account, by clicking on a item, you will be able to add it to your wishlist or propose a trade for it.</string>
 </resources>
