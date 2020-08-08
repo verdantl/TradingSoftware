@@ -22,9 +22,6 @@ public class TwoItemActivity extends AppCompatActivity {
         assert bundle != null;
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        //meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        //traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        //currentTrader = (String) bundle.getSerializable("CurrentTrader");
         trade = (Integer) bundle.getSerializable("Trade");
         setContentView(R.layout.activity_two_item);
 
@@ -40,7 +37,6 @@ public class TwoItemActivity extends AppCompatActivity {
         TextView itemRating = findViewById(R.id.itemRating2);
         itemRating.setText(tempItemRating);
 
-
         String tempItemName2 = itemManager.getItemName(tradeManager.getItems(trade).get(1));
         TextView itemName2=findViewById(R.id.secondItem);
         itemName2.setText(tempItemName2);
@@ -52,8 +48,6 @@ public class TwoItemActivity extends AppCompatActivity {
         String tempItemRating2 = "Rating: "+itemManager.getItemQuality(tradeManager.getItems(trade).get(1));
         TextView itemRating2 = findViewById(R.id.itemRating3);
         itemRating2.setText(tempItemRating2);
-
-
 
         String tempOwner = "Owned by: " + itemManager.getItemOwner(tradeManager.getItems(trade).get(0));
         TextView itemOwner = findViewById(R.id.ownedBy2);
