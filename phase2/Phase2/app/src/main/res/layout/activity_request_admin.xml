@@ -6,8 +6,28 @@
 
     <Button android:layout_height="80dp" android:layout_width="220dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp" android:text="@string/unfreezeRequest" android:layout_marginTop="170dp" android:id="@+id/button9" android:onClick="requestToUnfreeze"/>
 
-    <Button android:layout_height="80dp" android:layout_width="220dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp" android:text="@string/requestActivateAccount" android:layout_marginTop="100dp" android:id="@+id/button10" android:onClick="requestToActivateAccount" app:layout_constraintTop_toBottomOf="@+id/button9"/>
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="220dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:onClick="requestToActivateAccount"
+        android:text="@string/requestActivateAccount"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
 
-    <Button android:layout_height="80dp" android:layout_width="220dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp" android:text="@string/requestInactivateAccount" android:layout_marginTop="100dp" android:id="@+id/button11" android:onClick="requestToDeactivateAccount" app:layout_constraintTop_toBottomOf="@+id/button10"/>
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="220dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:onClick="requestToDeactivateAccount"
+        android:text="@string/requestInactivateAccount"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

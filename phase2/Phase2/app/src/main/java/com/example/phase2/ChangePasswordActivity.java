@@ -25,14 +25,19 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     public void submitPassword(View view){
         EditText et = (EditText) findViewById(R.id.enterPassword);
-        assert adminActions != null;
-        adminActions.changePassword(currentAdmin, et.getText().toString());
-        Toast.makeText(this, R.string.successfully_changed_password, Toast.LENGTH_SHORT).show();
+        if(et.getText().toString().equals("")){
+            Toast.makeText(this, "Invalid password.", Toast.LENGTH_SHORT).show();
+            et.setText("");
+        }else {
+            assert adminActions != null;
+            adminActions.changePassword(currentAdmin, et.getText().toString());
+            Toast.makeText(this, R.string.successfully_changed_password, Toast.LENGTH_SHORT).show();
 
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("AdminActions", adminActions);
-        setResult(RESULT_FIRST_USER, resultIntent);
-        finish();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("AdminActions", adminActions);
+            setResult(RESULT_FIRST_USER, resultIntent);
+            finish();
+        }
     }
 
     @Override

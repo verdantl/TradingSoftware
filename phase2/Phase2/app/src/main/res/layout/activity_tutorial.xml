@@ -19,52 +19,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/browseItemsButton"
-        android:layout_width="156dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="44dp"
-        android:text="Browse Available Items"
-        android:textSize="21sp"
-        android:onClick="onBrowseItems"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prompt" />
-
-    <Button
         android:id="@+id/browseTradesButton"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="44dp"
-        android:text="Browse My On-Going Trades"
-        android:textSize="21sp"
+        android:layout_marginTop="12dp"
         android:onClick="onBrowseTrades"
+        android:text="@string/trader_option2"
+        android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/browseItemsButton"
         app:layout_constraintTop_toBottomOf="@+id/prompt" />
 
     <Button
-        android:id="@+id/editInventoryButton"
-        android:layout_width="156dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:text="Edit Inventory"
-        android:textSize="21sp"
-        android:onClick="onEditInventory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browseItemsButton" />
-
-    <Button
         android:id="@+id/editWishListButton"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="40dp"
-        android:text="Edit Wishlist"
-        android:textSize="21sp"
+        android:layout_marginTop="16dp"
         android:onClick="onEditWishList"
+        android:text="@string/trader_option4"
+        android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/editInventoryButton"
@@ -75,10 +51,10 @@
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:text="Automatic Trade Suggestion"
-        android:textSize="21sp"
+        android:layout_marginTop="16dp"
         android:onClick="onAutoTrade"
+        android:text="@string/trader_option5"
+        android:textSize="21sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editInventoryButton" />
 
@@ -87,39 +63,67 @@
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="40dp"
-        android:text="View My User Info"
-        android:textSize="21sp"
+        android:layout_marginTop="16dp"
         android:onClick="onViewInfo"
+        android:text="@string/trader_option6"
+        android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/autoTradeButton"
         app:layout_constraintTop_toBottomOf="@+id/editWishListButton" />
 
     <Button
-        android:id="@+id/requestUnfreezeButton"
-        android:layout_width="156dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:text="Request to Unfreeze"
-        android:textSize="21sp"
-        android:onClick="onRequestUnfreeze"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoTradeButton" />
-
-    <Button
         android:id="@+id/changePassButton"
         android:layout_width="156dp"
         android:layout_height="104dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="40dp"
-        android:text="Change Trader Password"
-        android:textSize="21sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:onClick="onChangePassword"
+        android:text="@string/change_password"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/requestUnfreezeButton"
         app:layout_constraintTop_toBottomOf="@+id/viewInfoButton" />
+
+    <Button
+        android:id="@+id/requestUnfreezeButton"
+        android:layout_width="156dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="onRequestUnfreeze"
+        android:text="@string/trader_option7"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autoTradeButton" />
+
+    <Button
+        android:id="@+id/browseItemsButton"
+        android:layout_width="156dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:onClick="onBrowseItems"
+        android:text="@string/trader_option1"
+        android:textSize="21sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prompt" />
+
+    <Button
+        android:id="@+id/editInventoryButton"
+        android:layout_width="156dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onEditInventory"
+        android:text="@string/trader_option3"
+        android:textSize="21sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/browseItemsButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

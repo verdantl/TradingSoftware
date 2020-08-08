@@ -30,8 +30,8 @@ public class ItemOptionsActivity extends AppCompatActivity {
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getString("CurrentTrader");
-        chosenItem = (Integer) bundle.getInt("ChosenItem");
+        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        chosenItem = bundle.getInt("ChosenItem");
         viewStart();
     }
 
@@ -47,8 +47,8 @@ public class ItemOptionsActivity extends AppCompatActivity {
         }
     }
 
-    public void proposeTrade1(View view) {
-        if (!traderManager.getIsFrozen(currentTrader)) {
+    public void proposeTrade(View view) {
+        if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
             displayTradeOptions1(view);
         }
         else if (traderManager.isInactive(currentTrader)) {

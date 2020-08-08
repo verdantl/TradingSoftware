@@ -29,7 +29,7 @@ public class LocationChoiceActivity extends AppCompatActivity {
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
         tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
         meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getString("CurrentTrader");
+        currentTrader = (String) bundle.getSerializable("CurrentTrader");
         viewStart();
     }
 

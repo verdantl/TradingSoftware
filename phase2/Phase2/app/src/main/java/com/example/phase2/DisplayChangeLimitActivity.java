@@ -44,27 +44,32 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
 
     public void enterNewLimit(View view){
         EditText editText = (EditText) findViewById(R.id.editNewLimit);
-        int newLimit = Integer.parseInt(editText.getText().toString());
-        LimitType limitToChange = getLimitToChange();
 
-        //TraderManager tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
-        assert tm!= null;
-        switch (limitToChange){
-            case WEEKLY_LIMIT:
-                tm.setWeeklyLimit(newLimit);
-                break;
-            case MORE_LEND:
+        if(editText.getText().toString().equals("")){
+            Toast.makeText(this, "Invalid value.", Toast.LENGTH_SHORT).show();
+            editText.setText("");
+        }else {
+            int newLimit = Integer.parseInt(editText.getText().toString());
+            LimitType limitToChange = getLimitToChange();
+
+            assert tm != null;
+            switch (limitToChange) {
+                case WEEKLY_LIMIT:
+                    tm.setWeeklyLimit(newLimit);
+                    break;
+                case MORE_LEND:
                     tm.setMoreLend(newLimit);
                     break;
-            default:
-                tm.setMaxInComplete(newLimit);
+                default:
+                    tm.setMaxInComplete(newLimit);
 
+            }
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("TraderManager", tm);
+            Toast.makeText(this, R.string.successfully_changed_limit, Toast.LENGTH_SHORT).show();
+            setResult(RESULT_FIRST_USER, resultIntent);
+            finish();
         }
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("TraderManager", tm);
-        Toast.makeText(this, R.string.successfully_changed_limit, Toast.LENGTH_SHORT).show();
-        setResult(RESULT_FIRST_USER, resultIntent);
-        finish();
 
     }
 
