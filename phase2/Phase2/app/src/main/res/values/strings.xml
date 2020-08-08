@@ -61,7 +61,7 @@
     <string name="selectAnItem">Please select the item you would like to view.</string>
     <string name="yes">Yes.</string>
     <string name="no">No.</string>
-    <string name="search_home_city">Do you wish to search base on your home city?</string>
+    <string name="search_home_city">Do you wish to search based on your home city?</string>
     <string name="on_going_trades">Your On-Going Trades</string>
     <string name="on_going_trades_desc">Please select the trade you wish to view/edit.</string>
     <string name="EditMeetingHeader">Appointment Information:</string>
@@ -83,7 +83,7 @@
     <string name="perm">Permanent</string>
     <string name="set_info">Please enter the following information regarding your trade:</string>
     <string name="enter_location">Enter a location</string>
-    <string name="enter_date">Enter a date (DD-MM-YYYY)</string>
+    <string name="enter_date">Enter a date (YYYY-MM-DD)</string>
     <string name="set">Set</string>
     <string name="continue_to_next">Continue</string>
     <string name="cancel">Cancel</string>

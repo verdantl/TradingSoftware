@@ -37,7 +37,7 @@ public class DisplayTradeOptions2Activity extends AppCompatActivity {
         viewStart();
     }
 
-    public void viewStart() { setContentView(R.layout.activity_item_options); }
+    public void viewStart() { setContentView(R.layout.activity_display_trade_options_2); }
 
     public void tempChoice(View view) {
         temporary = true;

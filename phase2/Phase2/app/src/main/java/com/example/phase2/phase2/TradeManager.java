@@ -127,7 +127,7 @@ public class TradeManager extends Manager implements Serializable {
      * @return the username of the receiver
      */
     public String getTradeReceiver(int id){
-        return tradeInventory.get(id).getInitiator();
+        return tradeInventory.get(id).getReceiver();
     }
 
     /**return the given trade's tradeType
