@@ -55,6 +55,8 @@ public class EnterInfoProposeTradeActivity extends AppCompatActivity {
     public void setDate(View view) {
         EditText dateEditText = findViewById(R.id.editTextDate);
         try {
+            Toast.makeText(this, dateEditText.getText().toString(),
+                    Toast.LENGTH_LONG).show();
             date = LocalDate.parse(dateEditText.getText().toString());
         }
         catch (DateTimeParseException e) {
@@ -64,9 +66,9 @@ public class EnterInfoProposeTradeActivity extends AppCompatActivity {
     }
 
     public void continuing(View view) {
-        if (location.equals(null)) {
+        if (location == null) {
             Toast.makeText(this, "Please enter a location.", Toast.LENGTH_SHORT).show();
-        } else if (date.equals(null)) {
+        } else if (date == null) {
             Toast.makeText(this, "Please enter a date.", Toast.LENGTH_SHORT).show();
         } else {
             String receiver = itemManager.getOwner(chosenItem);
