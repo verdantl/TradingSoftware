@@ -47,10 +47,13 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         currentTrader = bundle.getString("CurrentTrader");
         setContentView(R.layout.activity_view_my_user_info);
 
-        TextView textView2 = (TextView) findViewById(R.id.textView7);
-        String temp = "Username: "+currentTrader;
-        textView2.setText(temp);
-        changeText((TextView) findViewById(R.id.textView8), "Homecity: "+traderManager.getHomeCity(currentTrader));
+        changeText((TextView) findViewById(R.id.textView7), "Username: "+currentTrader);
+        String temp = traderManager.getHomeCity(currentTrader);
+        if(!(temp == null)){
+        changeText((TextView) findViewById(R.id.textView8), "Homecity: "+traderManager.getHomeCity(currentTrader));}
+        else {
+            changeText((TextView) findViewById(R.id.textView8), "Homecity: None");
+        }
 
         if(traderManager.getIsFrozen(currentTrader)){
         changeText((TextView) findViewById(R.id.textView6), "Status: Frozen");}
@@ -66,7 +69,6 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
                     changeText((TextView) findViewById(R.id.textView11), traders.toArray()[traders.size() - 2].toString());
                         if(traders.size() >= 3) {
                             changeText((TextView) findViewById(R.id.textView12), traders.toArray()[traders.size() - 3].toString());
-
                         }
                 }
         }
@@ -77,11 +79,11 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
      * the method needed to run the ListView in ViewMyUserInfo activity
      */
     public void viewList(){
-        final List<Integer> recentTrades = findRecentTrades();
+        final List<String> recentTrades = findRecentTrades();
         //setContentView(R.layout.activity_view_my_user_info);
         ListView listView = findViewById(R.id.recent_trades);
         //unsure about this line
-        ArrayAdapter<Integer> allTradesAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> allTradesAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, recentTrades);
         listView.setAdapter(allTradesAdapter);
 /**
@@ -135,9 +137,9 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         return new TreeSet<>(tradingPartners.keySet());
     }
 
-    private List<Integer> findRecentTrades(){
+    private List<String> findRecentTrades(){
         List<Integer> trades = traderManager.getTrades(currentTrader);
-        List<Integer> items = new ArrayList<>();
+        List<String> items = new ArrayList<>();
 
         //this was copy and pasted from trader system
         int n = trades.size();
@@ -155,12 +157,12 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
         // iterating over the list of this user's trades from front to back
         for (int j = trades.size() - 1; j >= 0; j--) {
             // if the trade is completed, then we'll consider it
-            if (meetingManager.getMeetingStatus(trades.get(j)).equals("COMPLETED")) {
+            if (meetingManager.getMeetingStatus(trades.get(j)).equals("Completed")) {
                 // iterating over the 1-2 items involved with the trade
                 for (Integer i: tradeManager.getItems(trades.get(j))) {
                     // if the item is now owned by the appropriate trader
                     if (itemManager.getOwner(i).equals(currentTrader)){
-                        items.add(i);
+                        items.add(itemManager.getItemName(i));
                     }
                 }
             }
