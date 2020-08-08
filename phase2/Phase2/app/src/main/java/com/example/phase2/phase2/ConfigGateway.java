@@ -70,11 +70,11 @@ public class ConfigGateway {
     public Bundle getBundle(){
         loadClasses();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("TraderManager", traderManager);
-        bundle.putSerializable("ItemManager", itemManager);
-        bundle.putSerializable("TradeManager", tradeManager);
-        bundle.putSerializable("MeetingManager", meetingManager);
-        bundle.putSerializable("AdminActions", adminActions);
+        bundle.putSerializable(traderManager.getIdentifier(), traderManager);
+        bundle.putSerializable(itemManager.getIdentifier(), itemManager);
+        bundle.putSerializable(tradeManager.getIdentifier(), tradeManager);
+        bundle.putSerializable(meetingManager.getIdentifier(), meetingManager);
+        bundle.putSerializable(adminActions.getIdentifier(), adminActions);
 
         return bundle;
     }

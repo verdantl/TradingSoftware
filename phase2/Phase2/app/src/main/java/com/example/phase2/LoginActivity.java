@@ -23,20 +23,6 @@ public class LoginActivity extends BundleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
-        bundle = getIntent().getExtras();
-        if (bundle == null){
-            bundle = configGateway.getBundle();
-        }
-        else{
-            //configGateway.saveBundle(bundle);
-            bundle.remove("Username");
-        }
-        traderManager = (TraderManager) bundle.get("TraderManager");
-        adminActions = (AdminActions) bundle.get("AdminActions");
-        tradeManager = (TradeManager) bundle.get("TradeManager");
-        meetingManager = (MeetingManager) bundle.get("MeetingManager");
-        itemManager = (ItemManager) bundle.get("ItemManager");
     }
 
     public void onLoginClicked(View view){
@@ -54,8 +40,8 @@ public class LoginActivity extends BundleActivity {
 
         else if (adminActions.login(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
-            intent.putExtras(bundle);
-            intent.putExtra("Username", username);
+            replaceUsername(username);
+            putBundle(intent);
             startActivityForResult(intent, RESULT_OK);
         }
         else{

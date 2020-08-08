@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ConfigGateway;
+import com.example.phase2.phase2.ItemManager;
+import com.example.phase2.phase2.Manager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.io.Serializable;
 
 
 public abstract class BundleActivity extends AppCompatActivity {
-    protected Bundle bundle;
+    private Bundle bundle;
     protected final String ADMINKEY = "AdminActions";
     protected final String ITEMKEY = "ItemManager";
     protected final String TRADERKEY = "TraderManager";
@@ -47,11 +49,23 @@ public abstract class BundleActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void replaceTraderManager(TraderManager traderManager){
-        bundle.putSerializable(TRADERKEY, traderManager);
+    protected void putBundle(Intent intent){
+        intent.putExtras(bundle);
     }
 
-    protected void replaceAdminActions(AdminActions adminActions){
+    protected void replaceUseCase(Manager manager){
+        bundle.putSerializable(manager.getIdentifier(), manager);
+    }
 
+    protected void replaceUsername(String username){
+        bundle.putString(USERNAMEKEY, username);
+    }
+
+    protected Serializable getUseCase(String key){
+        return bundle.getSerializable(key);
+    }
+
+    protected String getUsername(){
+        return bundle.getString(USERNAMEKEY);
     }
 }

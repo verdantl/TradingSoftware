@@ -38,12 +38,11 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable(ITEMKEY);
-        traderManager = (TraderManager) bundle.getSerializable(TRADERKEY);
-        tradeManager = (TradeManager) bundle.getSerializable(TRADEKEY);
-        meetingManager = (MeetingManager) bundle.getSerializable(MEETINGKEY);
-        currentTrader = bundle.getString(USERNAMEKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        currentTrader = getUsername();
         setContentView(R.layout.activity_view_my_user_info);
 
         changeText((TextView) findViewById(R.id.textView7), "Username: "+currentTrader);

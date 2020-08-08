@@ -18,23 +18,19 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
     private AdminActions adminActions;
     private Boolean approved = null;
     private String approvedUser;
-    private ApproveAdminController approveAdminController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_approve_admin);
-        approveAdminController = new ApproveAdminController();
         dialog = new Dialog(this);
-        adminActions = (AdminActions) bundle.getSerializable(ADMINKEY);
+        adminActions = (AdminActions) getUseCase(ADMINKEY);
         viewList();
     }
 
     @Override
     public void onBackPressed(){
-        bundle.remove(ADMINKEY);
-        bundle.putSerializable(ADMINKEY, adminActions);
+        replaceUseCase(adminActions);
         super.onBackPressed();
     }
 
@@ -84,7 +80,5 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
         dialog.setContentView(R.layout.fragment_approval);
         dialog.show();
     }
-
-
 
 }
