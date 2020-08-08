@@ -86,6 +86,69 @@ public class ItemManager implements Serializable {
     }
 
     /**
+     * Updates the status of frozen user's items with either FROZEN or FROZEN_REQ
+     * @param username The username of the frozen trader
+     */
+    public void setStatusForFrozenUser(String username){
+        Set<Integer> ids = items.keySet();
+        for(Integer id: ids){
+            Item item = items.get(id);
+            assert item != null;
+            String owner = item.getOwner();
+            ItemStatus status = item.getStatus();
+            if(owner.equals(username)){
+                if(status == ItemStatus.AVAILABLE || status == ItemStatus.UNAVAILABLE){
+                    item.setStatus(ItemStatus.FROZEN);
+                }else if(status == ItemStatus.REQUESTED){
+                    item.setStatus(ItemStatus.FROZEN_REQ);
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates the status of the items of the trader who has been frozen or been inactive
+     * @param username The username of the trader
+     */
+    public void setStatusForRegularUser(String username){
+        Set<Integer> ids = items.keySet();
+        for(Integer id: ids){
+            Item item = items.get(id);
+            assert item != null;
+            String owner = item.getOwner();
+            ItemStatus status = item.getStatus();
+            if(owner.equals(username)){
+                if(status == ItemStatus.FROZEN || status == ItemStatus.INACTIVE_AVA){
+                    item.setStatus(ItemStatus.AVAILABLE);
+                }else if(status == ItemStatus.INACTIVE_REQ || status == ItemStatus.FROZEN_REQ){
+                    item.setStatus(ItemStatus.REQUESTED);
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates the status of inactive user's items with either INACTIVE_AVA or INACTIVE_REQ
+     * @param username The username of the inactive user
+     */
+    public void setStatusForInactiveUser(String username){
+        Set<Integer> ids = items.keySet();
+        for(Integer id: ids){
+            Item item = items.get(id);
+            assert item != null;
+            String owner = item.getOwner();
+            ItemStatus status = item.getStatus();
+            if(owner.equals(username)){
+                if(status == ItemStatus.AVAILABLE){
+                    item.setStatus(ItemStatus.INACTIVE_AVA);
+                }else if(status == ItemStatus.REQUESTED){
+                    item.setStatus(ItemStatus.INACTIVE_REQ);
+                }
+            }
+        }
+    }
+
+    /**
      * Gets trader with the given username's approved items IDs.
      * Used for controllers, whom should not have access to an instance of an entity.
      * @param username The trader's username
