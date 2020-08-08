@@ -55,6 +55,7 @@ public class LoginActivity extends BundleActivity {
         else if (adminActions.login(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             intent.putExtras(bundle);
+            intent.putExtra("Username", username);
             startActivityForResult(intent, RESULT_OK);
         }
         else{

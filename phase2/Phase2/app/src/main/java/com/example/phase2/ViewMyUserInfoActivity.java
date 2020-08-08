@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class ViewMyUserInfoActivity extends AppCompatActivity {
+public class ViewMyUserInfoActivity extends BundleActivity implements ClickableList {
 
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
@@ -38,13 +38,12 @@ public class ViewMyUserInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
-        Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = bundle.getString("CurrentTrader");
+        itemManager = (ItemManager) bundle.getSerializable(ITEMKEY);
+        traderManager = (TraderManager) bundle.getSerializable(TRADERKEY);
+        tradeManager = (TradeManager) bundle.getSerializable(TRADEKEY);
+        meetingManager = (MeetingManager) bundle.getSerializable(MEETINGKEY);
+        currentTrader = bundle.getString(USERNAMEKEY);
         setContentView(R.layout.activity_view_my_user_info);
 
         changeText((TextView) findViewById(R.id.textView7), "Username: "+currentTrader);
