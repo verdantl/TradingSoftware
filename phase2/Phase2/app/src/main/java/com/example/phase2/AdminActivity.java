@@ -58,20 +58,19 @@ public class AdminActivity extends BundleActivity {
     public void manageAccounts(View view){
         Intent intent = new Intent(this, ManageFrozenAccount.class);
         putBundle(intent);
-        putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void addRemoveItems(View view){
         Intent intent = new Intent(this, ApproveItems.class);
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void viewStatus(View view){
         Intent intent = new Intent(this, ViewTradersActivity.class);
         intent.putExtra("TraderManager", traderManager);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void changeLimits(View view){

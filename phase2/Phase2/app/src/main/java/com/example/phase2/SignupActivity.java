@@ -1,29 +1,23 @@
 package com.example.phase2;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.TraderManager;
 
-public class SignupActivity extends AppCompatActivity {
-    private Bundle bundle;
+public class SignupActivity extends BundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        adminActions = (AdminActions) getUseCase(ADMINKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         setContentView(R.layout.activity_signup);
     }
 
@@ -59,12 +53,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void backToLogin(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        bundle.remove("TraderManager");
-        bundle.putSerializable("TraderManager", traderManager);
-        bundle.remove("AdminActions");
-        bundle.putSerializable("AdminActions", adminActions);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(traderManager);
+        replaceUseCase(adminActions);
+        super.onBackPressed();
     }
 }
