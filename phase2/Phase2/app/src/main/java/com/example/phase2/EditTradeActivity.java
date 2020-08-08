@@ -67,39 +67,8 @@ public class EditTradeActivity extends AppCompatActivity{
         meetingLocation.setText(tempLocation);
 
         //Sets the agree status for the traders
-        String tempAgreeStatus;
-        String tempAgreeStatus2;
-        if(!meetingManager.bothAgreed(trade)) {
-            if (meetingManager.hasAgreed(trade, currentTrader)) {
-                tempAgreeStatus = "You have agreed to the appointment.";
-            } else {
-                tempAgreeStatus = "You have not agreed to the appointment.";
-            }
-            if(meetingManager.hasAgreed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has agreed to the appointment.";
-            }
-            else{
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not agreed to the appointment.";
-            }
-        }
-        else{
-            if(meetingManager.hasConfirmed(trade,currentTrader)){
-                tempAgreeStatus = "You have confirmed the appointment.";
-            }else{
-                tempAgreeStatus = "You have not confirmed the appointment.";
-            }
-            if(meetingManager.hasConfirmed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has confirmed the item transfer.";
-            }
-            else{
-                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the item transfer.";
-            }
-        }
-        TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
-        selfTraderAgree.setText(tempAgreeStatus);
-        TextView selfTraderAgree2 = findViewById(R.id.opposingTradeAgree);
-        selfTraderAgree2.setText(tempAgreeStatus2);
-
+        updateCurTraderMeetingStatus();
+        updateOtherTraderMeetingStatus();
         //How many times you can edit
         String tempEditNumber = "You can edit " + meetingManager.getEditsLeft(trade, currentTrader) + " times.";
         TextView editInfo = findViewById(R.id.editInformation);
@@ -124,6 +93,74 @@ public class EditTradeActivity extends AppCompatActivity{
         }
     }
 
+
+    private String updateCurTraderMeetingStatus(){
+//        if(!meetingManager.bothAgreed(trade)) {
+//            if (meetingManager.hasAgreed(trade, currentTrader)) {
+//                tempAgreeStatus = "You have agreed to the appointment.";
+//            } else {
+//                tempAgreeStatus = "You have not agreed to the appointment.";
+//            }
+//            if(meetingManager.hasAgreed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
+//                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has agreed to the appointment.";
+//            }
+//            else{
+//                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not agreed to the appointment.";
+//            }
+//        }
+//        else{
+//            if(meetingManager.hasConfirmed(trade,currentTrader)){
+//                tempAgreeStatus = "You have confirmed the appointment.";
+//            }else{
+//                tempAgreeStatus = "You have not confirmed the appointment.";
+//            }
+//            if(meetingManager.hasConfirmed(trade, tradeManager.getOtherTrader(trade,currentTrader))){
+//                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has confirmed the item transfer.";
+//            }
+//            else{
+//                tempAgreeStatus2 = tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the item transfer.";
+//            }
+//        }
+        String tempAgreeStatus;
+        if(!meetingManager.bothAgreed(trade)) {
+            if (meetingManager.hasAgreed(trade, currentTrader)) {
+                tempAgreeStatus = "You have agreed to the appointment.";
+            } else {
+                tempAgreeStatus = "You have not agreed to the appointment.";
+            }
+        }
+        else{
+            if(meetingManager.hasConfirmed(trade,currentTrader)){
+                tempAgreeStatus = "You have confirmed the appointment.";
+            }else{
+                tempAgreeStatus = "You have not confirmed the appointment.";
+            }
+
+        }
+        TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
+        selfTraderAgree.setText(tempAgreeStatus);
+        return tempAgreeStatus;
+    }
+    private String updateOtherTraderMeetingStatus(){
+        String tempAgreeStatus2;
+        if(!meetingManager.bothAgreed(trade)) {
+            if (meetingManager.hasAgreed(trade, tradeManager.getOtherTrader(trade, currentTrader))) {
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade, currentTrader) + " has agreed to the appointment.";
+            } else {
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade, currentTrader) + " has not agreed to the appointment.";
+            }
+        }else {
+
+            if (meetingManager.hasConfirmed(trade, tradeManager.getOtherTrader(trade, currentTrader))) {
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade, currentTrader) + " has confirmed the appointment.";
+            } else {
+                tempAgreeStatus2 = tradeManager.getOtherTrader(trade, currentTrader) + " has not confirmed the appointment.";
+            }
+        }
+        TextView selfTraderAgree2 = findViewById(R.id.opposingTradeAgree);
+        selfTraderAgree2.setText(tempAgreeStatus2);
+        return tempAgreeStatus2;
+    }
     public void onEditMeetingClicked(View view){
         //Do something
         if(meetingManager.isValid(currentTrader, trade)){
@@ -168,12 +205,8 @@ public class EditTradeActivity extends AppCompatActivity{
             linearLayout.setVisibility(View.GONE);
             Button button = findViewById(R.id.confirmButton);
             button.setVisibility(View.VISIBLE);
-            String tempAgreeStatus = "You have not confirmed the item transfer.";
-            TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
-            selfTraderAgree.setText(tempAgreeStatus);
-            String tempAgreeStatus2= tradeManager.getOtherTrader(trade,currentTrader) + " has not confirmed the item transfer.";
-            TextView selfTraderAgree2 = findViewById(R.id.opposingTradeAgree);
-            selfTraderAgree2.setText(tempAgreeStatus2);
+            updateCurTraderMeetingStatus();
+            updateOtherTraderMeetingStatus();
         }
 
     }
@@ -182,10 +215,8 @@ public class EditTradeActivity extends AppCompatActivity{
         meetingManager.confirmMeeting(trade, currentTrader);
         Button button = findViewById(R.id.confirmButton);
         button.setVisibility(View.GONE);
-        String tempConfirmStatus = "You have confirmed the appointment.";
-        TextView selfTraderAgree = findViewById(R.id.selfTraderAgree);
-        TextView otherTraderAgree = findViewById(R.id.opposingTradeAgree);
-        selfTraderAgree.setText(tempConfirmStatus);
+        updateCurTraderMeetingStatus();
+        updateOtherTraderMeetingStatus();
         if(meetingManager.bothConfirmed(trade)){
             if(!tradeManager.isTradePermanent(trade)){
                 if(meetingManager.getReturnLocation(trade).equals("N/A")){
@@ -193,40 +224,20 @@ public class EditTradeActivity extends AppCompatActivity{
                     String tempDate = "Date: " + meetingManager.getReturnDate(trade);
                     TextView meetingDate = findViewById(R.id.meetingDate);
                     meetingDate.setText(tempDate);
-                    //Changes item status to unavailable
-                    itemManager.changeStatusToUnavailable(tradeManager.getItems(trade).get(0));
-                    //Also updates the users' wishlist and borrowedItems list
-                    if(itemManager.getOwner(tradeManager.getItems(trade).get(0)).equals(currentTrader)){
-                        traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), tradeManager.getItems(trade).get(0));
-                        traderManager.removeFromWishlist(tradeManager.getOtherTrader(trade,currentTrader), tradeManager.getItems(trade).get(0));
-                    }else{
-                        traderManager.addToBorrowedItems(currentTrader, tradeManager.getItems(trade).get(0));
-                        traderManager.removeFromWishlist(currentTrader, tradeManager.getItems(trade).get(1));
-                    }
-                    if(!tradeManager.getTradeType(trade).contains("ONEWAY")){
-                        itemManager.changeStatusToUnavailable(tradeManager.getItems(trade).get(1));
-                        if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
-                            traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), tradeManager.getItems(trade).get(1));
-                            traderManager.removeFromWishlist(tradeManager.getOtherTrader(trade,currentTrader), tradeManager.getItems(trade).get(1));
-                        }else{
-                            traderManager.addToBorrowedItems(currentTrader, tradeManager.getItems(trade).get(1));
-                            traderManager.removeFromWishlist(currentTrader, tradeManager.getItems(trade).get(1));
-                        }
-                    }
-
+                    updateWishlistAndBorrowed();
                     Toast.makeText(this, R.string.return_meeting_popup, Toast.LENGTH_LONG).show();
                     button.setVisibility(View.VISIBLE);
-                    String tempStringStatus2 = "You have not confirmed the appointment.";
-                    selfTraderAgree.setText(tempStringStatus2);
-                    String tempStringStatus3 = tradeManager.getOtherTrader(trade,currentTrader)+" has not confirmed the item transfer.";
-                    otherTraderAgree.setText(tempStringStatus3);
-
-
+                    updateCurTraderMeetingStatus();
+                    updateOtherTraderMeetingStatus();
                 }
                 else{
-                    itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
-                    if(!tradeManager.getTradeType(trade).contains("ONEWAY")){
-                        itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
+                    for(Integer i: tradeManager.getItems(trade)){
+                        if(traderManager.getIsFrozen(itemManager.getOwner(i))){
+                            itemManager.changeStatusToFrozen(i);
+                        }
+                        else{
+                            itemManager.changeStatusToAvailable(i);
+                        }
                     }
                     meetingManager.setMeetingCompleted(trade);
                     tradeManager.setTradeCompleted(trade);
@@ -235,36 +246,51 @@ public class EditTradeActivity extends AppCompatActivity{
                 }
             }
             else{
-                if(itemManager.getOwner(tradeManager.getItems(trade).get(0)).equals(currentTrader)){
-                    itemManager.setItemOwner(tradeManager.getItems(trade).get(0), tradeManager.getOtherTrader(trade,currentTrader));
-                    itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
-                }
-                else{
-                    itemManager.setItemOwner(tradeManager.getItems(trade).get(0), currentTrader);
-                    itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(0));
-                }
-                if(tradeManager.getTradeType(trade).contains("TWOWAY")){
-                    if(itemManager.getOwner(tradeManager.getItems(trade).get(1)).equals(currentTrader)){
-                        itemManager.setItemOwner(tradeManager.getItems(trade).get(1), tradeManager.getOtherTrader(trade,currentTrader));
-                        itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
-                    }
-                    else{
-                        itemManager.setItemOwner(tradeManager.getItems(trade).get(1), currentTrader);
-                        itemManager.changeStatusToAvailable(tradeManager.getItems(trade).get(1));
-                    }
-                }
-
-
+                updateItemOwnerAndStatus();
                 meetingManager.setMeetingCompleted(trade);
                 tradeManager.setTradeCompleted(trade);
                 Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
-
                 returnToTrades();
             }
 
         }
     }
 
+    private void updateItemOwnerAndStatus(){
+        for(Integer i: tradeManager.getItems(trade)){
+            if(itemManager.getOwner(i).equals(currentTrader)){
+                itemManager.setItemOwner(i, tradeManager.getOtherTrader(trade,currentTrader));
+                if(traderManager.getIsFrozen(tradeManager.getOtherTrader(trade,currentTrader))){
+                    itemManager.changeStatusToFrozen(i);
+                }
+                else{
+                    itemManager.changeStatusToAvailable(i);
+                }
+            }
+            else{
+                itemManager.setItemOwner(i, currentTrader);
+                if(traderManager.getIsFrozen(currentTrader)){
+                    itemManager.changeStatusToFrozen(i);
+                }else{
+                    itemManager.changeStatusToAvailable(i);
+                }
+            }
+        }
+    }
+
+    private void updateWishlistAndBorrowed(){
+        for(Integer i: tradeManager.getItems(trade)){
+            itemManager.changeStatusToUnavailable(i);
+            if(itemManager.getOwner(i).equals(currentTrader)){
+                traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), i);
+                traderManager.removeFromWishlist(tradeManager.getOtherTrader(trade,currentTrader), i);
+            }
+            else{
+                traderManager.addToBorrowedItems(currentTrader, i);
+                traderManager.removeFromWishlist(currentTrader, i);
+            }
+        }
+    }
     public void returnToTrades(){
         Intent intent = new Intent(this, BrowseTradesActivity.class);
         bundleM.remove("TradeManager");
@@ -309,4 +335,6 @@ public class EditTradeActivity extends AppCompatActivity{
         intent.putExtra("ItemManager", itemManager);
         startActivity(intent);
     }
+
+
 }

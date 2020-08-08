@@ -260,6 +260,13 @@ public class ItemManager implements Serializable {
     }
 
     /**
+     * Changes the status of the item with given id to FROZEN
+     */
+    public void changeStatusToFrozen(Integer id){
+        items.get(id).setStatus(ItemStatus.FROZEN);
+    }
+
+    /**
      * Changes the status of the item with the given id to AVAILABLE
      * @param id Id of the item
      */
