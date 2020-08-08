@@ -115,22 +115,18 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
     private TreeSet<String> findsTopTraders(List<Integer> trades){
         //copy and pasted from TraderSystem finds top traders
         TreeMap<String, Integer> tradingPartners = new TreeMap<>();
+        String traderToAdd;
         // iterating over the user's trades
         for(Integer i: trades){
-            String traderToAdd;
-            // getting the right trader from the pair of traders involved in the trade.
-            if (tradeManager.getTradeInitiator(i).equals(currentTrader)) {
-                traderToAdd = tradeManager.getTradeReceiver(i);
-            }
-            else {
-                traderToAdd = tradeManager.getTradeInitiator(i);
-            }
-            // putting the other trader into the hashmap
-            if (tradingPartners.containsKey(traderToAdd)) {
-                tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
-            }
-            else {
-                tradingPartners.put(traderToAdd, 1);
+            if (!tradeManager.getIncompleteTrades(trades).contains(i)) {
+                 traderToAdd = tradeManager.getOtherTrader(i, currentTrader);
+
+                // putting the other trader into the hashmap
+                if (tradingPartners.containsKey(traderToAdd)) {
+                    tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
+                } else {
+                    tradingPartners.put(traderToAdd, 1);
+                }
             }
         }
         return new TreeSet<>(tradingPartners.keySet());
