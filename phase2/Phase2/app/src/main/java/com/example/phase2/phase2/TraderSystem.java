@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -515,27 +516,22 @@ public class TraderSystem extends UserSystem{
 
         // iterating over the user's trades
         for(Integer i: trades){
-            String traderToAdd;
-            // getting the right trader from the pair of traders involved in the trade.
-            if (tradeManager.getTradeInitiator(i).equals(currentTrader)) {
-                traderToAdd = tradeManager.getTradeReceiver(i);
-            }
-            else {
-                traderToAdd = tradeManager.getTradeInitiator(i);
-            }
-            // putting the other trader into the hashmap
-            if (tradingPartners.containsKey(traderToAdd)) {
-                tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
-            }
-            else {
-                tradingPartners.put(traderToAdd, 1);
+            if (!tradeManager.getIncompleteTrades(trades).contains(i)) {
+                String traderToAdd = tradeManager.getOtherTrader(i, currentTrader);
+
+                // putting the other trader into the hashmap
+                if (tradingPartners.containsKey(traderToAdd)) {
+                    tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
+                } else {
+                    tradingPartners.put(traderToAdd, 1);
+                }
             }
         }
 
         System.out.println("Here are your most frequent trading partners:");
 
         // By the nature of TreeMap, the keys are already sorted in order of their values!
-        TreeSet<String> traders = new TreeSet<>(tradingPartners.keySet());
+        Set<String> traders = tradingPartners.keySet();
         // Getting the last 3 elements of traders.
         for (int j = traders.size() - 1; j >= trades.size() - 4 && j >= 0; j--) {
             System.out.println(traders.toArray()[j]);

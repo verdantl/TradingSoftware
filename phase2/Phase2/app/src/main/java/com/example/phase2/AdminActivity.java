@@ -40,7 +40,7 @@ public class AdminActivity extends BundleActivity {
         setContentView(R.layout.activity_admin);
 
         TextView textView = findViewById(R.id.textView14);
-        textView.setText(bundle.getString("Username"));
+        textView.setText(currentAdmin);
     }
 
     public void onLogoutClicked(View view) {
