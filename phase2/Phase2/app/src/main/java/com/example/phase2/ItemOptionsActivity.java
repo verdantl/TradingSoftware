@@ -68,5 +68,6 @@ public class ItemOptionsActivity extends AppCompatActivity {
         intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtra("ChosenItem", chosenItem);
         startActivity(intent);
+        finish();
     }
 }

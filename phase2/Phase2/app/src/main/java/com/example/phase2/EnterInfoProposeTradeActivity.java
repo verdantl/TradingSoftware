@@ -55,8 +55,6 @@ public class EnterInfoProposeTradeActivity extends AppCompatActivity {
     public void setDate(View view) {
         EditText dateEditText = findViewById(R.id.editTextDate);
         try {
-            Toast.makeText(this, dateEditText.getText().toString(),
-                    Toast.LENGTH_LONG).show();
             date = LocalDate.parse(dateEditText.getText().toString());
         }
         catch (DateTimeParseException e) {
