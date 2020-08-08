@@ -5,7 +5,7 @@ package com.example.phase2.phase2;//package items;
 import java.io.Serializable;
 import java.util.*;
 
-public class ItemManager implements Serializable {
+public class ItemManager extends Manager implements Serializable {
     HashMap<Integer, Item> items;
     private int idCounter;
 
@@ -530,5 +530,10 @@ public class ItemManager implements Serializable {
      */
     public void setItemOwner(int id, String owner){
         items.get(id).setOwner(owner);
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "ItemManager";
     }
 }

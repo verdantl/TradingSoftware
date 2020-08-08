@@ -6,7 +6,7 @@ import java.time.temporal.WeekFields;
 import java.util.*;
 
 
-public class TradeManager implements Serializable {
+public class TradeManager extends Manager implements Serializable {
     private final HashMap<Integer, Trade> tradeInventory;
     private int counter;
 
@@ -207,6 +207,11 @@ public class TradeManager implements Serializable {
      */
     public String getOtherTrader(int id, String username){
         return tradeInventory.get(id).getOtherTrader(username);
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "TradeManager";
     }
     //Do this and also check the right user can undo
 }

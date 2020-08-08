@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
-public class TraderManager implements Serializable, Loginable {
+public class TraderManager extends Manager implements Serializable, Loginable {
     HashMap<String, Trader> users;
     private int weeklyLimit;
     private int maxInComplete;
@@ -497,5 +497,10 @@ public class TraderManager implements Serializable, Loginable {
     //TODO: unused method
     public void removeFromBorrowedItems(String username, Integer itemID){
         users.get(username).removeFromBorrowedItems(itemID);
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "TraderManager";
     }
 }

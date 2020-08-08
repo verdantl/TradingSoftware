@@ -6,6 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.phase2.phase2.AdminActions;
+import com.example.phase2.phase2.ConfigGateway;
+import com.example.phase2.phase2.TraderManager;
+
+import java.io.Serializable;
+
 
 public abstract class BundleActivity extends AppCompatActivity {
     protected Bundle bundle;
@@ -20,6 +26,10 @@ public abstract class BundleActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
+        if (bundle == null){
+            ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
+            bundle = configGateway.getBundle();
+        }
     }
 
     @Override
@@ -35,5 +45,13 @@ public abstract class BundleActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         setResult(RESULT_FIRST_USER, intent);
         finish();
+    }
+
+    protected void replaceTraderManager(TraderManager traderManager){
+        bundle.putSerializable(TRADERKEY, traderManager);
+    }
+
+    protected void replaceAdminActions(AdminActions adminActions){
+
     }
 }

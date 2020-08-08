@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdminActions implements Serializable, Loginable{
+public class AdminActions extends Manager implements Serializable, Loginable{
     private final HashMap<String, Admin> admins;
 
     /**
@@ -126,5 +126,10 @@ public class AdminActions implements Serializable, Loginable{
             }
         }
         return requestedAdmins;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "AdminActions";
     }
 }

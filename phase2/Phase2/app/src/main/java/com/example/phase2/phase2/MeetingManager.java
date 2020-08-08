@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * A MeetingManager class that manages meetings
  */
-public class MeetingManager implements Serializable {
+public class MeetingManager extends Manager implements Serializable {
     private final HashMap<Integer, Meeting> meetings;
 
     /**
@@ -532,4 +532,8 @@ public class MeetingManager implements Serializable {
         meetings.get(id).bothDisagree();
     }
 
+    @Override
+    public String getIdentifier() {
+        return "MeetingManager";
+    }
 }
