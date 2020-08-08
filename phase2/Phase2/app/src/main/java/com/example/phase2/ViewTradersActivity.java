@@ -20,8 +20,7 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager)
-                Objects.requireNonNull(getIntent().getExtras()).getSerializable(TRADERKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         setContentView(R.layout.activity_view_traders);
         dialog = new Dialog(this);
         viewList();
