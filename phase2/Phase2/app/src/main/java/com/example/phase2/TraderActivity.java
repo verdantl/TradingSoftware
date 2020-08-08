@@ -54,8 +54,7 @@ public class TraderActivity extends BundleActivity {
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("TradeManager", tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("Username", currentTrader);
-        intent.putExtra("adminActions", adminActions);
+        intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
     }
 
