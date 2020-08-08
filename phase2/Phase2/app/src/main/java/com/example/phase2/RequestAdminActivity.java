@@ -27,22 +27,22 @@ public class RequestAdminActivity extends BundleActivity{
     }
 
     public void requestToDeactivateAccount(View view){
-        if(!traderManager.isInactive(currentTrader)){
-            Toast.makeText(this, R.string.Account_already_deactivated, Toast.LENGTH_LONG).show();
+        if(traderManager.isInactive(currentTrader)){
+            Toast.makeText(this, R.string.Account_already_deactivated, Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, R.string.Deactivation_request_sent, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.Deactivation_request_sent, Toast.LENGTH_SHORT).show();
             traderManager.setTraderInactive(currentTrader, true);
             itemManager.setStatusForInactiveUser(currentTrader);
         }
     }
 
     public void requestToActivateAccount(View view){
-        if(traderManager.isInactive(currentTrader)){
-            Toast.makeText(this, R.string.Account_already_activated, Toast.LENGTH_LONG).show();
+        if(!traderManager.isInactive(currentTrader)){
+            Toast.makeText(this, R.string.Account_already_activated, Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, R.string.Activation_request_sent, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.Activation_request_sent, Toast.LENGTH_SHORT).show();
             traderManager.setTraderInactive(currentTrader, false);
             itemManager.setStatusForRegularUser(currentTrader);
         }
@@ -51,16 +51,16 @@ public class RequestAdminActivity extends BundleActivity{
     public void requestToUnfreeze(View view){
         if(traderManager.getIsFrozen(currentTrader)) {
             if(traderManager.getRequestToUnfreeze(currentTrader)){
-                Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(this, R.string.Trader_request_to_unfreeze_sent, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.Trader_request_to_unfreeze_sent, Toast.LENGTH_SHORT).show();
                 traderManager.setRequestToUnfreeze(currentTrader, true);
                 itemManager.setStatusForRegularUser(currentTrader);
             }
         }
         else{
-            Toast.makeText(this, R.string.Trader_request_to_unfreeze_not_frozen, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.Trader_request_to_unfreeze_not_frozen, Toast.LENGTH_SHORT).show();
         }
     }
 
