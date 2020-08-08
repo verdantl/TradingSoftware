@@ -43,11 +43,11 @@ Ultimately, this decision was made after discussion with the professor and by ba
 and SOLID principles against clean architecture structure. We thought the former two design principles
  were more important than the latter in this case.
 
-2. Some of the abstract classes are small, but we decided to implement them to reduce the amount
-of code that was being repeated in many activities as well as provide a template for better
-extensibility.
+2. The abstract BundleActivity class handles the bundle of data that is being passed between 
+activities as well as help take care of back button functionality for all the classes. It also
+has variables for the String keys in the bundle of data. Overall, we felt this was a great class
+to have because it reduced a lot of repeated code throughout the program.
 
 3. We had to put two instances of the String keys for the use cases in BundleActivity and in 
-ConfigGateway. We had a BundleActivity class to keep the String keys in to reduce the hard coding
-and maintain consistency across all of the Activities. We also created this class to take care of 
-the bundle variable and reduce the repeated bundle code.
+ConfigGateway. The other option would have been to make the String keys public and static. 
+
