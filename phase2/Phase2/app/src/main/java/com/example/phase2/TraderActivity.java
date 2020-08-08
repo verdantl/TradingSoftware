@@ -110,11 +110,11 @@ public class TraderActivity extends BundleActivity {
 
     public void viewUserInfo(View view){
         Intent intent = new Intent(this, ViewMyUserInfoActivity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra(ITEMKEY, itemManager);
+        intent.putExtra(TRADERKEY, traderManager);
+        intent.putExtra(TRADEKEY,tradeManager);
+        intent.putExtra(MEETINGKEY, meetingManager);
+        intent.putExtra(USERNAMEKEY, currentTrader);
         startActivity(intent);
     }
 
