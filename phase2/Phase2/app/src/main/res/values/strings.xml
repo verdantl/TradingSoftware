@@ -117,8 +117,8 @@
     <string name="requestInactivateAccount">Inactivate Account</string>
     <string name="Account_already_activated">Account already activated</string>
     <string name="Account_already_deactivated">Account already deactivated</string>
-    <string name="Activation_request_sent">Activation request sent</string>
-    <string name="Deactivation_request_sent">Deactivation request sent</string>
+    <string name="Activation_request_sent">Your account is active again</string>
+    <string name="Deactivation_request_sent">Your account has been deactivated</string>
     <string name="log_out">Log Out</string>
     <string name="newDate">NewDate:</string>
     <string name="newLocation">NewLocation:</string>
