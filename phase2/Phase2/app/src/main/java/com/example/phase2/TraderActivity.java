@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,7 +19,7 @@ import com.example.phase2.phase2.TraderPrompts;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TraderActivity extends AppCompatActivity {
+public class TraderActivity extends BundleActivity {
 
     private Bundle bundle;
     private TraderManager traderManager;
@@ -28,20 +29,23 @@ public class TraderActivity extends AppCompatActivity {
     private AdminActions adminActions;
     private String currentTrader;
 
+    private final int REQ_ADMIN_REQ = 7;
+    private final int CHANGE_PASSWORD_REQ = 8;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = bundle.getString("Username");
-        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
+        itemManager = (ItemManager) bundle.getSerializable(ITEMKEY);
+        tradeManager = (TradeManager) bundle.getSerializable(TRADEKEY);
+        traderManager = (TraderManager) bundle.getSerializable(TRADERKEY);
+        meetingManager = (MeetingManager) bundle.getSerializable(MEETINGKEY);
+        currentTrader = bundle.getString(USERNAMEKEY);
+        adminActions = (AdminActions) bundle.getSerializable(ADMINKEY);
         setContentView(R.layout.activity_trader);
         TextView textView = findViewById(R.id.textView15);
-        textView.setText(bundle.getString("Username"));
+        textView.setText(currentTrader);
     }
 
     public void browseAvailableItems(View view){
@@ -118,17 +122,18 @@ public class TraderActivity extends AppCompatActivity {
     //TODO: javadoc
     public void requestAdmin(View view){
         Intent intent =  new Intent(this, RequestAdminActivity.class);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("CurrentTrader", currentTrader);
+        intent.putExtra(TRADERKEY, traderManager);
+        intent.putExtra(USERNAMEKEY, currentTrader);
+        intent.putExtra(ITEMKEY, itemManager);
 
-        startActivity(intent);
+        startActivityForResult(intent, REQ_ADMIN_REQ);
     }
 
     public void changeTraderPassword(View view){
         Intent i =  new Intent(this, ChangeTraderPassword.class);
-        i.putExtra("TraderManager", traderManager);
-        i.putExtra("CurrentTrader", currentTrader);
-        startActivity(i);
+        i.putExtra(TRADERKEY, traderManager);
+        i.putExtra(USERNAMEKEY, currentTrader);
+        startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
     //public void onBackPressed(){
@@ -163,5 +168,24 @@ public class TraderActivity extends AppCompatActivity {
     public void onBackPressed() {
         Toast.makeText(this,
                 "You have reached the main menu!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        assert data != null;
+        if(requestCode == CHANGE_PASSWORD_REQ){
+            traderManager = (TraderManager) data.getSerializableExtra(TRADERKEY);
+            bundle.remove(TRADERKEY);
+            bundle.putSerializable(TRADERKEY, traderManager);
+        }else if(requestCode == REQ_ADMIN_REQ){
+            traderManager = (TraderManager) data.getSerializableExtra(TRADERKEY);
+            itemManager = (ItemManager) data.getSerializableExtra(ITEMKEY);
+            bundle.remove(TRADERKEY);
+            bundle.remove(ITEMKEY);
+            bundle.putSerializable(TRADERKEY, traderManager);
+            bundle.putSerializable(ITEMKEY, itemManager);
+        }
+
     }
 }
