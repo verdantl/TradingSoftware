@@ -75,7 +75,6 @@ public class FlaggedAccountsMenu extends AppCompatActivity implements ClickableL
         });
     }
 
-    @Override
     public void displayDialog() {
         dialog.setContentView(R.layout.fragment_freeze_flagged);
         dialog.show();

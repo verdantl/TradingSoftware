@@ -125,6 +125,7 @@ public class MeetingManager implements Serializable {
      * @param id The trade id
      * @return Return true iff the meeting object was removed
      */
+    //TODO: unused method
     public boolean removeMeeting(int id){
         if(containMeeting(id)){
             meetings.remove(id);
@@ -153,6 +154,7 @@ public class MeetingManager implements Serializable {
      * @param id the id of the trade
      * @param location the new return location
      */
+    //TODO: unused method
     public void editReturnLocation(int id, String location){
         getMeeting(id).setReturnLocation(location);
     }
@@ -161,6 +163,7 @@ public class MeetingManager implements Serializable {
      * @param id the id of the trade
      * @param date the return date of the meeting
      */
+    //TODO: unused method
     public void editReturnDate(int id, LocalDate date){
         getMeeting(id).setReturnDate(date);
     }
@@ -244,6 +247,7 @@ public class MeetingManager implements Serializable {
      * @param id the id of the trade
      * @param username Username of the Trader who confirms the items are returned
      */
+    //TODO: unused method
     public boolean confirmReturn(int id, String username){
         if(checkAllReturned(id)){
             getMeeting(id).setTradeStatus("Completed");

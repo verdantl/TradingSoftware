@@ -75,7 +75,7 @@ public class SignupSystem extends UserSystem{
             available = !adminActions.checkUsername(username);
         }
         else{
-            available = traderManager.isUsernameAvailable(username);
+            available = traderManager.checkUsername(username);
         }
         signupPrompts.displayUserAvailable(available);
         if (available){

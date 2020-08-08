@@ -431,7 +431,7 @@ public class AdminSystem extends UserSystem{
     private int changePassword(){
         adminPrompts.displayEnterNewMessage("password");
         String newPassword = scanner.next();
-        if (!adminActions.checkCredentials(currentAdmin, newPassword)){
+        if (!adminActions.login(currentAdmin, newPassword)){
             return 0;
         }
         adminActions.changePassword(currentAdmin, newPassword);
@@ -452,7 +452,7 @@ public class AdminSystem extends UserSystem{
         System.out.println("Please enter the username of the user whose actions you would like to" +
                 "undo:");
         String username = scanner.nextLine();
-        while (!traderManager.isUsernameAvailable(username)) {
+        while (!traderManager.checkUsername(username)) {
             adminPrompts.displayErrorMessage();
             username = scanner.nextLine();
         }

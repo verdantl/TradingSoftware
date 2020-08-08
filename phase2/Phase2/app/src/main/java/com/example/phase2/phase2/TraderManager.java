@@ -125,6 +125,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param traders The list of trader objects to add
      * @return Return true iff all of the trader objects were added
      */
+    //TODO: unused method
     public boolean addAllTraders(List<Trader> traders){
         boolean addAll = true;
         for(Trader t: traders){
@@ -149,6 +150,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param t The Trader object
      * @return True iff the Trader object was removed
      */
+    //TODO: unused method
     public boolean removeTrader(Trader t){
         return users.remove(t.getUsername(), t);
     }
@@ -271,6 +273,7 @@ public class TraderManager implements Serializable, Loginable {
      * Deletes the item from all traders' lists.
      * @param id the id of the item
      */
+    //TODO: unused methods
     public void deleteItem(Integer id){
         for (Trader trader: users.values()){
             trader.deleteItem(id);
@@ -306,6 +309,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param createDate the date that the user requests to create the trade
      * @return whether or not the user exceed weekly trade limit
      */
+    //TODO: unused methods
     public boolean exceedWeeklyLimit(String user, LocalDate createDate){
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int weekNumber = createDate.get(weekFields.weekOfWeekBasedYear());
@@ -323,6 +327,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param user the usr who wants to request to trade
      * @return whether or not the user exceed the max number of incomplete trades
      */
+    //TODO: unused methods
     public boolean exceedMaxIncomplete(String user){
         return users.get(user).getNumIncomplete() > maxInComplete;
     }
@@ -332,6 +337,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param user the user who wants to trade
      * @return whether or not the user need to lend more items
      */
+    //TODO: unused methods
     public boolean needMoreLend(String user){
         if(users.get(user).getTrades().isEmpty()){
             return false;
@@ -360,6 +366,7 @@ public class TraderManager implements Serializable, Loginable {
     /**Increase the number of incomplete trades
      * @param user the user
      */
+    //TODO: unused methods
     public void increaseNumbIncomplete(String user){
         users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() + 1);
     }
@@ -367,6 +374,7 @@ public class TraderManager implements Serializable, Loginable {
     /**Decrease the number of incomplete trades
      * @param user the user
      */
+    //TODO: unused methods
     public void decreaseNumIncomplete(String user){
         users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() - 1);
     }
@@ -467,6 +475,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param username The user's username
      * @param itemID The item's id.
      */
+    //TODO: unused methods
     public void removeItemFromWishlist(String username, Integer itemID){
         users.get(username).removeFromWishlist(itemID);
     }
@@ -485,6 +494,7 @@ public class TraderManager implements Serializable, Loginable {
      * @param username
      * @param itemID
      */
+    //TODO: unused method
     public void removeFromBorrowedItems(String username, Integer itemID){
         users.get(username).removeFromBorrowedItems(itemID);
     }

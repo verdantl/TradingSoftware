@@ -25,6 +25,7 @@ public class TradeManager implements Serializable {
      * @param id the id of the trade
      * @return the trade with the trade's id
      */
+    //TODO: unused method
     public Trade getTrade(int id){
         if(!tradeInventory.containsKey(id)){
             return null;
@@ -77,6 +78,7 @@ public class TradeManager implements Serializable {
      * @param id the id of the trade
      * @return whether or not the trade is successfully removed from inventory
      */
+    //TODO: unused method
     public boolean removeFromInventory(int id){
         if(!tradeInventory.containsKey(id)){
             return false;
@@ -105,6 +107,7 @@ public class TradeManager implements Serializable {
      * @param id The trade id
      * @return True iff trade with ID id is completed.
      */
+    //TODO: unused methods
     public boolean isTradeCompleted(int id){
         return tradeInventory.get(id).getCompleted();
     }

@@ -164,6 +164,7 @@ public class ItemManager implements Serializable {
      * @param ids the ids of the proposed items
      * @return Return the string representation of proposed items of the Trader with the given username
      */
+    //TODO: unused method
     public List<String> getProposedItemsInString(List<Integer> ids){
         List<Item> proposedItems = getListOfItems(ids);
 
@@ -208,6 +209,7 @@ public class ItemManager implements Serializable {
      * @param username The trader's username
      * @return Return the trader's proposed items
      */
+    //TODO: unused method
     public List<Item> getProposedItems(String username){
         List<Item>  proposedItems = new ArrayList<>();
         Set<Integer> ids = items.keySet();
@@ -307,6 +309,7 @@ public class ItemManager implements Serializable {
      * Adds new item to the hash map
      * @param item Item to add
      */
+    //TODO: unused method
     public void addItem(Item item){
         items.put(item.getId(), item);
     }
@@ -316,6 +319,7 @@ public class ItemManager implements Serializable {
      * @param id Id of the Item
      * @param desc New description
      */
+    //TODO: unused method
     public void editDescription(Integer id, String desc){
         items.get(id).setDescription(desc);
     }
@@ -325,6 +329,7 @@ public class ItemManager implements Serializable {
      * @param id Id of the Item
      * @param name New name
      */
+    //TODO: unused method
     public void editName(Integer id, String name){
         items.get(id).setName(name);
     }
@@ -334,6 +339,7 @@ public class ItemManager implements Serializable {
      * @param id Id of the Item
      * @param category New category
      */
+    //TODO: unused method
     public void editCategory(Integer id, String category){
         items.get(id).setCategory(category);
     }
@@ -343,6 +349,7 @@ public class ItemManager implements Serializable {
      * @param id Id of the Item
      * @param rating New rating
      */
+    //TODO: unused method
     public void editQualityRating(Integer id, int rating){
         items.get(id).setQualityRating(rating);
     }

@@ -90,7 +90,7 @@ public class LoginSystem extends UserSystem{
             System.out.println(prompts.next());
             String password = br.readLine();
 
-            if (adminActions.checkCredentials(username, password)){
+            if (adminActions.login(username, password)){
                 nextUser = username;
                 nextSystem = 3;
                 stop();
