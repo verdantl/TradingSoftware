@@ -18,7 +18,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoConfirmTrade extends AppCompatActivity implements UndoFragment.UndoClick {
+public class UndoConfirmTrade extends AppCompatActivity implements Dialogable {
     private Bundle bundle;
     private String username;
     private TraderManager traderManager;
@@ -70,38 +70,35 @@ public class UndoConfirmTrade extends AppCompatActivity implements UndoFragment.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                openDialog();
                 chosenTrade = undoableMeetingConfirmations.get(i);
             }
         });
 
     }
 
-    private void displayFragment() {
-        UndoFragment undoFragment = new UndoFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("undoType", "undoConfirm");
-        undoFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.undoConfirmTrade_container, undoFragment).commit();
-    }
-
-
 
     @Override
-    public void onUndoClick(View view) {
+    public void clickPositive() {
         meetingManager.undoConfirm(chosenTrade, username);
         Toast.makeText(this, "Successfully undo confirm", Toast.LENGTH_SHORT).show();
         viewList();
+
     }
 
-
     @Override
-    public void onCancelClick(View view) {
+    public void clickNegative() {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
         viewList();
+
+
+    }
+
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Undo")
+                .show(getSupportFragmentManager(), "UndoConfirm");
 
     }
 }

@@ -32,15 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-    <FrameLayout
-        android:id="@+id/items_container"
-        android:name="com.example.phase2.ApproveItemsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_approve_items" />
 
 
 </RelativeLayout>
