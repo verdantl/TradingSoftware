@@ -6,16 +6,15 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ConfigGateway;
-import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.Manager;
-import com.example.phase2.phase2.TraderManager;
+
 
 import java.io.Serializable;
 
 
 public abstract class BundleActivity extends AppCompatActivity {
+
     private Bundle bundle;
     protected final String ADMINKEY = "AdminActions";
     protected final String ITEMKEY = "ItemManager";

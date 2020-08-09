@@ -32,13 +32,13 @@ public class ApproveDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("ApproveAlert")
                 .setMessage("Do you want to approve or reject")
-                .setPositiveButton("Approve", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Reject", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickPositive();
                     }
                 })
-                .setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Approve", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickNegative();

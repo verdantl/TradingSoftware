@@ -14,11 +14,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
+import com.example.phase2.phase2.TradeManager;
+import com.example.phase2.phase2.TraderManager;
 
 import java.time.LocalDate;
 
-public class EditMeetingActivity extends AppCompatActivity {
+public class EditMeetingActivity extends BundleActivity {
     //Date picker code taken from https://www.youtube.com/watch?v=hwe1abDO2Ag
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private MeetingManager meetingManager;
@@ -34,10 +37,12 @@ public class EditMeetingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_meeting);
         bundle = getIntent().getExtras();
         assert bundle != null;
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+//        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+//        currentTrader = (String) bundle.getSerializable("CurrentTrader");
         trade = (Integer) bundle.getSerializable("Trade");
         online = (boolean) bundle.get("Online");
+        meetingManager = (MeetingManager) getUseCase("MeetingManager");
+        currentTrader = (String) getUseCase("Username");
 
         EditText location=findViewById(R.id.meetingLocationEdit);
         TextView newLocation = findViewById(R.id.newLocation);
@@ -45,7 +50,6 @@ public class EditMeetingActivity extends AppCompatActivity {
             location.setVisibility(View.GONE);
             newLocation.setVisibility(View.GONE);
         }
-
 
         Button button = findViewById(R.id.submit_button);
 
@@ -76,7 +80,6 @@ public class EditMeetingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText location=findViewById(R.id.meetingLocationEdit);
                 if(online){
-
                     if(datePickerText.getText().toString().equals("+ Select a new date")){
                         Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_edit, Toast.LENGTH_LONG).show();
                     }
@@ -116,15 +119,22 @@ public class EditMeetingActivity extends AppCompatActivity {
 
     public void onSubmitClick(){
         Intent intent = new Intent(this, EditTradeActivity.class);
-        bundle.remove("MeetingManager");
-        bundle.remove("CurrentTrader");
-        bundle.remove("Trade");
-        bundle.remove("Online");
-        intent.putExtras(bundle);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("Trade", trade);
-        intent.putExtra("CurrentTrader", currentTrader);
+        replaceUseCase(meetingManager);
+        putBundle(intent);
+//        bundle.remove("MeetingManager");
+//        bundle.remove("CurrentTrader");
+//        bundle.remove("Trade");
+//        bundle.remove("Online");
+//        intent.putExtras(bundle);
+//        intent.putExtra("MeetingManager", meetingManager);
+//        intent.putExtra("Trade", trade);
+//        intent.putExtra("Username", currentTrader);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSubmitClick();
     }
 
 

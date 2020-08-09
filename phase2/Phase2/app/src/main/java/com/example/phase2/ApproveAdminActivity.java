@@ -1,5 +1,4 @@
 package com.example.phase2;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 public class ApproveAdminActivity extends BundleActivity implements ClickableList, Dialogable {
     private AdminActions adminActions;
-    private Boolean approved = null;
+    private boolean approved;
     private String approvedUser;
 
     @Override
@@ -66,14 +65,16 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
 
     @Override
     public void clickPositive() {
-        approved = true;
+        approved = false;
         approveReject();
+
     }
 
     @Override
     public void clickNegative() {
-        approved = false;
+        approved = true;
         approveReject();
+
     }
 
     @Override

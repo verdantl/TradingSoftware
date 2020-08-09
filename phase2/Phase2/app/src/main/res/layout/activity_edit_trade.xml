@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="32dp"
         android:onClick="onConfirmMeetingClicked"
-        android:text="Confirm"
+        android:text="@string/confirmButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Trade Type:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:text="Meeting Date"
+        android:text="@string/meetingDate"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="MeetingLocation"
+        android:text="@string/meetingLocation"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="You can edit 3 times."
+        android:text="@string/editTimesLeft"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Appointment Status:"
+        android:text="@string/appointmentStatus"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +96,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="You have not agreed to the meeting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meetingStatus" />
@@ -107,7 +105,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Username has agreed to the meeting."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selfTraderAgree" />
@@ -117,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Trade Information:"
+        android:text="@string/tradeInfo"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Trade Duration"
+        android:text="@string/tradeDuration"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -141,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Trade With:"
+        android:text="@string/tradeWith"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,28 +155,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editInformation">
+        app:layout_constraintTop_toBottomOf="@+id/editInformation"
+        style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onAgreeMeetingClicked"
-            android:text="Agree" />
+            android:text="@string/agree" />
 
         <Button
             android:id="@+id/editMeeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onEditMeetingClicked"
-            android:text="Edit" />
+            android:text="@string/edit" />
 
         <Button
             android:id="@+id/declineButton"
             android:layout_width="87dp"
             android:layout_height="43dp"
-            android:text="@string/declineButton"
-            tools:onClick="onDeclineTrade"/>
+            android:text="@string/declineButton" />
 
     </LinearLayout>
 
@@ -189,7 +186,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="onViewItemInformationClicked"
-        android:text="View Item Information"
+        android:text="@string/viewItemInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tradeWith" />

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A MeetingManager class that manages meetings
@@ -54,7 +55,7 @@ public class MeetingManager extends Manager implements Serializable {
         if(!containMeeting(id)){
             return null;
         }
-        return meetings.get(id).toString();
+        return Objects.requireNonNull(meetings.get(id)).toString();
     }
 
     /**
