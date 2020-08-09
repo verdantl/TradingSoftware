@@ -73,7 +73,7 @@ public class BrowseTradesActivity extends BundleActivity implements ClickableLis
     }
     @Override
     public void onBackPressed(){
-//        Intent intent = new Intent(this, TraderActivity.class);
+        Intent intent = new Intent(this, TraderActivity.class);
 //        bundle.remove("TradeManager");
 //        bundle.remove("MeetingManager");
 //        bundle.remove("TraderManager");
@@ -90,7 +90,8 @@ public class BrowseTradesActivity extends BundleActivity implements ClickableLis
         replaceUseCase(meetingManager);
         replaceUseCase(traderManager);
         replaceUseCase(itemManager);
-        super.onBackPressed();
+        putBundle(intent);
+        startActivity(intent);
     }
 
 }
