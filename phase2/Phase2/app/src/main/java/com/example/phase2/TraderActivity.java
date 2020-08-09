@@ -21,9 +21,6 @@ import java.util.List;
 
 public class TraderActivity extends BundleActivity {
     private TraderManager traderManager;
-    private ItemManager itemManager;
-    private TradeManager tradeManager;
-    private MeetingManager meetingManager;
     private String currentTrader;
 
     private final int REQ_ADMIN_REQ = 7;
@@ -32,10 +29,7 @@ public class TraderActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemManager = (ItemManager) getUseCase(getString(R.string.ITEMKEY));
-        tradeManager = (TradeManager) getUseCase(getString(R.string.TRADEKEY));
         traderManager = (TraderManager) getUseCase(getString(R.string.TRADERKEY));
-        meetingManager = (MeetingManager) getUseCase(getString(R.string.MEETINGKEY));
         currentTrader = getUsername();
         setContentView(R.layout.activity_trader);
         TextView textView = findViewById(R.id.textView15);
@@ -114,27 +108,6 @@ public class TraderActivity extends BundleActivity {
         putBundle(i);
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
-
-    //public void onBackPressed(){
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //bundle.remove("CurrentTrader");
-        //intent.putExtras(bundle);
-//        bundle.remove("TradeManager");
-//        bundle.remove("MeetingManager");
-//        bundle.remove("TraderManager");
-//        bundle.remove("ItemManager");
-
-//        bundle.remove("AdminActions");
-//        intent.putExtras(bundle);
-//        intent.putExtra("Username", currentTrader);
-//        intent.putExtra("ItemManager", itemManager);
-//        intent.putExtra("TradeManager", tradeManager);
-//        intent.putExtra("TraderManager", traderManager);
-//        intent.putExtra("MeetingManager", meetingManager);
-//        intent.putExtra("AdminActions", adminActions);
-//        System.out.println(adminActions==null);
-        //startActivity(intent);
-    //}
 
     public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
