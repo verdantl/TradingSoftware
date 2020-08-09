@@ -503,4 +503,15 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     public String getIdentifier() {
         return "TraderManager";
     }
+
+    /**
+     * Removes the trade with the given id from both traders' list of trades.
+     * @param id The id of the trade
+     * @param firstUser The first trader
+     * @param secondUser The second trader
+     */
+    public void removeTradeFromTraders(int id, String firstUser,String secondUser){
+        users.get(firstUser).removeTrade(id);
+        users.get(secondUser).removeTrade(id);
+    }
 }

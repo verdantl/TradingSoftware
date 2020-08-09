@@ -126,5 +126,7 @@
     <string name="selectMeeting">+ Select a new date</string>
     <string name="editing">Editing Meeting</string>
     <string name="tutorialBrowseItemsPrompt">Here, you will see all available items for trading. Click on an item to view its info. With an account, by clicking on a item, you will be able to add it to your wishlist or propose a trade for it.</string>
-
+    <string name="maxEditsReached">Trade has been cancelled.</string>
+    <string name="tradeDeclined">Trade Offer Declined.</string>
+    <string name="declineButton">Decline</string>
 </resources>
