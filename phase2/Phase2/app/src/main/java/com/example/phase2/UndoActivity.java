@@ -10,34 +10,32 @@ import android.widget.Toast;
 
 import com.example.phase2.phase2.TraderManager;
 
-public class UndoActivity extends AppCompatActivity {
+public class UndoActivity extends BundleActivity {
 
-    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_undo);
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, AdminActivity.class);
-        intent.putExtras(bundle);
+        putBundle(intent);
         startActivity(intent);
     }
 
     public void submit(View view){
         EditText undoTraderText = findViewById(R.id.undoUser);
         String chosenTrader = undoTraderText.getText().toString();
-        TraderManager traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        TraderManager traderManager = (TraderManager) getUseCase(TRADERKEY);
 
         assert traderManager != null;
         if(traderManager.containTrader(chosenTrader)){
             Intent intent = new Intent(this, UndoMenu.class);
             intent.putExtra("username", chosenTrader);
-            intent.putExtras(bundle);
+            putBundle(intent);
             startActivity(intent);
         }else{
             Toast.makeText(this, "User doesn't exist", Toast.LENGTH_SHORT).show();

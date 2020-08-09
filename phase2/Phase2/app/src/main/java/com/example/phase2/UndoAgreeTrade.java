@@ -19,7 +19,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoAgreeTrade extends AppCompatActivity implements Dialogable{
+public class UndoAgreeTrade extends BundleActivity implements Dialogable{
     private Bundle bundle;
     private String username;
     private TraderManager traderManager;
