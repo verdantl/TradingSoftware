@@ -76,14 +76,13 @@ public class AdminActivity extends BundleActivity {
 
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
-        i.putExtra("TraderManager", traderManager);
+        putBundle(i);
         startActivityForResult(i, CHANGE_LIMIT_REQ);
     }
 
     public void changePassword(View view){
         Intent i =  new Intent(this, ChangePasswordActivity.class);
-        i.putExtra("AdminActions", adminActions);
-        i.putExtra("Username", currentAdmin);
+        putBundle(i);
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
