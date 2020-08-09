@@ -2,5 +2,9 @@ package com.example.phase2;
 
 public interface Dialogable {
 
-    void displayDialog();
+    void clickPositive();
+
+    void clickNegative();
+
+    void openDialog();
 }

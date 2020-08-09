@@ -61,7 +61,7 @@
     <string name="selectAnItem">Please select the item you would like to view.</string>
     <string name="yes">Yes.</string>
     <string name="no">No.</string>
-    <string name="search_home_city">Do you wish to search base on your home city?</string>
+    <string name="search_home_city">Do you wish to search based on your home city?</string>
     <string name="on_going_trades">Your On-Going Trades</string>
     <string name="on_going_trades_desc">Please select the trade you wish to view/edit.</string>
     <string name="EditMeetingHeader">Appointment Information:</string>
@@ -83,7 +83,7 @@
     <string name="perm">Permanent</string>
     <string name="set_info">Please enter the following information regarding your trade:</string>
     <string name="enter_location">Enter a location</string>
-    <string name="enter_date">Enter a date (DD-MM-YYYY)</string>
+    <string name="enter_date">Enter a date (YYYY-MM-DD)</string>
     <string name="set">Set</string>
     <string name="continue_to_next">Continue</string>
     <string name="cancel">Cancel</string>
@@ -117,8 +117,8 @@
     <string name="requestInactivateAccount">Inactivate Account</string>
     <string name="Account_already_activated">Account already activated</string>
     <string name="Account_already_deactivated">Account already deactivated</string>
-    <string name="Activation_request_sent">Activation request sent</string>
-    <string name="Deactivation_request_sent">Deactivation request sent</string>
+    <string name="Activation_request_sent">Your account is active again</string>
+    <string name="Deactivation_request_sent">Your account has been deactivated</string>
     <string name="log_out">Log Out</string>
     <string name="newDate">NewDate:</string>
     <string name="newLocation">NewLocation:</string>
@@ -126,5 +126,7 @@
     <string name="selectMeeting">+ Select a new date</string>
     <string name="editing">Editing Meeting</string>
     <string name="tutorialBrowseItemsPrompt">Here, you will see all available items for trading. Click on an item to view its info. With an account, by clicking on a item, you will be able to add it to your wishlist or propose a trade for it.</string>
-
+    <string name="maxEditsReached">Trade has been cancelled.</string>
+    <string name="tradeDeclined">Trade Offer Declined.</string>
+    <string name="declineButton">Decline</string>
 </resources>

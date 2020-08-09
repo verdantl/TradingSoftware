@@ -30,13 +30,13 @@ public class AdminActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adminActions = (AdminActions) bundle.getSerializable("AdminActions");
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+        adminActions = (AdminActions) getUseCase(ADMINKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
 
-        currentAdmin = bundle.getString("Username");
+        currentAdmin = getUsername();
         setContentView(R.layout.activity_admin);
 
         TextView textView = findViewById(R.id.textView14);
@@ -45,33 +45,32 @@ public class AdminActivity extends BundleActivity {
 
     public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
-        bundle.remove("Username");
-        intent.putExtras(bundle);
+        putBundle(intent);
         startActivity(intent);
     }
 
     public void addRemoveAdmin(View view){
         Intent intent = new Intent(this, ApproveAdminActivity.class);
-        intent.putExtras(bundle);
+        putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void manageAccounts(View view){
         Intent intent = new Intent(this, ManageFrozenAccount.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void addRemoveItems(View view){
         Intent intent = new Intent(this, ApproveItems.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void viewStatus(View view){
         Intent intent = new Intent(this, ViewTradersActivity.class);
         intent.putExtra("TraderManager", traderManager);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void changeLimits(View view){
@@ -89,7 +88,7 @@ public class AdminActivity extends BundleActivity {
 
     public void undoMenu(View view){
         Intent i = new Intent(this, UndoActivity.class);
-        i.putExtras(bundle);
+        putBundle(i);
         startActivity(i);
     }
 //

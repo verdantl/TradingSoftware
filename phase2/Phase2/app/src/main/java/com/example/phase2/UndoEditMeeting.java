@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.UndoClick {
+public class UndoEditMeeting extends AppCompatActivity implements Dialogable{
     private String username;
     private Bundle bundle;
     private TradeManager tradeManager;
@@ -91,36 +91,36 @@ public class UndoEditMeeting extends AppCompatActivity implements UndoFragment.U
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                openDialog();
                 chosenTrade = tempMeetings.get(i);
             }
         });
     }
 
-    private void displayFragment() {
-        UndoFragment undoFragment = new UndoFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.undoEditedTrade_container, undoFragment).commit();
-    }
-
 
 
 
     @Override
-    public void onUndoClick(View view) {
+    public void clickPositive() {
         meetingManager.undoEdit(chosenTrade, username);
         Toast.makeText(this, "Successfully undo edit", Toast.LENGTH_SHORT).show();
         viewList();
+
     }
 
-
     @Override
-    public void onCancelClick(View view) {
+    public void clickNegative() {
         Toast.makeText(this,
                 "Cancelled", Toast.LENGTH_SHORT).show();
         viewList();
+
+    }
+
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Undo")
+                .show(getSupportFragmentManager(), "UndoEditMeeting");
 
     }
 }

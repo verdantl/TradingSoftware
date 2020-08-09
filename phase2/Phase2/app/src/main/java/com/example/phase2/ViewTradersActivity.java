@@ -12,7 +12,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ViewTradersActivity extends BundleActivity implements ClickableList, Dialogable{
+public class ViewTradersActivity extends BundleActivity implements ClickableList{
     private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
@@ -20,8 +20,7 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager)
-                Objects.requireNonNull(getIntent().getExtras()).getSerializable(TRADERKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         setContentView(R.layout.activity_view_traders);
         dialog = new Dialog(this);
         viewList();

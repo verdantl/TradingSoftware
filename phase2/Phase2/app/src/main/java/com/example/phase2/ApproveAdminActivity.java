@@ -14,41 +14,24 @@ import java.util.ArrayList;
 
 
 public class ApproveAdminActivity extends BundleActivity implements ClickableList, Dialogable {
-    private Dialog dialog;
     private AdminActions adminActions;
     private Boolean approved = null;
     private String approvedUser;
-    private ApproveAdminController approveAdminController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
         setContentView(R.layout.activity_approve_admin);
-        approveAdminController = new ApproveAdminController();
-        dialog = new Dialog(this);
-        adminActions = (AdminActions) bundle.getSerializable(ADMINKEY);
+        adminActions = (AdminActions) getUseCase(ADMINKEY);
         viewList();
     }
 
     @Override
     public void onBackPressed(){
-        bundle.remove(ADMINKEY);
-        bundle.putSerializable(ADMINKEY, adminActions);
+        replaceUseCase(adminActions);
         super.onBackPressed();
     }
 
-    public void onApproveClicked(View view){
-        dialog.hide();
-        approved = true;
-        approveReject();
-    }
-
-    public void onRejectClicked(View view){
-        dialog.hide();
-        approved = false;
-        approveReject();
-    }
 
     private void approveReject(){
         adminActions.approveAdmin(approvedUser, approved);
@@ -73,18 +56,30 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayDialog();
+                openDialog();
                 approvedUser = adminRequests.get(i);
             }
         });
     }
 
 
-    public void displayDialog() {
-        dialog.setContentView(R.layout.fragment_approval);
-        dialog.show();
+
+    @Override
+    public void clickPositive() {
+        approved = true;
+        approveReject();
     }
 
+    @Override
+    public void clickNegative() {
+        approved = false;
+        approveReject();
+    }
 
-
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Approve")
+                .show(getSupportFragmentManager(), "ApproveAdmin");
+    }
 }

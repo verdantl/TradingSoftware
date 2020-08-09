@@ -6,9 +6,17 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.phase2.phase2.AdminActions;
+import com.example.phase2.phase2.ConfigGateway;
+import com.example.phase2.phase2.ItemManager;
+import com.example.phase2.phase2.Manager;
+import com.example.phase2.phase2.TraderManager;
+
+import java.io.Serializable;
+
 
 public abstract class BundleActivity extends AppCompatActivity {
-    protected Bundle bundle;
+    private Bundle bundle;
     protected final String ADMINKEY = "AdminActions";
     protected final String ITEMKEY = "ItemManager";
     protected final String TRADERKEY = "TraderManager";
@@ -20,6 +28,10 @@ public abstract class BundleActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
+        if (bundle == null){
+            ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
+            bundle = configGateway.getBundle();
+        }
     }
 
     @Override
@@ -35,5 +47,25 @@ public abstract class BundleActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         setResult(RESULT_FIRST_USER, intent);
         finish();
+    }
+
+    protected void putBundle(Intent intent){
+        intent.putExtras(bundle);
+    }
+
+    protected void replaceUseCase(Manager manager){
+        bundle.putSerializable(manager.getIdentifier(), manager);
+    }
+
+    protected void replaceUsername(String username){
+        bundle.putString(USERNAMEKEY, username);
+    }
+
+    protected Serializable getUseCase(String key){
+        return bundle.getSerializable(key);
+    }
+
+    protected String getUsername(){
+        return bundle.getString(USERNAMEKEY);
     }
 }

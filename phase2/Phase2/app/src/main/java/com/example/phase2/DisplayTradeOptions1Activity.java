@@ -64,5 +64,6 @@ public class DisplayTradeOptions1Activity extends AppCompatActivity {
         intent.putExtra("ChosenItem", chosenItem);
         intent.putExtra("OneWay", oneWay);
         startActivity(intent);
+        finish();
     }
 }

@@ -68,8 +68,8 @@ public class BrowseItemsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayItemOptions();
                 chosenItem = itemList.get(i);
+                displayItemOptions();
             }
         });
     }
