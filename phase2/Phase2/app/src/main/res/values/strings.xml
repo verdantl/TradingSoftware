@@ -147,17 +147,6 @@
     <string name="description">Description:</string>
     <string name="actual_description_goes_here">Actual Description goes here</string>
     <string name="profileimage">ProfileImage</string>
-    <string name="description">Description:</string>
-    <string name="owned_by">Owned By:</string>
-    <string name="trading_items">Trading Items:</string>
-    <string name="item_name">Item Name</string>
-    <string name="description">Description:</string>
-    <string name="actual_description_goes_here">Actual Description goes here</string>
-    <string name="item_rating">Item Rating:</string>
-    <string name="actual_description_goes_here">Actual Description goes here</string>
-    <string name="item_rating">Item Rating:</string>
-    <string name="owned_by">Owned By:</string>
-    <string name="item_name">Item Name</string>
     <string name="todo">TODO</string>
     <string name="profileitemone">ProfileItemOne</string>
 </resources>
