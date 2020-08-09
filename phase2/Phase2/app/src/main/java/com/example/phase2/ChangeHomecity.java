@@ -31,15 +31,15 @@ public class ChangeHomecity extends BundleActivity {
      * to the new change that user has entered.
      * @param view A view
      */
-    public void submitTraderPassword(View view){
-        EditText editText = (EditText) findViewById(R.id.editTextTextPassword4);
-        String newPassword = editText.getText().toString();
+    public void submitTraderHomecity(View view){
+        EditText editText = (EditText) findViewById(R.id.editTextTextPersonName2);
+        String newHomeCity = editText.getText().toString();
 
-        if(newPassword.equals("")){
+        if(newHomeCity.equals("") || newHomeCity.equals(tm.getHomeCity(username))){
             Toast.makeText(this, "Invalid homecity.", Toast.LENGTH_SHORT).show();
         }else {
-            tm.changePassword(username, newPassword);
-            Toast.makeText(this, R.string.changeHomecity_input, Toast.LENGTH_SHORT).show();
+            tm.setHomeCity(username, newHomeCity);
+            Toast.makeText(this, "Successfully changed homecity", Toast.LENGTH_SHORT).show();
         }
         editText.setText("");
 

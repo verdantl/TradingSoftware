@@ -35,12 +35,14 @@ public class SignupActivity extends BundleActivity {
             int radioID = radioGroup.getCheckedRadioButtonId();
             if (radioID == R.id.newTrader) {
                 traderManager.newTrader(username, password);
+                Toast.makeText(this, "Account created successfully!",
+                        Toast.LENGTH_SHORT).show();
             }
             else{
                 adminActions.newAdmin(username, password);
+                Toast.makeText(this, "Account request successfully sent!",
+                        Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this, "Account created successfully!",
-                    Toast.LENGTH_SHORT).show();
             backToLogin();
         }
         else{

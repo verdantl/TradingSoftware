@@ -171,5 +171,5 @@
     <string name="Edit_Homecity_button">Change HomeCity</string>
     <string name="changeHomecity_title">Enter your new homecity:</string>
     <string name="changeHomecity_button">Enter</string>
-    <string name="changeHomecity_input">successfully changed homecity</string>
+    <string name="changeHomecity_input" />
 </resources>

@@ -471,6 +471,15 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     }
 
     /**
+     * Sets the user's new home city with the given username and home city
+     * @param username The user who's home city is to be changed
+     * @param newHomeCity the string representing the trader's new home city
+     */
+    public void setHomeCity(String username, String newHomeCity){
+         users.get(username).setHomeCity(newHomeCity);
+    }
+
+    /**
      * If the item is in username's wishlist, it removes the item.
      * @param username The user's username
      * @param itemID The item's id.
