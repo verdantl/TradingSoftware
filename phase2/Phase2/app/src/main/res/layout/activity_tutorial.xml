@@ -11,7 +11,7 @@
         android:layout_width="372dp"
         android:layout_height="59dp"
         android:layout_marginTop="36dp"
-        android:text="Welcome to the tutorial. Press any button for more information."
+        android:text="@string/welcomeTutorial"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.41"

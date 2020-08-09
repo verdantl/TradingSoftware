@@ -86,8 +86,6 @@
     <string name="enter_date">Enter a date (YYYY-MM-DD)</string>
     <string name="set">Set</string>
     <string name="continue_to_next">Continue</string>
-    <string name="cancel">Cancel</string>
-    <string name="undo">UNDO</string>
     <string name="askundo">Please enter the username of the user whose actions you would like to undo</string>
     <string name="undoUser">Undo User</string>
     <string name="undoEdit">UNDO EDIT MEETING</string>
@@ -149,4 +147,16 @@
     <string name="profileimage">ProfileImage</string>
     <string name="todo">TODO</string>
     <string name="profileitemone">ProfileItemOne</string>
+    <string name="welcomeTutorial">Welcome to the tutorial, click on buttons to show more information</string>
+    <string name="itemInfo">Item Information</string>
+    <string name="ItemDetailsPrompt">Please fill the item information </string>
+    <string name="itemName">Name:</string>
+    <string name="itemNameHint">Enter item Name</string>
+    <string name="ratingHint">Enter the rating</string>
+    <string name="catergory">Category:</string>
+    <string name="categoryHint">Enter item category</string>
+    <string name="descriptionHint">Enter item Description</string>
+    <string name="addItem">Add Item</string>
+    <string name="undo">UNDO</string>
+    <string name="yourInventory">Your Inventory</string>
 </resources>
