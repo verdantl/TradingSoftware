@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class ApproveDialog extends AppCompatDialogFragment {
+public class UnFreezeDialog extends AppCompatDialogFragment {
     private Dialogable dialogable;
 
 
@@ -30,15 +30,15 @@ public class ApproveDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("ApproveAlert")
-                .setMessage("Do you want to approve or reject")
-                .setPositiveButton("Approve", new DialogInterface.OnClickListener() {
+        builder.setTitle("Unfreeze")
+                .setMessage("Are you sure you want to unfreeze this action?")
+                .setPositiveButton("Unfreeze", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickPositive();
                     }
                 })
-                .setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickNegative();

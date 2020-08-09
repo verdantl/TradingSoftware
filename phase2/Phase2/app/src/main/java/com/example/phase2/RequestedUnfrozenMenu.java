@@ -17,17 +17,15 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.List;
 
-public class RequestedUnfrozenMenu extends AppCompatActivity implements ClickableList {
+public class RequestedUnfrozenMenu extends AppCompatActivity implements ClickableList, Dialogable {
     private TraderManager traderManager;
     private Bundle bundle;
     private String unfreezeRequest;
-    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
-        dialog = new Dialog(this);
         assert bundle != null;
         traderManager = (TraderManager) bundle.getSerializable("TraderManager");
 
@@ -53,14 +51,14 @@ public class RequestedUnfrozenMenu extends AppCompatActivity implements Clickabl
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayDialog();
+                openDialog();
                 unfreezeRequest = allUnfreezeRequests.get(i);
             }
         });
     }
 
-
-    public void onClickUnfreeze(View view) {
+    @Override
+    public void clickPositive() {
         if(traderManager.unfreezeAccount(unfreezeRequest)){
             Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
 
@@ -68,18 +66,22 @@ public class RequestedUnfrozenMenu extends AppCompatActivity implements Clickabl
             Toast.makeText(this,
                     "Fail: the account is already unfrozen", Toast.LENGTH_SHORT).show();
         }
-        dialog.hide();
         viewList();
+
     }
 
-    public void onClickCancel(View view) {
+    @Override
+    public void clickNegative() {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
-        dialog.hide();
         viewList();
+
     }
 
-    public void displayDialog() {
-        dialog.setContentView(R.layout.fragment_unfreeze);
-        dialog.show();
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Unfreeze")
+                .show(getSupportFragmentManager(), "Unfreeze");
+
     }
 }

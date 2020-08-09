@@ -18,7 +18,7 @@ import com.example.phase2.phase2.ItemManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoRemoveItem extends AppCompatActivity implements UndoFragment.UndoClick {
+public class UndoRemoveItem extends AppCompatActivity implements Dialogable {
     private Bundle bundle;
     private ItemManager itemManager;
     private String username;
@@ -58,22 +58,17 @@ public class UndoRemoveItem extends AppCompatActivity implements UndoFragment.Un
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+
                 chosenItem = removedItems.get(i);
             }
         });
     }
 
-    private void displayFragment() {
-        UndoFragment undoFragment = new UndoFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.undoRemoveItem_container, undoFragment).commit();
-    }
+
 
 
     @Override
-    public void onUndoClick(View view) {
+    public void clickPositive() {
         itemManager.undoRemoval(chosenItem);
         Toast.makeText(this,
                 "Successfully undo remove", Toast.LENGTH_SHORT).show();
@@ -82,10 +77,19 @@ public class UndoRemoveItem extends AppCompatActivity implements UndoFragment.Un
     }
 
     @Override
-    public void onCancelClick(View view) {
+    public void clickNegative() {
         Toast.makeText(this,
                 "Cancelled", Toast.LENGTH_SHORT).show();
         viewList();
+
+    }
+
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Undo")
+                .show(getSupportFragmentManager(), "UndoRemove");
+
 
     }
 }
