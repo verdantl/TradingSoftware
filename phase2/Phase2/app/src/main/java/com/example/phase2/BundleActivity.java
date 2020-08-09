@@ -11,6 +11,9 @@ import com.example.phase2.phase2.Manager;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public abstract class BundleActivity extends AppCompatActivity {
@@ -22,17 +25,31 @@ public abstract class BundleActivity extends AppCompatActivity {
     protected final String TRADEKEY = "TradeManager";
     protected final String MEETINGKEY = "MeetingManager";
     protected final String USERNAMEKEY = "Username";
-    protected final int RESULT_SECOND = 2;
-    protected final int RESULT_THIRD = 3;
+
+    private final List<String> strings = Arrays.asList(ADMINKEY, ITEMKEY, TRADEKEY, TRADERKEY,
+            MEETINGKEY, USERNAMEKEY);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
+        bundle = filterExtras();
+
+    }
+
+    private Bundle filterExtras(){
+        Bundle bundle = getIntent().getExtras();
         if (bundle == null){
             ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
             bundle = configGateway.getBundle();
         }
+        else {
+            for (String key : bundle.keySet()) {
+                if (!strings.contains(key)) {
+                    bundle.remove(key);
+                }
+            }
+        }
+        return bundle;
     }
 
     @Override

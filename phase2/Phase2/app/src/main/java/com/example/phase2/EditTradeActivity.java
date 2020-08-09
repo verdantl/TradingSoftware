@@ -25,7 +25,7 @@ public class EditTradeActivity extends BundleActivity{
     private Integer trade;
     private ItemManager itemManager;
 
-    private void updateUseCases(){
+    protected void updateUseCases(){
         tradeManager = (TradeManager) getUseCase(TRADEKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
@@ -388,7 +388,7 @@ public class EditTradeActivity extends BundleActivity{
         //Have to update item status's
         //Note only time this happens if both haven't agreed, thus item status is only unavailable
         for(Integer i: tradeManager.getItems(trade)){
-            if(!traderManager.getIsFrozen(itemManager.getItemOwner(trade))){
+            if(!traderManager.getIsFrozen(itemManager.getItemOwner(i))){
                 itemManager.changeStatusToAvailable(i);
             }
             else{

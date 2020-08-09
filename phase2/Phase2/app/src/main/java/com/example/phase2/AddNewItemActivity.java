@@ -23,9 +23,10 @@ public class AddNewItemActivity extends BundleActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemManager = (ItemManager) getUseCase(ITEMKEY);
-        currentTrader = (String) getUsername();
+        currentTrader = getUsername();
         setContentView(R.layout.activity_add_new_item);
     }
+
 
     /**
      * Called when the back button is pressed

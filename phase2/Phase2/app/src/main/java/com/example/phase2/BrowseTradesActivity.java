@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -36,6 +37,18 @@ public class BrowseTradesActivity extends BundleActivity implements ClickableLis
         viewList();
     }
 
+    protected void updateUseCases(){
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        viewList();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        updateUseCases();
+    }
+
     public void viewList(){
         final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(currentTrader));
         setContentView(R.layout.activity_browse_trades);
@@ -47,7 +60,7 @@ public class BrowseTradesActivity extends BundleActivity implements ClickableLis
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                trade = onGoingTrades.get(i);
-                displayEditTrade();
+               displayEditTrade();
             }
        });
     }
