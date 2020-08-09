@@ -155,9 +155,9 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
                 // iterating over the 1-2 items involved with the trade
                 for (Integer i: tradeManager.getItems(trades.get(j))) {
                     // if the item is now owned by the appropriate trader
-                    if (itemManager.getOwner(i).equals(currentTrader)){
+                    //if (itemManager.getOwner(i).equals(currentTrader)){
                         items.add(itemManager.getItemName(i));
-                    }
+                    //}
                 }
             }
         }
