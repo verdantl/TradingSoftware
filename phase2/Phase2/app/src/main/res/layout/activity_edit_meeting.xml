@@ -28,10 +28,9 @@
         android:layout_marginStart="24dp"
         android:text="@string/newDate"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.382" />
@@ -43,7 +42,7 @@
         android:layout_marginStart="24dp"
         android:text="@string/newLocation"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/meetingLocationEdit"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +64,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/newLocation"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.548" />
+        app:layout_constraintVertical_bias="0.543"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/submit_button"

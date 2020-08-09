@@ -1,7 +1,5 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,32 +13,36 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class EditTradeActivity extends AppCompatActivity{
+public class EditTradeActivity extends BundleActivity{
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private TraderManager traderManager;
     private String currentTrader;
     private Integer trade;
-    private Bundle bundleM;
+    private Bundle bundle;
     private ItemManager itemManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
-        this.bundleM = getIntent().getExtras();
-        assert bundleM != null;
-        tradeManager = (TradeManager) bundleM.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundleM.getSerializable("MeetingManager");
-        traderManager = (TraderManager) bundleM.getSerializable("TraderManager");
-        currentTrader = (String) bundleM.getSerializable("CurrentTrader");
-        itemManager = (ItemManager) bundleM.getSerializable("ItemManager");
-        trade = (Integer) bundleM.getSerializable("Trade");
+        this.bundle = getIntent().getExtras();
+        assert bundle != null;
+//        tradeManager = (TradeManager) bundleM.getSerializable("TradeManager");
+//        meetingManager = (MeetingManager) bundleM.getSerializable("MeetingManager");
+//        traderManager = (TraderManager) bundleM.getSerializable("TraderManager");
+//        currentTrader = (String) bundleM.getSerializable("CurrentTrader");
+//        itemManager = (ItemManager) bundleM.getSerializable("ItemManager");
+        trade = (Integer) bundle.getSerializable("Trade");
+        tradeManager = (TradeManager) getUseCase("TradeManager");
+        meetingManager = (MeetingManager) getUseCase("MeetingManager");
+        traderManager = (TraderManager) getUseCase("TraderManager");
+        currentTrader = (String) getUseCase("Username");
+        itemManager = (ItemManager) getUseCase("ItemManager");
 
         //Trade type text
         String tempTradeType = "Trade Type: " + tradeManager.getTradeType(trade);
         TextView tradeType = findViewById(R.id.tradeType);
         tradeType.setText(tempTradeType);
-
         //Trade duration text
         String tempTradeDuration;
         if(tradeManager.isTradePermanent(trade)){
@@ -51,12 +53,10 @@ public class EditTradeActivity extends AppCompatActivity{
         }
         TextView tradeDuration = findViewById(R.id.tradeDuration);
         tradeDuration.setText(tempTradeDuration);
-
         //Trade with text
         String temptradeWith = "Trade With: "+ tradeManager.getOtherTrader(trade,currentTrader);
         TextView tradeWith = findViewById(R.id.tradeWith);
         tradeWith.setText(temptradeWith);
-
         //Meeting date
         String tempDate = "Date: " + meetingManager.getMeetingDate(trade);
         TextView meetingDate = findViewById(R.id.meetingDate);
@@ -65,7 +65,6 @@ public class EditTradeActivity extends AppCompatActivity{
         String tempLocation = "Location: " + meetingManager.getMeetingLocation(trade);
         TextView meetingLocation = findViewById(R.id.meetingInformation);
         meetingLocation.setText(tempLocation);
-
         //Sets the agree status for the traders
         updateCurTraderMeetingStatus();
         updateOtherTraderMeetingStatus();
@@ -73,7 +72,6 @@ public class EditTradeActivity extends AppCompatActivity{
         String tempEditNumber = "You can edit " + meetingManager.getEditsLeft(trade, currentTrader) + " times.";
         TextView editInfo = findViewById(R.id.editInformation);
         editInfo.setText(tempEditNumber);
-
         //Checks to see if both users agreed to the meeting
         Button button = findViewById(R.id.confirmButton);
         if(meetingManager.bothAgreed(trade)){
@@ -91,6 +89,25 @@ public class EditTradeActivity extends AppCompatActivity{
         else{
             button.setVisibility(View.GONE);
         }
+        Button declineButton = (Button) findViewById(R.id.declineButton);
+        if(meetingManager.bothAgreed(trade)){
+            declineButton.setVisibility(View.GONE);
+        }
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDeclineTrade();
+            }
+        });
+        if(cancelTradeCheck()){
+            onBackPressed();
+        }
+    }
+
+    public void onDeclineTrade(){
+        removeTrade();
+        Toast.makeText(EditTradeActivity.this, R.string.tradeDeclined, Toast.LENGTH_LONG).show();
+        onBackPressed();
     }
 
 
@@ -141,6 +158,7 @@ public class EditTradeActivity extends AppCompatActivity{
         selfTraderAgree.setText(tempAgreeStatus);
         return tempAgreeStatus;
     }
+
     private String updateOtherTraderMeetingStatus(){
         String tempAgreeStatus2;
         if(!meetingManager.bothAgreed(trade)) {
@@ -171,9 +189,7 @@ public class EditTradeActivity extends AppCompatActivity{
             else{
                 intent.putExtra("Online", false);
             }
-
-            intent.putExtras(bundleM);
-
+            putBundle(intent);
             startActivity(intent);
         }
         else{
@@ -183,7 +199,16 @@ public class EditTradeActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed() {
-        returnToTrades();
+
+        replaceUseCase(tradeManager);
+        replaceUseCase(meetingManager);
+        replaceUseCase(traderManager);
+        replaceUseCase(itemManager);
+        Intent intent = new Intent(this, BrowseTradesActivity.class);
+        putBundle(intent);
+        startActivity(intent);
+        //super.onBackPressed();
+        //returnToTrades();
     }
 
     public void onAgreeMeetingClicked(View view){
@@ -239,23 +264,23 @@ public class EditTradeActivity extends AppCompatActivity{
                             itemManager.changeStatusToAvailable(i);
                         }
                     }
-                    meetingManager.setMeetingCompleted(trade);
-                    tradeManager.setTradeCompleted(trade);
-                    Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
-                    returnToTrades();
+                    completeTrade();
                 }
             }
             else{
                 updateItemOwnerAndStatus();
-                meetingManager.setMeetingCompleted(trade);
-                tradeManager.setTradeCompleted(trade);
-                Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
-                returnToTrades();
+                completeTrade();
             }
 
         }
     }
-
+    private void completeTrade(){
+        meetingManager.setMeetingCompleted(trade);
+        tradeManager.setTradeCompleted(trade);
+        Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
+        //returnToTrades();
+        onBackPressed();
+    }
     private void updateItemOwnerAndStatus(){
         for(Integer i: tradeManager.getItems(trade)){
             if(itemManager.getOwner(i).equals(currentTrader)){
@@ -277,7 +302,6 @@ public class EditTradeActivity extends AppCompatActivity{
             }
         }
     }
-
     private void updateWishlistAndBorrowed(){
         for(Integer i: tradeManager.getItems(trade)){
             itemManager.changeStatusToUnavailable(i);
@@ -291,20 +315,21 @@ public class EditTradeActivity extends AppCompatActivity{
             }
         }
     }
+
     public void returnToTrades(){
         Intent intent = new Intent(this, BrowseTradesActivity.class);
-        bundleM.remove("TradeManager");
-        bundleM.remove("MeetingManager");
-        bundleM.remove("TraderManager");
-        bundleM.remove("ItemManager");
-        bundleM.remove("Trade");
-        intent.putExtras(bundleM);
+        bundle.remove("TradeManager");
+        bundle.remove("MeetingManager");
+        bundle.remove("TraderManager");
+        bundle.remove("ItemManager");
+        bundle.remove("Trade");
+        intent.putExtras(bundle);
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
         intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ItemManager", itemManager);
-        //intent.putExtra("CurrentTrader", currentTrader);
         startActivity(intent);
+
     }
     public void onViewItemInformationClicked(View view){
         if(tradeManager.getTradeType(trade).contains("ONEWAY")){
@@ -336,5 +361,31 @@ public class EditTradeActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    private boolean cancelTradeCheck(){
+            if (meetingManager.isMaxEditsReached(trade)) {
+                removeTrade();
+                Toast.makeText(EditTradeActivity.this, R.string.maxEditsReached, Toast.LENGTH_LONG).show();
+                return true;
+            }
+            return false;
+    }
+
+
+    private void removeTrade(){
+        //Have to update item status's
+        //Note only time this happens if both haven't agreed, thus item status is only unavailable
+        for(Integer i: tradeManager.getItems(trade)){
+            if(!traderManager.getIsFrozen(itemManager.getItemOwner(trade))){
+                itemManager.changeStatusToAvailable(i);
+            }
+            else{
+                itemManager.changeStatusToFrozen(i);
+            }
+        }
+        //Remove from both traders' lists
+        traderManager.removeTradeFromTraders(trade, currentTrader, tradeManager.getOtherTrader(trade, currentTrader));
+        tradeManager.removeFromInventory(trade);
+        meetingManager.removeMeeting(trade);
+    }
 
 }

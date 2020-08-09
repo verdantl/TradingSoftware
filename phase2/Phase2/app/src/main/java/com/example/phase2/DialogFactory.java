@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class DialogFactory {
 
     public AppCompatDialogFragment getDialog(String dialogType){
+
         switch (dialogType){
             case "Approve":
                 return new ApproveDialog();
@@ -18,4 +19,5 @@ public class DialogFactory {
                 return new AppCompatDialogFragment();
         }
     }
+
 }

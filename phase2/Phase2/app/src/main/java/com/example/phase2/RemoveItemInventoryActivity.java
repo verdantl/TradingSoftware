@@ -10,33 +10,40 @@ import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
 
-
-public class RemoveItemInventoryActivity extends AppCompatActivity {
+/**
+ * An activity class responsible for removing items in an inventory in the Trading System.
+ */
+public class RemoveItemInventoryActivity extends BundleActivity {
     private ItemManager itemManager;
     private int chosenItem;
-    private Bundle bundle;
 
+    /**
+     * Sets up the activity
+     * @param savedInstanceState A bundle storing all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        chosenItem = (int) bundle.getSerializable("ChosenItem");
+        chosenItem = (int) getUseCase("ChosenItem");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         setContentView(R.layout.activity_remove_item_inventory);
         setValues();
     }
 
+    /**
+     * Called when the back button is pressed
+     */
     @Override
     public void onBackPressed(){
+        replaceUseCase(itemManager);
         Intent intent = new Intent(this, EditInventoryActivity.class);
-        bundle.remove("ItemManager");
-        bundle.remove("ChosenItem");
-        intent.putExtras(bundle);
-        intent.putExtra("ItemManager", itemManager);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Sets the values to be displayed for an item's information
+     */
     public void setValues(){
         String name = itemManager.getItemName(chosenItem);
         String rating = itemManager.getItemQuality(chosenItem);
@@ -51,9 +58,13 @@ public class RemoveItemInventoryActivity extends AppCompatActivity {
         actualDescription.setText(description);
     }
 
+    /**
+     * This method is called when the user clicks on the Remove Item button. It removes the item
+     * and tells the user it is removed.
+     * @param view A view
+     */
     public void removeItemInventory(View view){
         itemManager.removeItem(chosenItem);
-        //itemManager.changeStatusToRemoved(chosenItem);
         Toast.makeText(this, "Successfully removed the item",
                 Toast.LENGTH_LONG).show();
         onBackPressed();

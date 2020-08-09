@@ -63,5 +63,6 @@ public class LoginActivity extends BundleActivity {
         intent.putExtra(ITEMKEY, itemManager);
         startActivity(intent);
     }
-
+    @Override
+    public void onBackPressed(){}
 }

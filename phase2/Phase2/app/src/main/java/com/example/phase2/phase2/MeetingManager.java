@@ -536,4 +536,18 @@ public class MeetingManager extends Manager implements Serializable {
     public String getIdentifier() {
         return "MeetingManager";
     }
+
+    /**
+     * Returns if the max number of edits to the meeting have been reached.
+     * @param id The id of the trade
+     * @return Whether or not the max number of edits has been reached.
+     */
+    public boolean isMaxEditsReached(int id){
+        for(Integer i: meetings.get(id).getNumberOfEdits().values()){
+            if(i<3){
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -11,40 +11,45 @@ import android.widget.Toast;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class RemoveItemWishlistActivity extends AppCompatActivity {
+/**
+ * An activity class responsible for removing items in a wishlist in the Trading System.
+ */
+public class RemoveItemWishlistActivity extends BundleActivity {
     private ItemManager itemManager;
     private TraderManager traderManager;
     private String currentTrader;
     private int chosenItem;
-    private Bundle bundle;
 
+    /**
+     * Sets up the activity
+     * @param savedInstanceState A bundle storing all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
-        chosenItem = (int) bundle.getSerializable("ChosenItem");
+        chosenItem = (int) getUseCase("ChosenItem");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        currentTrader = (String) getUseCase(USERNAMEKEY);
         setContentView(R.layout.activity_remove_item_wishlist);
         setValues();
     }
 
+    /**
+     * Called when the back button is pressed
+     */
     @Override
     public void onBackPressed(){
+        replaceUseCase(itemManager);
+        replaceUseCase(traderManager);
         Intent intent = new Intent(this, EditWishlistActivity.class);
-        bundle.remove("ItemManager");
-        bundle.remove("TradeManager");
-        bundle.remove("CurrentTrader");
-        bundle.remove("ChosenItem");
-        intent.putExtras(bundle);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("CurrentTrader", currentTrader);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Sets the values to be displayed for an item's information
+     */
     public void setValues(){
         String name = itemManager.getItemName(chosenItem);
         String rating = itemManager.getItemQuality(chosenItem);
@@ -59,11 +64,14 @@ public class RemoveItemWishlistActivity extends AppCompatActivity {
         actualDescription.setText(description);
     }
 
+    /**
+     * This method is called when the user clicks on the Remove Item button. It removes the item
+     * from their wishlist and tells the user it is removed.
+     * @param view A view
+     */
     public void removeItemWishlist(View view){
-        itemManager.removeItem(chosenItem);
-        itemManager.changeStatusToRemoved(chosenItem);
         traderManager.removeFromWishlist(currentTrader, chosenItem);
-        Toast.makeText(this, "Successfully removed the item",
+        Toast.makeText(this, "Successfully removed the item from wishlist.",
                 Toast.LENGTH_LONG).show();
         onBackPressed();
     }

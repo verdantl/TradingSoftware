@@ -12,16 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Item Info"
-        android:textSize="25sp"/>
+        android:text="@string/itemInfo"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/enterItemDetailsPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/itemInfo"
-        android:text="Enter new item details and press Add Item button"/>
+        android:layout_centerHorizontal="true"
+        android:text="@string/ItemDetailsPrompt" />
 
     <TextView
         android:id="@+id/enterName"
@@ -31,7 +31,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
         android:labelFor="@id/enterActualName"
-        android:text="Name:"
+        android:text="@string/itemName"
         android:textSize="20sp" />
 
     <EditText
@@ -43,20 +43,21 @@
         android:layout_marginTop="19dp"
         android:layout_toEndOf="@id/enterName"
         android:autofillHints="Enter Item Name"
-        android:hint="Enter Item Name"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:hint="@string/itemNameHint"
+        android:inputType="textPersonName"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/enterRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/enterName"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="50dp"
-        android:text="Rating:"
-        android:textSize="20sp"
-        android:labelFor="@id/enterActualRating"/>
+        android:layout_marginTop="30dp"
+        android:labelFor="@id/enterActualRating"
+        android:text="@string/item_rating"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/enterActualRating"
@@ -67,19 +68,20 @@
         android:layout_marginTop="19dp"
         android:layout_toEndOf="@+id/enterRating"
         android:autofillHints="Enter Item Rating"
-        android:hint="Enter Item Rating"
         android:ems="10"
-        android:inputType="number" />
+        android:hint="@string/ratingHint"
+        android:inputType="number"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/enterCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enterRating"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="50dp"
-        android:text="Category"
-        android:textSize="20sp"/>
+        android:layout_marginTop="30dp"
+        android:text="@string/catergory"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/enterActualCategory"
@@ -90,40 +92,41 @@
         android:layout_marginTop="19dp"
         android:layout_toEndOf="@+id/enterCategory"
         android:autofillHints="Enter Item Category"
-        android:hint="Enter Item Category"
         android:ems="10"
-        android:inputType="text"/>
+        android:hint="@string/categoryHint"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/enterDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/enterCategory"
-        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:text="Description:"
-        android:textSize="20sp"
-        android:labelFor="@+id/enterActualDescription"/>
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/enterActualDescription"
+        android:text="@string/description"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/enterActualDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/enterDescription"
-        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
-        android:ems="10"
+        android:layout_marginTop="5dp"
         android:autofillHints="Enter Item Description"
-        android:hint="Enter Item Description"
-        android:inputType="textMultiLine"/>
+        android:ems="10"
+        android:hint="@string/descriptionHint"
+        android:inputType="textMultiLine"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/addItemButton"
-        android:layout_below="@id/enterActualDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_below="@id/enterActualDescription"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
         android:onClick="addItemButton"
-        android:text="Add Item"/>
+        android:text="@string/addItem" />
 </RelativeLayout>
