@@ -69,20 +69,26 @@ public class TraderActivity extends BundleActivity {
         startActivity(intent);
     }
 
+    /**
+     * This method is called when the user clicks on the Edit Inventory button. It starts
+     * the EditInventoryActivity
+     * @param view A view
+     */
     public void editInventory(View view){
         Intent intent = new Intent(this, EditInventoryActivity.class);
-        intent.putExtras(bundle);
-        //intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("CurrentTrader", currentTrader);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * This method is called when the user clicks on the Edit Wishlist button. It starts
+     * the EditWishlistActivity
+     * @param view A view
+     */
     public void editWishlist(View view){
         Intent intent = new Intent(this, EditWishlistActivity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("CurrentTrader", currentTrader);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**
