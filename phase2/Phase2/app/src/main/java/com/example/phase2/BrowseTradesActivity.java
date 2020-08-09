@@ -20,7 +20,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseTradesActivity extends AppCompatActivity {
+public class BrowseTradesActivity extends BundleActivity implements ClickableList {
 
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
@@ -35,11 +35,16 @@ public class BrowseTradesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bundle = getIntent().getExtras();
         assert bundle != null;
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+//        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
+//        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+//        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+//        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+//        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        tradeManager = (TradeManager) getUseCase("TradeManager");
+        meetingManager = (MeetingManager) getUseCase("MeetingManager");
+        traderManager = (TraderManager) getUseCase("TraderManager");
+        currentTrader = (String) getUseCase("Username");
+        itemManager = (ItemManager) getUseCase("ItemManager");
         viewList();
     }
 
@@ -62,23 +67,30 @@ public class BrowseTradesActivity extends AppCompatActivity {
     public void displayEditTrade(){
         Intent intent = new Intent(this, EditTradeActivity.class);
         intent.putExtra("Trade", trade);
-        intent.putExtras(bundle);
+        putBundle(intent);
+        //intent.putExtras(bundle);
         startActivity(intent);
     }
-
+    @Override
     public void onBackPressed(){
-        Intent intent = new Intent(this, TraderActivity.class);
-        bundle.remove("TradeManager");
-        bundle.remove("MeetingManager");
-        bundle.remove("TraderManager");
-        bundle.remove("ItemManager");
-        intent.putExtras(bundle);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("Username", currentTrader);
-        startActivity(intent);
+//        Intent intent = new Intent(this, TraderActivity.class);
+//        bundle.remove("TradeManager");
+//        bundle.remove("MeetingManager");
+//        bundle.remove("TraderManager");
+//        bundle.remove("ItemManager");
+//        intent.putExtras(bundle);
+//        intent.putExtra("TradeManager",tradeManager);
+//        intent.putExtra("MeetingManager", meetingManager);
+//        intent.putExtra("TraderManager", traderManager);
+//        intent.putExtra("ItemManager", itemManager);
+//        intent.putExtra("Username", currentTrader);
+//        startActivity(intent);
+
+        replaceUseCase(tradeManager);
+        replaceUseCase(meetingManager);
+        replaceUseCase(traderManager);
+        replaceUseCase(itemManager);
+        super.onBackPressed();
     }
 
 }
