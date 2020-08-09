@@ -35,6 +35,7 @@ import java.util.Objects;
         ListView listView = findViewById(R.id.traders);
         ArrayAdapter<String> allTraderAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, traders);
+        listView.setAdapter(allTraderAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
