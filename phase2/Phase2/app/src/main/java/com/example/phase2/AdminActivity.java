@@ -70,7 +70,7 @@ public class AdminActivity extends BundleActivity {
     public void viewStatus(View view){
         Intent intent = new Intent(this, ViewTradersActivity.class);
         intent.putExtra("TraderManager", traderManager);
-        startActivityForResult(intent, RESULT_FIRST_USER);
+        startActivity(intent);
     }
 
     public void changeLimits(View view){

@@ -45,7 +45,7 @@ public class LoginActivity extends BundleActivity {
             Intent intent = new Intent(this, AdminActivity.class);
             replaceUsername(username);
             putBundle(intent);
-            startActivityForResult(intent, RESULT_FIRST_USER);
+            startActivityForResult(intent, RESULT_OK);
         }
         else{
             Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();

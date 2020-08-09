@@ -4,15 +4,19 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.phase2.phase2.TraderManager;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ViewTradersActivity extends BundleActivity implements ClickableList{
+    public class ViewTradersActivity extends BundleActivity implements ClickableList{
     private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
@@ -29,6 +33,8 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
     public void viewList(){
         final ArrayList<String> traders = traderManager.getTraders();
         ListView listView = findViewById(R.id.traders);
+        ArrayAdapter<String> allTraderAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, traders);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -44,4 +50,5 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
         close.setText(userInfo);
         dialog.show();
     }
-}
+
+    }
