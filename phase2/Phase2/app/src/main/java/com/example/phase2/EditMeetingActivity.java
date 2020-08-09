@@ -29,16 +29,16 @@ public class EditMeetingActivity extends BundleActivity {
     private Integer trade;
     private String currentTrader;
     private LocalDate newDate;
-    private Bundle bundle;
     private boolean online;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_meeting);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
+        Bundle bundle = getIntent().getExtras();
 //        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
 //        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        assert bundle != null;
         trade = (Integer) bundle.getSerializable("Trade");
         online = (boolean) bundle.get("Online");
         meetingManager = (MeetingManager) getUseCase("MeetingManager");
@@ -117,10 +117,9 @@ public class EditMeetingActivity extends BundleActivity {
         });
     }
 
+
     public void onSubmitClick(){
-        Intent intent = new Intent(this, EditTradeActivity.class);
         replaceUseCase(meetingManager);
-        putBundle(intent);
 //        bundle.remove("MeetingManager");
 //        bundle.remove("CurrentTrader");
 //        bundle.remove("Trade");
@@ -129,13 +128,7 @@ public class EditMeetingActivity extends BundleActivity {
 //        intent.putExtra("MeetingManager", meetingManager);
 //        intent.putExtra("Trade", trade);
 //        intent.putExtra("Username", currentTrader);
-        startActivity(intent);
+        super.onBackPressed();
     }
-
-    @Override
-    public void onBackPressed() {
-        onSubmitClick();
-    }
-
 
 }

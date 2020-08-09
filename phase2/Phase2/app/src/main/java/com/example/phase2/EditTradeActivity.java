@@ -8,10 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
+
+import java.util.Objects;
 
 public class EditTradeActivity extends BundleActivity{
     private TradeManager tradeManager;
@@ -19,26 +23,30 @@ public class EditTradeActivity extends BundleActivity{
     private TraderManager traderManager;
     private String currentTrader;
     private Integer trade;
-    private Bundle bundle;
     private ItemManager itemManager;
+
+    private void updateUseCases(){
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        updateScreen();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trade);
-        this.bundle = getIntent().getExtras();
-        assert bundle != null;
-//        tradeManager = (TradeManager) bundleM.getSerializable("TradeManager");
-//        meetingManager = (MeetingManager) bundleM.getSerializable("MeetingManager");
-//        traderManager = (TraderManager) bundleM.getSerializable("TraderManager");
-//        currentTrader = (String) bundleM.getSerializable("CurrentTrader");
-//        itemManager = (ItemManager) bundleM.getSerializable("ItemManager");
-        trade = (Integer) bundle.getSerializable("Trade");
-        tradeManager = (TradeManager) getUseCase("TradeManager");
-        meetingManager = (MeetingManager) getUseCase("MeetingManager");
-        traderManager = (TraderManager) getUseCase("TraderManager");
-        currentTrader = (String) getUseCase("Username");
-        itemManager = (ItemManager) getUseCase("ItemManager");
 
+        trade = (Integer) Objects.requireNonNull(getIntent().getExtras()).getSerializable("Trade");
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        currentTrader = (String) getUseCase(USERNAMEKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        updateScreen();
+    }
+
+    private void updateScreen(){
         //Trade type text
         String tempTradeType = "Trade Type: " + tradeManager.getTradeType(trade);
         TextView tradeType = findViewById(R.id.tradeType);
@@ -65,7 +73,7 @@ public class EditTradeActivity extends BundleActivity{
         String tempLocation = "Location: " + meetingManager.getMeetingLocation(trade);
         TextView meetingLocation = findViewById(R.id.meetingInformation);
         meetingLocation.setText(tempLocation);
-        //Sets the agree status for the traders
+        //Sets the  status for the traders
         updateCurTraderMeetingStatus();
         updateOtherTraderMeetingStatus();
         //How many times you can edit
@@ -189,24 +197,29 @@ public class EditTradeActivity extends BundleActivity{
             else{
                 intent.putExtra("Online", false);
             }
+            replaceUseCases();
             putBundle(intent);
-            startActivity(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
         }
         else{
             Toast.makeText(EditTradeActivity.this, R.string.cannotEdit, Toast.LENGTH_LONG).show();
         }
 
     }
-    @Override
-    public void onBackPressed() {
 
+    private void replaceUseCases(){
         replaceUseCase(tradeManager);
         replaceUseCase(meetingManager);
         replaceUseCase(traderManager);
         replaceUseCase(itemManager);
-        Intent intent = new Intent(this, BrowseTradesActivity.class);
-        putBundle(intent);
-        startActivity(intent);
+    }
+    @Override
+    public void onBackPressed() {
+        replaceUseCases();
+        super.onBackPressed();
+//        Intent intent = new Intent(this, BrowseTradesActivity.class);
+//        putBundle(intent);
+//        startActivity(intent);
         //super.onBackPressed();
         //returnToTrades();
     }
@@ -318,16 +331,11 @@ public class EditTradeActivity extends BundleActivity{
 
     public void returnToTrades(){
         Intent intent = new Intent(this, BrowseTradesActivity.class);
-        bundle.remove("TradeManager");
-        bundle.remove("MeetingManager");
-        bundle.remove("TraderManager");
-        bundle.remove("ItemManager");
-        bundle.remove("Trade");
-        intent.putExtras(bundle);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("ItemManager", itemManager);
+        replaceUseCase(tradeManager);
+        replaceUseCase(meetingManager);
+        replaceUseCase(traderManager);
+        replaceUseCase(itemManager);
+
         startActivity(intent);
 
     }
@@ -370,6 +378,11 @@ public class EditTradeActivity extends BundleActivity{
             return false;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        updateUseCases();
+    }
 
     private void removeTrade(){
         //Have to update item status's

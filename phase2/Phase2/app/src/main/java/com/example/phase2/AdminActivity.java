@@ -18,10 +18,8 @@ import com.example.phase2.phase2.TraderManager;
 public class AdminActivity extends BundleActivity {
     private AdminActions adminActions;
 
-    private ItemManager itemManager;
-    private TradeManager tradeManager;
     private TraderManager traderManager;
-    private MeetingManager meetingManager;
+
     private String currentAdmin;
 
     private final int CHANGE_LIMIT_REQ = 5;
@@ -31,9 +29,7 @@ public class AdminActivity extends BundleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adminActions = (AdminActions) getUseCase(ADMINKEY);
-        TraderManager traderManager = (TraderManager) getUseCase(TRADERKEY);
-        tradeManager = (TradeManager) getUseCase(TRADEKEY);
-        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
 
         currentAdmin = getUsername();
         setContentView(R.layout.activity_admin);

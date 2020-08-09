@@ -22,6 +22,8 @@ public abstract class BundleActivity extends AppCompatActivity {
     protected final String TRADEKEY = "TradeManager";
     protected final String MEETINGKEY = "MeetingManager";
     protected final String USERNAMEKEY = "Username";
+    protected final int RESULT_SECOND = 2;
+    protected final int RESULT_THIRD = 3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public abstract class BundleActivity extends AppCompatActivity {
         assert data != null;
         bundle = data.getExtras();
     }
+
 
     @Override
     public void onBackPressed() {

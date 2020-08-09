@@ -29,7 +29,7 @@ public class TraderActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager) getUseCase(getString(R.string.TRADERKEY));
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         currentTrader = getUsername();
         setContentView(R.layout.activity_trader);
         TextView textView = findViewById(R.id.textView15);
@@ -45,7 +45,7 @@ public class TraderActivity extends BundleActivity {
     public void browseOnGoingTrades(View view){
         Intent intent = new Intent(this,BrowseTradesActivity.class);
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**
@@ -123,10 +123,8 @@ public class TraderActivity extends BundleActivity {
      * @param view
      */
     public void onLogoutClicked(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        replaceUsername(currentTrader);
-        putBundle(intent);
-        startActivity(intent);
+        super.onBackPressed();
+        finish();
     }
 
     /**
