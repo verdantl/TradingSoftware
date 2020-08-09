@@ -18,9 +18,8 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoConfirmTrade extends AppCompatActivity implements Dialogable {
-    private Bundle bundle;
-    private String username;
+public class UndoConfirmTrade extends BundleActivity implements Dialogable {
+    private String chosenTrader;
     private TraderManager traderManager;
     private MeetingManager meetingManager;
     private Integer chosenTrade;
@@ -29,32 +28,29 @@ public class UndoConfirmTrade extends AppCompatActivity implements Dialogable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        username = bundle.getString("username");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
+        chosenTrader = getIntent().getStringExtra("chosenTrader");
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         viewList();
 
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoMenu.class);
-        bundle.remove("MeetingManager");
-        bundle.remove("TraderManager");
-        bundle.putSerializable("MeetingManager", meetingManager);
-        bundle.putSerializable("TraderManager", traderManager);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(meetingManager);
+        replaceUseCase(traderManager);
+        Intent intent = new Intent();
+        putBundle(intent);
+        setResult(RESULT_FIRST_USER, intent);
+        finish();
     }
 
     private void viewList() {
         List<Integer> incompleteTrades =
-                meetingManager.getOnGoingMeetings(traderManager.getTrades(username));
+                meetingManager.getOnGoingMeetings(traderManager.getTrades(chosenTrader));
         final List<Integer> undoableMeetingConfirmations = new ArrayList<>();
         for (Integer i : incompleteTrades) {
-            if (meetingManager.canUndoConfirm(i, username)) {
+            if (meetingManager.canUndoConfirm(i, chosenTrader)) {
                 undoableMeetingConfirmations.add(i);
             }
         }
@@ -80,7 +76,7 @@ public class UndoConfirmTrade extends AppCompatActivity implements Dialogable {
 
     @Override
     public void clickPositive() {
-        meetingManager.undoConfirm(chosenTrade, username);
+        meetingManager.undoConfirm(chosenTrade, chosenTrader);
         Toast.makeText(this, "Successfully undo confirm", Toast.LENGTH_SHORT).show();
         viewList();
 
