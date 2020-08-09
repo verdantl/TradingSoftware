@@ -26,7 +26,11 @@ public class SignupActivity extends BundleActivity {
         EditText userEditText = findViewById(R.id.newUsername);
         EditText passEditText = findViewById(R.id.newPassword);
         String username = userEditText.getText().toString();
-        if (checkUsername(username)) {
+        if(username.equals("")){
+            Toast.makeText(this, "That is a invalid username",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else if (checkUsername(username)) {
             String password = passEditText.getText().toString();
             int radioID = radioGroup.getCheckedRadioButtonId();
             if (radioID == R.id.newTrader) {

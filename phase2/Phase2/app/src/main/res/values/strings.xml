@@ -166,4 +166,10 @@
     <string name="ITEMKEY">ItemManager</string>
     <string name="MEETINGKEY">MeetingManager</string>
     <string name="USERNAMEKEY">Username</string>
+    <string name="ViewMyUserInfo_title">User Information</string>
+    <string name="ViewMyUserInfo_subTitle">Top Trading Partners:</string>
+    <string name="Edit_Homecity_button">Change HomeCity</string>
+    <string name="changeHomecity_title">Enter your new homecity:</string>
+    <string name="changeHomecity_button">Enter</string>
+    <string name="changeHomecity_input">successfully changed homecity</string>
 </resources>
