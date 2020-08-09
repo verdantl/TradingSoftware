@@ -85,10 +85,6 @@ public class TraderActivity extends BundleActivity {
         startActivity(intent);
     }
 
-    public void automaticTradeSuggestion(View view){
-        //TODO: Implement this method
-    }
-
     /**
      * sends a request to unfreeze the user and gives a responds based on the current state of the user
      * @param view a standard  viable for andoird methods
