@@ -16,7 +16,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
-    public class ViewTradersActivity extends BundleActivity implements ClickableList{
+public class ViewTradersActivity extends BundleActivity implements ClickableList{
     private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
@@ -52,4 +52,4 @@ import java.util.Objects;
         dialog.show();
     }
 
-    }
+}

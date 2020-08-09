@@ -28,7 +28,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemManager = (ItemManager) getUseCase(ITEMKEY);
-        currentTrader = (String) getUsername();
+        currentTrader = getUsername();
         viewList();
     }
 
@@ -38,9 +38,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     @Override
     public void onBackPressed(){
         replaceUseCase(itemManager);
-        Intent intent = new Intent(this, TraderActivity.class);
-        putBundle(intent);
-        startActivityForResult(intent, RESULT_FIRST_USER);
+        super.onBackPressed();
     }
 
     /**
