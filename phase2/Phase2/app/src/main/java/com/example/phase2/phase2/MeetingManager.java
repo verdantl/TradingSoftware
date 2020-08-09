@@ -5,11 +5,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A MeetingManager class that manages meetings
  */
-public class MeetingManager implements Serializable {
+public class MeetingManager extends Manager implements Serializable {
     private final HashMap<Integer, Meeting> meetings;
 
     /**
@@ -54,7 +55,7 @@ public class MeetingManager implements Serializable {
         if(!containMeeting(id)){
             return null;
         }
-        return meetings.get(id).toString();
+        return Objects.requireNonNull(meetings.get(id)).toString();
     }
 
     /**
@@ -532,4 +533,22 @@ public class MeetingManager implements Serializable {
         meetings.get(id).bothDisagree();
     }
 
+    @Override
+    public String getIdentifier() {
+        return "MeetingManager";
+    }
+
+    /**
+     * Returns if the max number of edits to the meeting have been reached.
+     * @param id The id of the trade
+     * @return Whether or not the max number of edits has been reached.
+     */
+    public boolean isMaxEditsReached(int id){
+        for(Integer i: meetings.get(id).getNumberOfEdits().values()){
+            if(i<3){
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -15,37 +15,43 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditWishlistActivity extends AppCompatActivity {
+/**
+ * An activity class responsible for viewing items in a wishlist in the Trading System.
+ */
+public class EditWishlistActivity extends BundleActivity {
     private ItemManager itemManager;
     private TraderManager traderManager;
     private String currentTrader;
     private int chosenItem;
-    private Bundle bundle;
 
+    /**
+     * Sets up the activity
+     * @param savedInstanceState A bundle storing all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        currentTrader = (String) getUseCase(USERNAMEKEY);
         viewList();
     }
 
+    /**
+     * Called when the back button is pressed
+     */
     @Override
     public void onBackPressed(){
+        replaceUseCase(itemManager);
         Intent intent = new Intent(this, TraderActivity.class);
-        bundle.remove("ItemManager");
-        bundle.remove("TraderManager");
-        bundle.remove("CurrentTrader");
-        intent.putExtras(bundle);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("Username", currentTrader);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * This method is called to set up the list, display item names and call the displayRemoveItem
+     * method when an item is selected.
+     */
     public void viewList() {
         final List<Integer> itemIDs = traderManager.getWishlistIds(currentTrader);
         List<String> itemNames = new ArrayList<>();
@@ -66,12 +72,16 @@ public class EditWishlistActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * This method is called when the user clicks on an item. It starts
+     * the RemoveItemWishlistActivity.
+     */
     public void displayRemoveItem(){
         Intent intent = new Intent(this, RemoveItemWishlistActivity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
         intent.putExtra("ChosenItem", chosenItem);
-        intent.putExtra("CurrentTrader", currentTrader);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
         startActivity(intent);
     }
 }

@@ -23,11 +23,10 @@ import java.util.List;
 import static com.example.phase2.phase2.ItemStatus.AVAILABLE;
 import static com.example.phase2.phase2.ItemStatus.REMOVED;
 
-public class ApproveItems extends AppCompatActivity implements ClickableList{
+public class ApproveItems extends AppCompatActivity implements ClickableList, Dialogable{
     private Bundle bundle;
     private ItemManager itemManager;
     private Integer processedItem;
-    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,6 @@ public class ApproveItems extends AppCompatActivity implements ClickableList{
         bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        dialog = new Dialog(this);
         viewList();
     }
 
@@ -59,19 +57,28 @@ public class ApproveItems extends AppCompatActivity implements ClickableList{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayDialog();
+                openDialog();
                 processedItem = itemIds.get(i);
             }
         });
     }
 
-    public void displayDialog(){
-        dialog.setContentView(R.layout.fragment_approve_items);
-        dialog.show();
+    @Override
+    public void clickPositive() {
+        if(itemManager.getItemStatus(processedItem) == REMOVED){
+            Toast.makeText(this,
+                    "fail: the item has been rejected", Toast.LENGTH_SHORT).show();
+        }else{
+            itemManager.removeItem(processedItem);
+            Toast.makeText(this,
+                    "Successfully rejected!", Toast.LENGTH_SHORT).show();
+        }
+        viewList();
+
     }
 
-    public void onApproveClicked(View view) {
-        dialog.hide();
+    @Override
+    public void clickNegative() {
         if(itemManager.getItemStatus(processedItem) == AVAILABLE){
             Toast.makeText(this,
                     "fail: the item has been approved", Toast.LENGTH_SHORT).show();
@@ -81,18 +88,14 @@ public class ApproveItems extends AppCompatActivity implements ClickableList{
                     "Successfully approved!", Toast.LENGTH_SHORT).show();
         }
         viewList();
+
     }
 
-    public void onRejectClicked(View view) {
-        if(itemManager.getItemStatus(processedItem) == REMOVED){
-            Toast.makeText(this,
-                    "fail: the item has been rejected", Toast.LENGTH_SHORT).show();
-        }else{
-            itemManager.removeItem(processedItem);
-            Toast.makeText(this,
-                    "Successfully rejected!", Toast.LENGTH_SHORT).show();
-        }
-        dialog.hide();
-        viewList();
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Approve")
+                .show(getSupportFragmentManager(), "ApproveItem");
+
     }
 }

@@ -16,7 +16,7 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 
-public class AllTradersMenu extends AppCompatActivity implements ClickableList {
+public class AllTradersMenu extends AppCompatActivity implements ClickableList, Dialogable {
     private Bundle bundle;
     private TraderManager traderManager;
     private String frozenTrader;
@@ -41,23 +41,6 @@ public class AllTradersMenu extends AppCompatActivity implements ClickableList {
         startActivity(intent);
     }
 
-    public void onClickFreeze(View view) {
-        if(traderManager.freezeAccount(frozenTrader)){
-            Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
-
-        }else{
-            Toast.makeText(this,
-                    "Fail: the account is already frozen", Toast.LENGTH_SHORT).show();
-        }
-        viewList();
-    }
-
-    public void onClickCancel(View view) {
-        Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
-        viewList();
-    }
-
-
     public void viewList(){
         final ArrayList<String> allTraders = traderManager.getTraders();
         setContentView(R.layout.activity_all_traders_menu);
@@ -68,20 +51,37 @@ public class AllTradersMenu extends AppCompatActivity implements ClickableList {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayDialog();
+                openDialog();
                 frozenTrader = allTraders.get(i);
             }
         });
     }
 
-    public void displayDialog() {
-        FreezeFragment freezeFragment = new FreezeFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.fragment_freeze_container, freezeFragment).commit();
+    @Override
+    public void clickPositive() {
+        if(traderManager.freezeAccount(frozenTrader)){
+            Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
+
+        }else{
+            Toast.makeText(this,
+                    "Fail: the account is already frozen", Toast.LENGTH_SHORT).show();
+        }
+        viewList();
+
     }
 
+    @Override
+    public void clickNegative() {
+        Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+        viewList();
 
+    }
 
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Freeze")
+                .show(getSupportFragmentManager(), "FreezeTrader");
+
+    }
 }

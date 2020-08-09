@@ -33,17 +33,5 @@
         android:layout_height="wrap_content"
         />
 
-    <FrameLayout
-        android:id="@+id/fragment_freeze_container"
-        android:name="com.example.phase2.FreezeFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00FFFFFF"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_freeze" />
-
-
 
 </RelativeLayout>

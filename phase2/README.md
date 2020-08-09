@@ -45,8 +45,10 @@ and SOLID principles against clean architecture structure. We thought the former
 
 2. The abstract BundleActivity class handles the bundle of data that is being passed between 
 activities as well as help take care of back button functionality for all the classes. It also
-has variables for the String keys in the bundle of data. Overall, we felt this was a great class
-to have because it reduced a lot of repeated code throughout the program.
+has variables for the String keys in the bundle of data. We wanted to keep the Bundle that was needed
+in every activity due to using intents private, so we made it private in the BundleActivity class.
+Overall, we felt this was a great class to have because it reduced a lot of repeated code throughout
+the program and also increased encapsulation.
 
 3. We had to put two instances of the String keys for the use cases in BundleActivity and in 
 ConfigGateway. The other option would have been to make the String keys public and static. 

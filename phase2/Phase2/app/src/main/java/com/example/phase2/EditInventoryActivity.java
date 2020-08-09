@@ -1,7 +1,5 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,33 +12,41 @@ import com.example.phase2.phase2.ItemManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditInventoryActivity extends AppCompatActivity {
+/**
+ * An activity class responsible for viewing items in an inventory in the Trading System.
+ */
+public class EditInventoryActivity extends BundleActivity implements ClickableList {
     private ItemManager itemManager;
     private String currentTrader;
     private int chosenItem;
-    private Bundle bundle;
 
+    /**
+     * Sets up the activity
+     * @param savedInstanceState A bundle storing all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        currentTrader = (String) getUsername();
         viewList();
     }
 
+    /**
+     * Called when the back button is pressed
+     */
     @Override
     public void onBackPressed(){
+        replaceUseCase(itemManager);
         Intent intent = new Intent(this, TraderActivity.class);
-        bundle.remove("ItemManager");
-        bundle.remove("CurrentTrader");
-        intent.putExtras(bundle);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("Username", currentTrader);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * This method is called to set up the list, display item names and call the displayRemoveItem
+     * method when an item is selected.
+     */
     public void viewList(){
         final List<Integer> itemIDs = itemManager.getApprovedItemsIDs(currentTrader);
         List<String> itemNames = new ArrayList<>();
@@ -61,18 +67,27 @@ public class EditInventoryActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * This method is called when the user clicks on an item. It starts
+     * the RemoveItemInventoryActivity.
+     */
     public void displayRemoveItem(){
         Intent intent = new Intent(this, RemoveItemInventoryActivity.class);
-        intent.putExtras(bundle);
-        //intent.putExtra("ItemManager", itemManager);
         intent.putExtra("ChosenItem", chosenItem);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
+
+    /**
+     * This method is called when the user clicks on the Add New Item button. It starts
+     * the AddNewItemActivity
+     * @param view A view
+     */
     public void addNewItem(View view){
         Intent intent = new Intent(this, AddNewItemActivity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("CurrentTrader", currentTrader);
-        startActivity(intent);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
 }

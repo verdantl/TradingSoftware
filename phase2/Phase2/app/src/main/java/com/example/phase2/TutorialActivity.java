@@ -20,7 +20,7 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        itemManager = (ItemManager) bundle.getSerializable(getString(R.string.ITEMKEY));
         dialog = new Dialog(this);
         setContentView(R.layout.activity_tutorial);
     }

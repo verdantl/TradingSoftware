@@ -19,7 +19,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoProposeTrade extends AppCompatActivity implements UndoFragment.UndoClick {
+public class UndoProposeTrade extends AppCompatActivity implements Dialogable {
     private Bundle bundle;
     private String username;
     private TradeManager tradeManager;
@@ -76,24 +76,14 @@ public class UndoProposeTrade extends AppCompatActivity implements UndoFragment.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                displayFragment();
+                openDialog();
                 chosenTrade = tempMeetings.get(i);
             }
         });
     }
 
-    private void displayFragment() {
-        UndoFragment undoFragment = new UndoFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.add(R.id.proposedTrade, undoFragment).commit();
-    }
-
-
-
     @Override
-    public void onUndoClick(View view) {
+    public void clickPositive() {
         meetingManager.undoMeetingProposal(chosenTrade);
         tradeManager.undoTradeProposal(chosenTrade);
         traderManager.undoTradeProposal(chosenTrade);
@@ -102,12 +92,19 @@ public class UndoProposeTrade extends AppCompatActivity implements UndoFragment.
 
     }
 
-
     @Override
-    public void onCancelClick(View view) {
+    public void clickNegative() {
         Toast.makeText(this,
                 "Cancelled", Toast.LENGTH_SHORT).show();
         viewList();
+
+    }
+
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Undo")
+                .show(getSupportFragmentManager(), "UndoPropose");
 
     }
 }
