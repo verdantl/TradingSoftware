@@ -25,11 +25,9 @@ public class RequestAdminActivity extends BundleActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        traderManager = (TraderManager) bundle.getSerializable(TRADERKEY);
-        itemManager = (ItemManager) bundle.getSerializable(ITEMKEY);
-        currentTrader = bundle.getString(USERNAMEKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        currentTrader = getUsername();
         setContentView(R.layout.activity_request_admin);
     }
 
@@ -82,6 +80,13 @@ public class RequestAdminActivity extends BundleActivity{
         }
     }
 
-
-
+    /**
+     * Called when the user presses the back button. Updates the use case classes.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        replaceUseCase(traderManager);
+        replaceUseCase(itemManager);
+    }
 }

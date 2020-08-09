@@ -70,24 +70,24 @@ public class TraderActivity extends BundleActivity {
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
-    /**
-     * sends a request to unfreeze the user and gives a responds based on the current state of the user
-     * @param view a standard  viable for andoird methods
-     */
-    public void requestToUnfreeze(View view){
-        if(traderManager.getIsFrozen(currentTrader)) {
-            if(traderManager.getRequestToUnfreeze(currentTrader)){
-                Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_LONG).show();
-            }
-            else{
-                Toast.makeText(this, R.string.Trader_request_to_unfreeze_sent, Toast.LENGTH_LONG).show();
-                traderManager.setRequestToUnfreeze(currentTrader, true);
-            }
-        }
-        else{
-            Toast.makeText(this, R.string.Trader_request_to_unfreeze_not_frozen, Toast.LENGTH_LONG).show();
-        }
-    }
+//    /**
+//     * sends a request to unfreeze the user and gives a responds based on the current state of the user
+//     * @param view a standard  viable for andoird methods
+//     */
+//    public void requestToUnfreeze(View view){
+//        if(traderManager.getIsFrozen(currentTrader)) {
+//            if(traderManager.getRequestToUnfreeze(currentTrader)){
+//                Toast.makeText(this, R.string.Trader_request_to_unfreeze_already_sent, Toast.LENGTH_LONG).show();
+//            }
+//            else{
+//                Toast.makeText(this, R.string.Trader_request_to_unfreeze_sent, Toast.LENGTH_LONG).show();
+//                traderManager.setRequestToUnfreeze(currentTrader, true);
+//            }
+//        }
+//        else{
+//            Toast.makeText(this, R.string.Trader_request_to_unfreeze_not_frozen, Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     public void viewUserInfo(View view){
         Intent intent = new Intent(this, ViewMyUserInfoActivity.class);
@@ -95,20 +95,33 @@ public class TraderActivity extends BundleActivity {
         startActivity(intent);
     }
 
-    //TODO: javadoc
+    /**
+     * This method is called when the user presses the Request Admin button. Starts the Request
+     * AdminActivity
+     * @param view A view
+     */
     public void requestAdmin(View view){
         Intent intent =  new Intent(this, RequestAdminActivity.class);
         putBundle(intent);
-
         startActivityForResult(intent, REQ_ADMIN_REQ);
     }
 
+    /**
+     * This method is called when the user presses the Change Password button. Starts the Change
+     * TraderPassword Activity
+     * @param view
+     */
     public void changeTraderPassword(View view){
         Intent i =  new Intent(this, ChangeTraderPassword.class);
         putBundle(i);
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
+    /**
+     * This method is called when the user clicks the loggout button. It lets the user to loggout
+     * from the system. It also updates the use case classes.
+     * @param view
+     */
     public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         replaceUsername(currentTrader);
@@ -116,6 +129,10 @@ public class TraderActivity extends BundleActivity {
         startActivity(intent);
     }
 
+    /**
+     * This is called when the user presses the back button. It forbids user from going back to
+     * the previous activity and displays a toast that notifies the user that you cannot go back.
+     */
     @Override
     public void onBackPressed() {
         Toast.makeText(this,
