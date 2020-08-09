@@ -12,10 +12,10 @@ import com.example.phase2.phase2.TradeManager;
 
 public class UndoMenu extends BundleActivity{
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override

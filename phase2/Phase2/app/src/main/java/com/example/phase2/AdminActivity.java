@@ -85,7 +85,7 @@ public class AdminActivity extends BundleActivity {
     public void undoMenu(View view){
         Intent i = new Intent(this, UndoActivity.class);
         putBundle(i);
-        startActivity(i);
+        startActivityForResult(i, RESULT_FIRST_USER);
     }
 //
 //    @Override
