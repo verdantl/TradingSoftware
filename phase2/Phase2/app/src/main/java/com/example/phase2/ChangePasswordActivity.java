@@ -11,10 +11,17 @@ import android.widget.Toast;
 
 import com.example.phase2.phase2.AdminActions;
 
+/**
+ * An activity class responsible for chaning admin user's password
+ */
 public class ChangePasswordActivity extends AppCompatActivity {
     private AdminActions adminActions;
     private String currentAdmin;
 
+    /**
+     * Sets up the activty
+     * @param savedInstanceState A bundle that has all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +30,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
     }
 
+    /**
+     * Gets the new password from the EditText and updates the current admin's password.
+     * @param view A view
+     */
     public void submitPassword(View view){
         EditText et = (EditText) findViewById(R.id.enterPassword);
         if(et.getText().toString().equals("")){
@@ -40,6 +51,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the user presses the back button
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
