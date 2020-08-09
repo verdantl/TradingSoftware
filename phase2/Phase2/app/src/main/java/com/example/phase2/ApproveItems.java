@@ -65,20 +65,6 @@ public class ApproveItems extends AppCompatActivity implements ClickableList, Di
 
     @Override
     public void clickPositive() {
-        if(itemManager.getItemStatus(processedItem) == AVAILABLE){
-            Toast.makeText(this,
-                    "fail: the item has been approved", Toast.LENGTH_SHORT).show();
-        }else{
-            itemManager.approveItem(processedItem, true);
-            Toast.makeText(this,
-                    "Successfully approved!", Toast.LENGTH_SHORT).show();
-        }
-        viewList();
-
-    }
-
-    @Override
-    public void clickNegative() {
         if(itemManager.getItemStatus(processedItem) == REMOVED){
             Toast.makeText(this,
                     "fail: the item has been rejected", Toast.LENGTH_SHORT).show();
@@ -89,6 +75,19 @@ public class ApproveItems extends AppCompatActivity implements ClickableList, Di
         }
         viewList();
 
+    }
+
+    @Override
+    public void clickNegative() {
+        if(itemManager.getItemStatus(processedItem) == AVAILABLE){
+            Toast.makeText(this,
+                    "fail: the item has been approved", Toast.LENGTH_SHORT).show();
+        }else{
+            itemManager.approveItem(processedItem, true);
+            Toast.makeText(this,
+                    "Successfully approved!", Toast.LENGTH_SHORT).show();
+        }
+        viewList();
 
     }
 
