@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TraderActivity extends BundleActivity {
-    private TraderManager traderManager;
     private String currentTrader;
 
     private final int REQ_ADMIN_REQ = 7;
@@ -29,7 +28,6 @@ public class TraderActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
         currentTrader = getUsername();
         setContentView(R.layout.activity_trader);
         TextView textView = findViewById(R.id.textView15);
