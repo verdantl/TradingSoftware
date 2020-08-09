@@ -11,21 +11,29 @@ import android.widget.Toast;
 
 import com.example.phase2.phase2.TraderManager;
 
-public class DisplayChangeLimitActivity extends AppCompatActivity {
+/**
+ * This activity class displays the screen that allows admin users to type in new limit.
+ */
+public class DisplayChangeLimitActivity extends BundleActivity {
 
     private TraderManager tm;
+    private int currLimit;
+    private TextView displayLimit;
 
+    /**
+     * Sets up the class
+     * @param savedInstanceState A bundle storing all the necesssary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_change_limit);
-        TextView tv = (TextView) findViewById(R.id.textView7);
-        int currLimit = 0;
+        displayLimit = (TextView) findViewById(R.id.textView7);
         LimitType limitToChange = getLimitToChange();
 
-        tm = (TraderManager) getIntent().getSerializableExtra("TraderManager");
-        assert tm != null;
+        tm = (TraderManager) getUseCase(TRADERKEY);
 
+        //getting the current limit
         switch (limitToChange){
             case WEEKLY_LIMIT:
                 currLimit = tm.getWeeklyLimit();
@@ -37,11 +45,17 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
                 currLimit = tm.getMaxInComplete();
         }
 
-        String displayCurrLimit = getApplicationContext().getResources().getString(R.string.current_limit) + " "+currLimit;
-        tv.setText(displayCurrLimit);
+
+        updateCurrLimit(displayLimit, currLimit);
 
     }
 
+    /**
+     * This method is called when the user clicks the enter. The method gets the new limit
+     * from the EditText and updates it. If the user doesn't type in anything, then it will
+     * notify the user that it is invalid.
+     * @param view
+     */
     public void enterNewLimit(View view){
         EditText editText = (EditText) findViewById(R.id.editNewLimit);
 
@@ -51,6 +65,7 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
         }else {
             int newLimit = Integer.parseInt(editText.getText().toString());
             LimitType limitToChange = getLimitToChange();
+            currLimit = newLimit;
 
             assert tm != null;
             switch (limitToChange) {
@@ -64,22 +79,31 @@ public class DisplayChangeLimitActivity extends AppCompatActivity {
                     tm.setMaxInComplete(newLimit);
 
             }
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("TraderManager", tm);
+
+            editText.setText("");
+            //updates the text view that is displaying the current limit
+            updateCurrLimit(displayLimit, currLimit);
             Toast.makeText(this, R.string.successfully_changed_limit, Toast.LENGTH_SHORT).show();
-            setResult(RESULT_FIRST_USER, resultIntent);
-            finish();
         }
 
     }
 
+    /**
+     * Called when the user presses the back button. Updates the Trader Manager class
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(RESULT_OK);
+        replaceUseCase(tm);
     }
 
     private LimitType getLimitToChange(){
         return (LimitType) getIntent().getSerializableExtra(LimitType.class.getName());
+    }
+
+    private void updateCurrLimit(TextView tv, int currLimit) {
+        this.currLimit = currLimit;
+        String displayLimit = "The current limit is "+ this.currLimit;
+        tv.setText(displayLimit);
     }
 }

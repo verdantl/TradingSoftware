@@ -14,7 +14,7 @@ import com.example.phase2.phase2.AdminActions;
 /**
  * An activity class responsible for chaning admin user's password
  */
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends BundleActivity {
     private AdminActions adminActions;
     private String currentAdmin;
 
@@ -25,8 +25,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adminActions = (AdminActions) getIntent().getSerializableExtra("AdminActions");
-        currentAdmin = getIntent().getStringExtra("Username");
+        adminActions = (AdminActions) getUseCase(ADMINKEY);
+        currentAdmin = getUsername();
         setContentView(R.layout.activity_change_password);
     }
 
@@ -38,17 +38,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
         EditText et = (EditText) findViewById(R.id.enterPassword);
         if(et.getText().toString().equals("")){
             Toast.makeText(this, "Invalid password.", Toast.LENGTH_SHORT).show();
-            et.setText("");
         }else {
             assert adminActions != null;
             adminActions.changePassword(currentAdmin, et.getText().toString());
             Toast.makeText(this, R.string.successfully_changed_password, Toast.LENGTH_SHORT).show();
-
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("AdminActions", adminActions);
-            setResult(RESULT_FIRST_USER, resultIntent);
-            finish();
         }
+        et.setText("");
     }
 
     /**
@@ -57,6 +52,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(RESULT_OK);
+        replaceUseCase(adminActions);
     }
 }
