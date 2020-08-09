@@ -19,9 +19,8 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoProposeTrade extends AppCompatActivity implements Dialogable {
-    private Bundle bundle;
-    private String username;
+public class UndoProposeTrade extends BundleActivity implements Dialogable {
+    private String chosenTrader;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private Integer chosenTrade;
@@ -32,32 +31,28 @@ public class UndoProposeTrade extends AppCompatActivity implements Dialogable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        username = bundle.getString("username");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        chosenTrader = getIntent().getStringExtra("chosenTrader");
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoMenu.class);
-        bundle.remove("TradeManager");
-        bundle.remove("MeetingManager");
-        bundle.remove("TraderManager");
-        bundle.putSerializable("TradeManager", tradeManager);
-        bundle.putSerializable("MeetingManager", meetingManager);
-        bundle.putSerializable("TraderManager", traderManager);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(meetingManager);
+        replaceUseCase(traderManager);
+        replaceUseCase(tradeManager);
+        Intent intent = new Intent();
+        putBundle(intent);
+        setResult(RESULT_FIRST_USER, intent);
+        finish();
     }
 
     public void viewList(){
         final List<Integer> tempMeetings = new ArrayList<>();
-        for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))) {
-            if (tradeManager.getTradeInitiator(i).equals(username)) {
+        for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(chosenTrader))) {
+            if (tradeManager.getTradeInitiator(i).equals(chosenTrader)) {
                 if (meetingManager.meetingCanBeUndone(i)) {
                     tempMeetings.add(i);
                 }

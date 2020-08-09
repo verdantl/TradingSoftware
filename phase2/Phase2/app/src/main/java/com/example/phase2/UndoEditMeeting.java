@@ -21,9 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class UndoEditMeeting extends AppCompatActivity implements Dialogable{
-    private String username;
-    private Bundle bundle;
+public class UndoEditMeeting extends BundleActivity implements Dialogable{
+    private String chosenTrader;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private Integer chosenTrade;
@@ -31,31 +30,27 @@ public class UndoEditMeeting extends AppCompatActivity implements Dialogable{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        username = (String) bundle.getSerializable("username");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        chosenTrader = getIntent().getStringExtra("chosenTrader");
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoMenu.class);
-        bundle.remove("TradeManager");
-        bundle.remove("MeetingManager");
-        bundle.remove("TraderManager");
-        bundle.putSerializable("TradeManager", tradeManager);
-        bundle.putSerializable("MeetingManager", meetingManager);
-        bundle.putSerializable("TraderManager", traderManager);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(meetingManager);
+        replaceUseCase(traderManager);
+        replaceUseCase(tradeManager);
+        Intent intent = new Intent();
+        putBundle(intent);
+        setResult(RESULT_FIRST_USER, intent);
+        finish();
     }
 
     private void viewList() {
         final List<Integer> tempMeetings = new ArrayList<>();
-        for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(username))){
+        for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(chosenTrader))){
             if (meetingManager.meetingCanBeUndone(i)){
                 tempMeetings.add(i);
             }
@@ -66,12 +61,12 @@ public class UndoEditMeeting extends AppCompatActivity implements Dialogable{
 
         for (Integer i : tempMeetings2) {
             HashMap<String, Integer> tempHash = meetingManager.getEdits(i);
-            if (tradeManager.getTradeInitiator(i).equals(username)) {
-                if (tempHash.get(username) <
+            if (tradeManager.getTradeInitiator(i).equals(chosenTrader)) {
+                if (tempHash.get(chosenTrader) <
                         tempHash.get(tradeManager.getTradeReceiver(i))) {
                     tempMeetings.remove(i);
                 } else {
-                    if (Objects.equals(tempHash.get(username),
+                    if (Objects.equals(tempHash.get(chosenTrader),
                             tempHash.get(tradeManager.getTradeReceiver(i)))) {
                         tempMeetings.remove(i);
                     }
@@ -102,7 +97,7 @@ public class UndoEditMeeting extends AppCompatActivity implements Dialogable{
 
     @Override
     public void clickPositive() {
-        meetingManager.undoEdit(chosenTrade, username);
+        meetingManager.undoEdit(chosenTrade, chosenTrader);
         Toast.makeText(this, "Successfully undo edit", Toast.LENGTH_SHORT).show();
         viewList();
 

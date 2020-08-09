@@ -18,34 +18,31 @@ import com.example.phase2.phase2.ItemManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoRemoveItem extends AppCompatActivity implements Dialogable {
-    private Bundle bundle;
+public class UndoRemoveItem extends BundleActivity implements Dialogable {
     private ItemManager itemManager;
-    private String username;
+    private String chosenTrader;
     private Integer chosenItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        username = bundle.getString("username");
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        chosenTrader = getIntent().getStringExtra("chosenTrader");
+        itemManager = (ItemManager) getUseCase(MEETINGKEY);
         viewList();
         
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, UndoMenu.class);
-        bundle.remove("ItemManager");
-        bundle.putSerializable("ItemManager", itemManager);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(itemManager);
+        Intent intent = new Intent();
+        putBundle(intent);
+        setResult(RESULT_FIRST_USER, intent);
+        finish();
     }
 
     private void viewList() {
-        final List<Integer> removedItems = itemManager.getRemovedItemIds(username);
+        final List<Integer> removedItems = itemManager.getRemovedItemIds(chosenTrader);
         ArrayList<String> removePresenter = new ArrayList<>();
         setContentView(R.layout.activity_undo_remove_item);
         ListView listView = findViewById(R.id.removedItem);
