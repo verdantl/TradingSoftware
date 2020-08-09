@@ -12,7 +12,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ViewTradersActivity extends BundleActivity implements ClickableList, Dialogable{
+public class ViewTradersActivity extends BundleActivity implements ClickableList{
     private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
