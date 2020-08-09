@@ -14,6 +14,7 @@ import java.io.Serializable;
 
 
 public abstract class BundleActivity extends AppCompatActivity {
+
     private Bundle bundle;
     protected final String ADMINKEY = "AdminActions";
     protected final String ITEMKEY = "ItemManager";

@@ -31,9 +31,8 @@ public class AdminActivity extends BundleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adminActions = (AdminActions) getUseCase(ADMINKEY);
-        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        TraderManager traderManager = (TraderManager) getUseCase(TRADERKEY);
         tradeManager = (TradeManager) getUseCase(TRADEKEY);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
 
         currentAdmin = getUsername();
@@ -47,6 +46,7 @@ public class AdminActivity extends BundleActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         putBundle(intent);
         startActivity(intent);
+        finish();
     }
 
     public void addRemoveAdmin(View view){
@@ -68,8 +68,9 @@ public class AdminActivity extends BundleActivity {
     }
 
     public void viewStatus(View view){
+        TraderManager traderManager = (TraderManager) getUseCase(TRADERKEY);
         Intent intent = new Intent(this, ViewTradersActivity.class);
-        intent.putExtra("TraderManager", traderManager);
+        intent.putExtra(TRADERKEY, traderManager);
         startActivity(intent);
     }
 

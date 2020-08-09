@@ -159,4 +159,11 @@
     <string name="addItem">Add Item</string>
     <string name="undo">UNDO</string>
     <string name="yourInventory">Your Inventory</string>
+    <string name="cancel">cancel</string>
+    <string name="ADMINKEY">AdminActions</string>
+    <string name="TRADERKEY">TraderManager</string>
+    <string name="TRADEKEY">TradeManager</string>
+    <string name="ITEMKEY">ItemManager</string>
+    <string name="MEETINGKEY">MeetingManager</string>
+    <string name="USERNAMEKEY">Username</string>
 </resources>

@@ -6,18 +6,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.phase2.phase2.AdminActions;
-import com.example.phase2.phase2.ConfigGateway;
 import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
 public class LoginActivity extends BundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
     private ItemManager itemManager;
-    private MeetingManager meetingManager;
-    private TradeManager tradeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
