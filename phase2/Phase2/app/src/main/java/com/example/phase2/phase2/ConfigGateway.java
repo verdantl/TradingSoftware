@@ -111,6 +111,7 @@ public class ConfigGateway {
         traderManager.addTrader(new Trader("Trader1", "Password"));
         traderManager.addTrader(new Trader("Trader2", "Password2"));
         Trader traderFlagged = new Trader("Arjun", "Password3");
+        traderFlagged.setHomeCity("Toronto");
         traderFlagged.setFlagged(true);
         traderManager.addTrader(traderFlagged);
         Trader traderUnfreeze = new Trader("Jeffrey", "Password4");
