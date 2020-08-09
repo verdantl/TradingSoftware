@@ -66,14 +66,16 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
 
     @Override
     public void clickPositive() {
-        approved = true;
+        approved = false;
         approveReject();
+
     }
 
     @Override
     public void clickNegative() {
-        approved = false;
+        approved = true;
         approveReject();
+
     }
 
     @Override
