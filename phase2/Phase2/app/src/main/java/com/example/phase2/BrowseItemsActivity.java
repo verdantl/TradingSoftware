@@ -43,12 +43,16 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
     public void viewList(){
         List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
+        List<Integer> removeList = new ArrayList<>();
         if (useLocation){
             String location = traderManager.getHomeCity(currentTrader);
             for (Integer i: tempItemList){
                 if(!traderManager.getHomeCity(itemManager.getOwner(i)).equals(location)){
-                    tempItemList.remove(i);
+                    removeList.add(i);
                 }
+            }
+            for (Integer i: removeList){
+                tempItemList.remove(i);
             }
         }
         final List<Integer> itemList = tempItemList;

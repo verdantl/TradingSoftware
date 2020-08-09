@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
@@ -35,7 +36,25 @@ public class ItemOptionsActivity extends AppCompatActivity {
         viewStart();
     }
 
-    public void viewStart() { setContentView(R.layout.activity_item_options); }
+    public void viewStart() {
+        setContentView(R.layout.activity_item_options);
+
+        String tempItemName = itemManager.getItemName(chosenItem);
+        TextView itemName=findViewById(R.id.itemName);
+        itemName.setText(tempItemName);
+
+        String tempItemDescription = itemManager.getItemDescription(chosenItem);
+        TextView itemDescription = findViewById(R.id.descriptionText);
+        itemDescription.setText(tempItemDescription);
+
+        String tempItemRating = "Item Quality Rating: " + itemManager.getItemQuality(chosenItem);
+        TextView itemRating = findViewById(R.id.itemRating);
+        itemRating.setText(tempItemRating);
+
+        String tempOwner = "Owned by: " + itemManager.getItemOwner(chosenItem);
+        TextView itemOwner = findViewById(R.id.ownedBy);
+        itemOwner.setText(tempOwner);
+    }
 
     public void addToWishList(View view) {
         if(!traderManager.getWishlistIds(currentTrader).contains(chosenItem)) {
