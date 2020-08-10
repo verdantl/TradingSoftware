@@ -1,6 +1,5 @@
 package com.example.phase2;
 
-import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectItemActivity extends BundleActivity implements RecommendedItemDialog.RecommendedItemListener, ClickableList{
+public class SelectItemActivity extends BundleActivity implements Dialogable, ClickableList{
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -23,7 +22,11 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
     private boolean oneWay;
     private boolean temporary;
     private boolean online;
-
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,20 +39,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         oneWay = bundle.getBoolean("OneWay");
         temporary = bundle.getBoolean("Temporary");
         online = bundle.getBoolean("Online");
-        displayRecommendedItemFragment();
-    }
-
-    private void displayRecommendedItemFragment() {
-        RecommendedItemDialog recItemFrag = new RecommendedItemDialog();
-        recItemFrag.show(getSupportFragmentManager(), "recItemFrag");
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        myItem = bestItem();
-        Toast.makeText(this, "We chose the item " + itemManager.getItemName(myItem) +
-                " with ID " + myItem.toString(), Toast.LENGTH_SHORT).show();
-        continuing();
+        openDialog();
     }
 
     /**
@@ -83,11 +73,9 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         return currentItem;
     }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        viewList();
-    }
-
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final List<Integer> itemIDs = itemManager.getApprovedItemsIDs(currentTrader);
         List<String> itemNames = new ArrayList<>();
@@ -103,7 +91,6 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 myItem = itemIDs.get(i);
-                Toast.makeText(SelectItemActivity.this, currentTrader, Toast.LENGTH_SHORT).show();
                 continuing();
             }
         });
@@ -120,8 +107,42 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    /**
+     * Listener for positive button, show the item we recommend
+     */
+    @Override
+    public void clickPositive() {
+        myItem = bestItem();
+        Toast.makeText(this, "We chose the item " + itemManager.getItemName(myItem) +
+                " with ID " + myItem.toString(), Toast.LENGTH_LONG).show();
+        continuing();
+    }
+
+
+    /**
+     * Listener for negative button, goes to the list that allows user chooses himself
+     */
+    @Override
+    public void clickNegative() {
+        viewList();
+    }
+
+    /**
+     * open the dialog
+     */
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Recommend")
+                .show(getSupportFragmentManager(), "Recommend");
+
     }
 }

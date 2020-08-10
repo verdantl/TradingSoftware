@@ -1,7 +1,7 @@
 #Key Design Decisions
 
 ##Controllers/Presenters
- The decision to keep Controllers and Presenters together the same class was not an light one. 
+ The decision to keep Controllers and Presenters together the same class was not a light one.
 However, due to our decision of using Android Studio, we realized that separating them would lead 
 to the opposite of good code design. Separating the controller and presenter is done with the 
 intention of separating responsibility and making sure the code is more extensible.
@@ -62,3 +62,43 @@ and SOLID principles against clean architecture structure. We thought the former
  updated after exiting from the previous activity. For this we used an abstract class UpdatableBundleActivity
  which extends the BundleActivity abstract class and reduced the repeated code needed to override
  the onActivityResult method in all of these classes.
+
+
+##Undo Actions
+Undo propose a Trade - We thought this was a unreasonable thing to allow Traders to undo because they should really only be able to undo
+                       a trade proposal before both users have agreed to a meeting to prevent abuse of the meeting system.
+                       In that case we have provided the option to decline a trade for both users so there is no reason to undo.
+
+Undo Decline a trade - We thought this was unreasonable as well because after a trade is declined there is no guarantee that either trader will still
+                       be in possession of their items, so a declination should not be able to be undone. If the item is available, they can propose again.
+
+Undo edit a trade    - This is a reasonable thing to do and we allow a trader to undo an edit as long as both traders have not agreed to a meeting
+                       (this is to prevent abuse of the meeting system)
+
+Undo agreeing on trade- We only undo a trade agreement if the other user has not agreed to the trade yet. This is so a user doesn't agree and then
+                        undo an agreement after being unable to show up to the meeting, which would flag them.
+
+Undo adding/removing item from wishlist- Unreasonable to undo this as the user can edit the wishlist however they want. No need for an admin to edit it for them.
+
+Undo proposing Items to be added to wantToLend list - Unreasonable as 1. The admin can just reject the item, and 2. If the item is approved the user can just
+                                                        remove it from their wantToLend list.
+
+Undo removing Items from wantToLend list - This is a reasonable thing to undo so we have added that functionality.
+                                           Note that we don’t let inactive or frozen users undo a removed item as a
+                                           frozen user is frozen and will not be trading with their restored item,
+                                            and an inactive user would also not be trading with the restored item. So a
+                                            trader must be unfrozen or made active so they can undo this change.
+
+Undo requesting to unfreeze- Unreasonable as it doesn’t make sense for an admin to undo this as they can just reject users,
+                             also doesn’t make sense for the user to undo their request as the assumption is users
+                             would want to continue using the system. No harm is done in being unfrozen.
+
+Undo activating/deactivating an account- Unreasonable as they can do those options whenever they want to.
+
+Undo changing password - Unreasonable as an administrator should not edit a user’s security directly with just an "email". If needed the user
+                         can change their password after logging in.
+
+Undo confirming a trade - This is a reasonable thing to allow users to undo so we have implemented that functionality.
+                          However this is not possible to do once both users confirm as the trade is completed and no further
+                          edits should be made, as edits past this date can be used to abuse the system (making a trade incomplete
+                          and thus potentially flagging a user).

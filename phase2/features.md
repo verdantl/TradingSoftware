@@ -6,4 +6,5 @@
 3. Home City feature
 4. Having "Online Trades"
 5. Change Password
+6. Ability to view the traders in the system with their information
 
