@@ -43,6 +43,10 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable, Clicka
         super.onBackPressed();
     }
 
+    /**
+     * This is a method that displays list of items that the chosenTrader has removed. When the user
+     * clicks on an item, the user can add the item back into the system.
+     */
     public void viewList() {
         final List<Integer> removedItems = itemManager.getRemovedItemIds(chosenTrader);
         ArrayList<String> removePresenter = new ArrayList<>();
