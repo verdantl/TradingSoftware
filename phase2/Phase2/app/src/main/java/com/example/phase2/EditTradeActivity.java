@@ -19,7 +19,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class EditTradeActivity extends BundleActivity implements Dialogable{
+public class EditTradeActivity extends UpdatableBundleActivity implements Dialogable{
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private TraderManager traderManager;
@@ -321,12 +321,6 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
                 return true;
             }
             return false;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        updateUseCases();
     }
 
     private void removeTrade(){
