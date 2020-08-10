@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * An activity class responsible for viewing items in a wishlist in the Trading System.
  */
-public class EditWishlistActivity extends BundleActivity {
+public class EditWishlistActivity extends BundleActivity implements ClickableList {
     private ItemManager itemManager;
     private TraderManager traderManager;
     private String currentTrader;

@@ -1,17 +1,13 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.Objects;
@@ -20,8 +16,6 @@ public class ItemOptionsActivity extends BundleActivity {
 
     private ItemManager itemManager;
     private TraderManager traderManager;
-    private TradeManager tradeManager;
-    private MeetingManager meetingManager;
     private String currentTrader;
     private Integer chosenItem;
 
@@ -31,8 +25,6 @@ public class ItemOptionsActivity extends BundleActivity {
         chosenItem = Objects.requireNonNull(getIntent().getExtras()).getInt("ChosenItem");
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
-        tradeManager = (TradeManager) getUseCase(TRADEKEY);
-        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         currentTrader = getUsername();
         viewStart();
     }
@@ -84,5 +76,11 @@ public class ItemOptionsActivity extends BundleActivity {
         intent.putExtra("ChosenItem", chosenItem);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
+    }
+
+    @Override
+    public void onBackPressed() {
+        replaceUseCase(traderManager);
+        super.onBackPressed();
     }
 }
