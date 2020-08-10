@@ -45,7 +45,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     }
 
     /**
-     * This method is called to set up the list, display item names and call the displayRemoveItem
+     * Called to set up the list, display item names and call the displayRemoveItem
      * method when an item is selected.
      */
     public void viewList(){
@@ -70,7 +70,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     }
 
     /**
-     * This method is call to remove item from system and displays it is successfully.
+     * Called to remove item from system and displays it is successfully.
      */
     public void removeItem(){
         itemManager.removeItem(chosenItem);
@@ -80,7 +80,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     }
 
     /**
-     * This method is called when the user clicks on an item. It creates a new dialog showing the
+     * Called when the user clicks on an item. It creates a new dialog showing the
      * item information and options to remove the item or cancel.
      */
     public void displayRemoveItem(){
@@ -101,7 +101,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     }
 
     /**
-     * This method is called when the user clicks on the Add New Item button. It starts
+     * Called when the user clicks on the Add New Item button. It starts
      * the AddNewItemActivity
      * @param view A view
      */

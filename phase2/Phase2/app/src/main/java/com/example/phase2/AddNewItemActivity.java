@@ -38,7 +38,7 @@ public class AddNewItemActivity extends BundleActivity{
     }
 
     /**
-     * This method is called when the user clicks on the Add Item button. It adds the item to list
+     * Called when the user clicks on the Add Item button. It adds the item to list
      * of items needing approval and prompts the user to check back later or fill out all
      * sections if they haven't.
      * @param view A view

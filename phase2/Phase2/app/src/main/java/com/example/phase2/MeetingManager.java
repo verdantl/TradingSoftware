@@ -387,9 +387,10 @@ public class MeetingManager extends Manager implements Serializable {
      */
     public void undoConfirm(int id, String user) {
         Meeting temp = meetings.get(id);
-        HashMap tempMap = temp.getIsConfirmed();
-        tempMap.replace(user, false);
-        temp.setIsConfirmed(tempMap);
+        meetings.get(id).setConfirm(user,false);
+//        HashMap tempMap = temp.getIsConfirmed();
+//        tempMap.replace(user, false);
+//        temp.setIsConfirmed(tempMap);
     }
 
     /**
@@ -487,19 +488,19 @@ public class MeetingManager extends Manager implements Serializable {
     }
 
     /**
-     * Returns whether the user has agreed to the meeting with the given id
+     * Returns whether the user has agreed confirmed the meeting with the given id
      * @param id The id of the meeting
      * @param username The username of the user
-     * @return true iff they have agreed.
+     * @return true iff they have confirmed.
      */
     public boolean hasConfirmed(int id, String username){
         return meetings.get(id).hasConfirmed(username);
     }
 
     /**
-     * Returns whether the user has confirmed the meeting with the given id.
+     * Returns whether both users have confirmed the meeting with the given id.
      * @param id The id of the meeting.
-     * @return true iff they have both agreed.
+     * @return true iff they have both confirmed.
      */
     public boolean bothConfirmed(int id){
         if(meetings.get(id).getIsConfirmed().values().size()==2){

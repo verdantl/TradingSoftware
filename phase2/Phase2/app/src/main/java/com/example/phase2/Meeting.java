@@ -207,7 +207,7 @@ public class Meeting implements Serializable {
      * @param trader the trader who wants to confirm this trade
      * @param confirm the boolean showing whether or not the trader confirm this trade
      */
-    public void setConfirm(String trader, Boolean confirm) {
+    public void setConfirm(String trader, boolean confirm) {
         if(isConfirmed.containsKey(trader)){
             isConfirmed.replace(trader, confirm);
         }else{
