@@ -16,6 +16,7 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class EditTradeActivity extends BundleActivity implements Dialogable{
@@ -205,46 +206,57 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
 
     }
     public void onConfirmMeetingClicked(View view){
-        //TODO update so only able to confirm if date is appropriate
-        meetingManager.confirmMeeting(trade, currentTrader);
-        Button button = findViewById(R.id.confirmButton);
-        button.setVisibility(View.GONE);
-        updateCurTraderMeetingStatus();
-        updateOtherTraderMeetingStatus();
-        if(meetingManager.bothConfirmed(trade)){
-            if(!tradeManager.isTradePermanent(trade)){
-                if(meetingManager.getReturnLocation(trade).equals("N/A")){
-                    meetingManager.setReturnInfo(trade);
-                    String tempDate = "Date: " + meetingManager.getReturnDate(trade);
-                    TextView meetingDate = findViewById(R.id.meetingDate);
-                    meetingDate.setText(tempDate);
-                    updateWishlistAndBorrowed();
-                    Toast.makeText(this, R.string.return_meeting_popup, Toast.LENGTH_LONG).show();
-                    button.setVisibility(View.VISIBLE);
-                    updateCurTraderMeetingStatus();
-                    updateOtherTraderMeetingStatus();
+        //Date for checking confirm time is set
+//        if(meetingManager.getReturnLocation(trade).equals("N/A")){
+//            if(!meetingManager.dateIsAfterMeeting(trade, LocalDate.now())){
+//                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//        }else{
+//            if(!meetingManager.dateIsAfterReturnMeeting(trade, LocalDate.now())){
+//                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//        }
+            meetingManager.confirmMeeting(trade, currentTrader);
+            Button button = findViewById(R.id.confirmButton);
+            button.setVisibility(View.GONE);
+            updateCurTraderMeetingStatus();
+            updateOtherTraderMeetingStatus();
+            if(meetingManager.bothConfirmed(trade)){
+                if(!tradeManager.isTradePermanent(trade)){
+                    if(meetingManager.getReturnLocation(trade).equals("N/A")){
+                        meetingManager.setReturnInfo(trade);
+                        String tempDate = "Date: " + meetingManager.getReturnDate(trade);
+                        TextView meetingDate = findViewById(R.id.meetingDate);
+                        meetingDate.setText(tempDate);
+                        updateWishlistAndBorrowed();
+                        Toast.makeText(this, R.string.return_meeting_popup, Toast.LENGTH_LONG).show();
+                        button.setVisibility(View.VISIBLE);
+                        updateCurTraderMeetingStatus();
+                        updateOtherTraderMeetingStatus();
+                    }
+                    else{
+                        for(Integer i: tradeManager.getItems(trade)){
+                            if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
+                                itemManager.changeStatusToFrozen(i);
+                            }
+                            else if(traderManager.isInactive(itemManager.getItemOwner(i))){
+                                itemManager.changeStatusToInactiveAva(i);
+                            }
+                            else{
+                                itemManager.changeStatusToAvailable(i);
+                            }
+                        }
+                        completeTrade();
+                    }
                 }
                 else{
-                    for(Integer i: tradeManager.getItems(trade)){
-                        if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
-                            itemManager.changeStatusToFrozen(i);
-                        }
-                        else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                            itemManager.changeStatusToInactiveAva(i);
-                        }
-                        else{
-                            itemManager.changeStatusToAvailable(i);
-                        }
-                    }
+                    updateItemOwnerAndStatus();
                     completeTrade();
                 }
             }
-            else{
-                updateItemOwnerAndStatus();
-                completeTrade();
-            }
 
-        }
     }
 
     private void completeTrade(){

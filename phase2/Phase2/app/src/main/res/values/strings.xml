@@ -173,6 +173,7 @@
     <string name="changeHomecity_button">Enter</string>
     <string name="changeHomecity_input" />
     <string name="notApplicable">N/A</string>
+    <string name="cannotConfirm">Cannot confirm until meeting date has passed.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
