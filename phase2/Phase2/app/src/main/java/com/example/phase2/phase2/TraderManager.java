@@ -309,7 +309,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param createDate the date that the user requests to create the trade
      * @return whether or not the user exceed weekly trade limit
      */
-    //TODO: unused methods
     public boolean exceedWeeklyLimit(String user, LocalDate createDate){
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int weekNumber = createDate.get(weekFields.weekOfWeekBasedYear());
