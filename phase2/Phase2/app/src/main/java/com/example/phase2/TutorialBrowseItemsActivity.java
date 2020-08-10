@@ -2,7 +2,9 @@ package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,29 +16,40 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TutorialBrowseItemsActivity extends AppCompatActivity {
+/**
+ * An activity class responsible for display items for a guest in the tutorial in
+ * the Trading System.
+ */
+public class TutorialBrowseItemsActivity extends BundleActivity implements ClickableList {
     private ItemManager itemManager;
     private String itemInfo;
-    private Dialog dialog;
 
+    /**
+     * Sets up the activity
+     * @param savedInstanceState A bundle storing all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        dialog = new Dialog(this);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         setContentView(R.layout.activity_tutorial_browse_items);
         viewList();
     }
 
+    /**
+     * Called when the back button is pressed
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(this, TutorialActivity.class);
-        intent.putExtra("ItemManager", itemManager);
+        putBundle(intent);
         startActivity(intent);
     }
 
+    /**
+     * Called to set up the list, display item names and call the displayDialog
+     * method when an item is selected.
+     */
     public void viewList(){
         final List<Integer> itemIDs = itemManager.getAllApprovedItemsIDs("");
         List<String> itemNames = new ArrayList<>();
@@ -57,10 +70,13 @@ public class TutorialBrowseItemsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Called to display information of a selected item using a dialog.
+     */
     public void displayDialog(){
-        dialog.setContentView(R.layout.fragment_info);
-        TextView close = dialog.findViewById(R.id.trader_info);
-        close.setText(itemInfo);
-        dialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Item Information")
+                .setMessage(itemInfo);
+        builder.show();
     }
 }

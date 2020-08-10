@@ -1,17 +1,19 @@
 package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.HashMap;
+
 /**
  * An activity class responsible for providing a tutorial for a trader the Trading System.
  */
-public class TutorialActivity extends AppCompatActivity {
-    private ItemManager itemManager;
+public class TutorialActivity extends BundleActivity {
 
     /**
      * Sets up the activity
@@ -20,9 +22,6 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable(getString(R.string.ITEMKEY));
         setContentView(R.layout.activity_tutorial);
     }
 
@@ -34,13 +33,22 @@ public class TutorialActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-    
+
+    /**
+     * Called when browse items button is pressed. It starts TutorialBrowseItemsActivity.
+     * @param view A view
+     */
     public void onBrowseItems(View view){
         Intent intent = new Intent(this, TutorialBrowseItemsActivity.class);
-        intent.putExtra("ItemManager",itemManager);
+        putBundle(intent);
         startActivity(intent);
     }
 
+    /**
+     * Called when browse trades button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onBrowseTrades(View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to view or modify your trade  \n ")
@@ -52,6 +60,11 @@ public class TutorialActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Called when edit inventory button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onEditInventory(View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to edit your inventory  \n ")
@@ -65,6 +78,11 @@ public class TutorialActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Called when edit wish list button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onEditWishList(View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to edit your wishList   \n")
@@ -77,7 +95,11 @@ public class TutorialActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Called when view my user info button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onViewInfo(View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to view your information \n")
@@ -89,6 +111,11 @@ public class TutorialActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Called when request admin button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onRequestUnfreeze(View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to request to unfreeze your account \n")
@@ -99,6 +126,11 @@ public class TutorialActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Called when change password button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onChangePassword(View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to change your password");
@@ -108,6 +140,11 @@ public class TutorialActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Called when change home city button is pressed. It uses a dialog to explain what a trader
+     * could do using an account.
+     * @param view A view
+     */
     public void onChangeHomeCity (View view){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You need an account to change your home city");

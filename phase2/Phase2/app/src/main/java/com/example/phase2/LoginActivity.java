@@ -64,12 +64,12 @@ public class LoginActivity extends UpdatableBundleActivity {
     }
 
     /**
-     * Called when the Tutorial button is clicked
+     * Called when the Tutorial button is clicked. It starts TutorialActivity.
      * @param view The View object clicked
      */
     public void onTutorialClicked(View view){
         Intent intent = new Intent(this, TutorialActivity.class);
-        intent.putExtra(ITEMKEY, itemManager);
+        putBundle(intent);
         startActivity(intent);
     }
 
