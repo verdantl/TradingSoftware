@@ -95,6 +95,7 @@ public class EditMeetingActivity extends BundleActivity {
                     }
                     else{
                         editMeeting();
+                        meetingManager.editLocation(trade, meetingManager.getMeetingLocation(trade));
                         onSubmitClick();
                     }
                 }
