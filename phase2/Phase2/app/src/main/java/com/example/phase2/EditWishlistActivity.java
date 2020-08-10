@@ -47,7 +47,7 @@ public class EditWishlistActivity extends BundleActivity implements ClickableLis
     }
 
     /**
-     * This method is called to set up the list, display item names and call the displayRemoveItem
+     * Called to set up the list, display item names and call the displayRemoveItem
      * method when an item is selected.
      */
     public void viewList() {
@@ -72,7 +72,7 @@ public class EditWishlistActivity extends BundleActivity implements ClickableLis
     }
 
     /**
-     * This method is call to remove item from the trader's wish list and displays
+     * Called to remove item from the trader's wish list and displays
      * it is successfully.
      */
     public void removeItem(){
@@ -83,7 +83,7 @@ public class EditWishlistActivity extends BundleActivity implements ClickableLis
     }
 
     /**
-     * This method is called when the user clicks on an item. It creates a new dialog showing the
+     * Called when the user clicks on an item. It creates a new dialog showing the
      * item information and options to remove the item or cancel.
      */
     public void displayRemoveItem(){

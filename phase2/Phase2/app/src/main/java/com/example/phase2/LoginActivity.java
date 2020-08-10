@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
+
 public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
@@ -64,12 +66,12 @@ public class LoginActivity extends UpdatableBundleActivity {
     }
 
     /**
-     * Called when the Tutorial button is clicked
+     * Called when the Tutorial button is clicked. It starts TutorialActivity.
      * @param view The View object clicked
      */
     public void onTutorialClicked(View view){
         Intent intent = new Intent(this, TutorialActivity.class);
-        intent.putExtra(ITEMKEY, itemManager);
+        putBundle(intent);
         startActivity(intent);
     }
 
@@ -92,6 +94,10 @@ public class LoginActivity extends UpdatableBundleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        saveBundle();
+//        try {
+//            saveBundle();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

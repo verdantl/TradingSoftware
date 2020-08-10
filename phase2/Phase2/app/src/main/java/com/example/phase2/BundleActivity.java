@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -123,7 +124,7 @@ public abstract class BundleActivity extends AppCompatActivity {
         return bundle;
     }
 
-    protected void saveBundle(){
+    protected void saveBundle() throws IOException {
         ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
         configGateway.saveBundle(bundle);
     }
