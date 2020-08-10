@@ -1,6 +1,5 @@
 package com.example.phase2;
 
-import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectItemActivity extends BundleActivity implements RecommendedItemDialog.RecommendedItemListener, ClickableList{
+public class SelectItemActivity extends BundleActivity implements Dialogable, ClickableList{
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -40,20 +39,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         oneWay = bundle.getBoolean("OneWay");
         temporary = bundle.getBoolean("Temporary");
         online = bundle.getBoolean("Online");
-        displayRecommendedItemFragment();
-    }
-
-    private void displayRecommendedItemFragment() {
-        RecommendedItemDialog recItemFrag = new RecommendedItemDialog();
-        recItemFrag.show(getSupportFragmentManager(), "recItemFrag");
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        myItem = bestItem();
-        Toast.makeText(this, "We chose the item " + itemManager.getItemName(myItem) +
-                " with ID " + myItem.toString(), Toast.LENGTH_SHORT).show();
-        continuing();
+        openDialog();
     }
 
     /**
@@ -87,10 +73,6 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         return currentItem;
     }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        viewList();
-    }
     /**
      * Updates the ListView object in the XML file
      */
@@ -132,5 +114,26 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void clickPositive() {
+        myItem = bestItem();
+        Toast.makeText(this, "We chose the item " + itemManager.getItemName(myItem) +
+                " with ID " + myItem.toString(), Toast.LENGTH_SHORT).show();
+        continuing();
+    }
+
+    @Override
+    public void clickNegative() {
+        viewList();
+    }
+
+    @Override
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("Recommend")
+                .show(getSupportFragmentManager(), "Recommend");
+
     }
 }
