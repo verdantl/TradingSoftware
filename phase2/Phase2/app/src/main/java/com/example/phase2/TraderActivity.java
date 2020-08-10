@@ -25,6 +25,10 @@ public class TraderActivity extends BundleActivity {
     private final int REQ_ADMIN_REQ = 7;
     private final int CHANGE_PASSWORD_REQ = 8;
 
+    /**
+     * create this activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +38,22 @@ public class TraderActivity extends BundleActivity {
         textView.setText(currentTrader);
     }
 
+    /**
+     * This method is called when the user clicks on the Browse Available Items button. It starts
+     * the BrowseItemsActivity.
+     * @param view A view
+     */
     public void browseAvailableItems(View view){
         Intent intent = new Intent(this, BrowseItemsActivity.class);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * This method is called when the user clicks on the Browse My On-Going Trades button. It starts
+     * the BrowseTradesActivity.
+     * @param view A view
+     */
     public void browseOnGoingTrades(View view){
         Intent intent = new Intent(this,BrowseTradesActivity.class);
         putBundle(intent);
@@ -112,7 +126,7 @@ public class TraderActivity extends BundleActivity {
     /**
      * This method is called when the user presses the Change Password button. Starts the Change
      * TraderPassword Activity
-     * @param view
+     * @param view A view
      */
     public void changeTraderPassword(View view){
         Intent i =  new Intent(this, ChangeTraderPassword.class);
@@ -132,9 +146,9 @@ public class TraderActivity extends BundleActivity {
     }
 
     /**
-     * This method is called when the user clicks the loggout button. It lets the user to loggout
+     * This method is called when the user clicks the logout button. It lets the user to logout
      * from the system. It also updates the use case classes.
-     * @param view
+     * @param view A view
      */
     public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -144,6 +158,14 @@ public class TraderActivity extends BundleActivity {
     }
 
 
+    /**
+     * Called when this activity exits, sending data back to its caller.
+     * @param requestCode The integer request code originally supplied to startActivityForResult(),
+     *                    allowing you to identify who this result came from.
+     * @param resultCode  The integer result code returned by the child activity through its
+     *                    setResult().
+     * @param data        An Intent, which can return result data to the caller (various data can be
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

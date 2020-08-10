@@ -39,7 +39,7 @@ public class ChangeTraderPassword extends BundleActivity {
         String newPassword = editText.getText().toString();
 
         if(newPassword.equals("")){
-            Toast.makeText(this, "Invalid password.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.invalid_password, Toast.LENGTH_SHORT).show();
         }else {
             tm.changePassword(username, newPassword);
             Toast.makeText(this, R.string.successfully_changed_password, Toast.LENGTH_SHORT).show();
