@@ -51,15 +51,6 @@ public class UndoMenu extends BundleActivity {
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
-    /**goes to the undoProposeTrade menu
-     * @param view the button is clicked
-     */
-    public void undoProposeTrade(View view){
-        Intent intent = new Intent(this, UndoProposeTrade.class);
-        intent.putExtra("chosenTrader", getIntent().getStringExtra("chosenTrader"));
-        putBundle(intent);
-        startActivityForResult(intent, RESULT_FIRST_USER);
-    }
 
     /**goes to the undoRemoveItem menu
      * @param view the button is clicked
