@@ -83,6 +83,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
                 items.add(myItem);
                 i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
             }
+            itemManager.setItemsInactive(items, true);
 
             meetingManager.createMeeting(i, currentTrader, receiver, temporary);
             if (temporary){
@@ -94,11 +95,13 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
                 meetingManager.setMeetingInfo(i, date, null, location, null);
             }
             Toast.makeText(this, "Trade Created!", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, TraderActivity.class);
+            putBundle(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
             finish();
         }
     }
 
-    public void cancel(View view){
-        finish();
-    }
+    public void cancel(View view){ onBackPressed(); }
 }

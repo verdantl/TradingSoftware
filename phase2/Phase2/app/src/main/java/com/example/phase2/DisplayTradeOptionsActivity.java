@@ -76,5 +76,6 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Choos
         intent.putExtra("OneWay", oneWay);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
+        finish();
     }
 }

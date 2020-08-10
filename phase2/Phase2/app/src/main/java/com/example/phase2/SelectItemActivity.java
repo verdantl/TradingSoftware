@@ -78,5 +78,6 @@ public class SelectItemActivity extends BundleActivity {
         intent.putExtra("OneWay", oneWay);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
+        finish();
     }
 }
