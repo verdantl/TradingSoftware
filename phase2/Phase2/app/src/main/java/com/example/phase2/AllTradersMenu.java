@@ -12,18 +12,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 
 public class AllTradersMenu extends BundleActivity implements ClickableList, Dialogable {
     private TraderManager traderManager;
+    private ItemManager itemManager;
     private String frozenTrader;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
 
@@ -54,6 +57,8 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
     @Override
     public void clickPositive() {
         if(traderManager.freezeAccount(frozenTrader)){
+            itemManager.setStatusForFrozenUser(frozenTrader);
+            traderManager.setTraderInactive(frozenTrader, false);
             Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
 
         }else{
