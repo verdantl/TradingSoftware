@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.users;
 
 public interface Loginable {
 

@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,11 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.R;
 /*
-Code extracted from https://developer.android.com/guide/topics/ui/dialogs#PassingEvents
+Code modified from https://developer.android.com/guide/topics/ui/dialogs#PassingEvents
  */
 
-public class RecommendedItemDialog extends AppCompatDialogFragment {
+public class LocationChoiceDialog extends AppCompatDialogFragment {
     private Dialogable dialogable;
 
 
@@ -24,14 +26,16 @@ public class RecommendedItemDialog extends AppCompatDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        // Verify that the host activity implements the callback interface
         try {
+            // Instantiate the NoticeDialogListener so we can send events to the host
             dialogable = (Dialogable) context;
         } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(context.toString()
                     + " must implement Dialogable");
         }
     }
-
 
     /**create the dialog for this fragment
      * @param savedInstanceState the bundle from the activity
@@ -41,15 +45,15 @@ public class RecommendedItemDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Recommendation")
-                .setMessage(R.string.recommend_item)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+        builder.setTitle("LocationChoice")
+                .setMessage(R.string.search_home_city)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickPositive();
                     }
                 })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickNegative();

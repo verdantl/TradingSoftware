@@ -1,8 +1,6 @@
-package com.example.phase2;
+package com.example.phase2.users;
 
-import com.example.phase2.Loginable;
-import com.example.phase2.Manager;
-import com.example.phase2.Trader;
+import com.example.phase2.highabstract.Manager;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -6,6 +6,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.phase2.highabstract.ClickableList;
+import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.R;
+import com.example.phase2.dialogs.DialogFactory;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.AdminActions;
 
 import java.util.ArrayList;
 

@@ -2,6 +2,8 @@ package com.example.phase2;//package items;
 
 //import users.Trader;
 
+import com.example.phase2.highabstract.Manager;
+
 import java.io.Serializable;
 import java.util.*;
 

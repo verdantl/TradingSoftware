@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
+
 /**
  * This class is responsible for changing trader's password.
  */

@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.phase2.admin.DisplayChangeLimitActivity;
+import com.example.phase2.highabstract.BundleActivity;
+
 /**
  * An activity class responsible for changing the limits in the Trading System.
  */
-public class ChangeLimitActivity extends BundleActivity{
+public class ChangeLimitActivity extends BundleActivity {
 
     /**
      * Sets up the activity

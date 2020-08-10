@@ -6,6 +6,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.AdminActions;
+import com.example.phase2.users.TraderManager;
+
 public class SignupActivity extends BundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;

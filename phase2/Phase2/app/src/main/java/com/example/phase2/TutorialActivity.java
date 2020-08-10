@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.phase2.highabstract.BundleActivity;
+
 /**
  * An activity class responsible for providing a tutorial for a trader the Trading System.
  */

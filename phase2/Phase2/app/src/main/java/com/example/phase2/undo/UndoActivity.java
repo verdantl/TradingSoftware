@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.undo;
 
 
 import android.content.Intent;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.phase2.R;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
 
 public class UndoActivity extends BundleActivity {
 

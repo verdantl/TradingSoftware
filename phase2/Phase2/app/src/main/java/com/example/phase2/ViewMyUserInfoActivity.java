@@ -6,6 +6,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.highabstract.ClickableList;
+import com.example.phase2.users.TraderManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;

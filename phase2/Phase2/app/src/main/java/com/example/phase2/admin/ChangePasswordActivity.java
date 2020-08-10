@@ -1,9 +1,13 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.phase2.R;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.AdminActions;
 
 /**
  * An activity class responsible for changing admin user's password

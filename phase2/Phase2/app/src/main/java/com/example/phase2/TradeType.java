@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.phase2.highabstract.Dialogable;
+
 
 /* Using the radio button template from
 https://medium.com/@suragch/adding-a-list-to-an-android-alertdialog-e13c1df6cf00*/

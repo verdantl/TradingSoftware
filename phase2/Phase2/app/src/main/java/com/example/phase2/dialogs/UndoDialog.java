@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,9 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class ApproveDialog extends AppCompatDialogFragment {
-    private Dialogable dialogable;
+import com.example.phase2.highabstract.Dialogable;
 
+public class UndoDialog extends AppCompatDialogFragment {
+    private Dialogable dialogable;
 
     /**attach an activity's context to this fragment
      * @param context the context of the attached activity
@@ -36,15 +37,15 @@ public class ApproveDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("ApproveAlert")
-                .setMessage("Do you want to approve or reject")
-                .setPositiveButton("Reject", new DialogInterface.OnClickListener() {
+        builder.setTitle("Undo")
+                .setMessage("Are you sure you want to undo this action?")
+                .setPositiveButton("Undo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickPositive();
                     }
                 })
-                .setNegativeButton("Approve", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickNegative();

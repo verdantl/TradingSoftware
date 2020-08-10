@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.phase2.dialogs.DialogFactory;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.highabstract.Dialogable;
+
 public class DisplayTradeOptionsActivity extends BundleActivity implements Dialogable {
 
     private Integer chosenItem;

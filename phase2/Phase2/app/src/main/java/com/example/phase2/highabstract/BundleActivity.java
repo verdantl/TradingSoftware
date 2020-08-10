@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.highabstract;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.example.phase2.ConfigGateway;
 
 import java.io.IOException;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.users;
 
 import java.io.Serializable;
 import java.time.LocalDate;

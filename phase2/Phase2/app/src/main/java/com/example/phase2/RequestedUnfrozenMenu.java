@@ -7,6 +7,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.dialogs.DialogFactory;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.highabstract.ClickableList;
+import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.users.TraderManager;
+
 import java.util.List;
 
 public class RequestedUnfrozenMenu extends BundleActivity implements ClickableList, Dialogable {

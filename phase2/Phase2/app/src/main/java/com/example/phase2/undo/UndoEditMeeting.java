@@ -1,6 +1,6 @@
-package com.example.phase2;
+package com.example.phase2.undo;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,21 +8,29 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.phase2.dialogs.DialogFactory;
+import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.MeetingManager;
+import com.example.phase2.R;
+import com.example.phase2.TradeManager;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
 
-public class UndoProposeTrade extends BundleActivity implements Dialogable {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
+public class UndoEditMeeting extends BundleActivity implements Dialogable {
     private String chosenTrader;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
     private Integer chosenTrade;
     private TraderManager traderManager;
 
-
     /**create this activity
      * @param savedInstanceState the bundle from the activity
      */
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         chosenTrader = getIntent().getStringExtra("chosenTrader");
@@ -42,27 +50,41 @@ public class UndoProposeTrade extends BundleActivity implements Dialogable {
         replaceUseCase(tradeManager);
         super.onBackPressed();
     }
-    /**
-     * Updates the ListView object in the XML file
-     */
-    public void viewList(){
+
+    private void viewList() {
         final List<Integer> tempMeetings = new ArrayList<>();
-        for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(chosenTrader))) {
+        for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(chosenTrader))){
+            if (meetingManager.meetingCanBeUndone(i)){
+                tempMeetings.add(i);
+            }
+        }
+
+        List<Integer> tempMeetings2 = new ArrayList<>();
+
+
+        for (Integer i : tempMeetings2) {
+            HashMap<String, Integer> tempHash = meetingManager.getEdits(i);
             if (tradeManager.getTradeInitiator(i).equals(chosenTrader)) {
-                if (meetingManager.meetingCanBeUndone(i)) {
-                    tempMeetings.add(i);
+                if (tempHash.get(chosenTrader) <
+                        tempHash.get(tradeManager.getTradeReceiver(i))) {
+                    tempMeetings.remove(i);
+                } else {
+                    if (Objects.equals(tempHash.get(chosenTrader),
+                            tempHash.get(tradeManager.getTradeReceiver(i)))) {
+                        tempMeetings.remove(i);
+                    }
                 }
             }
         }
-        ArrayList<String> meetingPresenter = new ArrayList<>();
-        for (Integer i : tempMeetings) {
-            meetingPresenter.add(meetingManager.getMeeting(i).toString());
+        //System.out.println(tempMeetings.size());
+        ArrayList<String> editMeeting = new ArrayList<>();
+        for(Integer i: tempMeetings){
+            editMeeting.add(meetingManager.getMeeting(i).toString());
         }
-        setContentView(R.layout.activity_undo_propose_trade);
-        ListView listView = findViewById(R.id.proposedTrade);
-        ArrayAdapter<String> editAdapter =
-                new ArrayAdapter<>(this,
-                        android.R.layout.simple_list_item_1, meetingPresenter);
+        setContentView(R.layout.activity_undo_edit_meeting);
+        ListView listView = findViewById(R.id.editedTrade);
+        ArrayAdapter<String>  editAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, editMeeting);
         listView.setAdapter(editAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -73,15 +95,14 @@ public class UndoProposeTrade extends BundleActivity implements Dialogable {
         });
     }
 
+
     /**
-     * Listener for the positive button, undoProposeTrade
+     * Listener for the positive button, undoEditMeeting
      */
     @Override
     public void clickPositive() {
-        meetingManager.undoMeetingProposal(chosenTrade);
-        tradeManager.undoTradeProposal(chosenTrade);
-        traderManager.undoTradeProposal(chosenTrade);
-        Toast.makeText(this, "Successfully undo propose", Toast.LENGTH_SHORT).show();
+        meetingManager.undoEdit(chosenTrade, chosenTrader);
+        Toast.makeText(this, "Successfully undo edit", Toast.LENGTH_SHORT).show();
         viewList();
 
     }
@@ -104,7 +125,7 @@ public class UndoProposeTrade extends BundleActivity implements Dialogable {
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
         dialogFactory.getDialog("Undo")
-                .show(getSupportFragmentManager(), "UndoPropose");
+                .show(getSupportFragmentManager(), "UndoEditMeeting");
 
     }
 }

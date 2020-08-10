@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
+
 /**
  * An activity class responsible for request admin option
  */
-public class RequestAdminActivity extends BundleActivity{
+public class RequestAdminActivity extends BundleActivity {
     private TraderManager traderManager;
     private ItemManager itemManager;
     private String currentTrader;

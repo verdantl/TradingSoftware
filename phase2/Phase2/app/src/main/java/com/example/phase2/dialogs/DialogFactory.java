@@ -1,6 +1,8 @@
-package com.example.phase2;
+package com.example.phase2.dialogs;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.phase2.TradeType;
 
 public class DialogFactory {
 

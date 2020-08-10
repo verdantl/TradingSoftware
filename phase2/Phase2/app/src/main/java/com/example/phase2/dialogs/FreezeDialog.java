@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,9 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class UnFreezeDialog extends AppCompatDialogFragment {
-    private Dialogable dialogable;
+import com.example.phase2.highabstract.Dialogable;
 
+public class FreezeDialog extends AppCompatDialogFragment {
+    private Dialogable dialogable;
 
     /**attach an activity's context to this fragment
      * @param context the context of the attached activity
@@ -36,9 +37,9 @@ public class UnFreezeDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Unfreeze")
-                .setMessage("Are you sure you want to unfreeze this action?")
-                .setPositiveButton("Unfreeze", new DialogInterface.OnClickListener() {
+        builder.setTitle("FreezeAccount")
+                .setMessage("Are you sure you want to freeze this account?")
+                .setPositiveButton("Freeze", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickPositive();

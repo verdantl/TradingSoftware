@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
+
 import java.time.LocalDate;
 import java.util.Objects;
 

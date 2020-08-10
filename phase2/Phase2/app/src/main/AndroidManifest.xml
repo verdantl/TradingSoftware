@@ -13,13 +13,13 @@
         <activity android:name=".ChangeHomecity" />
         <activity android:name=".TutorialBrowseItemsActivity" />
         <activity android:name=".TutorialActivity" />
-        <activity android:name=".UndoRemoveItem" />
-        <activity android:name=".UndoProposeTrade" />
-        <activity android:name=".UndoConfirmTrade" />
-        <activity android:name=".UndoAgreeTrade" />
-        <activity android:name=".UndoEditMeeting" />
-        <activity android:name=".UndoMenu" />
-        <activity android:name=".UndoActivity" />
+        <activity android:name=".undo.UndoRemoveItem" />
+        <activity android:name=".undo.UndoProposeTrade" />
+        <activity android:name=".undo.UndoConfirmTrade" />
+        <activity android:name=".undo.UndoAgreeTrade" />
+        <activity android:name=".undo.UndoEditMeeting" />
+        <activity android:name=".undo.UndoMenu" />
+        <activity android:name=".undo.UndoActivity" />
         <activity android:name=".AddNewItemActivity" />
         <activity android:name=".ItemOptionsActivity" />
         <activity android:name=".SelectItemActivity" />
@@ -32,10 +32,10 @@
         <activity android:name=".RequestedUnfrozenMenu" />
         <activity android:name=".FlaggedAccountsMenu" />
         <activity android:name=".ManageFrozenAccount" />
-        <activity android:name=".DisplayChangeLimitActivity" />
+        <activity android:name=".admin.DisplayChangeLimitActivity" />
         <activity android:name=".ChangeLimitActivity" />
         <activity android:name=".ViewTradersActivity" />
-        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".admin.ChangePasswordActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,8 +44,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TraderActivity" />
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".ApproveAdminActivity" />
+        <activity android:name=".admin.AdminActivity" />
+        <activity android:name=".admin.ApproveAdminActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".BrowseTradesActivity" />
         <activity android:name=".EditTradeActivity" />

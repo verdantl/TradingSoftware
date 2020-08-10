@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,8 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class FreezeDialog extends AppCompatDialogFragment {
+import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.R;
+
+/*
+Code extracted from https://developer.android.com/guide/topics/ui/dialogs#PassingEvents
+ */
+
+public class RecommendedItemDialog extends AppCompatDialogFragment {
     private Dialogable dialogable;
+
 
     /**attach an activity's context to this fragment
      * @param context the context of the attached activity
@@ -27,6 +35,7 @@ public class FreezeDialog extends AppCompatDialogFragment {
         }
     }
 
+
     /**create the dialog for this fragment
      * @param savedInstanceState the bundle from the activity
      * @return the dialog attached to this fragment
@@ -35,15 +44,15 @@ public class FreezeDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("FreezeAccount")
-                .setMessage("Are you sure you want to freeze this account?")
-                .setPositiveButton("Freeze", new DialogInterface.OnClickListener() {
+        builder.setTitle("Recommendation")
+                .setMessage(R.string.recommend_item)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickPositive();
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogable.clickNegative();

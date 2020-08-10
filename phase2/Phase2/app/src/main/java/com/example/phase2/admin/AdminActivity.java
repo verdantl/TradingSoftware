@@ -1,10 +1,20 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.phase2.ApproveItems;
+import com.example.phase2.ChangeLimitActivity;
+import com.example.phase2.LoginActivity;
+import com.example.phase2.ManageFrozenAccount;
+import com.example.phase2.R;
+import com.example.phase2.ViewTradersActivity;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.undo.UndoActivity;
+import com.example.phase2.users.TraderManager;
 
 public class AdminActivity extends BundleActivity {
     private String currentAdmin;

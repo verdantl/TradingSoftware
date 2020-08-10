@@ -1,10 +1,15 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.phase2.LimitType;
+import com.example.phase2.R;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
 
 /**
  * This activity class displays the screen that allows admin users to type in new limit.

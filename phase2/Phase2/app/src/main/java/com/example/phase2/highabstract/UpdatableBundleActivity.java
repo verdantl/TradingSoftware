@@ -1,8 +1,10 @@
-package com.example.phase2;
+package com.example.phase2.highabstract;
 
 import android.content.Intent;
 
 import androidx.annotation.Nullable;
+
+import com.example.phase2.highabstract.BundleActivity;
 
 public abstract class UpdatableBundleActivity extends BundleActivity {
 

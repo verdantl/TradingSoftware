@@ -1,17 +1,26 @@
-package com.example.phase2;
+package com.example.phase2.undo;
 
-import android.content.Intent;
+
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.phase2.dialogs.DialogFactory;
+import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.MeetingManager;
+import com.example.phase2.R;
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.users.TraderManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoConfirmTrade extends BundleActivity implements Dialogable {
+public class UndoAgreeTrade extends BundleActivity implements Dialogable {
     private String chosenTrader;
     private TraderManager traderManager;
     private MeetingManager meetingManager;
@@ -27,7 +36,6 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         viewList();
-
     }
 
     /**
@@ -40,41 +48,41 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
         super.onBackPressed();
     }
 
-    private void viewList() {
-        List<Integer> incompleteTrades =
-                meetingManager.getOnGoingMeetings(traderManager.getTrades(chosenTrader));
-        final List<Integer> undoableMeetingConfirmations = new ArrayList<>();
+    public void viewList(){
+        List<Integer> incompleteTrades = meetingManager
+                .getOnGoingMeetings(traderManager.getTrades(chosenTrader));
+        final List<Integer> undoableMeetingAgreements = new ArrayList<>();
         for (Integer i : incompleteTrades) {
-            if (meetingManager.canUndoConfirm(i, chosenTrader)) {
-                undoableMeetingConfirmations.add(i);
+            if (meetingManager.canUndoAgree(i, chosenTrader)) {
+                undoableMeetingAgreements.add(i);
             }
         }
-        ArrayList<String> confirmationPresenter = new ArrayList<>();
-        for (Integer i : undoableMeetingConfirmations) {
-            confirmationPresenter.add(meetingManager.getMeetingDescription(i));
+        ArrayList<String> undoPresentation = new ArrayList<>();
+        for (Integer i : undoableMeetingAgreements) {
+            undoPresentation.add(meetingManager.getMeetingDescription(i));
         }
-        setContentView(R.layout.activity_undo_confirm_trade);
-        ListView listView = findViewById(R.id.confirmedTrade);
-        ArrayAdapter<String> confirmAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, confirmationPresenter);
-        listView.setAdapter(confirmAdapter);
+        setContentView(R.layout.activity_undo_agree_trade);
+        ListView listView = findViewById(R.id.agreedTrade);
+        ArrayAdapter<String> agreeAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, undoPresentation);
+        listView.setAdapter(agreeAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openDialog();
-                chosenTrade = undoableMeetingConfirmations.get(i);
+                chosenTrade = undoableMeetingAgreements.get(i);
             }
         });
-
     }
 
+
     /**
-     * Listener for the positive button, undoConfirm
+     * Listener for the positive button, undoAgree
      */
     @Override
     public void clickPositive() {
-        meetingManager.undoConfirm(chosenTrade, chosenTrader);
-        Toast.makeText(this, "Successfully undo confirm", Toast.LENGTH_SHORT).show();
+        meetingManager.undoAgree(chosenTrade, chosenTrader);
+        Toast.makeText(this, "Successfully undo agree!", Toast.LENGTH_SHORT).show();
         viewList();
 
     }
@@ -84,9 +92,8 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
      */
     @Override
     public void clickNegative() {
-        Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show();
         viewList();
-
 
     }
 
@@ -97,7 +104,7 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
         dialogFactory.getDialog("Undo")
-                .show(getSupportFragmentManager(), "UndoConfirm");
+                .show(getSupportFragmentManager(), "UndoAgree");
 
     }
 }

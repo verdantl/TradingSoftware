@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.phase2.highabstract.BundleActivity;
+
 public class TraderActivity extends BundleActivity {
     private String currentTrader;
 

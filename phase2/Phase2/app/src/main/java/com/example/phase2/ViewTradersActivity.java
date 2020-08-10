@@ -8,9 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.phase2.highabstract.BundleActivity;
+import com.example.phase2.highabstract.ClickableList;
+import com.example.phase2.users.TraderManager;
+
 import java.util.ArrayList;
 
-public class ViewTradersActivity extends BundleActivity implements ClickableList{
+public class ViewTradersActivity extends BundleActivity implements ClickableList {
     private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
