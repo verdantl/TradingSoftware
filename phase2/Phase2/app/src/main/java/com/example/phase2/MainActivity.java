@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             adminActions = (AdminActions) configGateway.readInfo(contextFilesDir + "admins.ser");
             meetingManager = (MeetingManager) configGateway.readInfo(contextFilesDir + "meetings.ser");
             itemManager = (ItemManager) configGateway.readInfo(contextFilesDir + "items.ser");
-            tradeManager = (TradeManager) configGateway.readInfo(contextFilesDir + "trades.ser");
+            tradeManager = (TradeManager) configGateway.readInfo(contextFilesDir + "trade.ser");
             traderManager = (TraderManager) configGateway.readInfo(contextFilesDir + "traders.ser");
 
         } catch (IOException | ClassNotFoundException e) {

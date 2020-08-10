@@ -59,7 +59,7 @@ public class ConfigGateway {
             adminActions = (AdminActions) readInfo(contextFilesDir + "admins.ser");
             meetingManager = (MeetingManager) readInfo(contextFilesDir + "meetings.ser");
             itemManager = (ItemManager) readInfo(contextFilesDir + "items.ser");
-            tradeManager = (TradeManager) readInfo(contextFilesDir + "trades.ser");
+            tradeManager = (TradeManager) readInfo(contextFilesDir + "trade.ser");
             traderManager = (TraderManager) readInfo(contextFilesDir + "traders.ser");
 
         } catch (IOException | ClassNotFoundException e) {
@@ -105,6 +105,12 @@ public class ConfigGateway {
         item1.setQualityRating(5);
         HashMap<Integer, Item> tempMap = new HashMap<>();
         tempMap.put(1, item1);
+        Item item2 = new Item(2, "Apple", "Trader1");
+        item2.setStatus(ItemStatus.AVAILABLE);
+        item2.setCategory("Food");
+        item2.setDescription("It's an apple.");
+        item2.setQualityRating(8);
+        tempMap.put(2, item2);
         itemManager = new ItemManager(tempMap);
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());

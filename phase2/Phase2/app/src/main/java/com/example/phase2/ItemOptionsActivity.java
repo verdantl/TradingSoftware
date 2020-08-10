@@ -61,7 +61,7 @@ public class ItemOptionsActivity extends BundleActivity {
 
     public void proposeTrade(View view) {
         if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
-            displayTradeOptions1(view);
+            displayTradeOptions(view);
         } else if (traderManager.isInactive(currentTrader)) {
             Toast.makeText(this, "Your account is inactive," +
                     " you cannot trade.", Toast.LENGTH_LONG).show();
@@ -71,7 +71,7 @@ public class ItemOptionsActivity extends BundleActivity {
         }
     }
 
-    public void displayTradeOptions1(View view) {
+    public void displayTradeOptions(View view) {
         Intent intent = new Intent(this, DisplayTradeOptionsActivity.class);
         intent.putExtra("ChosenItem", chosenItem);
         putBundle(intent);
