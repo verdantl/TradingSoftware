@@ -1,8 +1,8 @@
 package com.example.phase2;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -14,18 +14,24 @@ public class UnFreezeDialog extends AppCompatDialogFragment {
     private Dialogable dialogable;
 
 
+    /**attach an activity's context to this fragment
+     * @param context the context of the attached activity
+     */
     @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         try {
-            dialogable = (Dialogable) activity;
+            dialogable = (Dialogable) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement Dialogable");
         }
     }
 
-
+    /**create the dialog for this fragment
+     * @param savedInstanceState the bundle from the activity
+     * @return the dialog attached to this fragment
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

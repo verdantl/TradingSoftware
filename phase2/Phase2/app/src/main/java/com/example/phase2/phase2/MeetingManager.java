@@ -325,6 +325,7 @@ public class MeetingManager extends Manager implements Serializable {
      * */
     public boolean canUndoAgree(int id, String username){
         Meeting temp = meetings.get(id);
+        assert temp != null;
         temp.getIsAgreed().values().size();
         int counter = 0;
         for(boolean b: temp.getIsAgreed().values()){
@@ -392,6 +393,7 @@ public class MeetingManager extends Manager implements Serializable {
     public boolean meetingCanBeUndone(int id){
         return meetings.get(id).isEdited();
     }
+
 
     /**
      * Undoes the given meeting, effectively deleting it from the system.
