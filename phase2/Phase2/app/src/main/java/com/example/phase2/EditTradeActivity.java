@@ -154,6 +154,7 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
     public void onEditMeetingClicked(View view){
         if(meetingManager.isValid(currentTrader, trade)){
             Intent intent = new Intent(this, EditMeetingActivity.class);
+            intent.putExtra("Trade", trade);
             if(tradeManager.getTradeType(trade).contains("ONLINE")){
                 intent.putExtra("Online", true);
             }

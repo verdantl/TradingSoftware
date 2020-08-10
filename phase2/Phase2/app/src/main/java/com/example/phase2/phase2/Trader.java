@@ -1,9 +1,7 @@
 package com.example.phase2.phase2;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +33,6 @@ public class Trader extends User implements Serializable {
      * Converts the trader to a string representation.
      * @return a string of the admin's username, password, and date created
      */
-
     @Override
     public String toString(){
         String s = "Trader: "+ super.getUsername()+"\n";
@@ -206,9 +203,7 @@ public class Trader extends User implements Serializable {
      * @param id the id of the item to be removed
      */
     public void removeFromWishlist(Integer id){
-        if(this.wishlist.contains(id)) {
-            this.wishlist.remove(id);
-        }
+        this.wishlist.remove(id);
     }
 
     /**
