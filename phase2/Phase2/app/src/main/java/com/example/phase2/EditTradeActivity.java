@@ -166,7 +166,7 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
 
     /**
      * Opens the edit meeting activity if the button is clicked
-     * @param view
+     * @param view The view of the editMeetingClicked
      */
     public void onEditMeetingClicked(View view){
         if(meetingManager.isValid(currentTrader, trade)){
@@ -287,7 +287,6 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
                     completeTrade();
                 }
             }
-
     }
 
     private void completeTrade(){
