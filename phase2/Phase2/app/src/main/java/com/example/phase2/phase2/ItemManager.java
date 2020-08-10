@@ -541,7 +541,7 @@ public class ItemManager extends Manager implements Serializable {
      * Changes the status of the item with the given id to inactive.
      * @param id The id of the item
      */
-    public void changeStatusToInactive(int id){
-        items.get(id).setStatus(ItemStatus.INACTIVE);
+    public void changeStatusToInactiveAva(int id){
+        items.get(id).setStatus(ItemStatus.INACTIVE_AVA);
     }
 }

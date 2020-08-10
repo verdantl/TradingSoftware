@@ -229,7 +229,7 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
                             itemManager.changeStatusToFrozen(i);
                         }
                         else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                            itemManager.changeStatusToInactive(i);
+                            itemManager.changeStatusToInactiveAva(i);
                         }
                         else{
                             itemManager.changeStatusToAvailable(i);
@@ -260,7 +260,7 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
                     itemManager.changeStatusToFrozen(i);
                 }
                 else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToInactive(i);
+                    itemManager.changeStatusToInactiveAva(i);
                 }
                 else{
                     itemManager.changeStatusToAvailable(i);
@@ -272,7 +272,7 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
                     itemManager.changeStatusToFrozen(i);
                 }
                 else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToInactive(i);
+                    itemManager.changeStatusToInactiveAva(i);
                 }
                 else{
                     itemManager.changeStatusToAvailable(i);
@@ -319,7 +319,7 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
                 itemManager.changeStatusToFrozen(i);
             }
             else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                itemManager.changeStatusToInactive(i);
+                itemManager.changeStatusToInactiveAva(i);
             }
             else{
                 itemManager.changeStatusToAvailable(i);
