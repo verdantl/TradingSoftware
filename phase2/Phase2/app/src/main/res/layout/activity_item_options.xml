@@ -21,7 +21,7 @@
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Item Name"
+        android:text="@string/item_name"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/ownedBy"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:id="@+id/ownedBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Owned By:"
+        android:text="@string/owned_by"
         android:textAlignment="viewStart"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="Item Rating:"
+            android:text="@string/item_rating"
             android:textSize="20sp" />
 
         <TextView
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="Description:"
+            android:text="@string/description"
             android:textSize="20sp" />
 
         <TextView
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="Actual Description goes here" />
+            android:text="@string/actual_description_goes_here" />
 
     </LinearLayout>
 

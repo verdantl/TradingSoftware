@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/yourInventory"
         android:layout_centerHorizontal="true"
-        android:text="Please select the item you would like to view" />
+        android:text="@string/select_view_item" />
 
     <ListView
         android:id="@+id/inventoryList"
@@ -37,5 +37,5 @@
         android:layout_marginTop="35dp"
         android:layout_centerHorizontal="true"
         android:onClick="addNewItem"
-        android:text="Add New Item"/>
+        android:text="@string/add_new_item"/>
 </RelativeLayout>

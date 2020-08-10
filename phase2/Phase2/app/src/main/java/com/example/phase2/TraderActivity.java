@@ -37,7 +37,7 @@ public class TraderActivity extends BundleActivity {
     public void browseAvailableItems(View view){
         Intent intent = new Intent(this, BrowseItemsActivity.class);
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void browseOnGoingTrades(View view){
@@ -159,22 +159,4 @@ public class TraderActivity extends BundleActivity {
                 "You have reached the main menu!", Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        assert data != null;
-//        if(requestCode == CHANGE_PASSWORD_REQ){
-//            traderManager = (TraderManager) data.getSerializableExtra(TRADERKEY);
-//            bundle.remove(TRADERKEY);
-//            bundle.putSerializable(TRADERKEY, traderManager);
-//        }else if(requestCode == REQ_ADMIN_REQ){
-//            traderManager = (TraderManager) data.getSerializableExtra(TRADERKEY);
-//            itemManager = (ItemManager) data.getSerializableExtra(ITEMKEY);
-//            bundle.remove(TRADERKEY);
-//            bundle.remove(ITEMKEY);
-//            bundle.putSerializable(TRADERKEY, traderManager);
-//            bundle.putSerializable(ITEMKEY, itemManager);
-//        }
-//
-//    }
 }

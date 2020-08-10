@@ -21,7 +21,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseTradesActivity extends BundleActivity implements ClickableList {
+public class BrowseTradesActivity extends UpdatableBundleActivity implements ClickableList {
 
     private MeetingManager meetingManager;
     private TraderManager traderManager;
@@ -42,13 +42,6 @@ public class BrowseTradesActivity extends BundleActivity implements ClickableLis
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        updateUseCases();
-    }
-
     public void viewList(){
         final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(currentTrader));
         setContentView(R.layout.activity_browse_trades);

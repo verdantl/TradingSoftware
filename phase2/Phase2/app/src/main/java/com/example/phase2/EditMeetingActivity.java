@@ -120,14 +120,6 @@ public class EditMeetingActivity extends BundleActivity {
 
     public void onSubmitClick(){
         replaceUseCase(meetingManager);
-//        bundle.remove("MeetingManager");
-//        bundle.remove("CurrentTrader");
-//        bundle.remove("Trade");
-//        bundle.remove("Online");
-//        intent.putExtras(bundle);
-//        intent.putExtra("MeetingManager", meetingManager);
-//        intent.putExtra("Trade", trade);
-//        intent.putExtra("Username", currentTrader);
         super.onBackPressed();
     }
 

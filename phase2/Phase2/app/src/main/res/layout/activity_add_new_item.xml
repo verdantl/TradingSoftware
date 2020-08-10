@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/enterActualDescription"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="30dp"
         android:onClick="addItemButton"
         android:text="@string/addItem" />
 </RelativeLayout>

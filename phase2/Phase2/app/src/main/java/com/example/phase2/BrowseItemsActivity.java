@@ -7,21 +7,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.fragment.app.DialogFragment;
+
+import androidx.annotation.Nullable;
 
 import com.example.phase2.phase2.ItemManager;
+import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseItemsActivity extends BundleActivity implements ClickableList, Dialogable{
+public class BrowseItemsActivity extends UpdatableBundleActivity implements ClickableList, Dialogable{
 
     private ItemManager itemManager;
     private TraderManager traderManager;
     private String currentTrader;
     private int chosenItem;
     private boolean useLocation;
+
+    protected void updateUseCases(){
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        viewList();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,12 @@ public class BrowseItemsActivity extends BundleActivity implements ClickableList
                 displayItemOptions();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        replaceUseCase(traderManager);
+        super.onBackPressed();
     }
 
     public void displayItemOptions(){
