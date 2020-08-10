@@ -8,19 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.phase2.phase2.TraderManager;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ViewTradersActivity extends BundleActivity implements ClickableList{
     private Dialog dialog;
     private TraderManager traderManager;
     private String userInfo;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,9 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
         viewList();
     }
 
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final ArrayList<String> traders = traderManager.getTraders();
         ListView listView = findViewById(R.id.traders);
@@ -45,11 +48,13 @@ public class ViewTradersActivity extends BundleActivity implements ClickableList
         });
     }
 
+    /**
+     * Updates the Dialog object
+     */
     public void displayDialog() {
         dialog.setContentView(R.layout.fragment_info);
         TextView close = dialog.findViewById(R.id.trader_info);
         close.setText(userInfo);
         dialog.show();
     }
-
 }
