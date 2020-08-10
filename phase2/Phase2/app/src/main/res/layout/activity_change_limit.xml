@@ -23,12 +23,12 @@
         android:id="@+id/maxIncompleteBtn"
         android:layout_width="176dp"
         android:layout_height="96dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="48dp"
         android:onClick="changeMaxIncomplete"
         android:text="@string/max_incomplete_transaction"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/weeklyLimitBtn" />
 
