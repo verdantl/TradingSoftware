@@ -25,7 +25,7 @@ public class UndoMenu extends BundleActivity {
         Intent intent = new Intent(this, UndoEditMeeting.class);
         intent.putExtra("chosenTrader", getIntent().getStringExtra("chosenTrader"));
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**goes to the undoAgreeTrade menu
@@ -35,7 +35,7 @@ public class UndoMenu extends BundleActivity {
         Intent intent = new Intent(this, UndoAgreeTrade.class);
         intent.putExtra("chosenTrader", getIntent().getStringExtra("chosenTrader"));
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**goes to the undoConfirmTrade menu
@@ -45,7 +45,7 @@ public class UndoMenu extends BundleActivity {
         Intent intent = new Intent(this, UndoConfirmTrade.class);
         intent.putExtra("chosenTrader", getIntent().getStringExtra("chosenTrader"));
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**goes to the undoProposeTrade menu
