@@ -13,6 +13,11 @@ public class SignupActivity extends BundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +26,10 @@ public class SignupActivity extends BundleActivity {
         setContentView(R.layout.activity_signup);
     }
 
+    /**
+     * Called when the new account button is clicked
+     * @param view the View object that is being clicked
+     */
     public void onCreateNewAccount(View view){
         RadioGroup radioGroup = findViewById(R.id.account_selection);
         EditText userEditText = findViewById(R.id.newUsername);

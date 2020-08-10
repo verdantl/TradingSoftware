@@ -9,20 +9,27 @@ import com.example.phase2.phase2.AdminActions;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class LoginActivity extends BundleActivity {
+public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
     private ItemManager itemManager;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
-        itemManager = (ItemManager) getUseCase(ITEMKEY);
-        adminActions = (AdminActions) getUseCase(ADMINKEY);
+        updateUseCases();
         setContentView(R.layout.activity_login);
     }
 
+    /**
+     * Called when the login button is clicked.
+     * @param view The View Object that is clicked
+     */
     public void onLoginClicked(View view){
         EditText userEditText = findViewById(R.id.editTextTextPersonName);
         EditText passEditText = findViewById(R.id.editTextTextPassword);
@@ -47,17 +54,39 @@ public class LoginActivity extends BundleActivity {
         }
     }
 
+    /**
+     * Called when the Signup button is clicked
+     * @param view The View object that is clicked
+     */
     public void onSignupClicked(View view){
         Intent intent = new Intent(this, SignupActivity.class);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Called when the Tutorial button is clicked
+     * @param view The View object clicked
+     */
     public void onTutorialClicked(View view){
         Intent intent = new Intent(this, TutorialActivity.class);
         intent.putExtra(ITEMKEY, itemManager);
         startActivity(intent);
     }
+
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed(){}
+
+    /**
+     * Updates the Manager classes in the bundle
+     */
+    @Override
+    protected void updateUseCases() {
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        adminActions = (AdminActions) getUseCase(ADMINKEY);
+    }
 }
