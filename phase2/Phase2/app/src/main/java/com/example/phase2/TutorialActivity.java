@@ -12,10 +12,16 @@ import android.widget.TextView;
 
 import com.example.phase2.phase2.ItemManager;
 
+/**
+ * An activity class responsible for providing a tutorial for a trader the Trading System.
+ */
 public class TutorialActivity extends AppCompatActivity {
     private ItemManager itemManager;
 
-
+    /**
+     * Sets up the activity
+     * @param savedInstanceState A bundle storing all the necessary objects
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +31,15 @@ public class TutorialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tutorial);
     }
 
+    /**
+     * Called when the back button is pressed
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-
+    
     public void onBrowseItems(View view){
         Intent intent = new Intent(this, TutorialBrowseItemsActivity.class);
         intent.putExtra("ItemManager",itemManager);
@@ -73,15 +82,6 @@ public class TutorialActivity extends AppCompatActivity {
 
     }
 
-    public void onAutoTrade(View view){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("You need an account to view items " +
-                "to trade for automatically ");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("AutoTradePreview")
-                .setMessage(stringBuilder);
-        builder.show();
-    }
 
     public void onViewInfo(View view){
         StringBuilder stringBuilder = new StringBuilder();
@@ -109,6 +109,15 @@ public class TutorialActivity extends AppCompatActivity {
         stringBuilder.append("You need an account to change your password");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Alert")
+                .setMessage(stringBuilder);
+        builder.show();
+    }
+
+    public void onChangeHomeCity (View view){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("You need an account to change your home city");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Home City")
                 .setMessage(stringBuilder);
         builder.show();
     }
