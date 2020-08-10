@@ -1,9 +1,5 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +17,11 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
     private ItemManager itemManager;
     private String frozenTrader;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,9 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
         viewList();
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(traderManager);
