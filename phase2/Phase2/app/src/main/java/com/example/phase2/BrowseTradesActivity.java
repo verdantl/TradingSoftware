@@ -43,7 +43,6 @@ public class BrowseTradesActivity extends UpdatableBundleActivity implements Cli
     }
     public void viewList(){
         final List<Integer> onGoingTrades = meetingManager.getOnGoingMeetings(traderManager.getTrades(currentTrader));
-        setContentView(R.layout.activity_browse_trades);
         ListView listView = findViewById(R.id.tradesList1);
         ArrayAdapter<Integer> allTradesAdapter = new ArrayAdapter<Integer>(this,
                android.R.layout.simple_list_item_1, onGoingTrades);

@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment;
 Code extracted from https://developer.android.com/guide/topics/ui/dialogs#PassingEvents
  */
 
-public class RecommendedItemFragment extends DialogFragment {
+public class RecommendedItemDialog extends DialogFragment {
 
     public interface RecommendedItemListener {
         void onDialogPositiveClick(DialogFragment dialog);
@@ -40,12 +40,12 @@ public class RecommendedItemFragment extends DialogFragment {
         builder.setMessage(R.string.recommend_item)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(RecommendedItemFragment.this);
+                        listener.onDialogPositiveClick(RecommendedItemDialog.this);
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogNegativeClick(RecommendedItemFragment.this);
+                        listener.onDialogNegativeClick(RecommendedItemDialog.this);
                     }
                 });
         // Create the AlertDialog object and return it
