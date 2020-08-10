@@ -9,49 +9,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DisplayTradeOptionsActivity"/>
-        <activity android:name=".ChangeHomecity" />
-        <activity android:name=".TutorialBrowseItemsActivity" />
-        <activity android:name=".TutorialActivity" />
-        <activity android:name=".UndoRemoveItem" />
-        <activity android:name=".UndoConfirmTrade" />
-        <activity android:name=".UndoAgreeTrade" />
-        <activity android:name=".UndoEditMeeting" />
-        <activity android:name=".UndoMenu" />
-        <activity android:name=".UndoActivity" />
-        <activity android:name=".AddNewItemActivity" />
-        <activity android:name=".ItemOptionsActivity" />
-        <activity android:name=".SelectItemActivity" />
-        <activity android:name=".EnterInfoProposeTradeActivity" />
-        <activity android:name=".ChangeTraderPassword" />
-        <activity android:name=".ApproveItems" />
-        <activity android:name=".EditMeetingActivity" />
-        <activity android:name=".AllTradersMenu" />
-        <activity android:name=".RequestAdminActivity" />
-        <activity android:name=".RequestedUnfrozenMenu" />
-        <activity android:name=".FlaggedAccountsMenu" />
-        <activity android:name=".ManageFrozenAccount" />
-        <activity android:name=".DisplayChangeLimitActivity" />
-        <activity android:name=".ChangeLimitActivity" />
-        <activity android:name=".ViewTradersActivity" />
-        <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".itemtrading.DisplayTradeOptionsActivity"/>
+        <activity android:name=".traderinfo.ChangeHomecity" />
+        <activity android:name=".tutorial.TutorialBrowseItemsActivity" />
+        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".undo.UndoRemoveItem" />
+        <activity android:name=".undo.UndoProposeTrade" />
+        <activity android:name=".undo.UndoConfirmTrade" />
+        <activity android:name=".undo.UndoAgreeTrade" />
+        <activity android:name=".undo.UndoEditMeeting" />
+        <activity android:name=".undo.UndoMenu" />
+        <activity android:name=".undo.UndoActivity" />
+        <activity android:name=".traderinfo.AddNewItemActivity" />
+        <activity android:name=".itemtrading.ItemOptionsActivity" />
+        <activity android:name=".itemtrading.SelectItemActivity" />
+        <activity android:name=".itemtrading.EnterInfoProposeTradeActivity" />
+        <activity android:name=".traderinfo.ChangeTraderPassword" />
+        <activity android:name=".adminoptions.ApproveItems" />
+        <activity android:name=".browsetrades.EditMeetingActivity" />
+        <activity android:name=".adminoptions.AllTradersMenu" />
+        <activity android:name=".traderinfo.RequestAdminActivity" />
+        <activity android:name=".adminoptions.RequestedUnfrozenMenu" />
+        <activity android:name=".adminoptions.FlaggedAccountsMenu" />
+        <activity android:name=".adminoptions.ManageFrozenAccount" />
+        <activity android:name=".adminoptions.DisplayChangeLimitActivity" />
+        <activity android:name=".adminoptions.ChangeLimitActivity" />
+        <activity android:name=".adminoptions.ViewTradersActivity" />
+        <activity android:name=".adminoptions.ChangePasswordActivity" />
+        <activity android:name=".menus.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TraderActivity" />
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".ApproveAdminActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".BrowseTradesActivity" />
-        <activity android:name=".EditTradeActivity" />
-        <activity android:name=".BrowseItemsActivity" />
-        <activity android:name=".EditInventoryActivity" />
-        <activity android:name=".EditWishlistActivity" />
-        <activity android:name=".ViewMyUserInfoActivity" />
+        <activity android:name=".menus.TraderActivity" />
+        <activity android:name=".menus.AdminActivity" />
+        <activity android:name=".adminoptions.ApproveAdminActivity" />
+        <activity android:name=".menus.SignupActivity" />
+        <activity android:name=".browsetrades.BrowseTradesActivity" />
+        <activity android:name=".browsetrades.EditTradeActivity" />
+        <activity android:name=".itemtrading.BrowseItemsActivity" />
+        <activity android:name=".traderinfo.EditInventoryActivity" />
+        <activity android:name=".traderinfo.EditWishlistActivity" />
+        <activity android:name=".traderinfo.ViewMyUserInfoActivity" />
     </application>
 
 </manifest>
