@@ -87,7 +87,9 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
             }
             traderManager.addNewTrade(currentTrader, i, LocalDate.now());
             traderManager.addNewTrade(receiver, i, LocalDate.now());
-            itemManager.setItemsInactive(items, true);
+            for (Integer j: items) {
+                itemManager.changeStatusToUnavailable(j);
+            }
 
             meetingManager.createMeeting(i, currentTrader, receiver, temporary);
             if (temporary){
