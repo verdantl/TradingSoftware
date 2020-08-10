@@ -59,7 +59,7 @@ public class ConfigGateway {
             adminActions = (AdminActions) readInfo(contextFilesDir + "admins.ser");
             meetingManager = (MeetingManager) readInfo(contextFilesDir + "meetings.ser");
             itemManager = (ItemManager) readInfo(contextFilesDir + "items.ser");
-            tradeManager = (TradeManager) readInfo(contextFilesDir + "trades.ser");
+            tradeManager = (TradeManager) readInfo(contextFilesDir + "trade.ser");
             traderManager = (TraderManager) readInfo(contextFilesDir + "traders.ser");
 
         } catch (IOException | ClassNotFoundException e) {
