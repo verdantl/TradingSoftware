@@ -31,6 +31,10 @@ public class AdminActivity extends BundleActivity {
         textView.setText(currentAdmin);
     }
 
+    /**
+     * Method that listens for a click on Log Out and sends the user to the LoginActivity
+     * @param view the View object that is being clicked
+     */
     public void onLogoutClicked(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         putBundle(intent);
@@ -38,24 +42,44 @@ public class AdminActivity extends BundleActivity {
         finish();
     }
 
+    /**
+     * Listens for a click on the Add/Remove Admin button and sends the user to the
+     * ApproveAdminActivity activity
+     * @param view the View object that is clicked
+     */
     public void addRemoveAdmin(View view){
         Intent intent = new Intent(this, ApproveAdminActivity.class);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Listens for a click on the Manage Accounts button and sends the user to the
+     * ManageFrozenAccount activity
+     * @param view the View object that is clicked
+     */
     public void manageAccounts(View view){
         Intent intent = new Intent(this, ManageFrozenAccount.class);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Listens for a click on the Add/Remove Items button and sends the user to the ApproveItems
+     * activity
+     * @param view the View object being clicked
+     */
     public void addRemoveItems(View view){
         Intent intent = new Intent(this, ApproveItems.class);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Listens for a click on the View Status button and sends the user to the ViewTraderActivity
+     * activity
+     * @param view the View object being clicked
+     */
     public void viewStatus(View view){
         TraderManager traderManager = (TraderManager) getUseCase(TRADERKEY);
         Intent intent = new Intent(this, ViewTradersActivity.class);
@@ -63,24 +87,41 @@ public class AdminActivity extends BundleActivity {
         startActivity(intent);
     }
 
+    /**
+     * Listens for a click on the Change Limits button and sends the user to the ChangeLimitActivity
+     * activity
+     * @param view the View object being clicked
+     */
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
         putBundle(i);
         startActivityForResult(i, CHANGE_LIMIT_REQ);
     }
 
+    /**
+     * Listens for a click on the Change Password button and sends the user to the ChangePassword
+     * activity
+     * @param view the View object being clicked
+     */
     public void changePassword(View view){
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         putBundle(i);
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
+    /**
+     * Listens for a click on the Undo Menu button and sends the user to the UndoActivity activity
+     * @param view the View object being clicked
+     */
     public void undoMenu(View view) {
         Intent i = new Intent(this, UndoActivity.class);
         putBundle(i);
         startActivityForResult(i, RESULT_FIRST_USER);
     }
 
+    /**
+     * Listens for a back button press and notifies the user that they've reached the menu for Admins
+     */
     @Override
     public void onBackPressed() {
         Toast.makeText(this,

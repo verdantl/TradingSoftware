@@ -11,12 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.List;
 
 public class FlaggedAccountsMenu extends BundleActivity implements ClickableList, Dialogable{
     private TraderManager traderManager;
+    private ItemManager itemManager;
     private String frozenTrader;
 
     @Override
@@ -24,6 +26,7 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flagged_accounts_menu);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         viewList();
     }
 
@@ -53,8 +56,9 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
     @Override
     public void clickPositive() {
         if (traderManager.freezeAccount(frozenTrader)) {
+            traderManager.setTraderInactive(frozenTrader, false);
+            itemManager.setStatusForFrozenUser(frozenTrader);
             Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
-
         } else {
             Toast.makeText(this,
                     "Fail: the account is already frozen", Toast.LENGTH_SHORT).show();
