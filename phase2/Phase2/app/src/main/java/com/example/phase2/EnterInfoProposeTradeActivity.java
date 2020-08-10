@@ -6,13 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

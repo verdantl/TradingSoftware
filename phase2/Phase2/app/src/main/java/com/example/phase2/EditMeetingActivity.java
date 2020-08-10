@@ -1,9 +1,6 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,11 +10,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
 
 import java.time.LocalDate;
 

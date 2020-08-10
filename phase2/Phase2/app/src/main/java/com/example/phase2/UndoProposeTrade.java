@@ -8,10 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
-
 import java.util.ArrayList;
 import java.util.List;
 

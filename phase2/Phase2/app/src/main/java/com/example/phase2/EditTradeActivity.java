@@ -9,14 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
-
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class EditTradeActivity extends UpdatableBundleActivity implements Dialogable{

@@ -1,15 +1,10 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.TraderManager;
 
 /**
  * This activity class displays the screen that allows admin users to type in new limit.

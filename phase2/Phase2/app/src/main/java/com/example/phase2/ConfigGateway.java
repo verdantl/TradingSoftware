@@ -1,4 +1,4 @@
-package com.example.phase2.phase2;
+package com.example.phase2;
 
 import android.os.Bundle;
 

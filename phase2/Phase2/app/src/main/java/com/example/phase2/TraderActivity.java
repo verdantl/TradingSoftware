@@ -1,23 +1,12 @@
 package com.example.phase2;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.AdminActions;
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
-import com.example.phase2.phase2.TraderPrompts;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TraderActivity extends BundleActivity {
     private String currentTrader;

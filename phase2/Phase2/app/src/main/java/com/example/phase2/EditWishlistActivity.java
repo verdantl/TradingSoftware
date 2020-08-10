@@ -1,7 +1,5 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,9 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 import java.util.List;

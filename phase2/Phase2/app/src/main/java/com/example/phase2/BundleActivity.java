@@ -6,9 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.phase2.phase2.ConfigGateway;
-import com.example.phase2.phase2.Manager;
-
 
 import java.io.Serializable;
 import java.util.Arrays;

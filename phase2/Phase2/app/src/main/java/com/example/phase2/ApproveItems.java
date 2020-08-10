@@ -1,27 +1,16 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.Dialog;
-import android.content.Intent;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phase2.phase2.ItemManager;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.phase2.phase2.ItemStatus.AVAILABLE;
-import static com.example.phase2.phase2.ItemStatus.REMOVED;
+import static com.example.phase2.ItemStatus.AVAILABLE;
+import static com.example.phase2.ItemStatus.REMOVED;
 
 public class ApproveItems extends BundleActivity implements ClickableList, Dialogable{
     private ItemManager itemManager;

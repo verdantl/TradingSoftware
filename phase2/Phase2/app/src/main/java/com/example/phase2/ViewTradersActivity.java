@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 
 public class ViewTradersActivity extends BundleActivity implements ClickableList{

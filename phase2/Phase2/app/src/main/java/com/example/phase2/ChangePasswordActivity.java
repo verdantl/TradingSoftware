@@ -1,15 +1,9 @@
 package com.example.phase2;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.AdminActions;
 
 /**
  * An activity class responsible for changing admin user's password

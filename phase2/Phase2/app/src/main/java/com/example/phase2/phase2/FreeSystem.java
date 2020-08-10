@@ -1,5 +1,7 @@
 package com.example.phase2.phase2;
 
+import com.example.phase2.ItemManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
