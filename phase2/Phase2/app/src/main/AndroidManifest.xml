@@ -20,9 +20,7 @@
         <activity android:name=".UndoEditMeeting" />
         <activity android:name=".UndoMenu" />
         <activity android:name=".UndoActivity" />
-        <activity android:name=".RemoveItemWishlistActivity" />
         <activity android:name=".AddNewItemActivity" />
-        <activity android:name=".RemoveItemInventoryActivity" />
         <activity android:name=".ItemOptionsActivity" />
         <activity android:name=".SelectItemActivity" />
         <activity android:name=".EnterInfoProposeTradeActivity" />
