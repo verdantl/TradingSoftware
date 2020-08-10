@@ -20,9 +20,12 @@ public class TradeType  extends AppCompatDialogFragment {
     private Dialogable dialogable;
     final String[] ways = {"One way", "Two way"};
     final String[] status = {"Permanent", "Temporary"};
-    private Boolean chosenWay;
-    private Boolean chosenStatus;
-    private AlertDialog nestedDialog;
+    final String[] meetingPlace = {"Online", "In person"};
+    private Boolean isOneWay;
+    private Boolean isTemporary;
+    private Boolean isOnline;
+    private AlertDialog choseLastTime;
+    private AlertDialog choseMeetingPlace;
 
     /**create this dialog
      * @param savedInstanceState the bundle from the activity
@@ -31,9 +34,11 @@ public class TradeType  extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = new Bundle();
-        chosenStatus = false;
-        chosenWay = false;
-        nestedDialog = (AlertDialog) nestedDialog();
+        isTemporary = false;
+        isOneWay = false;
+        isOnline = false;
+        choseLastTime = (AlertDialog) createLastTimeDialog();
+        choseMeetingPlace = (AlertDialog) createMeetingPlaceDialog();
     }
 
 
@@ -65,7 +70,7 @@ public class TradeType  extends AppCompatDialogFragment {
                 .setSingleChoiceItems(ways, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        chosenWay = i == 0;
+                        isOneWay = i == 0;
                         AlertDialog dialog = (AlertDialog) getDialog();
                         assert dialog != null;
                         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
@@ -74,10 +79,10 @@ public class TradeType  extends AppCompatDialogFragment {
                 .setPositiveButton("DONE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        bundle.putBoolean("way", chosenWay);
+                        bundle.putBoolean("isOneWay", isOneWay);
                         dismiss();
-                        nestedDialog.show();
-                        nestedDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        choseLastTime.show();
+                        choseLastTime.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     }
                 });
 
@@ -86,20 +91,45 @@ public class TradeType  extends AppCompatDialogFragment {
 
     }
 
-    private Dialog nestedDialog(){
+    private Dialog createLastTimeDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("TradeType")
                 .setSingleChoiceItems(status, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        chosenStatus = i == 1;
-                        nestedDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                        isTemporary = i == 1;
+                        choseLastTime.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
                 })
                 .setPositiveButton("DONE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        bundle.putBoolean("status", chosenStatus);
+                        bundle.putBoolean("isTemporary", isTemporary);
+                        dismiss();
+                        choseMeetingPlace.show();
+                        choseMeetingPlace.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    }
+                })
+        ;
+
+        return builder.create();
+
+    }
+
+    private Dialog createMeetingPlaceDialog(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("TradeType")
+                .setSingleChoiceItems(meetingPlace, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        isOnline = i == 0;
+                        choseMeetingPlace.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
+                })
+                .setPositiveButton("DONE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        bundle.putBoolean("isOnline", isOnline);
                         setArguments(bundle);
                         dialogable.clickPositive();
                     }
@@ -114,6 +144,7 @@ public class TradeType  extends AppCompatDialogFragment {
         return builder.create();
 
     }
+
 
     /**
      * the action when the fragment is on resume
