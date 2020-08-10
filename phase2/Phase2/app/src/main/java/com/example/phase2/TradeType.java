@@ -47,7 +47,7 @@ public class TradeType  extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("TradeType")
-                .setSingleChoiceItems(ways, -1, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(ways, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         chosenWay = i == 0;
@@ -67,7 +67,7 @@ public class TradeType  extends AppCompatDialogFragment {
     public Dialog nestedDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("TradeType")
-                .setSingleChoiceItems(status, -1, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(status, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         chosenStatus = i == 1;

@@ -17,28 +17,22 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.List;
 
-public class RequestedUnfrozenMenu extends AppCompatActivity implements ClickableList, Dialogable {
+public class RequestedUnfrozenMenu extends BundleActivity implements ClickableList, Dialogable {
     private TraderManager traderManager;
-    private Bundle bundle;
     private String unfreezeRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
 
         viewList();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ManageFrozenAccount.class);
-        bundle.remove("TraderManager");
-        bundle.putSerializable("TraderManager", traderManager);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(traderManager);
+        super.onBackPressed();
     }
 
     public void viewList(){
