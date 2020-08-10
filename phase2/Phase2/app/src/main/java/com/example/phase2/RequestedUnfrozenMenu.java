@@ -13,18 +13,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.List;
 
 public class RequestedUnfrozenMenu extends BundleActivity implements ClickableList, Dialogable {
     private TraderManager traderManager;
+    private ItemManager itemManager;
     private String unfreezeRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
 
         viewList();
     }
@@ -54,6 +57,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
     @Override
     public void clickPositive() {
         if(traderManager.unfreezeAccount(unfreezeRequest)){
+            itemManager.setStatusForRegularUser(unfreezeRequest);
             Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
 
         }else{
