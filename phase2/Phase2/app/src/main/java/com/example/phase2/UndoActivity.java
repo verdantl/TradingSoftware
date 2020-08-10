@@ -1,6 +1,5 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +12,18 @@ import com.example.phase2.phase2.TraderManager;
 public class UndoActivity extends BundleActivity {
 
 
+    /**create this activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_undo);
     }
 
+    /**
+     * listener for the back button, return to the last menu
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, AdminActivity.class);
@@ -26,6 +31,9 @@ public class UndoActivity extends BundleActivity {
         startActivity(intent);
     }
 
+    /**submit the trader that the admin wants to undo action
+     * @param view the textView that allows the admin to input the trader
+     */
     public void submit(View view){
         EditText undoTraderText = findViewById(R.id.undoUser);
         String chosenTrader = undoTraderText.getText().toString();
