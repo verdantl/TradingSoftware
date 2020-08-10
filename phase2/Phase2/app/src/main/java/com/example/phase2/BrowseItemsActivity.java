@@ -24,7 +24,6 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
     protected void updateUseCases(){
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
-        viewList();
     }
 
     /**create the activity
