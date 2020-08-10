@@ -41,10 +41,7 @@ public class UndoEditMeeting extends BundleActivity implements Dialogable{
         replaceUseCase(meetingManager);
         replaceUseCase(traderManager);
         replaceUseCase(tradeManager);
-        Intent intent = new Intent();
-        putBundle(intent);
-        setResult(RESULT_FIRST_USER, intent);
-        finish();
+        super.onBackPressed();
     }
 
     private void viewList() {
