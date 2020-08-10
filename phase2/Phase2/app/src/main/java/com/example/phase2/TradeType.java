@@ -1,20 +1,17 @@
 package com.example.phase2;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.util.ArrayList;
-import java.util.List;
+
 /* Using the radio button template from
 https://medium.com/@suragch/adding-a-list-to-an-android-alertdialog-e13c1df6cf00*/
 
