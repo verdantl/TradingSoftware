@@ -26,8 +26,6 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
 
     }
 
-
-
     public void continuing() {
         Intent intent;
         if (oneWay) {
@@ -55,7 +53,6 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
     @Override
     public void clickNegative() {
         super.onBackPressed();
-
     }
 
     @Override
