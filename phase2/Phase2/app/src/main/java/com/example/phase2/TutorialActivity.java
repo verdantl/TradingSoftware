@@ -1,14 +1,9 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import java.util.HashMap;
 
 /**
  * An activity class responsible for providing a tutorial for a trader the Trading System.
