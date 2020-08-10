@@ -299,27 +299,18 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         for(Integer i: tradeManager.getItems(trade)){
             if(itemManager.getOwner(i).equals(currentTrader)){
                 itemManager.setItemOwner(i, tradeManager.getOtherTrader(trade,currentTrader));
-                if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToFrozen(i);
-                }
-                else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToInactiveAva(i);
-                }
-                else{
-                    itemManager.changeStatusToAvailable(i);
-                }
             }
             else{
                 itemManager.setItemOwner(i, currentTrader);
-                if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToFrozen(i);
-                }
-                else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToInactiveAva(i);
-                }
-                else{
-                    itemManager.changeStatusToAvailable(i);
-                }
+            }
+            if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
+                itemManager.changeStatusToFrozen(i);
+            }
+            else if(traderManager.isInactive(itemManager.getItemOwner(i))){
+                itemManager.changeStatusToInactiveAva(i);
+            }
+            else{
+                itemManager.changeStatusToAvailable(i);
             }
         }
     }
