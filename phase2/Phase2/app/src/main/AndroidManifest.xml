@@ -14,7 +14,6 @@
         <activity android:name=".TutorialBrowseItemsActivity" />
         <activity android:name=".TutorialActivity" />
         <activity android:name=".UndoRemoveItem" />
-        <activity android:name=".UndoProposeTrade" />
         <activity android:name=".UndoConfirmTrade" />
         <activity android:name=".UndoAgreeTrade" />
         <activity android:name=".UndoEditMeeting" />
