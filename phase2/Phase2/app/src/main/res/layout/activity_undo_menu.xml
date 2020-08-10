@@ -4,49 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UndoMenu">
+    tools:context=".undo.UndoMenu">
 
     <Button
         android:id="@+id/button18"
         android:layout_width="172dp"
         android:layout_height="111dp"
-        android:layout_marginEnd="24dp"
         android:onClick="undoRemoveItem"
         android:text="@string/undoRemoveItem"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.832" />
-
-    <Button
-        android:id="@+id/button17"
-        android:layout_width="172dp"
-        android:layout_height="111dp"
-        android:onClick="undoProposeTrade"
-        android:text="@string/undoProposeTrade"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
-
-    <Button
-        android:id="@+id/button16"
-        android:layout_width="172dp"
-        android:layout_height="111dp"
-        android:layout_marginStart="16dp"
-        android:onClick="undoConfirmTrade"
-        android:text="@string/undoConfirm"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintVertical_bias="0.837" />
 
     <Button
         android:id="@+id/button15"
@@ -57,10 +29,22 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.839" />
+
+    <Button
+        android:id="@+id/button16"
+        android:layout_width="172dp"
+        android:layout_height="111dp"
+        android:layout_marginStart="24dp"
+        android:onClick="undoConfirmTrade"
+        android:text="@string/undoConfirm"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button9"
@@ -73,6 +57,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="194dp"
+        android:layout_height="191dp"
+        android:contentDescription="@string/undo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.075"
+        app:srcCompat="@drawable/ic_baseline_supervised_user_circle_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
