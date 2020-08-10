@@ -15,7 +15,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseItemsActivity extends BundleActivity implements Dialogable{
+public class BrowseItemsActivity extends BundleActivity implements ClickableList, Dialogable{
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -39,7 +39,6 @@ public class BrowseItemsActivity extends BundleActivity implements Dialogable{
             openDialog();
         }
     }
-
 
     public void viewList(){
         List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
