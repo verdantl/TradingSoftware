@@ -97,7 +97,7 @@ public class ItemManager extends Manager implements Serializable {
             String owner = item.getOwner();
             ItemStatus status = item.getStatus();
             if(owner.equals(username)){
-                if(status == ItemStatus.AVAILABLE || status == ItemStatus.UNAVAILABLE){
+                if(status == ItemStatus.AVAILABLE){
                     item.setStatus(ItemStatus.FROZEN);
                 }else if(status == ItemStatus.REQUESTED){
                     item.setStatus(ItemStatus.FROZEN_REQ);
