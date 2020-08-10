@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.example.phase2.R;
 import com.example.phase2.deliverable.ItemManager;
 import com.example.phase2.highabstract.BundleActivity;
-import com.example.phase2.traderinfo.EditInventoryActivity;
 
 /**
  * An activity class responsible for adding new items in an inventory in the Trading System.
