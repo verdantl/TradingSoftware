@@ -25,6 +25,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
     private Integer myItem;
     private boolean oneWay;
     private boolean temporary;
+    private boolean online;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         chosenItem = bundle.getInt("ChosenItem");
         oneWay = bundle.getBoolean("OneWay");
         temporary = bundle.getBoolean("Temporary");
+        online = bundle.getBoolean("Online");
         displayRecommendedItemFragment();
     }
 
@@ -116,6 +118,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         intent.putExtra("MyItem", myItem);
         intent.putExtra("Temporary", temporary);
         intent.putExtra("OneWay", oneWay);
+        intent.putExtra("Online", online);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
