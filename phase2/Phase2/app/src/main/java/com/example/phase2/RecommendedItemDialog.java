@@ -19,7 +19,7 @@ public class RecommendedItemDialog extends DialogFragment {
         void onDialogNegativeClick(DialogFragment dialog);
     }
 
-    RecommendedItemListener listener;
+    protected RecommendedItemListener listener;
 
     public void onAttach(Context context) {
         super.onAttach(context);
