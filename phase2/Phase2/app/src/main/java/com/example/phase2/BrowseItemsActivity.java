@@ -34,9 +34,9 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        updateUseCases();
-        currentTrader = getUsername();
 
+        currentTrader = getUsername();
+        updateUseCases();
         if (traderManager.getHomeCity(currentTrader).equals(getString(R.string.notApplicable))) {
             useLocation = false;
             viewList();
@@ -67,7 +67,6 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         for (Integer item : itemList) {
             itemNameList.add(itemManager.getItemName(item));
         }
-
         setContentView(R.layout.activity_browse_items);
         ListView listView = findViewById(R.id.selectItem);
         ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(this,

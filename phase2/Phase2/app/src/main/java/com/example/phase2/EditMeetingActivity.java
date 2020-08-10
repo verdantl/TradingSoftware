@@ -37,7 +37,6 @@ public class EditMeetingActivity extends BundleActivity {
         online = (boolean) bundle.get("Online");
         meetingManager = (MeetingManager) getUseCase("MeetingManager");
         currentTrader = (String) getUseCase("Username");
-
         EditText location=findViewById(R.id.meetingLocationEdit);
         TextView newLocation = findViewById(R.id.newLocation);
         if(online){
