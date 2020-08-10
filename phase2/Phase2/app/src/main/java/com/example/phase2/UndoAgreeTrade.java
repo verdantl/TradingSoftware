@@ -1,15 +1,13 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,6 +23,9 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable{
     private MeetingManager meetingManager;
     private Integer chosenTrade;
 
+    /**create this activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,9 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable{
         viewList();
     }
 
+    /**
+     * listener for the back button, return to the last menu
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(meetingManager);
@@ -72,8 +76,9 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable{
     }
 
 
-
-
+    /**
+     * Listener for the positive button, undoAgree
+     */
     @Override
     public void clickPositive() {
         meetingManager.undoAgree(chosenTrade, chosenTrader);
@@ -82,6 +87,9 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable{
 
     }
 
+    /**
+     * Listener for the negative button, cancel the action
+     */
     @Override
     public void clickNegative() {
         Toast.makeText(this, "Cancelled!", Toast.LENGTH_SHORT).show();
@@ -89,6 +97,9 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable{
 
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();

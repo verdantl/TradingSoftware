@@ -1,8 +1,5 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +20,9 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
     private String chosenTrader;
     private Integer chosenItem;
 
+    /**create this activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,9 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
         
     }
 
+    /**
+     * listener for the back button, return to the last menu
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(itemManager);
@@ -63,7 +66,9 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
 
 
 
-
+    /**
+     * Listener for the positive button, undoRemoveItems
+     */
     @Override
     public void clickPositive() {
         itemManager.undoRemoval(chosenItem);
@@ -73,6 +78,9 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
 
     }
 
+    /**
+     * Listener for the negative button, cancel the action
+     */
     @Override
     public void clickNegative() {
         Toast.makeText(this,
@@ -81,6 +89,9 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
 
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
