@@ -19,6 +19,7 @@ public class Trader extends User implements Serializable {
     // for making a new trader
     public Trader(String username, String password){
         super(username, password);
+        homeCity = "N/A";
         frozen = false;
         flagged = false;
         inactive=false;
@@ -31,38 +32,9 @@ public class Trader extends User implements Serializable {
     }
 
     /**
-     * Constructor for when the user is read in
-     * @param username The user's username
-     * @param password The user's password
-     * @param dateCreated   The date the user was created
-     * @param frozen Whether the user's account is frozen
-     * @param flagged Whether this user's account is flagged for review by a moderator
-     * @param requestToUnfreeze Whether this user has requested to unfreeze.
-     * @param numLent  The number of times the user has lent an item
-     * @param numBorrowed  The number of times the user has borrowed an item
-     */ //TODO: add the location to the constructor
-    public Trader(String username, String password, String dateCreated, boolean frozen,
-                  boolean flagged, boolean requestToUnfreeze, int numLent, int numBorrowed, int numIncomplete,
-                  List<Integer> wishlist, List<Integer> borrowedItems, HashMap<Integer, LocalDate> trades){
-        super(username, password, dateCreated);
-
-        this.frozen = frozen;
-        this.flagged = flagged;
-        this.numBorrowed=numBorrowed;
-        this.numLent=numLent;
-        this.requestToUnfreeze = requestToUnfreeze;
-        this.wishlist = wishlist;
-        this.borrowedItems = borrowedItems;
-        this.trades = trades;
-        this.numIncomplete = numIncomplete;
-    }
-
-
-    /**
      * Converts the trader to a string representation.
      * @return a string of the admin's username, password, and date created
      */
-
 
     @Override
     public String toString(){
