@@ -574,9 +574,12 @@ public class MeetingManager extends Manager implements Serializable {
      * @return True if date is after, false otherwise
      */
     public boolean dateIsAfterReturnMeeting(int id, LocalDate date){
-        if(date.isBefore(meetings.get(id).getReturnDate())){
+        if(date.isBefore(meetings.get(id).getReturnDate().plusMonths(1))){
             return false;
         }
-        return true;
+        else{
+            return true;
+        }
+
     }
 }

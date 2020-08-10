@@ -1,11 +1,14 @@
 package com.example.phase2;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
 
@@ -38,7 +41,9 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     @Override
     public void onBackPressed(){
         replaceUseCase(itemManager);
-        super.onBackPressed();
+        Intent intent = new Intent(this, TraderActivity.class);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**
@@ -67,14 +72,34 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     }
 
     /**
-     * This method is called when the user clicks on an item. It starts
-     * the RemoveItemInventoryActivity.
+     * This method is call to remove item from system and displays it is successfully.
+     */
+    public void removeItem(){
+        itemManager.removeItem(chosenItem);
+        Toast.makeText(this, "Successfully removed the item",
+                Toast.LENGTH_LONG).show();
+        viewList();
+    }
+
+    /**
+     * This method is called when the user clicks on an item. It creates a new dialog showing the
+     * item information and options to remove the item or cancel.
      */
     public void displayRemoveItem(){
-        Intent intent = new Intent(this, RemoveItemInventoryActivity.class);
-        intent.putExtra("ChosenItem", chosenItem);
-        putBundle(intent);
-        startActivityForResult(intent, RESULT_FIRST_USER);
+        String itemInfo = itemManager.getItemInString(chosenItem);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to remove the item?\n"+itemInfo)
+                .setPositiveButton("Remove Item", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        removeItem();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        viewList();
+                    }
+                });
+        builder.show();
     }
 
     /**

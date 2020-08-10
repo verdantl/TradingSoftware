@@ -207,12 +207,15 @@ public class EditTradeActivity extends BundleActivity implements Dialogable{
     }
     public void onConfirmMeetingClicked(View view){
         //Date for checking confirm time is set
+
 //        if(meetingManager.getReturnLocation(trade).equals("N/A")){
+//            //Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
 //            if(!meetingManager.dateIsAfterMeeting(trade, LocalDate.now())){
 //                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
 //                return;
 //            }
 //        }else{
+//            //Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
 //            if(!meetingManager.dateIsAfterReturnMeeting(trade, LocalDate.now())){
 //                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
 //                return;
