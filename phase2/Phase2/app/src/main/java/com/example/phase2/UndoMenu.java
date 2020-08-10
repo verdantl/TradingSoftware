@@ -65,6 +65,6 @@ public class UndoMenu extends BundleActivity {
         Intent intent = new Intent(this, UndoRemoveItem.class);
         intent.putExtra("chosenTrader", getIntent().getStringExtra("chosenTrader"));
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 }
