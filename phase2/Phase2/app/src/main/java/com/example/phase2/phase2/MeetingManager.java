@@ -418,6 +418,21 @@ public class MeetingManager extends Manager implements Serializable {
     }
 
     /**
+     * Returns if the given date is after the date of the meeting with the given id
+     * @param id The id of the meeting
+     * @param date The date to compare to
+     * @return true if date is after the meeting date, false otherwise
+     */
+    public boolean dateIsAfterMeeting(int id, LocalDate date){
+        if(date.isBefore(meetings.get(id).getTradeDate())){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    /**
      * Returns the meeting's current location
      * @param id The id of the meeting
      * @return The location
@@ -548,6 +563,19 @@ public class MeetingManager extends Manager implements Serializable {
             if(i<3){
                 return false;
             }
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether the given date is after the return date of meeting with given id
+     * @param id The id of the meeting
+     * @param date The date to check
+     * @return True if date is after, false otherwise
+     */
+    public boolean dateIsAfterReturnMeeting(int id, LocalDate date){
+        if(date.isBefore(meetings.get(id).getReturnDate())){
+            return false;
         }
         return true;
     }
