@@ -35,7 +35,7 @@ public class TraderActivity extends BundleActivity {
     }
 
     public void browseAvailableItems(View view){
-        Intent intent = new Intent(this, LocationChoiceActivity.class);
+        Intent intent = new Intent(this, BrowseItemsActivity.class);
         putBundle(intent);
         startActivity(intent);
     }

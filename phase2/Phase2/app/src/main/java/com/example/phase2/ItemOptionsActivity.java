@@ -67,7 +67,8 @@ public class ItemOptionsActivity extends AppCompatActivity {
     }
 
     public void proposeTrade(View view) {
-        if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
+        Toast.makeText(this, currentTrader, Toast.LENGTH_SHORT).show();
+        /*if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
             displayTradeOptions1(view);
         } else if (traderManager.isInactive(currentTrader)) {
             Toast.makeText(this, "Your account is inactive," +
@@ -76,6 +77,8 @@ public class ItemOptionsActivity extends AppCompatActivity {
             Toast.makeText(this, "Your account is frozen," +
                     " you cannot trade.", Toast.LENGTH_LONG).show();
         }
+
+         */
     }
 
     public void displayTradeOptions1(View view) {

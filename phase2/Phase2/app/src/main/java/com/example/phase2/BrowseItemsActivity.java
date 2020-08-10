@@ -7,7 +7,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
@@ -17,7 +19,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseItemsActivity extends AppCompatActivity {
+public class BrowseItemsActivity extends BundleActivity implements LocationChoiceFragment.LocationChoiceListener{
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -32,13 +34,24 @@ public class BrowseItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        currentTrader = getUsername();
         useLocation = (Boolean) bundle.getBoolean("LocationChoice");
-        viewList();
+
+        if (traderManager.getHomeCity(currentTrader).equals(R.string.notApplicable)) {
+            useLocation = false;
+            viewList();
+        } else {
+            createDialogLocationChoice();
+        }
+    }
+
+    public void createDialogLocationChoice(){
+        LocationChoiceFragment lcFragment = new LocationChoiceFragment();
+        lcFragment.show(getSupportFragmentManager(), "locationChoice");
     }
 
     public void viewList(){
@@ -89,5 +102,17 @@ public class BrowseItemsActivity extends AppCompatActivity {
         intent.putExtra("ChosenItem", chosenItem);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        useLocation = true;
+        viewList();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        useLocation = false;
+        viewList();
     }
 }

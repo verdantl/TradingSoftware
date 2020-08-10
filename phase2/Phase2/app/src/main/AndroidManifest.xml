@@ -26,7 +26,6 @@
         <activity android:name=".EnterInfoProposeTradeActivity" />
         <activity android:name=".DisplayTradeOptions2Activity" />
         <activity android:name=".DisplayTradeOptions1Activity" />
-        <activity android:name=".LocationChoiceActivity" />
         <activity android:name=".ChangeTraderPassword" />
         <activity android:name=".ApproveItems" />
         <activity android:name=".EditMeetingActivity" />

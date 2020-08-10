@@ -102,13 +102,16 @@ public class ConfigGateway {
         item1.setStatus(ItemStatus.AVAILABLE);
         item1.setCategory("What do you think?");
         item1.setDescription("bruhbruhbruh");
+        item1.setQualityRating(5);
         HashMap<Integer, Item> tempMap = new HashMap<>();
         tempMap.put(1, item1);
         itemManager = new ItemManager(tempMap);
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());
         traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
-        traderManager.addTrader(new Trader("Trader1", "Password"));
+        Trader trader1 = new Trader("Trader1", "Password");
+        trader1.setHomeCity("Brampton");
+        traderManager.addTrader(trader1);
         traderManager.addTrader(new Trader("Trader2", "Password2"));
         Trader traderFlagged = new Trader("Arjun", "Password3");
         traderFlagged.setHomeCity("Toronto");
