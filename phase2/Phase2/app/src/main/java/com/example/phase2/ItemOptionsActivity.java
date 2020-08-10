@@ -14,6 +14,8 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
+import java.util.Objects;
+
 public class ItemOptionsActivity extends BundleActivity {
 
     private ItemManager itemManager;
@@ -26,14 +28,12 @@ public class ItemOptionsActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
+        chosenItem = Objects.requireNonNull(getIntent().getExtras()).getInt("ChosenItem");
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         tradeManager = (TradeManager) getUseCase(TRADEKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         currentTrader = getUsername();
-        chosenItem = bundle.getInt("ChosenItem");
         viewStart();
     }
 

@@ -33,12 +33,13 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         tradeManager = (TradeManager) getUseCase(TRADEKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         currentTrader = getUsername();
+
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         chosenItem = bundle.getInt("ChosenItem");
         myItem = bundle.getInt("MyItem");
         oneWay = bundle.getBoolean("OneWay");
