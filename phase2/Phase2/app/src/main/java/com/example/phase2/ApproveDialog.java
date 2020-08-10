@@ -3,6 +3,7 @@ package com.example.phase2;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -15,16 +16,15 @@ public class ApproveDialog extends AppCompatDialogFragment {
 
 
     @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         try {
-            dialogable = (Dialogable) activity;
+            dialogable = (Dialogable) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement Dialogable");
         }
     }
-
 
     @NonNull
     @Override
