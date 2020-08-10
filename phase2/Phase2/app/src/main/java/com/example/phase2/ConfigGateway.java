@@ -19,13 +19,14 @@ public class ConfigGateway {
     private TradeManager tradeManager;
     private File contextFilesDir;
 
+    /**
+     * Constructor for the ConfigGateway class
+     * @param contextFilesDir the File containing the context files directory for the application
+     */
     public ConfigGateway(File contextFilesDir){
         this.contextFilesDir = contextFilesDir;
     }
 
-    public ConfigGateway(){
-
-    }
     /**
      * Reads objects from the given path
      * @param path the string path of the file
@@ -33,7 +34,6 @@ public class ConfigGateway {
      * @throws IOException from the InputStream
      * @throws ClassNotFoundException from ObjectInputStream
      */
-
     public Serializable readInfo(String path) throws IOException, ClassNotFoundException {
         File file = new File(path);
         if (file.exists()) {
@@ -67,6 +67,11 @@ public class ConfigGateway {
             downloadInitial();
         }
     }
+
+    /**
+     * Packages the manager classes into a Bundle object
+     * @return a Bundle object containing the Manager use case classes in Serializable form
+     */
     public Bundle getBundle(){
         loadClasses();
         Bundle bundle = new Bundle();
@@ -92,6 +97,19 @@ public class ConfigGateway {
 
         output.writeObject(manager);
         output.close();
+    }
+
+
+    /**
+     * Writes the contents of the bundle to the phone's storage
+     * @param bundle The Bundle of use case manager classes
+     */
+    public void saveBundle(Bundle bundle) throws IOException {
+        saveInfo(contextFilesDir + "admins.ser", bundle.getSerializable("AdminActions"));
+        saveInfo(contextFilesDir + "meetings.ser", bundle.getSerializable("MeetingManager"));
+        saveInfo(contextFilesDir + "items.ser", bundle.getSerializable("MeetingManager"));
+        saveInfo(contextFilesDir + "trade.ser", bundle.getSerializable("MeetingManager"));
+        saveInfo(contextFilesDir + "trader.ser", bundle.getSerializable("MeetingManager"));
     }
 
     private void downloadInitial(){
@@ -258,7 +276,4 @@ public class ConfigGateway {
         }
     }
 
-    public void saveBundle(Bundle bundle){
-
-    }
 }

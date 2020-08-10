@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
+
 public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
@@ -92,6 +94,10 @@ public class LoginActivity extends UpdatableBundleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        saveBundle();
+//        try {
+//            saveBundle();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
