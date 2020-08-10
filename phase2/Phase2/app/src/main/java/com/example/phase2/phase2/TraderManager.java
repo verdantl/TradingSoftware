@@ -523,4 +523,13 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         users.get(firstUser).removeTrade(id);
         users.get(secondUser).removeTrade(id);
     }
+
+//    /**
+//     * Returns whether the user with the given id is inactive
+//     * @param id The id of the user
+//     * @return true if inactive, false otherwise
+//     */
+//    public boolean isInactive(String username){
+//        return users.get(username).isInactive();
+//    }
 }

@@ -52,8 +52,6 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".BrowseTradesActivity" />
         <activity android:name=".EditTradeActivity" />
-        <activity android:name=".OneItemActivity" />
-        <activity android:name=".TwoItemActivity" />
         <activity android:name=".BrowseItemsActivity" />
         <activity android:name=".EditInventoryActivity" />
         <activity android:name=".EditWishlistActivity" />
