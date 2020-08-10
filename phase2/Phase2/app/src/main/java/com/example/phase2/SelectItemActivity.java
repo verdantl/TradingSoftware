@@ -10,9 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.TraderManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +23,11 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
     private boolean oneWay;
     private boolean temporary;
     private boolean online;
-
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,9 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
     public void onDialogNegativeClick(DialogFragment dialog) {
         viewList();
     }
-
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final List<Integer> itemIDs = itemManager.getApprovedItemsIDs(currentTrader);
         List<String> itemNames = new ArrayList<>();
@@ -123,6 +126,9 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

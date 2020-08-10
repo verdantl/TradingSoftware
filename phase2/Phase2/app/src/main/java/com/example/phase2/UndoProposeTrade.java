@@ -8,10 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +45,9 @@ public class UndoProposeTrade extends BundleActivity implements Dialogable {
         setResult(RESULT_FIRST_USER, intent);
         finish();
     }
-
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final List<Integer> tempMeetings = new ArrayList<>();
         for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(chosenTrader))) {

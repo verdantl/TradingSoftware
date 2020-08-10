@@ -1,8 +1,10 @@
-package com.example.phase2.phase2;
+package com.example.phase2;
+
+import com.example.phase2.Manager;
+import com.example.phase2.Trade;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.*;
 
 

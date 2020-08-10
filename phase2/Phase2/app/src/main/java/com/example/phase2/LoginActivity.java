@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.phase2.phase2.AdminActions;
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.TraderManager;
 
 public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;

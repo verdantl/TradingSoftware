@@ -1,13 +1,8 @@
 package com.example.phase2;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.example.phase2.phase2.TraderManager;
 
 /**
  * An activity class responsible for changing the limits in the Trading System.

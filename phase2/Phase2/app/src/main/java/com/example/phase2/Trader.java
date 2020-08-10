@@ -1,4 +1,5 @@
-package com.example.phase2.phase2;
+package com.example.phase2;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;

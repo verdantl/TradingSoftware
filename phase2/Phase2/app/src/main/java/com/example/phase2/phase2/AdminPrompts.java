@@ -1,5 +1,8 @@
 package com.example.phase2.phase2;
 
+import com.example.phase2.Item;
+import com.example.phase2.Trader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

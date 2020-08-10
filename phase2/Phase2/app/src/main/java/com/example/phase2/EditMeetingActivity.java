@@ -1,9 +1,6 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,11 +10,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
 
 import java.time.LocalDate;
 
@@ -30,14 +22,16 @@ public class EditMeetingActivity extends BundleActivity {
     private String currentTrader;
     private LocalDate newDate;
     private boolean online;
-
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_meeting);
         Bundle bundle = getIntent().getExtras();
-//        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-//        currentTrader = (String) bundle.getSerializable("CurrentTrader");
         assert bundle != null;
         trade = (Integer) bundle.getSerializable("Trade");
         online = (boolean) bundle.get("Online");
@@ -117,7 +111,9 @@ public class EditMeetingActivity extends BundleActivity {
         });
     }
 
-
+    /**
+     * Submits the edited meeting.
+     */
     public void onSubmitClick(){
         replaceUseCase(meetingManager);
         super.onBackPressed();

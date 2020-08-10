@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.phase2.phase2.ItemManager;
-
 import java.util.ArrayList;
 import java.util.List;
 

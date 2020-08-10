@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.phase2.phase2.ItemManager;
-
 /**
  * An activity class responsible for adding new items in an inventory in the Trading System.
  */

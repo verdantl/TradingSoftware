@@ -1,11 +1,11 @@
-package com.example.phase2.phase2;
+package com.example.phase2;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdminActions extends Manager implements Serializable, Loginable{
+public class AdminActions extends Manager implements Serializable, Loginable {
     private final HashMap<String, Admin> admins;
 
     /**

@@ -1,4 +1,4 @@
-package com.example.phase2.phase2;//package items;
+package com.example.phase2;//package items;
 
 //import users.Trader;
 

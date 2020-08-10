@@ -1,13 +1,9 @@
 package com.example.phase2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.phase2.phase2.TraderManager;
 
 public class ChangeHomecity extends BundleActivity {
 

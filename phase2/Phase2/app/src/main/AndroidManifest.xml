@@ -36,7 +36,6 @@
         <activity android:name=".ChangeLimitActivity" />
         <activity android:name=".ViewTradersActivity" />
         <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,10 @@
 package com.example.phase2.phase2;
 
+import com.example.phase2.ItemManager;
+import com.example.phase2.MeetingManager;
+import com.example.phase2.TradeManager;
+import com.example.phase2.TraderManager;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -7,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class TraderSystem extends UserSystem{
 

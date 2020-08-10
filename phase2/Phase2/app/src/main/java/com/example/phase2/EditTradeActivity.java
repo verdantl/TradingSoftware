@@ -9,14 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
-import com.example.phase2.phase2.TraderManager;
-
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class EditTradeActivity extends UpdatableBundleActivity implements Dialogable{
@@ -299,27 +291,18 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         for(Integer i: tradeManager.getItems(trade)){
             if(itemManager.getOwner(i).equals(currentTrader)){
                 itemManager.setItemOwner(i, tradeManager.getOtherTrader(trade,currentTrader));
-                if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToFrozen(i);
-                }
-                else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToInactiveAva(i);
-                }
-                else{
-                    itemManager.changeStatusToAvailable(i);
-                }
             }
             else{
                 itemManager.setItemOwner(i, currentTrader);
-                if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToFrozen(i);
-                }
-                else if(traderManager.isInactive(itemManager.getItemOwner(i))){
-                    itemManager.changeStatusToInactiveAva(i);
-                }
-                else{
-                    itemManager.changeStatusToAvailable(i);
-                }
+            }
+            if(traderManager.getIsFrozen(itemManager.getItemOwner(i))){
+                itemManager.changeStatusToFrozen(i);
+            }
+            else if(traderManager.isInactive(itemManager.getItemOwner(i))){
+                itemManager.changeStatusToInactiveAva(i);
+            }
+            else{
+                itemManager.changeStatusToAvailable(i);
             }
         }
     }
@@ -383,7 +366,7 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
     }
     private void setUpOneItem(){
         String tempItemName = itemManager.getItemName(tradeManager.getItems(trade).get(0));
-        TextView itemName=itemsDialog.findViewById(R.id.itemName);
+        TextView itemName = itemsDialog.findViewById(R.id.itemName);
         itemName.setText(tempItemName);
 
         String tempItemDescription = itemManager.getItemDescription(tradeManager.getItems(trade).get(0));
