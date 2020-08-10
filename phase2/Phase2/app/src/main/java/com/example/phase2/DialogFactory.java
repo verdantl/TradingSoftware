@@ -23,6 +23,8 @@ public class DialogFactory {
                 return new LocationChoiceDialog();
             case"TradeType":
                 return new TradeType();
+            case"Recommend":
+                return new RecommendedItemDialog();
             default:
                 return new AppCompatDialogFragment();
         }
