@@ -56,3 +56,9 @@ and SOLID principles against clean architecture structure. We thought the former
  in every activity due to using intents private, so we made it private in the BundleActivity class.
  Overall, we felt this was a great class to have because it reduced a lot of repeated code throughout
  the program and also increased encapsulation.
+ 
+ #UpdatableBundleActivity
+ There were a few activities that used BundleActivity, but needed their Manager classes to be 
+ updated after exiting from the previous activity. For this we used an abstract class UpdatableBundleActivity
+ which extends the BundleActivity abstract class and reduced the repeated code needed to override
+ the onActivityResult method in all of these classes.
