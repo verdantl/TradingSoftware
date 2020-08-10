@@ -91,7 +91,6 @@ public class SelectItemActivity extends BundleActivity implements Dialogable, Cl
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 myItem = itemIDs.get(i);
-                Toast.makeText(SelectItemActivity.this, currentTrader, Toast.LENGTH_SHORT).show();
                 continuing();
             }
         });
