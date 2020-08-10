@@ -23,6 +23,7 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
     private String frozenTrader;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +33,18 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
 
     }
 
+    /**
+     * listener for the back button, return to the last menu
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(traderManager);
         super.onBackPressed();
     }
 
+    /**
+     * view a list of traders that can be frozen
+     */
     public void viewList(){
         final ArrayList<String> allTraders = traderManager.getTraders();
         setContentView(R.layout.activity_all_traders_menu);
@@ -54,6 +61,9 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
         });
     }
 
+    /**
+     * freeze the account
+     */
     @Override
     public void clickPositive() {
         if(traderManager.freezeAccount(frozenTrader)){
@@ -69,6 +79,9 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
 
     }
 
+    /**
+     * cancel the action
+     */
     @Override
     public void clickNegative() {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
@@ -76,6 +89,9 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
 
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
