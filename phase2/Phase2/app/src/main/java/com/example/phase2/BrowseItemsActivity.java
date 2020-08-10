@@ -70,7 +70,7 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         for (Integer item : itemList) {
             itemNameList.add(itemManager.getItemName(item));
         }
-        
+
         setContentView(R.layout.activity_browse_items);
         ListView listView = findViewById(R.id.selectItem);
         ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(this,

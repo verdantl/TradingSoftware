@@ -12,14 +12,14 @@ import android.widget.Toast;
 import com.example.phase2.phase2.AdminActions;
 
 /**
- * An activity class responsible for chaning admin user's password
+ * An activity class responsible for changing admin user's password
  */
 public class ChangePasswordActivity extends BundleActivity {
     private AdminActions adminActions;
     private String currentAdmin;
 
     /**
-     * Sets up the activty
+     * Sets up the activity
      * @param savedInstanceState A bundle that has all the necessary objects
      */
     @Override
@@ -37,7 +37,7 @@ public class ChangePasswordActivity extends BundleActivity {
     public void submitPassword(View view){
         EditText et = (EditText) findViewById(R.id.enterPassword);
         if(et.getText().toString().equals("")){
-            Toast.makeText(this, "Invalid password.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.invalid_password, Toast.LENGTH_SHORT).show();
         }else {
             assert adminActions != null;
             adminActions.changePassword(currentAdmin, et.getText().toString());

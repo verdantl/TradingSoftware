@@ -28,6 +28,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     private Integer myItem;
     private boolean oneWay;
     private boolean temporary;
+    private boolean online;
     private String location = null;
     private LocalDate date = null;
 
@@ -46,6 +47,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         myItem = bundle.getInt("MyItem");
         oneWay = bundle.getBoolean("OneWay");
         temporary = bundle.getBoolean("Temporary");
+        online = bundle.getBoolean("Online");
         viewStart();
     }
 
@@ -79,15 +81,25 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
             List<Integer> items = new ArrayList<>();
             items.add(chosenItem);
             if (oneWay) {
-                i = tradeManager.createTrade(currentTrader, receiver, "ONEWAY", temporary, items);
+                if (!temporary && online) {
+                    i = tradeManager.createTrade(currentTrader, receiver, "ONLINE-ONEWAY", temporary, items);
+                } else {
+                    i = tradeManager.createTrade(currentTrader, receiver, "ONEWAY", temporary, items);
+                }
             }
             else {
                 items.add(myItem);
-                i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
+                if (!temporary && online) {
+                    i = tradeManager.createTrade(currentTrader, receiver, "ONLINE-TWOWAY", temporary, items);
+                } else {
+                    i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
+                }
             }
             traderManager.addNewTrade(currentTrader, i, LocalDate.now());
             traderManager.addNewTrade(receiver, i, LocalDate.now());
-            itemManager.setItemsInactive(items, true);
+            for (Integer j: items) {
+                itemManager.changeStatusToUnavailable(j);
+            }
 
             meetingManager.createMeeting(i, currentTrader, receiver, temporary);
             if (temporary){

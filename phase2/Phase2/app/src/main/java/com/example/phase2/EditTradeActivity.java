@@ -29,6 +29,9 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
 
     private Dialog itemsDialog;
 
+    /**
+     * Updates the Manager classes in the bundle
+     */
     protected void updateUseCases(){
         tradeManager = (TradeManager) getUseCase(TRADEKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
@@ -36,6 +39,11 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         updateScreen();
     }
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +115,9 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         }
     }
 
+    /**
+     * Declines the trade if the decline pressed.
+     */
     public void onDeclineTrade(){
         removeTrade();
         Toast.makeText(EditTradeActivity.this, R.string.tradeDeclined, Toast.LENGTH_LONG).show();
@@ -152,6 +163,11 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         TextView selfTraderAgree2 = findViewById(R.id.opposingTradeAgree);
         selfTraderAgree2.setText(tempAgreeStatus2);
     }
+
+    /**
+     * Opens the edit meeting activity if the button is clicked
+     * @param view The view of the editMeetingClicked
+     */
     public void onEditMeetingClicked(View view){
         if(meetingManager.isValid(currentTrader, trade)){
             Intent intent = new Intent(this, EditMeetingActivity.class);
@@ -178,14 +194,21 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         replaceUseCase(traderManager);
         replaceUseCase(itemManager);
     }
+
+    /**
+     * Goes back to browseTradesActivity if the back button is pressed
+     */
     @Override
     public void onBackPressed() {
         replaceUseCases();
         super.onBackPressed();
     }
 
+    /**
+     * Agrees to the meeting and updates the trade
+     * @param view The agree button view
+     */
     public void onAgreeMeetingClicked(View view){
-        //TODO If wanted update so only able to agree if date is appropriate
         if(meetingManager.hasAgreed(trade, currentTrader)){
             Toast.makeText(this, R.string.already_agreed, Toast.LENGTH_LONG).show();
         }
@@ -205,9 +228,14 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         }
 
     }
+
+    /**
+     * Confirms and updates the trade once the confirm button is clicked.
+     * @param view The confirm button's view
+     */
     public void onConfirmMeetingClicked(View view){
         //Date for checking confirm time is set
-
+        //DO NOT DELETE THIS
 //        if(meetingManager.getReturnLocation(trade).equals("N/A")){
 //            //Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
 //            if(!meetingManager.dateIsAfterMeeting(trade, LocalDate.now())){
@@ -259,7 +287,6 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
                     completeTrade();
                 }
             }
-
     }
 
     private void completeTrade(){
@@ -310,6 +337,10 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         }
     }
 
+    /**
+     * Shows the item(s) information
+     * @param view The view
+     */
     public void onViewItemInformationClicked(View view){
         openDialog();
     }
@@ -400,15 +431,24 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         TextView itemOwner2 = itemsDialog.findViewById(R.id.ownedBy3);
         itemOwner2.setText(tempOwner2);
     }
+
+    /**
+     * Called when the positive button is clicked.
+     */
     @Override
     public void clickPositive() {
-
     }
 
+    /**
+     * Called when the negative button is clicked
+     */
     @Override
     public void clickNegative() {
     }
 
+    /**
+     * Opens the itemsDialog.
+     */
     @Override
     public void openDialog() {
         updateDialogs();

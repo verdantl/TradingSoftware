@@ -95,7 +95,7 @@ public class EditWishlistActivity extends BundleActivity implements ClickableLis
         String itemInfo = itemManager.getItemInString(chosenItem);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to remove the item?\n"+itemInfo)
-                .setPositiveButton("Add Item", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Remove Item", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         removeItem();
                     }

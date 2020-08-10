@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
+import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,13 @@ import java.util.List;
 public class SelectItemActivity extends BundleActivity implements RecommendedItemDialog.RecommendedItemListener, ClickableList{
 
     private ItemManager itemManager;
+    private TraderManager traderManager;
     private String currentTrader;
     private Integer chosenItem;
     private Integer myItem;
     private boolean oneWay;
     private boolean temporary;
+    private boolean online;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +33,12 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         currentTrader = getUsername();
         chosenItem = bundle.getInt("ChosenItem");
         oneWay = bundle.getBoolean("OneWay");
         temporary = bundle.getBoolean("Temporary");
+        online = bundle.getBoolean("Online");
         displayRecommendedItemFragment();
     }
 
@@ -44,8 +49,41 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        myItem = bestItem();
+        Toast.makeText(this, "We chose the item " + itemManager.getItemName(myItem) +
+                " with ID " + myItem.toString(), Toast.LENGTH_SHORT).show();
         continuing();
+    }
+
+    /**
+     * Helper method for onDialogPositiveClick that returns the best item for the trade.
+     * @return the ID of the best item for the trade.
+     */
+    private int bestItem() {
+        String receiver = itemManager.getItemOwner(chosenItem);
+        for(Integer receiverIDs : traderManager.getWishlistIds(receiver)){
+            if(itemManager.getApprovedItemsIDs(currentTrader).contains(receiverIDs)){
+                return receiverIDs;
+            }
+        }
+        //the max should be 10
+        int ratingDifference = 11;
+        int helper;
+        int currentItem = -1;
+        //the suggested item is the one that is closest in quality
+        for(Integer i : itemManager.getApprovedItemsIDs(currentTrader)){
+            helper = Math.abs(Integer.parseInt(itemManager.getItemQuality(i)) -
+                    Integer.parseInt(itemManager.getItemQuality(chosenItem)));
+            if (helper == 0) {
+                currentItem = i;
+                return currentItem;
+            }
+            else if (helper < ratingDifference) {
+                currentItem = i;
+                ratingDifference = helper;
+            }
+        }
+        return currentItem;
     }
 
     @Override
@@ -80,6 +118,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
         intent.putExtra("MyItem", myItem);
         intent.putExtra("Temporary", temporary);
         intent.putExtra("OneWay", oneWay);
+        intent.putExtra("Online", online);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
