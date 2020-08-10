@@ -1,5 +1,6 @@
 package com.example.phase2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import android.content.Intent;
@@ -41,7 +42,6 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
         intent.putExtra("OneWay", oneWay);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
-        finish();
     }
 
     @Override

@@ -75,4 +75,8 @@ public class SelectItemActivity extends BundleActivity implements ClickableList{
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
