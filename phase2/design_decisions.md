@@ -1,7 +1,6 @@
 #Key Design Decisions
 
 ##Controllers/Presenters
-
  The decision to keep Controllers and Presenters together the same class was not an light one. 
 However, due to our decision of using Android Studio, we realized that separating them would lead 
 to the opposite of good code design. Separating the controller and presenter is done with the 
@@ -53,7 +52,8 @@ and SOLID principles against clean architecture structure. We thought the former
  bundle of data. We wanted to make sure that activities 
  Although it is technically possible to access the other use cases, this is due to 
  We wanted to keep the Bundle that was needed
- in every activity due to using intents private, so we made it private in the BundleActivity class.
+ in every activity due to using intents private,
+  so we made it private in the BundleActivity class.
  Overall, we felt this was a great class to have because it reduced a lot of repeated code throughout
  the program and also increased encapsulation.
  

@@ -1,6 +1,8 @@
 package com.example.phase2;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
+import com.example.phase2.phase2.TraderManager;
 
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.List;
 
 public class UndoRemoveItem extends BundleActivity implements Dialogable {
     private ItemManager itemManager;
+    private TraderManager traderManager;
     private String chosenTrader;
     private Integer chosenItem;
 
@@ -28,7 +32,8 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
         super.onCreate(savedInstanceState);
         chosenTrader = getIntent().getStringExtra("chosenTrader");
         itemManager = (ItemManager) getUseCase(ITEMKEY);
-        viewList();
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        isValid();
         
     }
 
@@ -58,10 +63,26 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 chosenItem = removedItems.get(i);
             }
         });
+    }
+
+    private void isValid(){
+        if(traderManager.getIsFrozen(chosenTrader) || traderManager.isInactive(chosenTrader)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Alert")
+                    .setMessage("The account is either frozen or inactive")
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            onBackPressed();
+                        }
+                    });
+            builder.show();
+        }else{
+            viewList();
+        }
     }
 
 
@@ -97,7 +118,6 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
         DialogFactory dialogFactory = new DialogFactory();
         dialogFactory.getDialog("Undo")
                 .show(getSupportFragmentManager(), "UndoRemove");
-
 
     }
 }
