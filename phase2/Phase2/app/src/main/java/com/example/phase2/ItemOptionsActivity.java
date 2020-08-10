@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.TraderManager;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class ItemOptionsActivity extends BundleActivity {
@@ -60,15 +61,37 @@ public class ItemOptionsActivity extends BundleActivity {
     }
 
     public void proposeTrade(View view) {
-        if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
+        if (canProposeTrade()) {
             displayTradeOptions(view);
         } else if (traderManager.isInactive(currentTrader)) {
             Toast.makeText(this, "Your account is inactive," +
                     " you cannot trade.", Toast.LENGTH_LONG).show();
+        } else if (traderManager.exceedWeeklyLimit(currentTrader, LocalDate.now())) {
+            Toast.makeText(this, "You have exceeded your " +
+                    "weekly trade limit.", Toast.LENGTH_SHORT).show();
+        } else if (traderManager.exceedMaxIncomplete(currentTrader)) {
+            Toast.makeText(this, "You have exceeded your " +
+                    "maximum number of incomplete trades.", Toast.LENGTH_SHORT).show();
+        } else if (traderManager.needMoreLend(currentTrader)) {
+            Toast.makeText(this, "You need to lend more " +
+                    "items before you may initiate a new trade.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Your account is frozen," +
                     " you cannot trade.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    /**
+     * Helper method for proposeTrade which checks if the currentTrader is allowed to intiate a new
+     * trade.
+     * @return true iff currentTrader can propose a new trade.
+     */
+    private boolean canProposeTrade() {
+        return !traderManager.getIsFrozen(currentTrader) &&
+                !traderManager.isInactive(currentTrader) &&
+                !traderManager.exceedWeeklyLimit(currentTrader, LocalDate.now()) &&
+                !traderManager.exceedMaxIncomplete(currentTrader) &&
+                !traderManager.needMoreLend(currentTrader);
     }
 
     public void displayTradeOptions(View view) {

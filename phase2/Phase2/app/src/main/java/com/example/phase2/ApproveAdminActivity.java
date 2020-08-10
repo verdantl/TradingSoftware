@@ -17,6 +17,11 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
     private boolean approved;
     private String approvedUser;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +29,8 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
         adminActions = (AdminActions) getUseCase(ADMINKEY);
         viewList();
     }
+
+
 
     @Override
     public void onBackPressed(){
