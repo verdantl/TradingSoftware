@@ -17,6 +17,8 @@ public class DialogFactory {
                 return new UnFreezeDialog();
             case"LocationChoice":
                 return new LocationChoiceDialog();
+            case"TradeType":
+                return new TradeType();
             default:
                 return new AppCompatDialogFragment();
         }

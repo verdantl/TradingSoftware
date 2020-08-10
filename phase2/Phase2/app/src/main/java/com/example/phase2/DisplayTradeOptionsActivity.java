@@ -1,22 +1,24 @@
 package com.example.phase2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.phase2.phase2.ItemManager;
 import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class DisplayTradeOptionsActivity extends BundleActivity implements ChooseOneWayFragment.ChooseOneWayListener,
-        ChooseTemporaryFragment.ChooseTemporaryListener {
+public class DisplayTradeOptionsActivity extends BundleActivity implements Dialogable {
 
     private Integer chosenItem;
     private boolean oneWay;
     private boolean temporary;
+    private AppCompatDialogFragment dialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,42 +27,13 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Choos
         assert bundle != null;
         chosenItem = bundle.getInt("ChosenItem");
         setContentView(R.layout.activity_display_trade_options);
-        createDialogChooseOneWay();
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFragment = dialogFactory.getDialog("TradeType");
+        openDialog();
+
     }
 
-    private void createDialogChooseOneWay(){
-        ChooseOneWayFragment oneWayFragment = new ChooseOneWayFragment();
-        oneWayFragment.show(getSupportFragmentManager(), "oneWayFrag");
-    }
 
-    private void createDialogChooseTemporary(){
-        ChooseTemporaryFragment tempFragment = new ChooseTemporaryFragment();
-        tempFragment.show(getSupportFragmentManager(), "oneWayFrag");
-    }
-
-    @Override
-    public void onDialogOneWayClick(DialogFragment dialog) {
-        oneWay = true;
-        createDialogChooseTemporary();
-    }
-
-    @Override
-    public void onDialogTwoWayClick(DialogFragment dialog) {
-        oneWay = false;
-        createDialogChooseTemporary();
-    }
-
-    @Override
-    public void onDialogTempClick(DialogFragment dialog) {
-        temporary = true;
-        continuing();
-    }
-
-    @Override
-    public void onDialogPermClick(DialogFragment dialog) {
-        temporary = false;
-        continuing();
-    }
 
     public void continuing() {
         Intent intent;
@@ -76,5 +49,24 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Choos
         intent.putExtra("OneWay", oneWay);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
+    }
+
+    @Override
+    public void clickPositive() {
+        assert dialogFragment.getArguments() != null;
+        oneWay = dialogFragment.getArguments().getBoolean("way");
+        temporary = dialogFragment.getArguments().getBoolean("status");
+        continuing();
+    }
+
+    @Override
+    public void clickNegative() {
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public void openDialog() {
+        dialogFragment.show(getSupportFragmentManager(), "TradeType");
     }
 }
