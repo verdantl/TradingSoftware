@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.io.FileReader;
+
 
 public class UndoMenu extends BundleActivity {
 
@@ -55,7 +57,7 @@ public class UndoMenu extends BundleActivity {
         Intent intent = new Intent(this, UndoProposeTrade.class);
         intent.putExtra("chosenTrader", getIntent().getStringExtra("chosenTrader"));
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**goes to the undoRemoveItem menu

@@ -40,10 +40,7 @@ public class UndoProposeTrade extends BundleActivity implements Dialogable {
         replaceUseCase(meetingManager);
         replaceUseCase(traderManager);
         replaceUseCase(tradeManager);
-        Intent intent = new Intent();
-        putBundle(intent);
-        setResult(RESULT_FIRST_USER, intent);
-        finish();
+        super.onBackPressed();
     }
     /**
      * Updates the ListView object in the XML file

@@ -39,10 +39,7 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable{
     public void onBackPressed() {
         replaceUseCase(meetingManager);
         replaceUseCase(traderManager);
-        Intent intent = new Intent();
-        putBundle(intent);
-        setResult(RESULT_FIRST_USER, intent);
-        finish();
+        super.onBackPressed();
     }
 
     public void viewList(){
