@@ -20,6 +20,7 @@ public abstract class BundleActivity extends AppCompatActivity {
     protected final String TRADEKEY = "TradeManager";
     protected final String MEETINGKEY = "MeetingManager";
     protected final String USERNAMEKEY = "Username";
+    protected final int SAVECODE = 10;
 
     private final List<String> strings = Arrays.asList(ADMINKEY, ITEMKEY, TRADEKEY, TRADERKEY,
             MEETINGKEY, USERNAMEKEY);
@@ -120,6 +121,11 @@ public abstract class BundleActivity extends AppCompatActivity {
             }
         }
         return bundle;
+    }
+
+    protected void saveBundle(){
+        ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
+        configGateway.saveBundle(bundle);
     }
 
 }

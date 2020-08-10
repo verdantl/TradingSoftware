@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
@@ -37,14 +39,14 @@ public class LoginActivity extends UpdatableBundleActivity {
             Intent intent = new Intent(this, TraderActivity.class);
             replaceUsername(username);
             putBundle(intent);
-            startActivity(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
         }
 
         else if (adminActions.login(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             replaceUsername(username);
             putBundle(intent);
-            startActivity(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
         }
         else{
             Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
@@ -85,5 +87,11 @@ public class LoginActivity extends UpdatableBundleActivity {
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         adminActions = (AdminActions) getUseCase(ADMINKEY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        saveBundle();
     }
 }
