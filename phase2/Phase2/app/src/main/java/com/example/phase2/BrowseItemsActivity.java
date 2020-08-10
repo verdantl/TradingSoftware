@@ -26,6 +26,7 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
     private boolean useLocation;
 
     protected void updateUseCases(){
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
     }
@@ -35,8 +36,7 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) getUseCase(ITEMKEY);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        updateUseCases();
         currentTrader = getUsername();
 
         if (traderManager.getHomeCity(currentTrader).equals(getString(R.string.notApplicable))) {

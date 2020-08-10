@@ -31,10 +31,9 @@ public class BrowseTradesActivity extends UpdatableBundleActivity implements Cli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        setContentView(R.layout.activity_browse_trades);
         currentTrader = (String) getUseCase(USERNAMEKEY);
-        viewList();
+        updateUseCases();
     }
 
     protected void updateUseCases(){
@@ -62,7 +61,6 @@ public class BrowseTradesActivity extends UpdatableBundleActivity implements Cli
         Intent intent = new Intent(this, EditTradeActivity.class);
         intent.putExtra("Trade", trade);
         putBundle(intent);
-        //intent.putExtras(bundle);
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
