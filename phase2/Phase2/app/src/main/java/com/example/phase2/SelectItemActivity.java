@@ -18,7 +18,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectItemActivity extends AppCompatActivity {
+public class SelectItemActivity extends BundleActivity {
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -35,11 +35,11 @@ public class SelectItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getString("CurrentTrader");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        currentTrader = getUsername();
         chosenItem = (Integer) bundle.getInt("ChosenItem");
         oneWay = (Boolean) bundle.getBoolean("OneWay");
         temporary = (Boolean) bundle.getBoolean("Temporary");
@@ -72,16 +72,11 @@ public class SelectItemActivity extends AppCompatActivity {
 
     public void continuing() {
         Intent intent = new Intent(this, EnterInfoProposeTradeActivity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("TradeManager", tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtra("ChosenItem", chosenItem);
         intent.putExtra("MyItem", myItem);
         intent.putExtra("Temporary", temporary);
         intent.putExtra("OneWay", oneWay);
-        startActivity(intent);
-        finish();
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +14,7 @@ import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
-public class ItemOptionsActivity extends AppCompatActivity {
+public class ItemOptionsActivity extends BundleActivity {
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -27,11 +28,11 @@ public class ItemOptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = (String) bundle.getSerializable("CurrentTrader");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        currentTrader = getUsername();
         chosenItem = bundle.getInt("ChosenItem");
         viewStart();
     }
@@ -67,8 +68,7 @@ public class ItemOptionsActivity extends AppCompatActivity {
     }
 
     public void proposeTrade(View view) {
-        Toast.makeText(this, currentTrader, Toast.LENGTH_SHORT).show();
-        /*if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
+        if (!traderManager.getIsFrozen(currentTrader) && !traderManager.isInactive(currentTrader)) {
             displayTradeOptions1(view);
         } else if (traderManager.isInactive(currentTrader)) {
             Toast.makeText(this, "Your account is inactive," +
@@ -77,19 +77,12 @@ public class ItemOptionsActivity extends AppCompatActivity {
             Toast.makeText(this, "Your account is frozen," +
                     " you cannot trade.", Toast.LENGTH_LONG).show();
         }
-
-         */
     }
 
     public void displayTradeOptions1(View view) {
-        Intent intent = new Intent(this, DisplayTradeOptions1Activity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("TradeManager", tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("CurrentTrader", currentTrader);
+        Intent intent = new Intent(this, DisplayTradeOptionsActivity.class);
         intent.putExtra("ChosenItem", chosenItem);
-        startActivity(intent);
-        finish();
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 }

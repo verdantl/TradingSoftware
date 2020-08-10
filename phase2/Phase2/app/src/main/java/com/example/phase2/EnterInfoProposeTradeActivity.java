@@ -18,7 +18,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnterInfoProposeTradeActivity extends AppCompatActivity {
+public class EnterInfoProposeTradeActivity extends BundleActivity {
     private ItemManager itemManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
@@ -35,13 +35,14 @@ public class EnterInfoProposeTradeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
-        tradeManager = (TradeManager) bundle.getSerializable("TradeManager");
-        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-        currentTrader = bundle.getString("CurrentTrader");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        tradeManager = (TradeManager) getUseCase(TRADEKEY);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        currentTrader = getUsername();
         chosenItem = bundle.getInt("ChosenItem");
         myItem = bundle.getInt("MyItem");
         oneWay = bundle.getBoolean("OneWay");
+        temporary = bundle.getBoolean("Temporary");
         viewStart();
     }
 

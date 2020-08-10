@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangeHomecity"></activity>
+        <activity android:name=".DisplayTradeOptionsActivity"/>
+        <activity android:name=".ChangeHomecity" />
         <activity android:name=".TutorialBrowseItemsActivity" />
         <activity android:name=".TutorialActivity" />
         <activity android:name=".UndoRemoveItem" />
@@ -25,8 +26,6 @@
         <activity android:name=".ItemOptionsActivity" />
         <activity android:name=".SelectItemActivity" />
         <activity android:name=".EnterInfoProposeTradeActivity" />
-        <activity android:name=".DisplayTradeOptions2Activity" />
-        <activity android:name=".DisplayTradeOptions1Activity" />
         <activity android:name=".ChangeTraderPassword" />
         <activity android:name=".ApproveItems" />
         <activity android:name=".EditMeetingActivity" />

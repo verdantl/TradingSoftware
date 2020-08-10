@@ -16,45 +16,42 @@ import android.view.ViewGroup;
 /*
 Code extracted from https://developer.android.com/guide/topics/ui/dialogs#PassingEvents
  */
+public class ChooseTemporaryFragment extends DialogFragment {
 
-public class LocationChoiceFragment extends DialogFragment {
-
-    public interface LocationChoiceListener {
-        void onDialogPositiveClick(DialogFragment dialog);
-        void onDialogNegativeClick(DialogFragment dialog);
+    public interface ChooseTemporaryListener {
+        void onDialogTempClick(DialogFragment dialog);
+        void onDialogPermClick(DialogFragment dialog);
     }
 
-    LocationChoiceListener listener;
+    ChooseTemporaryListener listener;
 
     public void onAttach(Context context) {
         super.onAttach(context);
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (LocationChoiceListener) context;
+            listener = (ChooseTemporaryListener) context;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException("This activity must implement LocationChoiceListener");
+            throw new ClassCastException("This activity must implement ChooseTemporaryListener");
         }
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.search_home_city)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.tradeOption)
+                .setPositiveButton(R.string.temp, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(LocationChoiceFragment.this);
+                        listener.onDialogTempClick(ChooseTemporaryFragment.this);
                     }
                 })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.perm, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogNegativeClick(LocationChoiceFragment.this);
+                        listener.onDialogPermClick(ChooseTemporaryFragment.this);
                     }
                 });
         // Create the AlertDialog object and return it
         return builder.create();
     }
-
 }

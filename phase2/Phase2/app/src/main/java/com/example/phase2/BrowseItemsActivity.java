@@ -7,13 +7,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
-import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
@@ -23,8 +19,6 @@ public class BrowseItemsActivity extends BundleActivity implements LocationChoic
 
     private ItemManager itemManager;
     private TraderManager traderManager;
-    private TradeManager tradeManager;
-    private MeetingManager meetingManager;
     private String currentTrader;
     private int chosenItem;
     private boolean useLocation;
@@ -36,12 +30,9 @@ public class BrowseItemsActivity extends BundleActivity implements LocationChoic
         assert bundle != null;
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
-        tradeManager = (TradeManager) getUseCase(TRADEKEY);
-        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         currentTrader = getUsername();
-        useLocation = (Boolean) bundle.getBoolean("LocationChoice");
 
-        if (traderManager.getHomeCity(currentTrader).equals(R.string.notApplicable)) {
+        if (traderManager.getHomeCity(currentTrader).equals(getString(R.string.notApplicable))) {
             useLocation = false;
             viewList();
         } else {
@@ -93,15 +84,9 @@ public class BrowseItemsActivity extends BundleActivity implements LocationChoic
 
     public void displayItemOptions(){
         Intent intent = new Intent(this, ItemOptionsActivity.class);
-        intent.putExtra("ItemManager", itemManager);
-        intent.putExtra("TraderManager", traderManager);
-        intent.putExtra("TradeManager", tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("LocationChoice", useLocation);
         intent.putExtra("ChosenItem", chosenItem);
-        startActivity(intent);
-        finish();
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     @Override
