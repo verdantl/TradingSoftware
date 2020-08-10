@@ -116,19 +116,29 @@ public class SelectItemActivity extends BundleActivity implements Dialogable, Cl
         super.onBackPressed();
     }
 
+    /**
+     * Listener for positive button, show the item we recommend
+     */
     @Override
     public void clickPositive() {
         myItem = bestItem();
         Toast.makeText(this, "We chose the item " + itemManager.getItemName(myItem) +
-                " with ID " + myItem.toString(), Toast.LENGTH_SHORT).show();
+                " with ID " + myItem.toString(), Toast.LENGTH_LONG).show();
         continuing();
     }
 
+
+    /**
+     * Listener for negative button, goes to the list that allows user chooses himself
+     */
     @Override
     public void clickNegative() {
         viewList();
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
