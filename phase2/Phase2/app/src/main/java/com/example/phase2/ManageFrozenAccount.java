@@ -25,19 +25,19 @@ public class ManageFrozenAccount extends BundleActivity {
     public void viewFlaggedAccounts(View view) {
         Intent intent = new Intent(this, FlaggedAccountsMenu.class);
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void viewUnfreezeRequests(View view){
         Intent intent = new Intent(this, RequestedUnfrozenMenu.class);
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     public void viewAllTraders(View view){
         Intent intent = new Intent (this, AllTradersMenu.class);
         putBundle(intent);
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
 
     }
 }

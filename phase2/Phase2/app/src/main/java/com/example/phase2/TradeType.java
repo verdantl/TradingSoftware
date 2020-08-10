@@ -27,6 +27,9 @@ public class TradeType  extends AppCompatDialogFragment {
     private Boolean chosenStatus;
     private AlertDialog nestedDialog;
 
+    /**create this dialog
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,11 @@ public class TradeType  extends AppCompatDialogFragment {
         nestedDialog = (AlertDialog) nestedDialog();
     }
 
+
+
+    /**attach an activity's context to this fragment
+     * @param context the context of the attached activity
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -47,6 +55,11 @@ public class TradeType  extends AppCompatDialogFragment {
         }
     }
 
+
+    /**create the dialog for this fragment
+     * @param savedInstanceState the bundle from the activity
+     * @return the dialog attached to this fragment
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable final Bundle savedInstanceState) {
@@ -76,7 +89,7 @@ public class TradeType  extends AppCompatDialogFragment {
 
     }
 
-    public Dialog nestedDialog(){
+    private Dialog nestedDialog(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("TradeType")
                 .setSingleChoiceItems(status, -1, new DialogInterface.OnClickListener() {
@@ -105,6 +118,9 @@ public class TradeType  extends AppCompatDialogFragment {
 
     }
 
+    /**
+     * the action when the fragment is on resume
+     */
     @Override
     public void onResume()
     {

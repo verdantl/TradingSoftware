@@ -17,6 +17,11 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
     private boolean approved;
     private String approvedUser;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,26 +30,18 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
         viewList();
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed(){
         replaceUseCase(adminActions);
         super.onBackPressed();
     }
 
-
-    private void approveReject(){
-        adminActions.approveAdmin(approvedUser, approved);
-        String message = "Successfully ";
-        if (approved){
-            message += "approved!";
-        }
-        else{
-            message += "denied!";
-        }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        viewList();
-    }
-
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final ArrayList<String> adminRequests = adminActions.getRequestedAdmins();
         setContentView(R.layout.activity_approve_admin);
@@ -61,8 +58,9 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
         });
     }
 
-
-
+    /**
+     * Called when the positive button is clicked
+     */
     @Override
     public void clickPositive() {
         approved = false;
@@ -70,6 +68,9 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
 
     }
 
+    /**
+     * Called when the negative button is clicked
+     */
     @Override
     public void clickNegative() {
         approved = true;
@@ -77,10 +78,28 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
 
     }
 
+    /**
+     * Creates the Dialog object for this activity
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
         dialogFactory.getDialog("Approve")
                 .show(getSupportFragmentManager(), "ApproveAdmin");
+    }
+
+
+
+    private void approveReject(){
+        adminActions.approveAdmin(approvedUser, approved);
+        String message = "Successfully ";
+        if (approved){
+            message += "approved!";
+        }
+        else{
+            message += "denied!";
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        viewList();
     }
 }

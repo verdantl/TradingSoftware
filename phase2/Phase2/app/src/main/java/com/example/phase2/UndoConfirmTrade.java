@@ -24,7 +24,9 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
     private MeetingManager meetingManager;
     private Integer chosenTrade;
 
-
+    /**create this activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,9 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
 
     }
 
+    /**
+     * listener for the back button, return to the last menu
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(meetingManager);
@@ -73,7 +78,9 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
 
     }
 
-
+    /**
+     * Listener for the positive button, undoConfirm
+     */
     @Override
     public void clickPositive() {
         meetingManager.undoConfirm(chosenTrade, chosenTrader);
@@ -82,6 +89,9 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
 
     }
 
+    /**
+     * Listener for the negative button, cancel the action
+     */
     @Override
     public void clickNegative() {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
@@ -90,6 +100,9 @@ public class UndoConfirmTrade extends BundleActivity implements Dialogable {
 
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();

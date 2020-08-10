@@ -15,6 +15,9 @@ public class ApproveDialog extends AppCompatDialogFragment {
     private Dialogable dialogable;
 
 
+    /**attach an activity's context to this fragment
+     * @param context the context of the attached activity
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -26,6 +29,10 @@ public class ApproveDialog extends AppCompatDialogFragment {
         }
     }
 
+    /**create the dialog for this fragment
+     * @param savedInstanceState the bundle from the activity
+     * @return the dialog attached to this fragment
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
