@@ -30,14 +30,16 @@ public class EditMeetingActivity extends BundleActivity {
     private String currentTrader;
     private LocalDate newDate;
     private boolean online;
-
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_meeting);
         Bundle bundle = getIntent().getExtras();
-//        meetingManager = (MeetingManager) bundle.getSerializable("MeetingManager");
-//        currentTrader = (String) bundle.getSerializable("CurrentTrader");
         assert bundle != null;
         trade = (Integer) bundle.getSerializable("Trade");
         online = (boolean) bundle.get("Online");
@@ -117,7 +119,9 @@ public class EditMeetingActivity extends BundleActivity {
         });
     }
 
-
+    /**
+     * Submits the edited meeting.
+     */
     public void onSubmitClick(){
         replaceUseCase(meetingManager);
         super.onBackPressed();
