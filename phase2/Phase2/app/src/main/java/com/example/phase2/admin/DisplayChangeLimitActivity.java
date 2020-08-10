@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phase2.LimitType;
 import com.example.phase2.R;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.users.TraderManager;

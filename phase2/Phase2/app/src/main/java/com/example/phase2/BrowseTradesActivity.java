@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.phase2.deliverable.MeetingManager;
 import com.example.phase2.highabstract.ClickableList;
 import com.example.phase2.highabstract.UpdatableBundleActivity;
 import com.example.phase2.users.TraderManager;

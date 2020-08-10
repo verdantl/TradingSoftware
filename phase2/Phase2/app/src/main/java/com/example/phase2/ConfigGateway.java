@@ -3,6 +3,12 @@ package com.example.phase2;
 import android.os.Bundle;
 
 
+import com.example.phase2.deliverable.Item;
+import com.example.phase2.deliverable.ItemManager;
+import com.example.phase2.deliverable.Meeting;
+import com.example.phase2.deliverable.MeetingManager;
+import com.example.phase2.deliverable.Trade;
+import com.example.phase2.deliverable.TradeManager;
 import com.example.phase2.users.Admin;
 import com.example.phase2.users.AdminActions;
 import com.example.phase2.users.Trader;

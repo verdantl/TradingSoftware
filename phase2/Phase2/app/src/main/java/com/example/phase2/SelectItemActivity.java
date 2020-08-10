@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.deliverable.ItemManager;
 import com.example.phase2.dialogs.DialogFactory;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;

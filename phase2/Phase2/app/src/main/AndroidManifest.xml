@@ -25,16 +25,16 @@
         <activity android:name=".SelectItemActivity" />
         <activity android:name=".EnterInfoProposeTradeActivity" />
         <activity android:name=".ChangeTraderPassword" />
-        <activity android:name=".ApproveItems" />
+        <activity android:name=".admin.ApproveItems" />
         <activity android:name=".EditMeetingActivity" />
-        <activity android:name=".AllTradersMenu" />
+        <activity android:name=".admin.AllTradersMenu" />
         <activity android:name=".RequestAdminActivity" />
-        <activity android:name=".RequestedUnfrozenMenu" />
-        <activity android:name=".FlaggedAccountsMenu" />
-        <activity android:name=".ManageFrozenAccount" />
+        <activity android:name=".admin.RequestedUnfrozenMenu" />
+        <activity android:name=".admin.FlaggedAccountsMenu" />
+        <activity android:name=".admin.ManageFrozenAccount" />
         <activity android:name=".admin.DisplayChangeLimitActivity" />
-        <activity android:name=".ChangeLimitActivity" />
-        <activity android:name=".ViewTradersActivity" />
+        <activity android:name=".admin.ChangeLimitActivity" />
+        <activity android:name=".admin.ViewTradersActivity" />
         <activity android:name=".admin.ChangePasswordActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,19 +7,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.R;
+import com.example.phase2.deliverable.ItemManager;
 import com.example.phase2.dialogs.DialogFactory;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;
 import com.example.phase2.highabstract.Dialogable;
 import com.example.phase2.users.TraderManager;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class AllTradersMenu extends BundleActivity implements ClickableList, Dialogable {
+public class FlaggedAccountsMenu extends BundleActivity implements ClickableList, Dialogable {
     private TraderManager traderManager;
     private ItemManager itemManager;
     private String frozenTrader;
-
 
     /**
      * Called when the activity is starting.
@@ -29,14 +30,14 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemManager = (ItemManager) getUseCase(ITEMKEY);
+        setContentView(R.layout.activity_flagged_accounts_menu);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         viewList();
-
     }
 
     /**
-     * listener for the back button, return to the last menu
+     * Called when the activity has detected the user's press of the back key.
      */
     @Override
     public void onBackPressed() {
@@ -44,36 +45,36 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
         super.onBackPressed();
     }
 
+
     /**
-     * view a list of traders that can be frozen
+     * view a list of flagged accounts that needed to be frozen
      */
-    public void viewList(){
-        final ArrayList<String> allTraders = traderManager.getTraders();
-        setContentView(R.layout.activity_all_traders_menu);
-        ListView listView = findViewById(R.id.freezeTrader);
+    public void viewList() {
+        final List<String> allFlaggedTraders = traderManager.getListOfFlagged();
+        ListView listView = findViewById(R.id.flagged);
         ArrayAdapter<String> allTraderAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, allTraders);
+                android.R.layout.simple_list_item_1, allFlaggedTraders);
         listView.setAdapter(allTraderAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openDialog();
-                frozenTrader = allTraders.get(i);
+                frozenTrader = allFlaggedTraders.get(i);
             }
         });
     }
 
+
     /**
-     * freeze the account
+     * Listener fot the positive button, freeze the account
      */
     @Override
     public void clickPositive() {
-        if(traderManager.freezeAccount(frozenTrader)){
-            itemManager.setStatusForFrozenUser(frozenTrader);
+        if (traderManager.freezeAccount(frozenTrader)) {
             traderManager.setTraderInactive(frozenTrader, false);
+            itemManager.setStatusForFrozenUser(frozenTrader);
             Toast.makeText(this, "Successfully", Toast.LENGTH_SHORT).show();
-
-        }else{
+        } else {
             Toast.makeText(this,
                     "Fail: the account is already frozen", Toast.LENGTH_SHORT).show();
         }
@@ -82,7 +83,7 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
     }
 
     /**
-     * cancel the action
+     * Listener for the negative button, cancel the action
      */
     @Override
     public void clickNegative() {
@@ -99,6 +100,6 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
         DialogFactory dialogFactory = new DialogFactory();
         dialogFactory.getDialog("Freeze")
                 .show(getSupportFragmentManager(), "FreezeTrader");
-
     }
 }
+

@@ -1,10 +1,12 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.phase2.R;
 import com.example.phase2.admin.DisplayChangeLimitActivity;
+import com.example.phase2.admin.LimitType;
 import com.example.phase2.highabstract.BundleActivity;
 
 /**

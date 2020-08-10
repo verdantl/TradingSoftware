@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import java.io.Serializable;
 

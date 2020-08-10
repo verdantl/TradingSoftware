@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.phase2.deliverable.ItemManager;
 import com.example.phase2.dialogs.DialogFactory;
 import com.example.phase2.highabstract.ClickableList;
 import com.example.phase2.highabstract.Dialogable;

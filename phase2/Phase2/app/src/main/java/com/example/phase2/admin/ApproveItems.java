@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phase2.deliverable.ItemManager;
+import com.example.phase2.R;
 import com.example.phase2.dialogs.DialogFactory;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;
@@ -14,8 +16,8 @@ import com.example.phase2.highabstract.Dialogable;
 
 import java.util.List;
 
-import static com.example.phase2.ItemStatus.AVAILABLE;
-import static com.example.phase2.ItemStatus.REMOVED;
+import static com.example.phase2.deliverable.ItemStatus.AVAILABLE;
+import static com.example.phase2.deliverable.ItemStatus.REMOVED;
 
 public class ApproveItems extends BundleActivity implements ClickableList, Dialogable {
     private ItemManager itemManager;

@@ -1,4 +1,4 @@
-package com.example.phase2;
+package com.example.phase2.admin;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.phase2.R;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;
 import com.example.phase2.users.TraderManager;

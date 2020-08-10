@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import com.example.phase2.dialogs.DialogFactory;
 import com.example.phase2.highabstract.Dialogable;
-import com.example.phase2.MeetingManager;
+import com.example.phase2.deliverable.MeetingManager;
 import com.example.phase2.R;
-import com.example.phase2.TradeManager;
+import com.example.phase2.deliverable.TradeManager;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.users.TraderManager;
 

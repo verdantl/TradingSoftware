@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.phase2.deliverable.ItemManager;
+import com.example.phase2.deliverable.MeetingManager;
+import com.example.phase2.deliverable.TradeManager;
 import com.example.phase2.highabstract.Dialogable;
 import com.example.phase2.highabstract.UpdatableBundleActivity;
 import com.example.phase2.users.TraderManager;
