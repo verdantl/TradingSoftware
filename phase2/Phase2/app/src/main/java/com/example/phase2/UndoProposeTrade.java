@@ -45,7 +45,9 @@ public class UndoProposeTrade extends BundleActivity implements Dialogable {
         setResult(RESULT_FIRST_USER, intent);
         finish();
     }
-
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final List<Integer> tempMeetings = new ArrayList<>();
         for (Integer i : tradeManager.getIncompleteTrades(traderManager.getTrades(chosenTrader))) {
