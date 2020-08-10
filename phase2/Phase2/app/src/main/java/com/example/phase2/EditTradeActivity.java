@@ -366,7 +366,7 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
     }
     private void setUpOneItem(){
         String tempItemName = itemManager.getItemName(tradeManager.getItems(trade).get(0));
-        TextView itemName=itemsDialog.findViewById(R.id.itemName);
+        TextView itemName = itemsDialog.findViewById(R.id.itemName);
         itemName.setText(tempItemName);
 
         String tempItemDescription = itemManager.getItemDescription(tradeManager.getItems(trade).get(0));

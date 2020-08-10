@@ -19,16 +19,6 @@ public class UndoActivity extends BundleActivity {
         setContentView(R.layout.activity_undo);
     }
 
-    /**
-     * listener for the back button, return to the last menu
-     */
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, AdminActivity.class);
-        putBundle(intent);
-        startActivity(intent);
-    }
-
     /**submit the trader that the admin wants to undo action
      * @param view the textView that allows the admin to input the trader
      */
@@ -42,7 +32,7 @@ public class UndoActivity extends BundleActivity {
             Intent intent = new Intent(this, UndoMenu.class);
             intent.putExtra("chosenTrader", chosenTrader);
             putBundle(intent);
-            startActivity(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
         }else{
             Toast.makeText(this, "User doesn't exist", Toast.LENGTH_SHORT).show();
         }

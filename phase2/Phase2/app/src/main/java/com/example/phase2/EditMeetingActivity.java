@@ -44,21 +44,32 @@ public class EditMeetingActivity extends BundleActivity {
             location.setVisibility(View.GONE);
             newLocation.setVisibility(View.GONE);
         }
-
         Button button = findViewById(R.id.submit_button);
-
         final TextView datePickerText = findViewById(R.id.editTextDate);
+        setDatePickerText(datePickerText);
+        setButtonLister(button, datePickerText);
+    }
+
+    /**
+     * Submits the edited meeting.
+     */
+    public void onSubmitClick(){
+        replaceUseCase(meetingManager);
+        super.onBackPressed();
+    }
+
+    private void setDatePickerText(final TextView datePickerText){
         datePickerText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int day = LocalDate.now().getDayOfMonth();
-                int month = LocalDate.now().getMonthValue()-1;
-                int year = LocalDate.now().getYear();
-                DatePickerDialog datePicker = new DatePickerDialog(EditMeetingActivity.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,onDateSetListener,year,month,day);
-                datePicker.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePicker.show();
-            }
-        }
+                                              @Override
+                                              public void onClick(View view) {
+                                                  int day = LocalDate.now().getDayOfMonth();
+                                                  int month = LocalDate.now().getMonthValue()-1;
+                                                  int year = LocalDate.now().getYear();
+                                                  DatePickerDialog datePicker = new DatePickerDialog(EditMeetingActivity.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,onDateSetListener,year,month,day);
+                                                  datePicker.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                                  datePicker.show();
+                                              }
+                                          }
         );
         onDateSetListener = new DatePickerDialog.OnDateSetListener(){
             @Override
@@ -69,6 +80,9 @@ public class EditMeetingActivity extends BundleActivity {
                 datePickerText.setText(date);
             }
         };
+    }
+
+    private void setButtonLister(Button button, final TextView datePickerText){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,9 +92,7 @@ public class EditMeetingActivity extends BundleActivity {
                         Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_edit, Toast.LENGTH_LONG).show();
                     }
                     else{
-                        meetingManager.editDate(trade, newDate);
-                        meetingManager.increaseNumEdit(currentTrader, trade);
-                        meetingManager.setBothDisagree(trade);
+                        editMeeting();
                         onSubmitClick();
                     }
                 }
@@ -90,10 +102,8 @@ public class EditMeetingActivity extends BundleActivity {
                             Toast.makeText(EditMeetingActivity.this, R.string.invalid_date_edit, Toast.LENGTH_LONG).show();
                         }
                         else {
-                            meetingManager.editDate(trade, newDate);
                             meetingManager.editLocation(trade, location.getText().toString());
-                            meetingManager.increaseNumEdit(currentTrader, trade);
-                            meetingManager.setBothDisagree(trade);
+                            editMeeting();
                             onSubmitClick();
                         }
                     }
@@ -110,13 +120,10 @@ public class EditMeetingActivity extends BundleActivity {
             }
         });
     }
-
-    /**
-     * Submits the edited meeting.
-     */
-    public void onSubmitClick(){
-        replaceUseCase(meetingManager);
-        super.onBackPressed();
+    private void editMeeting(){
+        meetingManager.editDate(trade, newDate);
+        meetingManager.increaseNumEdit(currentTrader, trade);
+        meetingManager.setBothDisagree(trade);
     }
 
 }

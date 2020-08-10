@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UndoRemoveItem extends BundleActivity implements Dialogable {
+public class UndoRemoveItem extends BundleActivity implements Dialogable, ClickableList {
     private ItemManager itemManager;
     private TraderManager traderManager;
     private String chosenTrader;
@@ -40,13 +40,14 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
     @Override
     public void onBackPressed() {
         replaceUseCase(itemManager);
-        Intent intent = new Intent();
-        putBundle(intent);
-        setResult(RESULT_FIRST_USER, intent);
-        finish();
+        super.onBackPressed();
     }
 
-    private void viewList() {
+    /**
+     * This is a method that displays list of items that the chosenTrader has removed. When the user
+     * clicks on an item, the user can add the item back into the system.
+     */
+    public void viewList() {
         final List<Integer> removedItems = itemManager.getRemovedItemIds(chosenTrader);
         ArrayList<String> removePresenter = new ArrayList<>();
         setContentView(R.layout.activity_undo_remove_item);
@@ -60,6 +61,7 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                openDialog();
                 chosenItem = removedItems.get(i);
             }
         });

@@ -13,7 +13,11 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
     private TraderManager traderManager;
     private ItemManager itemManager;
     private String unfreezeRequest;
-
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +26,17 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
 
         viewList();
     }
-
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(traderManager);
         super.onBackPressed();
     }
-
+    /**
+     * Updates the ListView object in the XML file
+     */
     public void viewList(){
         final List<String> allUnfreezeRequests = traderManager.getAllRequestsToUnfreeze();
         setContentView(R.layout.activity_requested_unfrozen_menu);
@@ -44,7 +52,9 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
             }
         });
     }
-
+    /**
+     * Called when the positive button is clicked.
+     */
     @Override
     public void clickPositive() {
         if(traderManager.unfreezeAccount(unfreezeRequest)){
@@ -58,14 +68,18 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
         viewList();
 
     }
-
+    /**
+     * Called when the negative button is clicked
+     */
     @Override
     public void clickNegative() {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
         viewList();
 
     }
-
+    /**
+     * Opens the itemsDialog.
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
