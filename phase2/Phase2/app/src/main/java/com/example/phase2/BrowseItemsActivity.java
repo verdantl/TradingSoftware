@@ -15,7 +15,7 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseItemsActivity extends BundleActivity implements LocationChoiceFragment.LocationChoiceListener{
+public class BrowseItemsActivity extends BundleActivity implements Dialogable{
 
     private ItemManager itemManager;
     private TraderManager traderManager;
@@ -36,14 +36,10 @@ public class BrowseItemsActivity extends BundleActivity implements LocationChoic
             useLocation = false;
             viewList();
         } else {
-            createDialogLocationChoice();
+            openDialog();
         }
     }
 
-    public void createDialogLocationChoice(){
-        LocationChoiceFragment lcFragment = new LocationChoiceFragment();
-        lcFragment.show(getSupportFragmentManager(), "locationChoice");
-    }
 
     public void viewList(){
         List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
@@ -89,15 +85,25 @@ public class BrowseItemsActivity extends BundleActivity implements LocationChoic
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void clickPositive() {
         useLocation = true;
+        viewList();
+
+    }
+
+    @Override
+    public void clickNegative() {
+        useLocation = false;
         viewList();
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        useLocation = false;
-        viewList();
+    public void openDialog() {
+        DialogFactory dialogFactory = new DialogFactory();
+        dialogFactory.getDialog("LocationChoice")
+                .show(getSupportFragmentManager(), "LocationChoice");
+
     }
 }

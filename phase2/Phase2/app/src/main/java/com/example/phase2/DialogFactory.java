@@ -15,6 +15,8 @@ public class DialogFactory {
                 return new UndoDialog();
             case "Unfreeze":
                 return new UnFreezeDialog();
+            case"LocationChoice":
+                return new LocationChoiceDialog();
             default:
                 return new AppCompatDialogFragment();
         }

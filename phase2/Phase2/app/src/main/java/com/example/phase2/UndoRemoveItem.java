@@ -27,7 +27,7 @@ public class UndoRemoveItem extends BundleActivity implements Dialogable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         chosenTrader = getIntent().getStringExtra("chosenTrader");
-        itemManager = (ItemManager) getUseCase(MEETINGKEY);
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         viewList();
         
     }
