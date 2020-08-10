@@ -1,6 +1,5 @@
 package com.example.phase2;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import android.content.Intent;
@@ -13,6 +12,9 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
     private boolean temporary;
     private AppCompatDialogFragment dialogFragment;
 
+    /**create the activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
 
     }
 
-    public void continuing() {
+    private void continuing() {
         Intent intent;
         if (oneWay) {
             intent = new Intent(this, EnterInfoProposeTradeActivity.class);
@@ -42,6 +44,9 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Listener for positive button, prompt the trader to edit the proposedTrade
+     */
     @Override
     public void clickPositive() {
         assert dialogFragment.getArguments() != null;
@@ -50,11 +55,17 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
         continuing();
     }
 
+    /**
+     * Listener for negative button, go back to the last menu
+     */
     @Override
     public void clickNegative() {
         super.onBackPressed();
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         dialogFragment.show(getSupportFragmentManager(), "TradeType");
