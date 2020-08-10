@@ -15,7 +15,7 @@ import com.example.phase2.phase2.ItemManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectItemActivity extends BundleActivity implements RecommendedItemFragment.RecommendedItemListener, ClickableList{
+public class SelectItemActivity extends BundleActivity implements RecommendedItemDialog.RecommendedItemListener, ClickableList{
 
     private ItemManager itemManager;
     private String currentTrader;
@@ -38,7 +38,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
     }
 
     private void displayRecommendedItemFragment() {
-        RecommendedItemFragment recItemFrag = new RecommendedItemFragment();
+        RecommendedItemDialog recItemFrag = new RecommendedItemDialog();
         recItemFrag.show(getSupportFragmentManager(), "recItemFrag");
     }
 
@@ -60,7 +60,7 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
             itemNames.add(itemManager.getItemName(id));
         }
         setContentView(R.layout.activity_select_item);
-        ListView listView = findViewById(R.id.inventoryList);
+        ListView listView = findViewById(R.id.selectItem);
         ArrayAdapter<String> inventoryAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, itemNames);
         listView.setAdapter(inventoryAdapter);
