@@ -23,27 +23,21 @@ import java.util.List;
 import static com.example.phase2.phase2.ItemStatus.AVAILABLE;
 import static com.example.phase2.phase2.ItemStatus.REMOVED;
 
-public class ApproveItems extends AppCompatActivity implements ClickableList, Dialogable{
-    private Bundle bundle;
+public class ApproveItems extends BundleActivity implements ClickableList, Dialogable{
     private ItemManager itemManager;
     private Integer processedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        itemManager = (ItemManager) bundle.getSerializable("ItemManager");
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         viewList();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, AdminActivity.class);
-        bundle.remove("ItemManager");
-        intent.putExtras(bundle);
-        intent.putExtra("ItemManager", itemManager);
-        startActivity(intent);
+        replaceUseCase(itemManager);
+        super.onBackPressed();
     }
 
     public void viewList(){

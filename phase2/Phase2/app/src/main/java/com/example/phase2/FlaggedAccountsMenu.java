@@ -15,8 +15,7 @@ import com.example.phase2.phase2.TraderManager;
 
 import java.util.List;
 
-public class FlaggedAccountsMenu extends AppCompatActivity implements ClickableList, Dialogable{
-    private Bundle bundle;
+public class FlaggedAccountsMenu extends BundleActivity implements ClickableList, Dialogable{
     private TraderManager traderManager;
     private String frozenTrader;
 
@@ -24,19 +23,14 @@ public class FlaggedAccountsMenu extends AppCompatActivity implements ClickableL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flagged_accounts_menu);
-        bundle = getIntent().getExtras();
-        assert bundle != null;
-        traderManager = (TraderManager) bundle.getSerializable("TraderManager");
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, ManageFrozenAccount.class);
-        bundle.remove("TraderManager");
-        bundle.putSerializable("TraderManager", traderManager);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        replaceUseCase(traderManager);
+        super.onBackPressed();
     }
 
 
