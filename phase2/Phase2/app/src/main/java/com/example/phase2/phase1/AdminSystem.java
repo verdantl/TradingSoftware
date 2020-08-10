@@ -1,4 +1,4 @@
-package com.example.phase2.phase2;
+package com.example.phase2.phase1;
 
 import com.example.phase2.AdminActions;
 import com.example.phase2.Item;
