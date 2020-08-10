@@ -87,9 +87,15 @@ public class TraderActivity extends BundleActivity {
 //        }
 //    }
 
+    /**
+     * This method is called when the user presses the View User Info button. Starts the Request
+     * ViewMyUserInfoActivity
+     * @param view A view
+     */
     public void viewUserInfo(View view){
         Intent intent = new Intent(this, ViewMyUserInfoActivity.class);
         putBundle(intent);
+        //????
         startActivity(intent);
     }
 
@@ -116,6 +122,17 @@ public class TraderActivity extends BundleActivity {
     }
 
     /**
+     * This method is called when the user presses the Change Homecity button. Starts the
+     * ChangeHomecity Activity
+     * @param view A view
+     */
+    public void changeHomecity(View view){
+        Intent i =  new Intent(this, ChangeHomecity.class);
+        putBundle(i);
+        startActivityForResult(i, CHANGE_PASSWORD_REQ);
+    }
+
+    /**
      * This method is called when the user clicks the loggout button. It lets the user to loggout
      * from the system. It also updates the use case classes.
      * @param view
@@ -124,6 +141,8 @@ public class TraderActivity extends BundleActivity {
         super.onBackPressed();
         finish();
     }
+
+
 
     /**
      * This is called when the user presses the back button. It forbids user from going back to

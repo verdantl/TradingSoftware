@@ -34,7 +34,7 @@ public class UndoActivity extends BundleActivity {
         assert traderManager != null;
         if(traderManager.containTrader(chosenTrader)){
             Intent intent = new Intent(this, UndoMenu.class);
-            intent.putExtra("username", chosenTrader);
+            intent.putExtra("chosenTrader", chosenTrader);
             putBundle(intent);
             startActivity(intent);
         }else{
