@@ -33,7 +33,7 @@ public class LoginActivity extends BundleActivity {
             Intent intent = new Intent(this, TraderActivity.class);
             replaceUsername(username);
             putBundle(intent);
-            startActivityForResult(intent, RESULT_FIRST_USER);
+            startActivityForResult(intent, RESULT_OK);
         }
 
         else if (adminActions.login(username, password)){

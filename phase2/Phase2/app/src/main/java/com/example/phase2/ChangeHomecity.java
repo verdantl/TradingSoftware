@@ -40,6 +40,7 @@ public class ChangeHomecity extends BundleActivity {
         }else {
             tm.setHomeCity(username, newHomeCity);
             Toast.makeText(this, "Successfully changed homecity", Toast.LENGTH_SHORT).show();
+            onBackPressed();
         }
         editText.setText("");
 
@@ -50,8 +51,8 @@ public class ChangeHomecity extends BundleActivity {
      */
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         replaceUseCase(tm);
+        super.onBackPressed();
     }
 
 }

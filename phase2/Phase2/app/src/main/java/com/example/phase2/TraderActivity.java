@@ -98,7 +98,6 @@ public class TraderActivity extends BundleActivity {
         //????
         startActivity(intent);
     }
-
     /**
      * This method is called when the user presses the Request Admin button. Starts the Request
      * AdminActivity
@@ -138,11 +137,17 @@ public class TraderActivity extends BundleActivity {
      * @param view
      */
     public void onLogoutClicked(View view) {
-        super.onBackPressed();
+        Intent intent = new Intent(this, LoginActivity.class);
+        putBundle(intent);
+        startActivity(intent);
         finish();
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     /**
      * This is called when the user presses the back button. It forbids user from going back to

@@ -16,10 +16,6 @@ import com.example.phase2.phase2.TradeManager;
 import com.example.phase2.phase2.TraderManager;
 
 public class AdminActivity extends BundleActivity {
-    private AdminActions adminActions;
-
-    private TraderManager traderManager;
-
     private String currentAdmin;
 
     private final int CHANGE_LIMIT_REQ = 5;
@@ -28,9 +24,6 @@ public class AdminActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adminActions = (AdminActions) getUseCase(ADMINKEY);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
-
         currentAdmin = getUsername();
         setContentView(R.layout.activity_admin);
 
@@ -82,37 +75,11 @@ public class AdminActivity extends BundleActivity {
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 
-    public void undoMenu(View view){
+    public void undoMenu(View view) {
         Intent i = new Intent(this, UndoActivity.class);
         putBundle(i);
         startActivityForResult(i, RESULT_FIRST_USER);
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        assert data != null;
-//        switch(requestCode){
-//            case CHANGE_LIMIT_REQ:
-//                if(resultCode == RESULT_FIRST_USER) {
-//                    traderManager = (TraderManager) data.getSerializableExtra("TraderManager");
-//                    bundle.remove("TraderManager");
-//                    bundle.putSerializable("TraderManager", traderManager);
-//                }
-//                break;
-//            case CHANGE_PASSWORD_REQ:
-//                if(resultCode == RESULT_FIRST_USER) {
-//                    adminActions = (AdminActions) data.getSerializableExtra("AdminActions");
-//
-//                    bundle.remove("AdminActions");
-//                    bundle.putSerializable("AdminActions", adminActions);
-//                }
-//                break;
-//            default:
-//
-//        }
-//    }
-
 
     @Override
     public void onBackPressed() {
