@@ -103,7 +103,6 @@ public class SelectItemActivity extends BundleActivity implements RecommendedIte
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 myItem = itemIDs.get(i);
-                Toast.makeText(SelectItemActivity.this, currentTrader, Toast.LENGTH_SHORT).show();
                 continuing();
             }
         });
