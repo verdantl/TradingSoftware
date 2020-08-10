@@ -41,6 +41,9 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
     }
 
 
+    /**
+     * view a list of flagged accounts that needed to be frozen
+     */
     public void viewList() {
         final List<String> allFlaggedTraders = traderManager.getListOfFlagged();
         ListView listView = findViewById(R.id.flagged);
@@ -57,6 +60,9 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
     }
 
 
+    /**
+     * Listener fot the positive button, freeze the account
+     */
     @Override
     public void clickPositive() {
         if (traderManager.freezeAccount(frozenTrader)) {
@@ -71,6 +77,9 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
 
     }
 
+    /**
+     * Listener for the negative button, cancel the action
+     */
     @Override
     public void clickNegative() {
         Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
@@ -78,6 +87,9 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
 
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();

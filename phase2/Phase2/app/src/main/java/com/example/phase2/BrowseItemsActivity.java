@@ -6,12 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-
-import androidx.annotation.Nullable;
-
 import com.example.phase2.phase2.ItemManager;
-import com.example.phase2.phase2.MeetingManager;
 import com.example.phase2.phase2.TraderManager;
 
 import java.util.ArrayList;
@@ -25,12 +20,18 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
     private int chosenItem;
     private boolean useLocation;
 
+    /**
+     * update the useCase
+     */
     protected void updateUseCases(){
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         viewList();
     }
 
+    /**create the activity
+     * @param savedInstanceState the bundle from the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,9 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         }
     }
 
+    /**
+     * view a list of items in the inventory
+     */
     public void viewList(){
         List<Integer> tempItemList = itemManager.getAllApprovedItemsIDs(currentTrader);
         List<Integer> removeList = new ArrayList<>();
@@ -63,13 +67,10 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         }
         final List<Integer> itemList = tempItemList;
         List<String> itemNameList = new ArrayList<>();
-        List<String> itemDescription = new ArrayList<>();
         for (Integer item : itemList) {
             itemNameList.add(itemManager.getItemName(item));
         }
-        for (Integer item : itemList) {
-            itemDescription.add(itemManager.getItemDescription(item));
-        }
+        
         setContentView(R.layout.activity_browse_items);
         ListView listView = findViewById(R.id.selectItem);
         ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(this,
@@ -84,13 +85,16 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         });
     }
 
+    /**
+     * Listener for the back button, go back to the last menu
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(traderManager);
         super.onBackPressed();
     }
 
-    public void displayItemOptions(){
+    private void displayItemOptions(){
         Intent intent = new Intent(this, ItemOptionsActivity.class);
         intent.putExtra("ChosenItem", chosenItem);
         putBundle(intent);
@@ -98,6 +102,9 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
     }
 
 
+    /**
+     * Listener for the positive button, view the items from the home city
+     */
     @Override
     public void clickPositive() {
         useLocation = true;
@@ -105,12 +112,18 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
 
     }
 
+    /**
+     * Listener for the negative button, view the items from the world
+     */
     @Override
     public void clickNegative() {
         useLocation = false;
         viewList();
     }
 
+    /**
+     * open the dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();
