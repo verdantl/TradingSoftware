@@ -127,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onTutorialClicked"
-        android:text="Tutorial"
+        android:text="@string/tutorial"
         app:layout_constraintBaseline_toBaselineOf="@+id/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.726"
