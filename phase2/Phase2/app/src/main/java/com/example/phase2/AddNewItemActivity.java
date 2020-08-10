@@ -25,18 +25,6 @@ public class AddNewItemActivity extends BundleActivity{
         setContentView(R.layout.activity_add_new_item);
     }
 
-
-    /**
-     * Called when the back button is pressed
-     */
-    @Override
-    public void onBackPressed(){
-        replaceUseCase(itemManager);
-        Intent intent = new Intent(this, EditInventoryActivity.class);
-        putBundle(intent);
-        startActivityForResult(intent, RESULT_FIRST_USER);
-    }
-
     /**
      * Called when the user clicks on the Add Item button. It adds the item to list
      * of items needing approval and prompts the user to check back later or fill out all
@@ -67,7 +55,11 @@ public class AddNewItemActivity extends BundleActivity{
             itemManager.changeStatusToRequested(itemID);
             Toast.makeText(this, "Item requested. Check back later.",
                     Toast.LENGTH_LONG).show();
-            onBackPressed();
+
+            replaceUseCase(itemManager);
+            Intent intent = new Intent(this, EditInventoryActivity.class);
+            putBundle(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
         }
     }
 }
