@@ -107,7 +107,6 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
     public void clickPositive() {
         useLocation = true;
         viewList();
-
     }
 
     /**

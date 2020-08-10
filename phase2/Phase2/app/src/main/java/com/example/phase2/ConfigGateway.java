@@ -98,23 +98,25 @@ public class ConfigGateway {
         HashMap<String, Admin> admins = new HashMap<>();
         admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
         adminActions = new AdminActions(admins);
-        Item item1 = new Item(1, "Bruh", "Arjun");
-        item1.setStatus(ItemStatus.AVAILABLE);
-        item1.setCategory("What do you think?");
-        item1.setDescription("bruhbruhbruh");
-        item1.setQualityRating(5);
+
         HashMap<Integer, Item> tempMap = new HashMap<>();
-        tempMap.put(1, item1);
-        Item item2 = new Item(2, "Apple", "Trader1");
-        item2.setStatus(ItemStatus.AVAILABLE);
-        item2.setCategory("Food");
-        item2.setDescription("It's an apple.");
-        item2.setQualityRating(8);
-        tempMap.put(2, item2);
         itemManager = new ItemManager(tempMap);
+
+        Integer id1 = itemManager.addItem("Bruh", "Arjun");
+        itemManager.editCategory(id1, "What do you think?");
+        itemManager.editDescription(id1, "bruhbruhbruh");
+        itemManager.editQualityRating(id1,5);
+        itemManager.changeStatusToAvailable(id1);
+
+        Integer id2 = itemManager.addItem("Apple", "Trader1");
+        itemManager.editCategory(id2, "Food");
+        itemManager.editDescription(id2, "It's an apple.");
+        itemManager.editQualityRating(id2, 8);
+        itemManager.changeStatusToAvailable(id2);
+
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());
-        traderManager = new TraderManager(new HashMap<String, Trader>(), 3, 1, 0);
+        traderManager = new TraderManager(new HashMap<String, Trader>(), 100, 1, 0);
         Trader trader1 = new Trader("Trader1", "Password");
         trader1.setHomeCity("Brampton");
         traderManager.addTrader(trader1);

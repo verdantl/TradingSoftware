@@ -290,11 +290,6 @@ public class MeetingManager extends Manager implements Serializable {
     public void undoEdit(int id, String user) {
         Meeting temp = meetings.get(id);
 
-        if(!temp.getCanBeUndone()) {
-            System.out.println("You aren't allowed to do that.");
-            return;
-        }
-
         temp.setLocation(temp.getLastLocation());
         temp.setTradeDate(temp.getLastTradeDate());
         temp.setReturnLocation(temp.getLastReturnLocation());
@@ -303,6 +298,15 @@ public class MeetingManager extends Manager implements Serializable {
         temp.decreaseNumberOfEdits(user);
 
         temp.resetLastInfo();
+    }
+
+    /**
+     * Checks if the inputted meeting has an edit that can be undone.
+     * @param id
+     * @return
+     */
+    public boolean canUndoEdit(int id) {
+        return meetings.get(id).getCanBeUndone();
     }
 
     /**

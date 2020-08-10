@@ -65,10 +65,11 @@ public class ItemOptionsActivity extends BundleActivity {
                     " you cannot trade.", Toast.LENGTH_LONG).show();
         } else if (traderManager.exceedWeeklyLimit(currentTrader, LocalDate.now())) {
             Toast.makeText(this, "You have exceeded your " +
-                    "weekly trade limit.", Toast.LENGTH_SHORT).show();
+                    "weekly trade limit", Toast.LENGTH_SHORT).show();
         } else if (traderManager.exceedMaxIncomplete(currentTrader)) {
             Toast.makeText(this, "You have exceeded your " +
-                    "maximum number of incomplete trades.", Toast.LENGTH_SHORT).show();
+                    "maximum number of incomplete trades. The max is " +
+                    traderManager.getWeeklyLimit(), Toast.LENGTH_SHORT).show();
         } else if (traderManager.needMoreLend(currentTrader)) {
             Toast.makeText(this, "You need to lend more " +
                     "items before you may initiate a new trade.", Toast.LENGTH_SHORT).show();
