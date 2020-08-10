@@ -18,12 +18,9 @@ import com.example.phase2.phase2.TraderManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectItemActivity extends BundleActivity {
+public class SelectItemActivity extends BundleActivity implements ClickableList{
 
     private ItemManager itemManager;
-    private TraderManager traderManager;
-    private TradeManager tradeManager;
-    private MeetingManager meetingManager;
     private String currentTrader;
     private Integer chosenItem;
     private Integer myItem;
@@ -36,13 +33,10 @@ public class SelectItemActivity extends BundleActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         itemManager = (ItemManager) getUseCase(ITEMKEY);
-        traderManager = (TraderManager) getUseCase(TRADERKEY);
-        tradeManager = (TradeManager) getUseCase(TRADEKEY);
-        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
         currentTrader = getUsername();
-        chosenItem = (Integer) bundle.getInt("ChosenItem");
-        oneWay = (Boolean) bundle.getBoolean("OneWay");
-        temporary = (Boolean) bundle.getBoolean("Temporary");
+        chosenItem = bundle.getInt("ChosenItem");
+        oneWay = bundle.getBoolean("OneWay");
+        temporary = bundle.getBoolean("Temporary");
         viewList();
     }
 
@@ -80,4 +74,5 @@ public class SelectItemActivity extends BundleActivity {
         startActivityForResult(intent, RESULT_FIRST_USER);
         finish();
     }
+
 }

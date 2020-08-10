@@ -33,14 +33,14 @@ public class LoginActivity extends BundleActivity {
             Intent intent = new Intent(this, TraderActivity.class);
             replaceUsername(username);
             putBundle(intent);
-            startActivityForResult(intent, RESULT_OK);
+            startActivity(intent);
         }
 
         else if (adminActions.login(username, password)){
             Intent intent = new Intent(this, AdminActivity.class);
             replaceUsername(username);
             putBundle(intent);
-            startActivityForResult(intent, RESULT_OK);
+            startActivity(intent);
         }
         else{
             Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();

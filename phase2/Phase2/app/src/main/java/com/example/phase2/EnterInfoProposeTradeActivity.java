@@ -22,6 +22,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     private ItemManager itemManager;
     private TradeManager tradeManager;
     private MeetingManager meetingManager;
+    private TraderManager traderManager;
     private String currentTrader;
     private Integer chosenItem;
     private Integer myItem;
@@ -36,6 +37,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         itemManager = (ItemManager) getUseCase(ITEMKEY);
         tradeManager = (TradeManager) getUseCase(TRADEKEY);
         meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         currentTrader = getUsername();
 
         Bundle bundle = getIntent().getExtras();
@@ -83,6 +85,8 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
                 items.add(myItem);
                 i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
             }
+            traderManager.addNewTrade(currentTrader, i, LocalDate.now());
+            traderManager.addNewTrade(receiver, i, LocalDate.now());
             itemManager.setItemsInactive(items, true);
 
             meetingManager.createMeeting(i, currentTrader, receiver, temporary);
@@ -98,9 +102,17 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
 
             Intent intent = new Intent(this, TraderActivity.class);
             putBundle(intent);
-            startActivityForResult(intent, RESULT_FIRST_USER);
+            startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    protected void putBundle(Intent intent) {
+        replaceUseCase(itemManager);
+        replaceUseCase(meetingManager);
+        replaceUseCase(tradeManager);
+        super.putBundle(intent);
     }
 
     public void cancel(View view){ onBackPressed(); }
