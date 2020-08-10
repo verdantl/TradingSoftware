@@ -7,8 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.phase2.ConfigGateway;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
