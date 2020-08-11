@@ -86,6 +86,12 @@ public class TradeType  extends AppCompatDialogFragment {
                         choseLastTime.show();
                         choseLastTime.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogable.clickNegative();
+                    }
                 });
 
             return builder.create();
@@ -112,7 +118,12 @@ public class TradeType  extends AppCompatDialogFragment {
                         choseMeetingPlace.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     }
                 })
-        ;
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogable.clickNegative();
+                    }
+                });
 
         return builder.create();
 

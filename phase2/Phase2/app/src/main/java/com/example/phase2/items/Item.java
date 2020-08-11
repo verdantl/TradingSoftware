@@ -32,23 +32,6 @@ public class Item implements Serializable {
         }
 
     /**
-     * Sets the item's name.
-      * @param name the string the item is called
-     */
-    public void setName(String name){
-        this.name = name;
-    }
-
-    /**
-     * Gets the item's category.
-     * @return the string the item is categorized as
-     */
-    //TODO: unused method
-    public String getCategory(){
-        return category;
-    }
-
-    /**
      * Sets the item's category.
      * @param category the string the item is categorized as
      */
@@ -94,15 +77,6 @@ public class Item implements Serializable {
      */
     public void setStatus(ItemStatus status) {
         this.status = status;
-    }
-
-    /**
-     * Alternative setter for status
-     * @param status The status of the item in string form
-     */
-    //TODO: unused method
-    public void setStatus(String status){
-        setStatus(convertToItemStatus(status));
     }
 
     /**
@@ -154,42 +128,4 @@ public class Item implements Serializable {
                 ",\nID: " + id;
     }
 
-    /**
-     * Converts the status of the item in String to Enum
-     * @param status The status of the item
-     * @return Return the enum equivalent of status
-     */
-    private ItemStatus convertToItemStatus(String status){
-
-        switch (status){
-            case "available":
-               return ItemStatus.AVAILABLE;
-            case "unavailable":
-                return ItemStatus.UNAVAILABLE;
-            case "requested":
-                return ItemStatus.REQUESTED;
-            default:
-                return ItemStatus.INACTIVE;
-        }
-
-    }
-
-    /**
-     * Converts the status of the item in Enum to String
-     * @param status The status of the item
-     * @return Return the string equivalent of status
-     */
-    //TODO: unused method
-    public String convertToString(ItemStatus status){
-
-        switch (status){
-            case AVAILABLE:
-                return "available";
-            case UNAVAILABLE:
-                return "unavailable";
-            case REQUESTED:
-                return "requested";
-        }
-        return "";
-    }
 }

@@ -98,8 +98,7 @@ public class AdminActivity extends BundleActivity {
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
         putBundle(i);
-        int CHANGE_LIMIT_REQ = 5;
-        startActivityForResult(i, CHANGE_LIMIT_REQ);
+        startActivityForResult(i, RESULT_FIRST_USER);
     }
 
     /**
@@ -110,8 +109,7 @@ public class AdminActivity extends BundleActivity {
     public void changePassword(View view){
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         putBundle(i);
-        int CHANGE_PASSWORD_REQ = 6;
-        startActivityForResult(i, CHANGE_PASSWORD_REQ);
+        startActivityForResult(i, RESULT_FIRST_USER);
     }
 
     /**

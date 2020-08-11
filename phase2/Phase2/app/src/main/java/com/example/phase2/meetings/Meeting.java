@@ -174,16 +174,10 @@ public class Meeting implements Serializable {
      */
     public void setIsAgreed(HashMap<String, Boolean> isAgreed){this.isAgreed = isAgreed;}
 
-    /**
-     * Setter for whether the traders have confirmed the meeting
-     * @param isConfirmed a hashmap representing if each user has confirmed
-     */
-    //TODO: unused method
-    public void setIsConfirmed(HashMap<String, Boolean> isConfirmed){this.isConfirmed = isConfirmed;}
-
     /**increase the number of edits when the user edits the meeting
      * @param user the user who edit this meeting
      */
+    @SuppressWarnings("ConstantConditions")
     public void increaseNumberOfEdits(String user) {
         numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
     }
@@ -192,6 +186,7 @@ public class Meeting implements Serializable {
      * Decreases the number of edits when an admin undoes a chnage to the meeting.
      * @param user the user who last edited the meeting.
      */
+    @SuppressWarnings("ConstantConditions")
     public void decreaseNumberOfEdits(String user) {
         numberOfEdits.replace(user, numberOfEdits.get(user) - 1);
     }
@@ -291,22 +286,6 @@ public class Meeting implements Serializable {
         isPermanent = permanent;
     }
 
-    /**
-     * Getter for if the items have been returned after trading
-     * @return a hashmap representing if each user has returned their item
-     */
-    public HashMap<String, Boolean> getIsReturned() {
-        return isReturned;
-    }
-
-    /**
-     * A setter for whether the items are returned
-     * @param isReturned a hashmap representing if each user has returned their item
-     */
-    //TODO: unused method
-    public void setIsReturned(HashMap<String, Boolean> isReturned) {
-        this.isReturned = isReturned;
-    }
 
     /**
      * A setter for the hashmap representing if the items are returned
@@ -347,6 +326,7 @@ public class Meeting implements Serializable {
      * @param username The username of the user
      * @return true if agreed, false otherwise
      */
+    @SuppressWarnings("ConstantConditions")
     public boolean isAgreed(String username){
         return isAgreed.get(username);
     }
@@ -356,6 +336,7 @@ public class Meeting implements Serializable {
      * @param username The user's username
      * @return true iff they have agreed.
      */
+    @SuppressWarnings("ConstantConditions")
     public boolean hasConfirmed(String username){
         if(isConfirmed.containsKey(username)){
             return isConfirmed.get(username);

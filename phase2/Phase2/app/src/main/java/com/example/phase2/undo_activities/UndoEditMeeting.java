@@ -1,6 +1,4 @@
 package com.example.phase2.undo_activities;
-
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,9 +15,7 @@ import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.users.TraderManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class UndoEditMeeting extends BundleActivity implements Dialogable {
     private String chosenTrader;

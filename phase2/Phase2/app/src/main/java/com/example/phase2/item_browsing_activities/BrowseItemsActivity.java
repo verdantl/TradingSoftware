@@ -98,6 +98,9 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
         super.onBackPressed();
     }
 
+    /**
+     * Continues to the next activity.
+     */
     private void displayItemOptions(){
         Intent intent = new Intent(this, ItemOptionsActivity.class);
         intent.putExtra("ChosenItem", chosenItem);

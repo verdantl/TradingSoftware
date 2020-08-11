@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import com.example.phase2.R;
 import com.example.phase2.highabstract.UpdatableBundleActivity;
 import com.example.phase2.users.AdminActions;
 import com.example.phase2.users.TraderManager;
+
+import java.io.IOException;
 
 public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;
@@ -90,15 +90,12 @@ public class LoginActivity extends UpdatableBundleActivity {
     protected void updateUseCases() {
         traderManager = (TraderManager) getUseCase(TRADERKEY);
         adminActions = (AdminActions) getUseCase(ADMINKEY);
+        try {
+            saveBundle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//        try {
-//            saveBundle();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
+
 }
