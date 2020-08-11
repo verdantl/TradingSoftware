@@ -104,6 +104,9 @@ public class SelectItemActivity extends BundleActivity implements Dialogable, Cl
         });
     }
 
+    /**
+     * Sends the user to the next activity
+     */
     public void continuing() {
         Intent intent = new Intent(this, EnterInfoProposeTradeActivity.class);
         intent.putExtra("ChosenItem", chosenItem);
@@ -144,7 +147,7 @@ public class SelectItemActivity extends BundleActivity implements Dialogable, Cl
     }
 
     /**
-     * open the dialog
+     * Opens the dialog
      */
     @Override
     public void openDialog() {

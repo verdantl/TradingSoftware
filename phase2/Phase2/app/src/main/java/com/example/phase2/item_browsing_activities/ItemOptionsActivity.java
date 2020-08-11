@@ -22,6 +22,11 @@ public class ItemOptionsActivity extends BundleActivity {
     private String currentTrader;
     private Integer chosenItem;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,9 @@ public class ItemOptionsActivity extends BundleActivity {
         viewStart();
     }
 
+    /**
+     * Sets up the starting functionality of the Activity
+     */
     public void viewStart() {
         setContentView(R.layout.activity_item_options);
 
@@ -52,6 +60,10 @@ public class ItemOptionsActivity extends BundleActivity {
         itemOwner.setText(tempOwner);
     }
 
+    /**
+     * Adds item to wishlist after a button click
+     * @param view The View object being clicked
+     */
     public void addToWishList(View view) {
         if(!traderManager.getWishlistIds(currentTrader).contains(chosenItem)) {
             traderManager.addToWishlist(currentTrader, chosenItem);
@@ -62,6 +74,10 @@ public class ItemOptionsActivity extends BundleActivity {
         }
     }
 
+    /**
+     * Proposes a Trade after a button click
+     * @param view The View object being clicked
+     */
     public void proposeTrade(View view) {
         if (canProposeTrade()) {
             displayTradeOptions(view);
@@ -92,6 +108,10 @@ public class ItemOptionsActivity extends BundleActivity {
                 !traderManager.needMoreLend(currentTrader);
     }
 
+    /**
+     * Sends the user to the next activity
+     * @param view The View object beign clicked
+     */
     public void displayTradeOptions(View view) {
         Intent intent = new Intent(this, DisplayTradeOptionsActivity.class);
         intent.putExtra("ChosenItem", chosenItem);
@@ -99,6 +119,9 @@ public class ItemOptionsActivity extends BundleActivity {
         startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
+    /**
+     * Listener for negative button, go back to the last menu
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(traderManager);
