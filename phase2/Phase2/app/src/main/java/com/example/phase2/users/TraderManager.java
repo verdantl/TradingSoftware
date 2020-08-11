@@ -330,7 +330,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return whether or not the user exceed the max number of incomplete trades
      */
     public boolean exceedMaxIncomplete(String user){
-        return users.get(user).getNumIncomplete() >= maxInComplete;
+        return users.get(user).getNumIncomplete() > maxInComplete;
     }
 
 
@@ -524,6 +524,19 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         users.get(firstUser).removeTrade(id);
         users.get(secondUser).removeTrade(id);
     }
+
+    /**
+     * Flags the user with the given id.
+     * @param username The username of the user
+     */
+    public void flagUser(String username){
+        users.get(username).setFlagged(true);
+    }
+
+    public void unFlagUser(String username){
+        users.get(username).setFlagged(false);
+    }
+
 
 //    /**
 //     * Returns whether the user with the given id is inactive

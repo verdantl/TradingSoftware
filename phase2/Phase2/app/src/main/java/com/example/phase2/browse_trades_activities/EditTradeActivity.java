@@ -249,6 +249,18 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
 //                return;
 //            }
 //        }
+            if(meetingManager.hasConfirmed(trade,tradeManager.getOtherTrader(trade,currentTrader) )){
+                if(traderManager.exceedMaxIncomplete(currentTrader)){
+                    traderManager.decreaseNumIncomplete(currentTrader);
+                    if(!traderManager.exceedMaxIncomplete(currentTrader)){
+                        traderManager.unFlagUser(currentTrader);
+                    }
+                }
+                else{
+                    traderManager.decreaseNumIncomplete(currentTrader);
+                }
+
+            }
             meetingManager.confirmMeeting(trade, currentTrader);
             Button button = findViewById(R.id.confirmButton);
             button.setVisibility(View.GONE);
@@ -286,15 +298,17 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
                     updateItemOwnerAndStatus();
                     completeTrade();
                 }
+            }else{
+                traderManager.increaseNumbIncomplete(tradeManager.getOtherTrader(trade,currentTrader));
+                if(traderManager.exceedMaxIncomplete(tradeManager.getOtherTrader(trade,currentTrader))){
+                    traderManager.flagUser(tradeManager.getOtherTrader(trade,currentTrader));
+                }
             }
     }
 
     private void completeTrade(){
         meetingManager.setMeetingCompleted(trade);
         tradeManager.setTradeCompleted(trade);
-        traderManager.decreaseNumIncomplete(currentTrader);
-        traderManager.decreaseNumIncomplete(tradeManager.getOtherTrader(trade, currentTrader));
-
         Toast.makeText(this, R.string.trade_completed, Toast.LENGTH_LONG).show();
         onBackPressed();
     }
@@ -360,8 +374,6 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
                 itemManager.changeStatusToAvailable(i);
             }
         }
-        traderManager.decreaseNumIncomplete(currentTrader);
-        traderManager.decreaseNumIncomplete(tradeManager.getOtherTrader(trade, currentTrader));
         traderManager.removeTradeFromTraders(trade, currentTrader, tradeManager.getOtherTrader(trade, currentTrader));
         tradeManager.removeFromInventory(trade);
         meetingManager.removeMeeting(trade);
