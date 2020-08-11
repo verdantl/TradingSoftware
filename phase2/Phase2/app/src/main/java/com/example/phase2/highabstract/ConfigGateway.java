@@ -153,8 +153,6 @@ public class ConfigGateway {
 
         adminActions.newAdmin("Admin2", "Wordpass");
         adminActions.newAdmin("Sup", "nothing");
-        traderManager.increaseNumbIncomplete("Trader2");
-        traderManager.increaseNumbIncomplete("Arjun");
     }
 
     private void downloadItems(){
@@ -211,8 +209,6 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId2, "Arjun", "Trader2", true);
         meetingManager.setMeetingInfo(tradeId2, LocalDate.now(), LocalDate.now(),
                 "Toronto", "Toronto");
-        traderManager.increaseNumbIncomplete("Trader2");
-        traderManager.increaseNumbIncomplete("Arjun");
     }
 
     private void addThirdTrade(){
@@ -231,8 +227,6 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId3, "Arjun", "Trader1", false);
         meetingManager.setMeetingInfo(tradeId3, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
-        traderManager.increaseNumbIncomplete("Trader1");
-        traderManager.increaseNumbIncomplete("Arjun");
     }
 
     private void addFourthTrade(){
@@ -257,8 +251,6 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId4, "Arjun", "Trader1", false);
         meetingManager.setMeetingInfo(tradeId4, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
-        traderManager.increaseNumbIncomplete("Trader1");
-        traderManager.increaseNumbIncomplete("Arjun");
     }
 
     private void addFifthTrade(){
@@ -276,8 +268,6 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId5, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId5, LocalDate.now(), LocalDate.now(),
                 "Online", "Online");
-        traderManager.increaseNumbIncomplete("Trader1");
-        traderManager.increaseNumbIncomplete("Arjun");
     }
 
     private void addSixthTrade(){
@@ -304,8 +294,6 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId6, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId6, LocalDate.now(), LocalDate.now(),
                 "ONLINE", "N/A");
-        traderManager.increaseNumbIncomplete("Trader1");
-        traderManager.increaseNumbIncomplete("Arjun");
 
     }
     private void downloadInitial(){
