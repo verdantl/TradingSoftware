@@ -71,7 +71,11 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     public void setLocation(View view) {
         EditText locationEditText = findViewById(R.id.editTextLocation);
         location =  locationEditText.getText().toString();
-        Toast.makeText(this, "Location set!", Toast.LENGTH_SHORT).show();
+        if(location.isEmpty()){
+            Toast.makeText(this, "Please enter a location", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "Location set!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -82,13 +86,12 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         EditText dateEditText = findViewById(R.id.editTextDate);
         try {
             date = LocalDate.parse(dateEditText.getText().toString());
+            Toast.makeText(this, "Date set!", Toast.LENGTH_SHORT).show();
+
         }
         catch (DateTimeParseException e) {
-            Toast.makeText(this, "Please enter your location in the format DD-MM-YYYY",
+            Toast.makeText(this, "Please enter the date in the format YYYY-MM-DD",
                     Toast.LENGTH_LONG).show();
-        }
-        finally {
-            Toast.makeText(this, "Date set!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -139,11 +142,8 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     }
 
     private boolean checkNotNull(){
-        if (location == null) {
-            Toast.makeText(this, "Please enter a location.", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (date == null) {
-            Toast.makeText(this, "Please enter a date.", Toast.LENGTH_SHORT).show();
+        if (location == null || date == null) {
+            Toast.makeText(this, "Please enter a location and/or date.", Toast.LENGTH_SHORT).show();
             return false;
         }else{
             return true;
