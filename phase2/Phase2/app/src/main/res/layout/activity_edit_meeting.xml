@@ -14,18 +14,18 @@
         android:textAllCaps="false"
         android:textColor="#92000305"
         android:textSize="24sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/newDate"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.801"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/newDate"
         android:layout_width="133dp"
         android:layout_height="54dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         android:text="@string/newDate"
         android:textAlignment="center"
         android:textSize="25sp"
@@ -33,13 +33,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.593" />
 
     <TextView
         android:id="@+id/newLocation"
         android:layout_width="189dp"
         android:layout_height="59dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         android:text="@string/newLocation"
         android:textAlignment="center"
         android:textSize="25sp"
@@ -57,15 +57,16 @@
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="@string/locationTypeIn"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:textAlignment="textStart"
         android:textColor="#94000709"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/newLocation"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543"
-        android:importantForAutofill="no" />
+        app:layout_constraintVertical_bias="0.728" />
 
     <Button
         android:id="@+id/submit_button"
@@ -75,10 +76,10 @@
         android:text="@string/enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintVertical_bias="0.895" />
 
     <TextView
         android:id="@+id/textView18"
@@ -90,9 +91,21 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.088" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="150dp"
+        android:layout_height="149dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.275"
+        app:srcCompat="@drawable/ic_baseline_location_on_24"
+        android:contentDescription="@string/selectMeeting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
