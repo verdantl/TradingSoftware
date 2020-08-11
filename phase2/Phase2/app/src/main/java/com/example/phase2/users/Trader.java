@@ -139,50 +139,6 @@ public class Trader extends User implements Serializable {
         return wishlist;
     }
 
-    /**
-     *
-     * @return Trader's borrowed items
-     */
-    //TODO: unused method
-    public List<Integer> getBorrowedItems() {
-        return borrowedItems;
-    }
-
-
-    /**
-     * Adds the item to borrowedItems
-     * @param id the id of the item to be added
-     */
-    public void addToBorrowedItems(Integer id){
-        this.borrowedItems.add(id);
-    }
-
-    /**
-     * Removes the item from borrowedItems
-     * @param id the id of the item to be removed
-     */
-    public void removeFromWishlist(Integer id){
-        this.wishlist.remove(id);
-    }
-
-    /**
-     * Removes the item from borrowedItems
-     * @param id the id of the item to be removed
-     */
-    public void removeFromBorrowedItems(Integer id){
-        this.borrowedItems.remove(id);
-    }
-
-    /**
-     * Deletes the item from this trader's records.
-     * @param id the id of the item
-     */
-    public void deleteItem(Integer id){
-        wishlist.remove(id);
-        borrowedItems.remove(id);
-    }
-
-
     /**Getter for the numIncomplete
      * @return the number of incomplete trades that the trader has
      */
