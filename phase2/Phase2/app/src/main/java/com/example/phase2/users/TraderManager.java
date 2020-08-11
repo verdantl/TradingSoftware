@@ -368,7 +368,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param user the user
      */
     //TODO: unused methods
-    public void increaseNumbIncomplete(String user){
+    public void increaseNumIncomplete(String user){
         users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() + 1);
     }
 
