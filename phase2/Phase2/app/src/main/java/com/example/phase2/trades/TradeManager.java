@@ -88,6 +88,7 @@ public class TradeManager extends Manager implements Serializable {
      * @param id The id of the trade
      * @return the username of the initiator
      */
+    //TODO: unused method
     public String getTradeInitiator(int id){
         return tradeInventory.get(id).getInitiator();
     }
@@ -97,6 +98,7 @@ public class TradeManager extends Manager implements Serializable {
      * @param id The id of the trade
      * @return the username of the receiver
      */
+    //TODO: unused method
     public String getTradeReceiver(int id){
         return tradeInventory.get(id).getReceiver();
     }
