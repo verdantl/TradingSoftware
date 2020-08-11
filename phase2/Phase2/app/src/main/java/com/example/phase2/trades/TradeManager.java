@@ -42,7 +42,7 @@ public class TradeManager extends Manager implements Serializable {
     public List<Integer> getIncompleteTrades(List<Integer> trades){
         List<Integer> temp = new ArrayList<>();
         for(Integer i: trades){
-            if(!tradeInventory.get(i).getCompleted()){
+            if(!Objects.requireNonNull(tradeInventory.get(i)).getCompleted()){
                 temp.add(i);
             }
         }
@@ -181,7 +181,7 @@ public class TradeManager extends Manager implements Serializable {
      */
     //TODO: unused method
     public List<Integer> getItemIds(int tradeId){
-        return tradeInventory.get(tradeId).getItems();
+        return Objects.requireNonNull(tradeInventory.get(tradeId)).getItems();
     }
 
     /**
@@ -199,7 +199,7 @@ public class TradeManager extends Manager implements Serializable {
      * @return true iff trade is permanent.
      */
     public boolean isTradePermanent(int id){
-        return tradeInventory.get(id).isPermanent();
+        return Objects.requireNonNull(tradeInventory.get(id)).isPermanent();
     }
 
     /**
@@ -209,7 +209,7 @@ public class TradeManager extends Manager implements Serializable {
      * @return The other trader's username
      */
     public String getOtherTrader(int id, String username){
-        return tradeInventory.get(id).getOtherTrader(username);
+        return Objects.requireNonNull(tradeInventory.get(id)).getOtherTrader(username);
     }
 
     @Override

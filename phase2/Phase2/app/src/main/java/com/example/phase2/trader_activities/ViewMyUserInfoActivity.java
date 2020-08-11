@@ -83,7 +83,7 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
         ArrayAdapter<String> allTradesAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, recentTrades);
         listView.setAdapter(allTradesAdapter);
-/**
+/*
         //if the code below doesn't work just delete and add the "}"'s
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -93,17 +93,6 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
             }
         });
  */
-    }
-
-    //this msy cause a bug in the future since a back button wasn't implemented
-    private void displayEditTrade(){
-        Intent intent = new Intent(this, EditTradeActivity.class);
-        intent.putExtra("CurrentTrader", currentTrader);
-        intent.putExtra("TradeManager",tradeManager);
-        intent.putExtra("MeetingManager", meetingManager);
-        //intent.putExtra("Trade", trade);
-        intent.putExtra("ItemManager", itemManager);
-        startActivity(intent);
     }
 
     private void changeText(TextView textView, String message){

@@ -32,7 +32,7 @@ public class ChangeHomecity extends BundleActivity {
      * @param view A view
      */
     public void submitTraderHomecity(View view){
-        EditText editText = (EditText) findViewById(R.id.editTextTextPersonName2);
+        EditText editText = findViewById(R.id.editTextTextPersonName2);
         String newHomeCity = editText.getText().toString();
 
         if(newHomeCity.equals("") || newHomeCity.equals(tm.getHomeCity(username))){
