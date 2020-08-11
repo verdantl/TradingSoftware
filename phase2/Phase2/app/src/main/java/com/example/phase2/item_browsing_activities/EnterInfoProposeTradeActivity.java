@@ -83,7 +83,6 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
             }
             i = tradeManager.createTrade(currentTrader, receiver, tradeType(), permanent, items);
             traderManager.addNewTrade(currentTrader, i, LocalDate.now());
-            traderManager.increaseNumbIncomplete(currentTrader);
             traderManager.addNewTrade(receiver, i, LocalDate.now());
             for (Integer j: items) {
                 itemManager.changeStatusToUnavailable(j);
