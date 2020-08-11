@@ -94,14 +94,15 @@
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="130dp"
-        android:layout_height="129dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        android:layout_width="98dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@+id/tradingItems"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/ownedBy"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286"
-        app:srcCompat="@drawable/ic_baseline_person_24"
-        android:contentDescription="@+id/tradingItems" />
+        app:layout_constraintTop_toBottomOf="@+id/tradingItems"
+        app:srcCompat="@drawable/ic_baseline_person_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>
