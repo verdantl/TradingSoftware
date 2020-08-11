@@ -15,6 +15,7 @@ import com.example.phase2.deliverable.ItemManager;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;
 import com.example.phase2.menus.TraderActivity;
+import com.example.phase2.users.TraderManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 public class EditInventoryActivity extends BundleActivity implements ClickableList {
     private ItemManager itemManager;
+    private TraderManager traderManager;
     private String currentTrader;
     private int chosenItem;
 
@@ -35,6 +37,7 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemManager = (ItemManager) getUseCase(ITEMKEY);
+        traderManager = (TraderManager) getUseCase(TRADERKEY);
         currentTrader = getUsername();
         viewList();
     }
@@ -112,9 +115,15 @@ public class EditInventoryActivity extends BundleActivity implements ClickableLi
      * @param view A view
      */
     public void addNewItem(View view){
-        Intent intent = new Intent(this, AddNewItemActivity.class);
-        putBundle(intent);
-        startActivityForResult(intent, RESULT_FIRST_USER);
+        if(traderManager.getIsFrozen(currentTrader)){
+            Toast.makeText(this, R.string.cannot_propose_new_item_frozen, Toast.LENGTH_SHORT).show();
+        }else if(traderManager.isInactive(currentTrader)){
+            Toast.makeText(this, R.string.cannot_propose_new_item_inactive, Toast.LENGTH_SHORT).show();
+        }else {
+            Intent intent = new Intent(this, AddNewItemActivity.class);
+            putBundle(intent);
+            startActivityForResult(intent, RESULT_FIRST_USER);
+        }
     }
 
 }
