@@ -4,18 +4,22 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.phase2.R;
 import com.example.phase2.dialogs.DialogFactory;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.Dialogable;
+import com.example.phase2.items.ItemManager;
 
 public class DisplayTradeOptionsActivity extends BundleActivity implements Dialogable {
 
     private Integer chosenItem;
+    private String currentTrader;
     private boolean oneWay;
     private boolean permanent;
     private boolean online;
+    private ItemManager itemManager;
     private AppCompatDialogFragment dialogFragment;
 
     /**create the activity
@@ -26,12 +30,13 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
+        currentTrader = getUsername();
+        itemManager = (ItemManager) getUseCase(ITEMKEY);
         chosenItem = bundle.getInt("ChosenItem");
         setContentView(R.layout.activity_display_trade_options);
         DialogFactory dialogFactory = new DialogFactory();
         dialogFragment = dialogFactory.getDialog("TradeType");
         openDialog();
-
     }
 
     /**
@@ -60,10 +65,16 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
     @Override
     public void clickPositive() {
         assert dialogFragment.getArguments() != null;
-        oneWay = dialogFragment.getArguments().getBoolean("isOneWay");
-        permanent = dialogFragment.getArguments().getBoolean("isPermanent");
-        online = dialogFragment.getArguments().getBoolean("isOnline");
-        continuing();
+        if (itemManager.getApprovedItemsIDs(currentTrader).size() == 0) {
+            Toast.makeText(this, "You have no items, so you " +
+                    "must commence a one-way trade.", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+        } else {
+            oneWay = dialogFragment.getArguments().getBoolean("isOneWay");
+            permanent = dialogFragment.getArguments().getBoolean("isPermanent");
+            online = dialogFragment.getArguments().getBoolean("isOnline");
+            continuing();
+        }
     }
 
     /**
@@ -71,7 +82,7 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
      */
     @Override
     public void clickNegative() {
-        super.onBackPressed();
+        onBackPressed();
     }
 
     /**
