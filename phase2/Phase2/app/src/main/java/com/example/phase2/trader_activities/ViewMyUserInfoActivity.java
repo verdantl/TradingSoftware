@@ -51,7 +51,10 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
         }
 
         if(traderManager.getIsFrozen(currentTrader)){
-        changeText((TextView) findViewById(R.id.textView6), "Status: Frozen");}
+        changeText((TextView) findViewById(R.id.textView6), "Status: Frozen");
+        }else if(traderManager.isInactive(currentTrader)){
+            changeText((TextView) findViewById(R.id.textView6), "Status: Inactive");
+        }
         else{
             changeText((TextView) findViewById(R.id.textView6), "Status: Trading Available");
         }

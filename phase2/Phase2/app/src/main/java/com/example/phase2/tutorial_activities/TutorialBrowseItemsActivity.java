@@ -1,7 +1,6 @@
 package com.example.phase2.tutorial_activities;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +11,6 @@ import com.example.phase2.R;
 import com.example.phase2.items.ItemManager;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;
-import com.example.phase2.menus.TutorialActivity;
 
 import java.util.ArrayList;
 import java.util.List;

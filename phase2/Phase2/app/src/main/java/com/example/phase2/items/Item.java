@@ -122,10 +122,10 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return "| " + name + " |" +
-                "\nqualityRating: " + qualityRating +
-                ",\ncategory: '" + category +
-                "',\ndescription: '" + description +
-                ",\nID: " + id;
+                "\nQuality Rating: " + qualityRating +
+                "\nCategory: '" + category +
+                "\nDescription: '" + description +
+                "\nID: " + id;
     }
 
 }
