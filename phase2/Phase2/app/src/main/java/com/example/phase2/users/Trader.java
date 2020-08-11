@@ -25,6 +25,7 @@ public class Trader extends User implements Serializable {
         requestToUnfreeze = false;
         numLent = 0;
         numBorrowed = 0;
+        numIncomplete=0;
         wishlist = new ArrayList<>();
         borrowedItems = new ArrayList<>();
         trades = new HashMap<>();
