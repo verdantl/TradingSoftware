@@ -12,7 +12,6 @@ public class Trader extends User implements Serializable {
     private boolean frozen, flagged, requestToUnfreeze, inactive;
     private int numLent, numBorrowed, numIncomplete;
     private final List<Integer> wishlist;
-    private final List<Integer> borrowedItems;
     private HashMap<Integer, LocalDate> trades;
     private String homeCity;
 
@@ -32,7 +31,6 @@ public class Trader extends User implements Serializable {
         numBorrowed = 0;
         numIncomplete=0;
         wishlist = new ArrayList<>();
-        borrowedItems = new ArrayList<>();
         trades = new HashMap<>();
     }
 

@@ -502,6 +502,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param date The date to be checked against
      * @return True if is equal to or after
      */
+    @SuppressWarnings("All")
     public boolean dateIsAfterReturnMeeting(int id, LocalDate date){
         if(meetings.get(id).getReturnDate().isEqual(date)){
             return true;
@@ -515,6 +516,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param date The date to be checked against.
      * @return True if is equal to or after
      */
+    @SuppressWarnings("All")
     public boolean dateIsAfterMeeting(int id, LocalDate date){
         if(meetings.get(id).getTradeDate().isEqual(date)){
             return true;
