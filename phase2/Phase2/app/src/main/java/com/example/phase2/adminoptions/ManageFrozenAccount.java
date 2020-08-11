@@ -21,16 +21,6 @@ public class ManageFrozenAccount extends BundleActivity {
     }
 
     /**
-     * Returns to the previous avtivity
-     */
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, AdminActivity.class);
-        putBundle(intent);
-        startActivity(intent);
-    }
-
-    /**
      * Goes to the flagged accounts menu
      * @param view
      */
