@@ -17,7 +17,6 @@ import com.example.phase2.users.TraderManager;
 public class LoginActivity extends UpdatableBundleActivity {
     private AdminActions adminActions;
     private TraderManager traderManager;
-    private ItemManager itemManager;
 
     /**
      * Called when the activity is starting.
