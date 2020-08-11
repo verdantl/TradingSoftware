@@ -226,7 +226,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
                 n++;
             }
         }
-        return n > weeklyLimit;
+        return n >= weeklyLimit;
     }
 
     /**Check whether or not the user exceed the max number of incomplete trades
