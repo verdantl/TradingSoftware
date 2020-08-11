@@ -59,24 +59,6 @@ public class UndoEditMeeting extends BundleActivity implements Dialogable {
             }
         }
 
-        List<Integer> tempMeetings2 = new ArrayList<>();
-
-
-        for (Integer i : tempMeetings2) {
-            HashMap<String, Integer> tempHash = meetingManager.getEdits(i);
-            if (tradeManager.getTradeInitiator(i).equals(chosenTrader)) {
-                if (tempHash.get(chosenTrader) <
-                        tempHash.get(tradeManager.getTradeReceiver(i))) {
-                    tempMeetings.remove(i);
-                } else {
-                    if (Objects.equals(tempHash.get(chosenTrader),
-                            tempHash.get(tradeManager.getTradeReceiver(i)))) {
-                        tempMeetings.remove(i);
-                    }
-                }
-            }
-        }
-
         ArrayList<String> editMeeting = new ArrayList<>();
         for(Integer i: tempMeetings){
             editMeeting.add(meetingManager.getMeeting(i).toString());
