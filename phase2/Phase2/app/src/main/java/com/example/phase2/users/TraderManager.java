@@ -330,7 +330,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      */
     //TODO: unused methods
     public boolean exceedMaxIncomplete(String user){
-        return users.get(user).getNumIncomplete() > maxInComplete;
+        return users.get(user).getNumIncomplete() >= maxInComplete;
     }
 
 

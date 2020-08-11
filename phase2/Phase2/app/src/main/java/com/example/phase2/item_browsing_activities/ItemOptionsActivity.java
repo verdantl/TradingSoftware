@@ -74,7 +74,7 @@ public class ItemOptionsActivity extends BundleActivity {
         } else if (traderManager.exceedMaxIncomplete(currentTrader)) {
             Toast.makeText(this, "You have exceeded your " +
                     "maximum number of incomplete trades. The max is " +
-                    traderManager.getWeeklyLimit(), Toast.LENGTH_SHORT).show();
+                    traderManager.getMaxInComplete(), Toast.LENGTH_SHORT).show();
         } else if (traderManager.needMoreLend(currentTrader)) {
             Toast.makeText(this, "You need to lend more " +
                     "items before you may initiate a new trade.", Toast.LENGTH_SHORT).show();
