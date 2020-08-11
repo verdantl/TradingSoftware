@@ -282,7 +282,7 @@ public class MeetingManager extends Manager implements Serializable {
         temp.setReturnDate(temp.getLastReturnDate());
 
         temp.decreaseNumberOfEdits(user);
-
+        temp.bothDisagree();
         temp.resetLastInfo();
     }
 
@@ -374,8 +374,17 @@ public class MeetingManager extends Manager implements Serializable {
      * @return A boolean representing if the meeting can be undone
      */
     public boolean meetingCanBeUndone(int id){
-        return meetings.get(id).isEdited();
+        if(meetings.get(id).isEdited()){
+            if(bothAgreed(id)){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        return false;
     }
+
 
 
     /**
