@@ -66,7 +66,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
 
     /**
      * Listener for the 'set' button next to the location EditTextField
-     * @param view
+     * @param view the context the button was pressed in.
      */
     public void setLocation(View view) {
         EditText locationEditText = findViewById(R.id.editTextLocation);
@@ -75,7 +75,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
 
     /**
      * Listener for the 'set' button next to the date EditTextField
-     * @param view
+     * @param view the context the button was pressed in.
      */
     public void setDate(View view) {
         EditText dateEditText = findViewById(R.id.editTextDate);
@@ -178,7 +178,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
 
     /**
      * Listener for the cancel button.
-     * @param view
+     * @param view the context the button was pressed in.
      */
     public void cancel(View view){
         Intent intent = new Intent(this,TraderActivity.class);
