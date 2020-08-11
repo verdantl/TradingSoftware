@@ -72,7 +72,7 @@ public class ConfigGateway {
         }
     }
 
-    private void loadClasses(){
+    private void loadClasses() throws IOException {
         try {
             adminActions = (AdminActions) readInfo(contextFilesDir + ADMINPATH);
             meetingManager = (MeetingManager) readInfo(contextFilesDir + MEETINGPATH);
@@ -90,7 +90,7 @@ public class ConfigGateway {
      * Packages the manager classes into a Bundle object
      * @return a Bundle object containing the Manager use case classes in Serializable form
      */
-    public Bundle getBundle(){
+    public Bundle getBundle() throws IOException {
         loadClasses();
         Bundle bundle = new Bundle();
         bundle.putSerializable(traderManager.getIdentifier(), traderManager);
@@ -296,7 +296,7 @@ public class ConfigGateway {
                 "ONLINE", "N/A");
 
     }
-    private void downloadInitial(){
+    private void downloadInitial() throws IOException {
         downloadUsers();
         downloadItems();
         addFirstTrade();
@@ -305,20 +305,14 @@ public class ConfigGateway {
         addFourthTrade();
         addFifthTrade();
         addSixthTrade();
-        try {
-            String ADMINPATH = "admins.ser";
-            saveInfo(contextFilesDir + ADMINPATH, adminActions);
-            String MEETINGPATH = "meetings.ser";
-            saveInfo(contextFilesDir + MEETINGPATH, meetingManager);
-            String TRADERPATH = "traders.ser";
-            saveInfo(contextFilesDir + TRADERPATH, traderManager);
-            String TRADEPATH = "trade.ser";
-            saveInfo(contextFilesDir + TRADEPATH, tradeManager);
-            String ITEMPATH = "items.ser";
-            saveInfo(contextFilesDir + ITEMPATH, itemManager);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AdminActions", adminActions);
+        bundle.putSerializable("TraderManager", traderManager);
+        bundle.putSerializable("MeetingManager", meetingManager);
+        bundle.putSerializable("TradeManager", tradeManager);
+        bundle.putSerializable("ItemManager", itemManager);
+        saveBundle(bundle);
     }
 
 }
