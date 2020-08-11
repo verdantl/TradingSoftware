@@ -350,11 +350,9 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         for(Integer i: tradeManager.getItems(trade)){
             itemManager.changeStatusToUnavailable(i);
             if(itemManager.getOwner(i).equals(currentTrader)){
-                //traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), i);
                 traderManager.removeFromWishlist(tradeManager.getOtherTrader(trade,currentTrader), i);
             }
             else{
-                //traderManager.addToBorrowedItems(currentTrader, i);
                 traderManager.removeFromWishlist(currentTrader, i);
             }
         }

@@ -371,16 +371,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
          users.get(username).setHomeCity(newHomeCity);
     }
 
-
-    /**
-     * Adds the given item to username's borrowed items
-     * @param username The username of the user
-     * @param itemID The item id
-     */
-    public void addToBorrowedItems(String username, Integer itemID){
-        users.get(username).addToBorrowedItems(itemID);
-    }
-
     /**
      * Gets the identifier for this class.
      * @return "TradeManager"
