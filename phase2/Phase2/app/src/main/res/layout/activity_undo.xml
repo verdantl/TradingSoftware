@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".undo.UndoActivity">
+    tools:context=".undo_activities.UndoActivity">
 
     <ImageView
         android:id="@+id/imageView7"

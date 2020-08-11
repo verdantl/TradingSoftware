@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".adminoptions.ManageFrozenAccount">
+    tools:context=".admin_activities.ManageFrozenAccount">
 
     <TextView
         android:id="@+id/textView4"

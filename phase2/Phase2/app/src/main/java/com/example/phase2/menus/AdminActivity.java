@@ -6,15 +6,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phase2.adminoptions.ApproveAdminActivity;
-import com.example.phase2.adminoptions.ApproveItems;
-import com.example.phase2.adminoptions.ChangeLimitActivity;
-import com.example.phase2.adminoptions.ChangePasswordActivity;
-import com.example.phase2.adminoptions.ManageFrozenAccount;
-import com.example.phase2.adminoptions.ViewTradersActivity;
+import com.example.phase2.admin_activities.ApproveAdminActivity;
+import com.example.phase2.admin_activities.ApproveItems;
+import com.example.phase2.admin_activities.ChangeLimitActivity;
+import com.example.phase2.admin_activities.ChangePasswordActivity;
+import com.example.phase2.admin_activities.ManageFrozenAccount;
+import com.example.phase2.admin_activities.ViewTradersActivity;
 import com.example.phase2.R;
 import com.example.phase2.highabstract.BundleActivity;
-import com.example.phase2.undo.UndoActivity;
+import com.example.phase2.undo_activities.UndoActivity;
 import com.example.phase2.users.TraderManager;
 
 public class AdminActivity extends BundleActivity {

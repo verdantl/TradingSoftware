@@ -9,8 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.phase2.R;
-import com.example.phase2.tutorial.TutorialActivity;
-import com.example.phase2.deliverable.ItemManager;
+import com.example.phase2.items.ItemManager;
 import com.example.phase2.highabstract.UpdatableBundleActivity;
 import com.example.phase2.users.AdminActions;
 import com.example.phase2.users.TraderManager;
