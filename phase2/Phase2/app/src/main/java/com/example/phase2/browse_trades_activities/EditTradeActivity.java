@@ -250,19 +250,17 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
     public void onConfirmMeetingClicked(View view){
         //Date for checking confirm time is set
         //For Brandon's convenience I have commented this line out for easier testing.
-        if(meetingManager.getReturnLocation(trade).equals("N/A")){
-            //Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
-            if(!meetingManager.dateIsAfterMeeting(trade, LocalDate.now())){
-                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
-                return;
-            }
-        }else{
-            //Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
-            if(!meetingManager.dateIsAfterReturnMeeting(trade, LocalDate.now())){
-                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
-                return;
-            }
-        }
+//        if(meetingManager.getReturnLocation(trade).equals("N/A")){
+//            if(!meetingManager.dateIsAfterMeeting(trade, LocalDate.now())){
+//                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//        }else{
+//            if(!meetingManager.dateIsAfterReturnMeeting(trade, LocalDate.now())){
+//                Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//        }
             if(meetingManager.hasConfirmed(trade,tradeManager.getOtherTrader(trade,currentTrader) )){
                 if(traderManager.exceedMaxIncomplete(currentTrader)){
                     traderManager.decreaseNumIncomplete(currentTrader);
