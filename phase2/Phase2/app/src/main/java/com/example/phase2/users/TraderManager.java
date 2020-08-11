@@ -330,7 +330,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return whether or not the user exceed the max number of incomplete trades
      */
     public boolean exceedMaxIncomplete(String user){
-        return users.get(user).getNumIncomplete() > maxInComplete;
+        return users.get(user).getNumIncomplete() >= maxInComplete;
     }
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".itemtrading.BrowseItemsActivity">
+    tools:context=".item_browsing_activities.BrowseItemsActivity">
 
     <TextView
         android:id="@+id/availableItems"

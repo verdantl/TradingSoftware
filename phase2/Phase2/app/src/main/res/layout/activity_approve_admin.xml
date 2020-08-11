@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".adminoptions.ApproveAdminActivity">
+    tools:context=".admin_activities.ApproveAdminActivity">
 
     <TextView
         android:id="@+id/admin_request"

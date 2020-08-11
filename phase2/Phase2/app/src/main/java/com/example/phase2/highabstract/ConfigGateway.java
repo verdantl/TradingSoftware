@@ -3,12 +3,12 @@ package com.example.phase2.highabstract;
 import android.os.Bundle;
 
 
-import com.example.phase2.deliverable.Item;
-import com.example.phase2.deliverable.ItemManager;
-import com.example.phase2.deliverable.Meeting;
-import com.example.phase2.deliverable.MeetingManager;
-import com.example.phase2.deliverable.Trade;
-import com.example.phase2.deliverable.TradeManager;
+import com.example.phase2.items.Item;
+import com.example.phase2.items.ItemManager;
+import com.example.phase2.meetings.Meeting;
+import com.example.phase2.meetings.MeetingManager;
+import com.example.phase2.trades.Trade;
+import com.example.phase2.trades.TradeManager;
 import com.example.phase2.users.Admin;
 import com.example.phase2.users.AdminActions;
 import com.example.phase2.users.Trader;
@@ -175,6 +175,8 @@ public class ConfigGateway {
                 "Toronto", "Toronto");
         adminActions.newAdmin("Admin2", "Wordpass");
         adminActions.newAdmin("Sup", "nothing");
+        traderManager.increaseNumbIncomplete("Trader2");
+        traderManager.increaseNumbIncomplete("Arjun");
 
         //Adds permanent two way trade
         List<Integer> tempTradeItems2 = new ArrayList<>();
@@ -196,6 +198,8 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId2, "Arjun", "Trader2", true);
         meetingManager.setMeetingInfo(tradeId2, LocalDate.now(), LocalDate.now(),
                 "Toronto", "Toronto");
+        traderManager.increaseNumbIncomplete("Trader2");
+        traderManager.increaseNumbIncomplete("Arjun");
 
         //Adds temporary one way trade
         List<Integer> tempTradeItems3 = new ArrayList<>();
@@ -212,6 +216,8 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId3, "Arjun", "Trader1", false);
         meetingManager.setMeetingInfo(tradeId3, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
+        traderManager.increaseNumbIncomplete("Trader1");
+        traderManager.increaseNumbIncomplete("Arjun");
 
         //Adds temporary two-way trade
         List<Integer> tempTradeItems4 = new ArrayList<>();
@@ -233,6 +239,8 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId4, "Arjun", "Trader1", false);
         meetingManager.setMeetingInfo(tradeId4, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
+        traderManager.increaseNumbIncomplete("Trader1");
+        traderManager.increaseNumbIncomplete("Arjun");
 
 
         //Creates an online one-way meeting:
@@ -249,6 +257,8 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId5, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId5, LocalDate.now(), LocalDate.now(),
                 "Online", "Online");
+        traderManager.increaseNumbIncomplete("Trader1");
+        traderManager.increaseNumbIncomplete("Arjun");
 
         //Creates an online two-way meeting
         List<Integer> tempTradeItems6 = new ArrayList<>();
@@ -270,6 +280,8 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId6, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId6, LocalDate.now(), LocalDate.now(),
                 "ONLINE", "N/A");
+        traderManager.increaseNumbIncomplete("Trader1");
+        traderManager.increaseNumbIncomplete("Arjun");
 
         try {
             String ADMINPATH = "admins.ser";

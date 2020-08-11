@@ -24,7 +24,7 @@ public class TradeType  extends AppCompatDialogFragment {
     protected final String[] status = {"Permanent", "Temporary"};
     protected final String[] meetingPlace = {"Online", "In person"};
     private Boolean isOneWay;
-    private Boolean isTemporary;
+    private Boolean isPermanent;
     private Boolean isOnline;
     private AlertDialog choseLastTime;
     private AlertDialog choseMeetingPlace;
@@ -36,7 +36,7 @@ public class TradeType  extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = new Bundle();
-        isTemporary = false;
+        isPermanent = false;
         isOneWay = false;
         isOnline = false;
         choseLastTime = (AlertDialog) createLastTimeDialog();
@@ -99,14 +99,14 @@ public class TradeType  extends AppCompatDialogFragment {
                 .setSingleChoiceItems(status, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        isTemporary = i == 1;
+                        isPermanent = i == 0;
                         choseLastTime.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
                 })
                 .setPositiveButton("DONE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        bundle.putBoolean("isTemporary", isTemporary);
+                        bundle.putBoolean("isPermanent", isPermanent);
                         dismiss();
                         choseMeetingPlace.show();
                         choseMeetingPlace.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);

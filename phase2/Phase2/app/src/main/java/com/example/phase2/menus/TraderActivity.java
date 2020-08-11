@@ -8,15 +8,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.phase2.itemtrading.BrowseItemsActivity;
-import com.example.phase2.browsetrades.BrowseTradesActivity;
-import com.example.phase2.traderinfo.ChangeHomecity;
-import com.example.phase2.traderinfo.ChangeTraderPassword;
-import com.example.phase2.traderinfo.EditInventoryActivity;
-import com.example.phase2.traderinfo.EditWishlistActivity;
+import com.example.phase2.item_browsing_activities.BrowseItemsActivity;
+import com.example.phase2.browse_trades_activities.BrowseTradesActivity;
+import com.example.phase2.trader_activities.ChangeHomecity;
+import com.example.phase2.trader_activities.ChangeTraderPassword;
+import com.example.phase2.trader_activities.EditInventoryActivity;
+import com.example.phase2.trader_activities.EditWishlistActivity;
 import com.example.phase2.R;
-import com.example.phase2.traderinfo.RequestAdminActivity;
-import com.example.phase2.traderinfo.ViewMyUserInfoActivity;
+import com.example.phase2.trader_activities.RequestAdminActivity;
+import com.example.phase2.trader_activities.ViewMyUserInfoActivity;
 import com.example.phase2.highabstract.BundleActivity;
 
 public class TraderActivity extends BundleActivity {
