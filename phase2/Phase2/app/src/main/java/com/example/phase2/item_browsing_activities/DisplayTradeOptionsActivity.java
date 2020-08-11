@@ -34,6 +34,9 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
 
     }
 
+    /**
+     * Continues to the next activity based on user input.
+     */
     private void continuing() {
         Intent intent;
         if (oneWay) {
