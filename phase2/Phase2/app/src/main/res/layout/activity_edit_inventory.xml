@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
         android:text="@string/yourInventory"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/yourInventoryPrompt"
@@ -21,21 +23,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/yourInventory"
         android:layout_centerHorizontal="true"
-        android:text="@string/select_view_item" />
+        android:text="@string/select_view_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourInventory" />
 
     <ListView
         android:id="@+id/inventoryList"
-        android:layout_width="match_parent"
-        android:layout_height="515dp"
-        android:layout_below="@+id/yourInventoryPrompt" />
+        android:layout_width="414dp"
+        android:layout_height="428dp"
+        android:layout_below="@+id/yourInventoryPrompt"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourInventoryPrompt" />
 
     <Button
         android:id="@+id/addNewItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/inventoryList"
-        android:layout_marginTop="35dp"
         android:layout_centerHorizontal="true"
         android:onClick="addNewItem"
-        android:text="@string/add_new_item"/>
-</RelativeLayout>
+        android:text="@string/add_new_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryList"
+        app:layout_constraintVertical_bias="0.242" />
+</androidx.constraintlayout.widget.ConstraintLayout>
