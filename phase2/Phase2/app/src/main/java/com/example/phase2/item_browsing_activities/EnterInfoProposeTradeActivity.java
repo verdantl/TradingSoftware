@@ -59,13 +59,24 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         checkOnline();
     }
 
+    /**
+     * Sets the layout of the screen and actually displays things to the screen.
+     */
     public void viewStart() { setContentView(R.layout.activity_enter_info_propose_trade); }
 
+    /**
+     * Listener for the 'set' button next to the location EditTextField
+     * @param view the context the button was pressed in.
+     */
     public void setLocation(View view) {
         EditText locationEditText = findViewById(R.id.editTextLocation);
         location =  locationEditText.getText().toString();
     }
 
+    /**
+     * Listener for the 'set' button next to the date EditTextField
+     * @param view the context the button was pressed in.
+     */
     public void setDate(View view) {
         EditText dateEditText = findViewById(R.id.editTextDate);
         try {
@@ -77,6 +88,10 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         }
     }
 
+    /**
+     * Finishes the creation of the trade and moves to the next menu.
+     * @param view the context the button was pressed in.
+     */
     public void continuing(View view){
         if(checkNotNull()){
             String receiver = itemManager.getOwner(chosenItem);
@@ -149,6 +164,10 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         return builder.toString();
     }
 
+    /**
+     * Puts the extras in the bundle into the intent
+     * @param intent the Intent that requires extras from the bundle
+     */
     @Override
     protected void putBundle(Intent intent) {
         replaceUseCase(itemManager);
@@ -157,6 +176,10 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         super.putBundle(intent);
     }
 
+    /**
+     * Listener for the cancel button.
+     * @param view the context the button was pressed in.
+     */
     public void cancel(View view){
         Intent intent = new Intent(this,TraderActivity.class);
         putBundle(intent);

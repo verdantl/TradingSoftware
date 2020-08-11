@@ -217,33 +217,7 @@ public class MeetingManager extends Manager implements Serializable {
         return true;
     }
 
-    /**Return True iff both traders confirm that the items are returned
-     * confirm the items are returned
-     * @param id the id of the trade
-     * @param username Username of the Trader who confirms the items are returned
-     */
-    //TODO: unused method
-    public boolean confirmReturn(int id, String username){
-        if(checkAllReturned(id)){
-            getMeeting(id).setTradeStatus("Completed");
-            return true;
-        }else{
-            getMeeting(id).setTradeStatus("Waiting the other to confirm");
-            return false;
-        }
 
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private boolean checkAllReturned(Integer id){
-        Meeting meeting = getMeeting(id);
-        for(String user: meeting.getIsReturned().keySet()){
-            if(!meeting.getIsReturned().get(user)){
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Checks if the Meeting Manager has a meeting with given int id
