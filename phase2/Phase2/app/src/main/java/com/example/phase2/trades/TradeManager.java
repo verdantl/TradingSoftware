@@ -79,7 +79,6 @@ public class TradeManager extends Manager implements Serializable {
      * @param id the id of the trade
      * @return whether or not the trade is successfully removed from inventory
      */
-    //TODO: unused method
     public boolean removeFromInventory(int id){
         if(!tradeInventory.containsKey(id)){
             return false;
@@ -160,6 +159,7 @@ public class TradeManager extends Manager implements Serializable {
      * @param tradeId The id of the trade
      * @return An arraylist of info about the trade.
      */
+    //TODO: unused method
     public List<String> getTradeInformation(String username, Integer tradeId){
         List<String> temp = new ArrayList<>();
         Trade tempTrade = tradeInventory.get(tradeId);
@@ -179,6 +179,7 @@ public class TradeManager extends Manager implements Serializable {
      * @param tradeId the trade's item
      * @return A list of item ids in the trade
      */
+    //TODO: unused method
     public List<Integer> getItemIds(int tradeId){
         return tradeInventory.get(tradeId).getItems();
     }
@@ -187,6 +188,7 @@ public class TradeManager extends Manager implements Serializable {
      * Removes the given trade with the given id from the system.
      * @param id The id of the trade
      */
+    //TODO: unused method
     public void undoTradeProposal(int id){
         tradeInventory.remove(id);
     }

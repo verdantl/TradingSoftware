@@ -174,6 +174,7 @@ public class Meeting implements Serializable {
      * Setter for whether the traders have confirmed the meeting
      * @param isConfirmed a hashmap representing if each user has confirmed
      */
+    //TODO: unused method
     public void setIsConfirmed(HashMap<String, Boolean> isConfirmed){this.isConfirmed = isConfirmed;}
 
     /**increase the number of edits when the user edits the meeting

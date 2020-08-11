@@ -27,7 +27,7 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
     private TraderManager traderManager;
     private String currentTrader;
     private ItemManager itemManager;
-    private Integer trade;
+
 
     /**
      * the start up method for the ViewMyUserInfo activity to run
@@ -101,7 +101,7 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
         intent.putExtra("CurrentTrader", currentTrader);
         intent.putExtra("TradeManager",tradeManager);
         intent.putExtra("MeetingManager", meetingManager);
-        intent.putExtra("Trade", trade);
+        //intent.putExtra("Trade", trade);
         intent.putExtra("ItemManager", itemManager);
         startActivity(intent);
     }

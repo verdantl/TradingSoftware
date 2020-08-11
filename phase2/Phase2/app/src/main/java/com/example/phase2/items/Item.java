@@ -98,6 +98,7 @@ public class Item implements Serializable {
      * Alternative setter for status
      * @param status The status of the item in string form
      */
+    //TODO: unused method
     public void setStatus(String status){
         setStatus(convertToItemStatus(status));
     }

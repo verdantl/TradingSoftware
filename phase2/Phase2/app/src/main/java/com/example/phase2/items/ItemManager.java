@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class ItemManager extends Manager implements Serializable {
-    HashMap<Integer, Item> items;
+    protected HashMap<Integer, Item> items;
     private int idCounter;
 
     /**
@@ -218,6 +218,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param username The Trader's username
      * @return Return the string representation of approved items of the Trader with the given username
      */
+    //TODO: unused method
     public List<String> getApprovedItemsInString(String username){
         List<Item> approvedItems = getApprovedItems(username);
 
@@ -375,6 +376,7 @@ public class ItemManager extends Manager implements Serializable {
      * Deletes the item with the given id from the system.
      * @param id Id of the item to delete
      */
+    //TODO: unused method
     public void deleteItem(Integer id) { items.remove(id); }
 
     /**
@@ -391,7 +393,6 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the Item
      * @param desc New description
      */
-    //TODO: unused method
     public void editDescription(Integer id, String desc){
         items.get(id).setDescription(desc);
     }
@@ -411,7 +412,6 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the Item
      * @param category New category
      */
-    //TODO: unused method
     public void editCategory(Integer id, String category){
         items.get(id).setCategory(category);
     }
@@ -421,7 +421,6 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the Item
      * @param rating New rating
      */
-    //TODO: unused method
     public void editQualityRating(Integer id, int rating){
         items.get(id).setQualityRating(rating);
     }
@@ -463,6 +462,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param inactiveItems
      * @param inactive
      */
+    //TODO: unused method
     public void setItemsInactive(List<Integer> inactiveItems, boolean inactive){
         if(inactive){
             for(Integer i:inactiveItems){
@@ -494,6 +494,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id the id of the item
      * @return the item name
      */
+    //TODO: unused method
     public String getItemName(int id){
         return items.get(id).getName();
     }
@@ -503,6 +504,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id the id of the item
      * @return the item description
      */
+    //TODO: unused method
     public String getItemDescription(int id){
         return items.get(id).getDescription();
     }

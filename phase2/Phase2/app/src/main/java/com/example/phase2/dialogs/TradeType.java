@@ -20,9 +20,9 @@ https://medium.com/@suragch/adding-a-list-to-an-android-alertdialog-e13c1df6cf00
 public class TradeType  extends AppCompatDialogFragment {
     private Bundle bundle;
     private Dialogable dialogable;
-    final String[] ways = {"One way", "Two way"};
-    final String[] status = {"Permanent", "Temporary"};
-    final String[] meetingPlace = {"Online", "In person"};
+    protected final String[] ways = {"One way", "Two way"};
+    protected final String[] status = {"Permanent", "Temporary"};
+    protected final String[] meetingPlace = {"Online", "In person"};
     private Boolean isOneWay;
     private Boolean isPermanent;
     private Boolean isOnline;

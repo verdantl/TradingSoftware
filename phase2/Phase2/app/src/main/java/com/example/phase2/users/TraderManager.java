@@ -8,7 +8,7 @@ import java.time.temporal.WeekFields;
 import java.util.*;
 
 public class TraderManager extends Manager implements Serializable, Loginable {
-    HashMap<String, Trader> users;
+    protected HashMap<String, Trader> users;
     private int weeklyLimit;
     private int maxInComplete;
     private int moreLend;
@@ -85,6 +85,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         return temp;
     }
 
+    //TODO: unused method
     public HashMap<String, Trader> getAllUsers(){
         return users;
     }
@@ -328,7 +329,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param user the usr who wants to request to trade
      * @return whether or not the user exceed the max number of incomplete trades
      */
-    //TODO: unused methods
     public boolean exceedMaxIncomplete(String user){
         return users.get(user).getNumIncomplete() > maxInComplete;
     }
@@ -338,7 +338,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param user the user who wants to trade
      * @return whether or not the user need to lend more items
      */
-    //TODO: unused methods
     public boolean needMoreLend(String user){
         if(users.get(user).getTrades().isEmpty()){
             return false;
@@ -445,6 +444,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * Removes the trade with the given id from the respective users' trades.
      * @param id The id of the trade.
      */
+    //TODO: unused method
     public void undoTradeProposal(int id){
         for(Trader t: users.values()){
             t.removeTrade(id);

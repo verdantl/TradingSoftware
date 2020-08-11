@@ -22,6 +22,7 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      * A getter for a string version of all the admin requests for approval.
      * @return a string version of adminRequests
      */
+    //TODO: unused method
     public StringBuilder getAdminRequests(){
         int LINE_LIMIT = 80;
         StringBuilder requests = new StringBuilder();
@@ -61,6 +62,7 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      * @param approved boolean representing whether or not the admins are approved
      * @param usernames List of usernames
      */
+    //TODO: unused method
     public void approveAllAdmins(List<String> usernames, boolean approved){
         for(String username: usernames){
             admins.get(username).setApproved(approved);
@@ -97,6 +99,7 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      * @param username the username for the admin
      * @param newUserName the new username for the admin
      */
+    //TODO: unused method
     public void changeUsername(String username, String newUserName){
         if (admins.containsKey(username)) {
             Admin admin = admins.get(username);
