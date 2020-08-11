@@ -184,6 +184,7 @@ public class Meeting implements Serializable {
     /**increase the number of edits when the user edits the meeting
      * @param user the user who edit this meeting
      */
+    @SuppressWarnings("ConstantConditions")
     public void increaseNumberOfEdits(String user) {
         numberOfEdits.replace(user, numberOfEdits.get(user) + 1);
     }
@@ -192,6 +193,7 @@ public class Meeting implements Serializable {
      * Decreases the number of edits when an admin undoes a chnage to the meeting.
      * @param user the user who last edited the meeting.
      */
+    @SuppressWarnings("ConstantConditions")
     public void decreaseNumberOfEdits(String user) {
         numberOfEdits.replace(user, numberOfEdits.get(user) - 1);
     }
@@ -347,6 +349,7 @@ public class Meeting implements Serializable {
      * @param username The username of the user
      * @return true if agreed, false otherwise
      */
+    @SuppressWarnings("ConstantConditions")
     public boolean isAgreed(String username){
         return isAgreed.get(username);
     }
@@ -356,6 +359,7 @@ public class Meeting implements Serializable {
      * @param username The user's username
      * @return true iff they have agreed.
      */
+    @SuppressWarnings("ConstantConditions")
     public boolean hasConfirmed(String username){
         if(isConfirmed.containsKey(username)){
             return isConfirmed.get(username);

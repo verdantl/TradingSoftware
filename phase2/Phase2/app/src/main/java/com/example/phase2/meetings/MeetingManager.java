@@ -159,8 +159,9 @@ public class MeetingManager extends Manager implements Serializable {
      * @param id the tradeID
      * @return whether or not the user is valid to edit the trade
      */
+    @SuppressWarnings("ConstantConditions")
     public boolean isValid(String user, int id){
-        return Objects.requireNonNull(meetings.get(id)).getNumberOfEdits().get(user) < 3;
+        return meetings.get(id).getNumberOfEdits().get(user) < 3;
     }
 
     /**Return true iff both traders confirm the meeting
@@ -181,6 +182,7 @@ public class MeetingManager extends Manager implements Serializable {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     private boolean checkAllConfirmed(int id){
         Meeting meeting = getMeeting(id);
         for(String user: meeting.getIsConfirmed().keySet()){
@@ -204,6 +206,7 @@ public class MeetingManager extends Manager implements Serializable {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     private boolean checkAllAgreed(int id){
         Meeting meeting = getMeeting(id);
         for(String user: meeting.getIsAgreed().keySet()){
@@ -231,6 +234,7 @@ public class MeetingManager extends Manager implements Serializable {
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     private boolean checkAllReturned(Integer id){
         Meeting meeting = getMeeting(id);
         for(String user: meeting.getIsReturned().keySet()){
@@ -291,6 +295,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true, iff the user was the last one to agree to a meeting date and both traders
      * involved haven't mutually agreed.
      * */
+    @SuppressWarnings("ConstantConditions")
     public boolean canUndoAgree(int id, String username){
         Meeting temp = meetings.get(id);
         assert temp != null;
@@ -316,6 +321,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true, iff the user was the last one to confirm a meeting meeting happened and both
      * traders involved haven't mutually confirmed.
      * */
+    @SuppressWarnings("ConstantConditions")
     public boolean canUndoConfirm(Integer id, String username){
         Meeting temp = meetings.get(id);
         assert temp != null;
@@ -381,8 +387,9 @@ public class MeetingManager extends Manager implements Serializable {
      * @param username The username of the user
      * @return number of edits the user has left
      */
+    @SuppressWarnings("ConstantConditions")
     public Integer getEditsLeft(int id, String username){
-        return 3- Objects.requireNonNull(meetings.get(id)).getNumberOfEdits().get(username);
+        return 3- meetings.get(id).getNumberOfEdits().get(username);
     }
 
     /**
