@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/item_name"
+        android:textAlignment="viewStart"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ownedBy"
@@ -39,6 +40,7 @@
         android:layout_width="125dp"
         android:layout_height="32dp"
         android:text="@string/owned_by"
+        android:textAlignment="viewStart"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -66,7 +68,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:text="@string/item_rating"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/itemDescription"
@@ -75,7 +78,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:text="@string/description"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/descriptionText"
@@ -83,7 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="@string/actual_description_goes_here" />
+            android:text="@string/actual_description_goes_here"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
