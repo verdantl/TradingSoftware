@@ -65,28 +65,6 @@ public class ItemManager extends Manager implements Serializable {
     }
 
     /**
-     * Gets trader with the given username's approved items
-     * @param username The trader's username
-     * @return Return the trader's approved items
-     */
-    public List<Item> getApprovedItems(String username){
-        List<Item> approvedItems = new ArrayList<>();
-        Set<Integer> ids = items.keySet();
-
-        for (Integer id: ids){
-            if(items.containsKey(id)) {
-                Item item = items.get(id);
-                assert item != null;
-                if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
-                    approvedItems.add(item);
-                }
-            }
-        }
-
-        return approvedItems;
-    }
-
-    /**
      * Updates the status of frozen user's items with either FROZEN or FROZEN_REQ
      * @param username The username of the frozen trader
      */
@@ -216,30 +194,6 @@ public class ItemManager extends Manager implements Serializable {
     }
 
     /**
-     * Converts all the approved items into a String representation
-     * @param username The Trader's username
-     * @return Return the string representation of approved items of the Trader with the given username
-     */
-    //TODO: unused method
-    public List<String> getApprovedItemsInString(String username){
-        List<Item> approvedItems = getApprovedItems(username);
-
-        return convertItemListToString(approvedItems);
-    }
-
-    /**
-     * Converts all the proposed items into a String representation
-     * @param ids the ids of the proposed items
-     * @return Return the string representation of proposed items of the Trader with the given username
-     */
-    //TODO: unused method
-    public List<String> getProposedItemsInString(List<Integer> ids){
-        List<Item> proposedItems = getListOfItems(ids);
-
-        return convertItemListToString(proposedItems);
-    }
-
-    /**
      * Returns a single item in string form.
      * @param itemId the item in question.
      * @return the string representation of the item corresponding to itemId
@@ -269,30 +223,6 @@ public class ItemManager extends Manager implements Serializable {
      */
     public List<String> getListOfItemsInString(List<Integer> itemIds){
         return convertItemListToString(getListOfItems(itemIds));
-    }
-
-
-    /**
-     * Gets trader with the given username's proposed items
-     * @param username The trader's username
-     * @return Return the trader's proposed items
-     */
-    //TODO: unused method
-    public List<Item> getProposedItems(String username){
-        List<Item>  proposedItems = new ArrayList<>();
-        Set<Integer> ids = items.keySet();
-
-        for (Integer id: ids){
-            if(items.containsKey(id)) {
-                Item item = items.get(id);
-                assert item != null;
-                if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.REQUESTED) {
-                    proposedItems.add(item);
-                }
-            }
-        }
-
-        return proposedItems;
     }
 
     /**
@@ -376,38 +306,12 @@ public class ItemManager extends Manager implements Serializable {
     }
 
     /**
-     * Deletes the item with the given id from the system.
-     * @param id Id of the item to delete
-     */
-    //TODO: unused method
-    public void deleteItem(Integer id) { items.remove(id); }
-
-    /**
-     * Adds new item to the hash map
-     * @param item Item to add
-     */
-    //TODO: unused method
-    public void addItem(Item item){
-        items.put(item.getId(), item);
-    }
-
-    /**
      * Edits the description of the item with the given item
      * @param id Id of the Item
      * @param desc New description
      */
     public void editDescription(Integer id, String desc){
         Objects.requireNonNull(items.get(id)).setDescription(desc);
-    }
-
-    /**
-     * Edits the name of the item with the given item
-     * @param id Id of the Item
-     * @param name New name
-     */
-    //TODO: unused method
-    public void editName(Integer id, String name){
-        Objects.requireNonNull(items.get(id)).setName(name);
     }
 
     /**
@@ -433,8 +337,6 @@ public class ItemManager extends Manager implements Serializable {
     }
 
     private List<String> convertItemListToString(List<Item> items){
-        //TODO: Implement this method
-
         List<String> stringList = new ArrayList<>();
         for(Item item: items){
             stringList.add(convertItemToString(item));
@@ -449,56 +351,11 @@ public class ItemManager extends Manager implements Serializable {
     }
 
     /**
-     * If inactive is true, sets the given list of item ids to inactive if they are available.
-     * If inactive is false, sets the given list of item ids to available if they are inactive.
-     * @param inactiveItems  A list of item ids
-     * @param inactive A boolean representing if the items should be inactive or active
-     */
-    //TODO: unused method
-    public void setItemsInactive(List<Integer> inactiveItems, boolean inactive){
-        if(inactive){
-            for(Integer i:inactiveItems){
-                if(Objects.requireNonNull(items.get(i)).getStatus()==ItemStatus.AVAILABLE){
-                    Objects.requireNonNull(items.get(i)).setStatus(ItemStatus.INACTIVE);
-                }
-            }
-        }
-        else{
-            for(Integer i:inactiveItems){
-                if(Objects.requireNonNull(items.get(i)).getStatus()==ItemStatus.INACTIVE){
-                    Objects.requireNonNull(items.get(i)).setStatus(ItemStatus.AVAILABLE);
-                }
-            }
-        }
-
-    }
-
-    /**
      * Makes the removed item available once again.
      * @param id the id of the removed item.
      */
     public void undoRemoval(int id){
         Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.AVAILABLE);
-    }
-
-    /**
-     * Method for returning the item name with the given id
-     * @param id the id of the item
-     * @return the item name
-     */
-    //TODO: unused method
-    public String getItemName(int id){
-        return Objects.requireNonNull(items.get(id)).getName();
-    }
-
-    /**
-     * Method for returning the item description with the given id
-     * @param id the id of the item
-     * @return the item description
-     */
-    //TODO: unused method
-    public String getItemDescription(int id){
-        return Objects.requireNonNull(items.get(id)).getDescription();
     }
 
     /**

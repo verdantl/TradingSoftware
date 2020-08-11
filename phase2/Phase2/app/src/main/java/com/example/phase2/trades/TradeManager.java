@@ -11,7 +11,10 @@ public class TradeManager extends Manager implements Serializable {
     private final HashMap<Integer, Trade> tradeInventory;
     private int counter;
 
-
+    /**
+     * Constructor for the TradeManager use case class
+     * @param tradeInventory a HashMap representing the inventory of trades in the system
+     */
     public TradeManager(HashMap<Integer, Trade> tradeInventory){
         this.tradeInventory = tradeInventory;
         if (tradeInventory.keySet().size() != 0) {
@@ -65,61 +68,37 @@ public class TradeManager extends Manager implements Serializable {
 
     /**remove a trade from tradeInventory
      * @param id the id of the trade
-     * @return whether or not the trade is successfully removed from inventory
      */
-    public boolean removeFromInventory(int id){
-        if(!tradeInventory.containsKey(id)){
-            return false;
-        }else{
-            tradeInventory.remove(id);
-            return true;
-        }
+    public void removeFromInventory(Integer id){
+        tradeInventory.remove(id);
     }
 
     /**set the assigned trade with id to be completed
      * @param id the id of the trade
      */
     public void setTradeCompleted(int id){
-        tradeInventory.get(id).setCompleted(true);
-    }
-
-    /**
-     * Returns the given trade's initiator
-     * @param id The id of the trade
-     * @return the username of the initiator
-     */
-    public String getTradeInitiator(int id){
-        return tradeInventory.get(id).getInitiator();
-    }
-
-    /**
-     * Returns the given trade's receiver
-     * @param id The id of the trade
-     * @return the username of the receiver
-     */
-    public String getTradeReceiver(int id){
-        return tradeInventory.get(id).getReceiver();
+        Objects.requireNonNull(tradeInventory.get(id)).setCompleted(true);
     }
 
     /**return the given trade's tradeType
      * @param id the id of the trade
      * @return which type the trade is(OneWay or TwoWay)
      */
-    public String getTradeType(int id){return tradeInventory.get(id).getTradeType();}
+    public String getTradeType(int id){return Objects.requireNonNull(tradeInventory.get(id)).getTradeType();}
 
     /**
      * Returns the given trade's dateCreated.
      * @param id the id of the trade in question.
      * @return the date the trade was completed.
      */
-    public LocalDate getDateCreated(int id){return tradeInventory.get(id).getCreatedDate();}
+    public LocalDate getDateCreated(int id){return Objects.requireNonNull(tradeInventory.get(id)).getCreatedDate();}
 
     /**
      * Returns the items in the given trade.
      * @param id the id of the trade in question.
      * @return the list of ids corresponding to the items in the trade.
      */
-    public List<Integer> getItems(int id){return tradeInventory.get(id).getItems();}
+    public List<Integer> getItems(int id){return Objects.requireNonNull(tradeInventory.get(id)).getItems();}
 
     /**
      * Method to check if the given trade id is permanent.
