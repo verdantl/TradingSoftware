@@ -38,16 +38,6 @@ public class TutorialBrowseItemsActivity extends BundleActivity implements Click
     }
 
     /**
-     * Called when the back button is pressed
-     */
-    @Override
-    public void onBackPressed(){
-        Intent intent = new Intent(this, TutorialActivity.class);
-        putBundle(intent);
-        startActivity(intent);
-    }
-
-    /**
      * Called to set up the list, display item names and call the displayDialog
      * method when an item is selected.
      */
