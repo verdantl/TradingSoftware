@@ -30,10 +30,10 @@ public class ChangePasswordActivity extends BundleActivity {
 
     /**
      * Gets the new password from the EditText and updates the current admin's password.
-     * @param view A view
+     * @param view The View object beign clicked on
      */
     public void submitPassword(View view){
-        EditText et = (EditText) findViewById(R.id.enterPassword);
+        EditText et = findViewById(R.id.enterPassword);
         if(et.getText().toString().equals("")){
             Toast.makeText(this, R.string.invalid_password, Toast.LENGTH_SHORT).show();
         }else {

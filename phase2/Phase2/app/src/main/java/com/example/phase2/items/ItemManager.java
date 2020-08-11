@@ -1,7 +1,4 @@
-package com.example.phase2.items;//package items;
-
-//import users.Trader;
-
+package com.example.phase2.items;
 import com.example.phase2.highabstract.Manager;
 
 import java.io.Serializable;
@@ -12,7 +9,7 @@ public class ItemManager extends Manager implements Serializable {
     private int idCounter;
 
     /**
-     * Contructor for a new ItemManager class
+     * Constructor for a new ItemManager class
      * @param items a Hashmap that maps item ids to the item in the system
      */
     public ItemManager(HashMap<Integer, Item> items){
@@ -47,6 +44,7 @@ public class ItemManager extends Manager implements Serializable {
      */
     public void addItemDetails(Integer itemID, String category, String description, int quality){
         Item item = items.get(itemID);
+        assert item != null;
         item.setCategory(category);
         item.setDescription(description);
         item.setQualityRating(quality);
@@ -78,6 +76,7 @@ public class ItemManager extends Manager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
+                assert item != null;
                 if (item.getOwner().equals(username) && item.getStatus() != ItemStatus.REQUESTED) {
                     approvedItems.add(item);
                 }
@@ -163,6 +162,7 @@ public class ItemManager extends Manager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
+                assert item != null;
                 if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.AVAILABLE) {
                     approvedItems.add(item.getId());
                 }
@@ -174,8 +174,8 @@ public class ItemManager extends Manager implements Serializable {
 
     /**
      * Gets username's list of removedItems
-     * @param username
-     * @return
+     * @param username The username of the Trader
+     * @return A list of item ids
      */
     public List<Integer> getRemovedItemIds(String username){
         List<Integer> removedItems = new ArrayList<>();
@@ -184,6 +184,7 @@ public class ItemManager extends Manager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
+                assert item != null;
                 if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.REMOVED) {
                     removedItems.add(item.getId());
                 }
@@ -205,6 +206,7 @@ public class ItemManager extends Manager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
+                assert item != null;
                 if (!item.getOwner().equals(username) && item.getStatus() == ItemStatus.AVAILABLE) {
                     approvedItems.add(item.getId());
                 }
@@ -243,7 +245,7 @@ public class ItemManager extends Manager implements Serializable {
      * @return the string representation of the item corresponding to itemId
      */
     public String getItemInString(Integer itemId){
-        return items.get(itemId).toString();
+        return Objects.requireNonNull(items.get(itemId)).toString();
     }
 
     /**
@@ -251,14 +253,14 @@ public class ItemManager extends Manager implements Serializable {
      * @param itemId The ID of the item in question.
      * @return the item's name.
      */
-    public String getItemName(Integer itemId) { return items.get(itemId).getName(); }
+    public String getItemName(Integer itemId) { return Objects.requireNonNull(items.get(itemId)).getName(); }
 
     /**
      * Getter for item description.
      * @param itemId The ID of the item in question.
      * @return the item's description.
      */
-    public String getItemDescription(Integer itemId) { return items.get(itemId).getDescription(); }
+    public String getItemDescription(Integer itemId) { return Objects.requireNonNull(items.get(itemId)).getDescription(); }
 
     /**
      * Converts the list of items with the given list of item ids into a String representation
@@ -283,6 +285,7 @@ public class ItemManager extends Manager implements Serializable {
         for (Integer id: ids){
             if(items.containsKey(id)) {
                 Item item = items.get(id);
+                assert item != null;
                 if (item.getOwner().equals(username) && item.getStatus() == ItemStatus.REQUESTED) {
                     proposedItems.add(item);
                 }
@@ -314,7 +317,7 @@ public class ItemManager extends Manager implements Serializable {
      * @return the username of the owner of the item.
      */
     public String getOwner(Integer itemId){
-        return items.get(itemId).getOwner();
+        return Objects.requireNonNull(items.get(itemId)).getOwner();
     }
 
     /**Return the status of the given item
@@ -322,14 +325,14 @@ public class ItemManager extends Manager implements Serializable {
      * @return the status of the item
      */
     public ItemStatus getItemStatus(Integer id){
-        return items.get(id).getStatus();
+        return Objects.requireNonNull(items.get(id)).getStatus();
     }
 
     /**
      * Changes the status of the item with given id to FROZEN
      */
     public void changeStatusToFrozen(Integer id){
-        items.get(id).setStatus(ItemStatus.FROZEN);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.FROZEN);
     }
 
     /**
@@ -337,7 +340,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the item
      */
     public void changeStatusToAvailable(Integer id){
-        items.get(id).setStatus(ItemStatus.AVAILABLE);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.AVAILABLE);
     }
 
     /**
@@ -345,7 +348,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the item
      */
     public void changeStatusToUnavailable(Integer id){
-        items.get(id).setStatus(ItemStatus.UNAVAILABLE);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.UNAVAILABLE);
     }
 
     /**
@@ -353,7 +356,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the item
      */
     public void changeStatusToRequested(Integer id){
-        items.get(id).setStatus(ItemStatus.REQUESTED);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.REQUESTED);
     }
 
     /**
@@ -361,7 +364,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id Id of the item
      */
     public void changeStatusToRemoved(Integer id){
-        items.get(id).setStatus(ItemStatus.REMOVED);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.REMOVED);
     }
 
     /**
@@ -394,7 +397,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param desc New description
      */
     public void editDescription(Integer id, String desc){
-        items.get(id).setDescription(desc);
+        Objects.requireNonNull(items.get(id)).setDescription(desc);
     }
 
     /**
@@ -404,7 +407,7 @@ public class ItemManager extends Manager implements Serializable {
      */
     //TODO: unused method
     public void editName(Integer id, String name){
-        items.get(id).setName(name);
+        Objects.requireNonNull(items.get(id)).setName(name);
     }
 
     /**
@@ -413,7 +416,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param category New category
      */
     public void editCategory(Integer id, String category){
-        items.get(id).setCategory(category);
+        Objects.requireNonNull(items.get(id)).setCategory(category);
     }
 
     /**
@@ -422,19 +425,8 @@ public class ItemManager extends Manager implements Serializable {
      * @param rating New rating
      */
     public void editQualityRating(Integer id, int rating){
-        items.get(id).setQualityRating(rating);
+        Objects.requireNonNull(items.get(id)).setQualityRating(rating);
     }
-
-//    public List<String> getUsersItemInString(List<String> usernames){
-//        List<Item> itemList = new ArrayList<>();
-//        for(Item item: items.values()){
-//            if(usernames.contains(item.getOwner())){
-//                itemList.add(item);
-//            }
-//        }
-//        return convertItemListToString(itemList);
-//    }
-
 
     private String convertItemToString(Item item){
         return "Item: " + item.getName() + "\n" +  "Owner: " + item.getOwner();
@@ -452,29 +444,29 @@ public class ItemManager extends Manager implements Serializable {
 
     public void approveItem(Integer id, boolean approved){
         if (approved){
-            items.get(id).setStatus(ItemStatus.AVAILABLE);
+            Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.AVAILABLE);
         }
     }
 
     /**
      * If inactive is true, sets the given list of item ids to inactive if they are available.
      * If inactive is false, sets the given list of item ids to available if they are inactive.
-     * @param inactiveItems
-     * @param inactive
+     * @param inactiveItems  A list of item ids
+     * @param inactive A boolean representing if the items should be inactive or active
      */
     //TODO: unused method
     public void setItemsInactive(List<Integer> inactiveItems, boolean inactive){
         if(inactive){
             for(Integer i:inactiveItems){
-                if(items.get(i).getStatus()==ItemStatus.AVAILABLE){
-                    items.get(i).setStatus(ItemStatus.INACTIVE);
+                if(Objects.requireNonNull(items.get(i)).getStatus()==ItemStatus.AVAILABLE){
+                    Objects.requireNonNull(items.get(i)).setStatus(ItemStatus.INACTIVE);
                 }
             }
         }
         else{
             for(Integer i:inactiveItems){
-                if(items.get(i).getStatus()==ItemStatus.INACTIVE){
-                    items.get(i).setStatus(ItemStatus.AVAILABLE);
+                if(Objects.requireNonNull(items.get(i)).getStatus()==ItemStatus.INACTIVE){
+                    Objects.requireNonNull(items.get(i)).setStatus(ItemStatus.AVAILABLE);
                 }
             }
         }
@@ -486,7 +478,7 @@ public class ItemManager extends Manager implements Serializable {
      * @param id the id of the removed item.
      */
     public void undoRemoval(int id){
-        items.get(id).setStatus(ItemStatus.AVAILABLE);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.AVAILABLE);
     }
 
     /**
@@ -496,7 +488,7 @@ public class ItemManager extends Manager implements Serializable {
      */
     //TODO: unused method
     public String getItemName(int id){
-        return items.get(id).getName();
+        return Objects.requireNonNull(items.get(id)).getName();
     }
 
     /**
@@ -506,7 +498,7 @@ public class ItemManager extends Manager implements Serializable {
      */
     //TODO: unused method
     public String getItemDescription(int id){
-        return items.get(id).getDescription();
+        return Objects.requireNonNull(items.get(id)).getDescription();
     }
 
     /**
@@ -515,7 +507,7 @@ public class ItemManager extends Manager implements Serializable {
      * @return The item's owner's name
      */
     public String getItemOwner(int id){
-        return items.get(id).getOwner();
+        return Objects.requireNonNull(items.get(id)).getOwner();
     }
 
     /**
@@ -524,7 +516,7 @@ public class ItemManager extends Manager implements Serializable {
      * @return The item's quality rating.
      */
     public String getItemQuality(int id){
-        return Integer.toString(items.get(id).getQualityRating());
+        return Integer.toString(Objects.requireNonNull(items.get(id)).getQualityRating());
     }
 
     /**
@@ -533,9 +525,13 @@ public class ItemManager extends Manager implements Serializable {
      * @param owner The owner of the item
      */
     public void setItemOwner(int id, String owner){
-        items.get(id).setOwner(owner);
+        Objects.requireNonNull(items.get(id)).setOwner(owner);
     }
 
+    /**
+     * Getter for the identifier of ItemManager
+     * @return a String representing the identifier
+     */
     @Override
     public String getIdentifier() {
         return "ItemManager";
@@ -546,6 +542,6 @@ public class ItemManager extends Manager implements Serializable {
      * @param id The id of the item
      */
     public void changeStatusToInactiveAva(int id){
-        items.get(id).setStatus(ItemStatus.INACTIVE_AVA);
+        Objects.requireNonNull(items.get(id)).setStatus(ItemStatus.INACTIVE_AVA);
     }
 }

@@ -27,7 +27,7 @@ public class BrowseItemsActivity extends UpdatableBundleActivity implements Clic
     private boolean useLocation;
 
     /**
-     * update the useCase
+     * Updates the useCases
      */
     protected void updateUseCases(){
         itemManager = (ItemManager) getUseCase(ITEMKEY);

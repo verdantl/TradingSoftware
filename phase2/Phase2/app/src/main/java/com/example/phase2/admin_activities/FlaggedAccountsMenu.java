@@ -45,7 +45,6 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
         super.onBackPressed();
     }
 
-
     /**
      * view a list of flagged accounts that needed to be frozen
      */
@@ -93,7 +92,7 @@ public class FlaggedAccountsMenu extends BundleActivity implements ClickableList
     }
 
     /**
-     * open the dialog
+     * Opens the Dialog
      */
     @Override
     public void openDialog() {

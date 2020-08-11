@@ -1,5 +1,7 @@
 package com.example.phase2.items;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Item implements Serializable {
@@ -142,13 +144,13 @@ public class Item implements Serializable {
      * Return a string representation of this Item.
      * @return a String containing the item's qualityRating, name, category, owner and ID.
      */
+    @NonNull
     @Override
     public String toString() {
         return "| " + name + " |" +
                 "\nqualityRating: " + qualityRating +
                 ",\ncategory: '" + category +
                 "',\ndescription: '" + description +
-//                "',\nowner: " + owner.getUsername() +
                 ",\nID: " + id;
     }
 

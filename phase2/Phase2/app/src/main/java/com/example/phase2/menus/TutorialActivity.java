@@ -29,8 +29,7 @@ public class TutorialActivity extends BundleActivity {
      */
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     /**

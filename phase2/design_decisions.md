@@ -39,7 +39,7 @@ separating would lead to several major problems:
     (e) We feel that in this particular situation, since we are using the Android platform for our
     program, division of responsibilities is accomplished by creating many different Activities
     each responsible for a small part of the program instead of having larger Controllers and 
-    Presenters.
+    Presenters. Many of the Presenter responsibilities are also covered by built in Android classes.
     
 Ultimately, this decision was made after discussion with the professor and by balancing code smells 
 and SOLID principles against clean architecture structure. We thought the former two design principles

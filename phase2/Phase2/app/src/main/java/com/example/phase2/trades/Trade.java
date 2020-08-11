@@ -1,6 +1,8 @@
 package com.example.phase2.trades;
 
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -36,6 +38,7 @@ public class Trade implements Serializable {
      * A string representation of this trade
      * @return A string containing the details of the trade
      */
+    @NonNull
     @Override
     public String toString(){
 

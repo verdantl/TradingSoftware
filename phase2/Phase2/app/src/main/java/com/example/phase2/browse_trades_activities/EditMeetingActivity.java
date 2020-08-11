@@ -16,6 +16,7 @@ import com.example.phase2.meetings.MeetingManager;
 import com.example.phase2.highabstract.BundleActivity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class EditMeetingActivity extends BundleActivity {
 
@@ -26,6 +27,7 @@ public class EditMeetingActivity extends BundleActivity {
     private String currentTrader;
     private LocalDate newDate;
     private boolean online;
+
     /**
      * Called when the activity is starting.
      * @param savedInstanceState If the activity is being re-initialized after previously being
@@ -35,18 +37,21 @@ public class EditMeetingActivity extends BundleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_meeting);
+        meetingManager = (MeetingManager) getUseCase(MEETINGKEY);
+        currentTrader = (String) getUseCase(USERNAMEKEY);
+
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         trade = (Integer) bundle.getSerializable("Trade");
         online = (boolean) bundle.get("Online");
-        meetingManager = (MeetingManager) getUseCase("MeetingManager");
-        currentTrader = (String) getUseCase("Username");
+
         EditText location=findViewById(R.id.meetingLocationEdit);
         TextView newLocation = findViewById(R.id.newLocation);
         if(online){
             location.setVisibility(View.GONE);
             newLocation.setVisibility(View.GONE);
         }
+
         Button button = findViewById(R.id.submit_button);
         final TextView datePickerText = findViewById(R.id.editTextDate);
         setDatePickerText(datePickerText);
@@ -69,16 +74,20 @@ public class EditMeetingActivity extends BundleActivity {
      */
     private void setDatePickerText(final TextView datePickerText){
         datePickerText.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View view) {
-                                                  int day = LocalDate.now().getDayOfMonth();
-                                                  int month = LocalDate.now().getMonthValue()-1;
-                                                  int year = LocalDate.now().getYear();
-                                                  DatePickerDialog datePicker = new DatePickerDialog(EditMeetingActivity.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,onDateSetListener,year,month,day);
-                                                  datePicker.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                                  datePicker.show();
-                                              }
-                                          }
+              @Override
+              public void onClick(View view) {
+                  int day = LocalDate.now().getDayOfMonth();
+                  int month = LocalDate.now().getMonthValue()-1;
+                  int year = LocalDate.now().getYear();
+                  DatePickerDialog datePicker = new DatePickerDialog(
+                          EditMeetingActivity.this,
+                          android.R.style.Theme_Holo_Light_Dialog_MinWidth,onDateSetListener,year,
+                          month,day);
+                  Objects.requireNonNull(datePicker.getWindow()).setBackgroundDrawable(new
+                          ColorDrawable(Color.TRANSPARENT));
+                  datePicker.show();
+              }
+          }
         );
         onDateSetListener = new DatePickerDialog.OnDateSetListener(){
             @Override
@@ -130,6 +139,7 @@ public class EditMeetingActivity extends BundleActivity {
             }
         });
     }
+    
     private void editMeeting(){
         meetingManager.editDate(trade, newDate);
         meetingManager.increaseNumEdit(currentTrader, trade);

@@ -1,7 +1,5 @@
 package com.example.phase2.highabstract;
-
 import android.os.Bundle;
-
 
 import com.example.phase2.items.Item;
 import com.example.phase2.items.ItemManager;
@@ -23,11 +21,18 @@ import java.util.List;
 
 public class ConfigGateway {
 
+    private final String ADMINPATH = "admins.ser";
+    private String ITEMPATH = "items.ser";
+    private String MEETINGPATH = "meetings.ser";
+    private String TRADEPATH = "trade.ser";
+    private String TRADERPATH = "traders.ser";
+
     private AdminActions adminActions;
     private ItemManager itemManager;
     private MeetingManager meetingManager;
     private TraderManager traderManager;
     private TradeManager tradeManager;
+
     private File contextFilesDir;
 
     /**
@@ -65,13 +70,13 @@ public class ConfigGateway {
         }
     }
 
-    private void loadClasses(){
+    private void loadClasses() throws IOException {
         try {
-            adminActions = (AdminActions) readInfo(contextFilesDir + "admins.ser");
-            meetingManager = (MeetingManager) readInfo(contextFilesDir + "meetings.ser");
-            itemManager = (ItemManager) readInfo(contextFilesDir + "items.ser");
-            tradeManager = (TradeManager) readInfo(contextFilesDir + "trade.ser");
-            traderManager = (TraderManager) readInfo(contextFilesDir + "traders.ser");
+            adminActions = (AdminActions) readInfo(contextFilesDir + ADMINPATH);
+            meetingManager = (MeetingManager) readInfo(contextFilesDir + MEETINGPATH);
+            itemManager = (ItemManager) readInfo(contextFilesDir + ITEMPATH);
+            tradeManager = (TradeManager) readInfo(contextFilesDir + TRADEPATH);
+            traderManager = (TraderManager) readInfo(contextFilesDir + TRADERPATH);
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -83,7 +88,7 @@ public class ConfigGateway {
      * Packages the manager classes into a Bundle object
      * @return a Bundle object containing the Manager use case classes in Serializable form
      */
-    public Bundle getBundle(){
+    public Bundle getBundle() throws IOException {
         loadClasses();
         Bundle bundle = new Bundle();
         bundle.putSerializable(traderManager.getIdentifier(), traderManager);
@@ -110,24 +115,45 @@ public class ConfigGateway {
         output.close();
     }
 
-
     /**
      * Writes the contents of the bundle to the phone's storage
      * @param bundle The Bundle of use case manager classes
      */
     public void saveBundle(Bundle bundle) throws IOException {
-        saveInfo(contextFilesDir + "admins.ser", bundle.getSerializable("AdminActions"));
-        saveInfo(contextFilesDir + "meetings.ser", bundle.getSerializable("MeetingManager"));
-        saveInfo(contextFilesDir + "items.ser", bundle.getSerializable("MeetingManager"));
-        saveInfo(contextFilesDir + "trade.ser", bundle.getSerializable("MeetingManager"));
-        saveInfo(contextFilesDir + "trader.ser", bundle.getSerializable("MeetingManager"));
+        saveInfo(contextFilesDir + ADMINPATH, bundle.getSerializable("AdminActions"));
+        saveInfo(contextFilesDir + MEETINGPATH, bundle.getSerializable("MeetingManager"));
+        saveInfo(contextFilesDir + ITEMPATH, bundle.getSerializable("ItemManager"));
+        saveInfo(contextFilesDir + TRADEPATH, bundle.getSerializable("TradeManager"));
+        saveInfo(contextFilesDir + TRADERPATH, bundle.getSerializable("TraderManager"));
     }
 
-    private void downloadInitial(){
+    private void downloadUsers(){
         HashMap<String, Admin> admins = new HashMap<>();
         admins.put("Admin", new Admin("Admin", "Wordpass", "2020-07-27", true));
         adminActions = new AdminActions(admins);
 
+        traderManager = new TraderManager(new HashMap<String, Trader>(), 100, 1, 0);
+        Trader trader1 = new Trader("Trader1", "Password");
+        trader1.setHomeCity("Brampton");
+        traderManager.addTrader(trader1);
+
+        traderManager.addTrader(new Trader("Trader2", "Password2"));
+        Trader traderFlagged = new Trader("Arjun", "Password3");
+        traderFlagged.setHomeCity("Toronto");
+        traderFlagged.setFlagged(true);
+
+        traderManager.addTrader(traderFlagged);
+        Trader traderUnfreeze = new Trader("Jeffrey", "Password4");
+        traderUnfreeze.setFrozen(true);
+        traderUnfreeze.setRequestToUnfreeze(true);
+        traderManager.addTrader(traderUnfreeze);
+
+
+        adminActions.newAdmin("Admin2", "Wordpass");
+        adminActions.newAdmin("Sup", "nothing");
+    }
+
+    private void downloadItems(){
         HashMap<Integer, Item> tempMap = new HashMap<>();
         itemManager = new ItemManager(tempMap);
 
@@ -142,24 +168,11 @@ public class ConfigGateway {
         itemManager.editDescription(id2, "It's an apple.");
         itemManager.editQualityRating(id2, 8);
         itemManager.changeStatusToAvailable(id2);
+    }
 
+    private void addFirstTrade(){
         meetingManager = new MeetingManager(new HashMap<Integer, Meeting>());
         tradeManager = new TradeManager(new HashMap<Integer, Trade>());
-        traderManager = new TraderManager(new HashMap<String, Trader>(), 100, 1, 0);
-        Trader trader1 = new Trader("Trader1", "Password");
-        trader1.setHomeCity("Brampton");
-        traderManager.addTrader(trader1);
-        traderManager.addTrader(new Trader("Trader2", "Password2"));
-        Trader traderFlagged = new Trader("Arjun", "Password3");
-        traderFlagged.setHomeCity("Toronto");
-        traderFlagged.setFlagged(true);
-        traderManager.addTrader(traderFlagged);
-        Trader traderUnfreeze = new Trader("Jeffrey", "Password4");
-        traderUnfreeze.setFrozen(true);
-        traderUnfreeze.setRequestToUnfreeze(true);
-        traderManager.addTrader(traderUnfreeze);
-
-        //Adds one way permanent trade
         List<Integer> tempTradeItems = new ArrayList<>();
         tempTradeItems.add(itemManager.addItem("Bike", "Arjun"));
         itemManager.addItemDetails(tempTradeItems.get(0), "Transportation", "Its a bike", 10);
@@ -169,14 +182,12 @@ public class ConfigGateway {
         LocalDate tempDate = LocalDate.now();
         traderManager.addNewTrade("Arjun", tradeId,tempDate);
         traderManager.addNewTrade("Trader2", tradeId, tempDate);
-        //CREATES THE MEETING
         meetingManager.createMeeting(tradeId, "Arjun", "Trader2", true);
         meetingManager.setMeetingInfo(tradeId, LocalDate.now(), LocalDate.now(),
                 "Toronto", "Toronto");
-        adminActions.newAdmin("Admin2", "Wordpass");
-        adminActions.newAdmin("Sup", "nothing");
+    }
 
-        //Adds permanent two way trade
+    private void addSecondTrade(){
         List<Integer> tempTradeItems2 = new ArrayList<>();
         Integer temp2 = itemManager.addItem("Jacket", "Trader2");
         Integer temp3 = itemManager.addItem("Watch", "Arjun");
@@ -196,7 +207,9 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId2, "Arjun", "Trader2", true);
         meetingManager.setMeetingInfo(tradeId2, LocalDate.now(), LocalDate.now(),
                 "Toronto", "Toronto");
+    }
 
+    private void addThirdTrade(){
         //Adds temporary one way trade
         List<Integer> tempTradeItems3 = new ArrayList<>();
         tempTradeItems3.add(itemManager.addItem("Light", "Arjun"));
@@ -212,6 +225,9 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId3, "Arjun", "Trader1", false);
         meetingManager.setMeetingInfo(tradeId3, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
+    }
+
+    private void addFourthTrade(){
 
         //Adds temporary two-way trade
         List<Integer> tempTradeItems4 = new ArrayList<>();
@@ -233,8 +249,9 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId4, "Arjun", "Trader1", false);
         meetingManager.setMeetingInfo(tradeId4, LocalDate.now(), LocalDate.now(),
                 "Toronto", "N/A");
+    }
 
-
+    private void addFifthTrade(){
         //Creates an online one-way meeting:
         List<Integer> tempTradeItems5 = new ArrayList<>();
         Integer temp8 = itemManager.addItem("E-Book", "Trader1");
@@ -249,6 +266,11 @@ public class ConfigGateway {
         meetingManager.createMeeting(tradeId5, "Arjun", "Trader1", true);
         meetingManager.setMeetingInfo(tradeId5, LocalDate.now(), LocalDate.now(),
                 "Online", "Online");
+    }
+
+    private void addSixthTrade(){
+
+
 
         //Creates an online two-way meeting
         List<Integer> tempTradeItems6 = new ArrayList<>();
@@ -271,20 +293,24 @@ public class ConfigGateway {
         meetingManager.setMeetingInfo(tradeId6, LocalDate.now(), LocalDate.now(),
                 "ONLINE", "N/A");
 
-        try {
-            String ADMINPATH = "admins.ser";
-            saveInfo(contextFilesDir + ADMINPATH, adminActions);
-            String MEETINGPATH = "meetings.ser";
-            saveInfo(contextFilesDir + MEETINGPATH, meetingManager);
-            String TRADERPATH = "traders.ser";
-            saveInfo(contextFilesDir + TRADERPATH, traderManager);
-            String TRADEPATH = "trade.ser";
-            saveInfo(contextFilesDir + TRADEPATH, tradeManager);
-            String ITEMPATH = "items.ser";
-            saveInfo(contextFilesDir + ITEMPATH, itemManager);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
+    private void downloadInitial() throws IOException {
+        downloadUsers();
+        downloadItems();
+        addFirstTrade();
+        addSecondTrade();
+        addThirdTrade();
+        addFourthTrade();
+        addFifthTrade();
+        addSixthTrade();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AdminActions", adminActions);
+        bundle.putSerializable("TraderManager", traderManager);
+        bundle.putSerializable("MeetingManager", meetingManager);
+        bundle.putSerializable("TradeManager", tradeManager);
+        bundle.putSerializable("ItemManager", itemManager);
+        saveBundle(bundle);
     }
 
 }

@@ -93,8 +93,6 @@ public class ApproveAdminActivity extends BundleActivity implements ClickableLis
                 .show(getSupportFragmentManager(), "ApproveAdmin");
     }
 
-
-
     private void approveReject(){
         adminActions.approveAdmin(approvedUser, approved);
         String message = "Successfully ";

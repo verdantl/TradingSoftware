@@ -72,7 +72,7 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
     }
 
     /**
-     * open the dialog
+     * Opens the Dialog
      */
     @Override
     public void openDialog() {

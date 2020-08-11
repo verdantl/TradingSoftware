@@ -94,7 +94,7 @@ public class AllTradersMenu extends BundleActivity implements ClickableList, Dia
     }
 
     /**
-     * open the dialog
+     * Opens the dialog
      */
     @Override
     public void openDialog() {

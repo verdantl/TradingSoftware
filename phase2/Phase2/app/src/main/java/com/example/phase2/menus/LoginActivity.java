@@ -91,7 +91,6 @@ public class LoginActivity extends UpdatableBundleActivity {
     @Override
     protected void updateUseCases() {
         traderManager = (TraderManager) getUseCase(TRADERKEY);
-        itemManager = (ItemManager) getUseCase(ITEMKEY);
         adminActions = (AdminActions) getUseCase(ADMINKEY);
     }
 

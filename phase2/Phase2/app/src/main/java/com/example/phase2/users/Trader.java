@@ -1,5 +1,7 @@
 package com.example.phase2.users;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class Trader extends User implements Serializable {
      * Converts the trader to a string representation.
      * @return a string of the admin's username, password, and date created
      */
+    @NonNull
     @Override
     public String toString(){
         String s = "Trader: "+ super.getUsername()+"\n";
@@ -137,6 +140,16 @@ public class Trader extends User implements Serializable {
     }
 
     /**
+     *
+     * @return Trader's borrowed items
+     */
+    //TODO: unused method
+    public List<Integer> getBorrowedItems() {
+        return borrowedItems;
+    }
+
+
+    /**
      * Adds the item to borrowedItems
      * @param id the id of the item to be added
      */
@@ -205,7 +218,7 @@ public class Trader extends User implements Serializable {
 
     /**
      * Removes the given trade from the user.
-     * @param id
+     * @param id the id of the trade
      */
     public void removeTrade(int id){
         trades.remove(id);
@@ -213,7 +226,7 @@ public class Trader extends User implements Serializable {
 
     /**
      * Setter for Trader's inactive.
-     * @param inactive
+     * @param inactive a boolean representing if the Trader is inactive
      */
     public void setInactive(boolean inactive){
         this.inactive = inactive;
@@ -238,6 +251,4 @@ public class Trader extends User implements Serializable {
      * @param newHomeCity the string representing the new home city
      */
     public void setHomeCity(String newHomeCity){homeCity = newHomeCity;}
-
-
 }

@@ -76,7 +76,7 @@ public class UndoEditMeeting extends BundleActivity implements Dialogable {
                 }
             }
         }
-        //System.out.println(tempMeetings.size());
+
         ArrayList<String> editMeeting = new ArrayList<>();
         for(Integer i: tempMeetings){
             editMeeting.add(meetingManager.getMeeting(i).toString());

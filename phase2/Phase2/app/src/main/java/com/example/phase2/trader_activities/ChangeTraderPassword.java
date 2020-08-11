@@ -34,7 +34,7 @@ public class ChangeTraderPassword extends BundleActivity {
      * @param view A view
      */
     public void submitTraderPassword(View view){
-        EditText editText = (EditText) findViewById(R.id.editTextTextPassword2);
+        EditText editText = findViewById(R.id.editTextTextPassword2);
         String newPassword = editText.getText().toString();
 
         if(newPassword.equals("")){

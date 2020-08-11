@@ -21,7 +21,7 @@ public class ManageFrozenAccount extends BundleActivity {
 
     /**
      * Goes to the flagged accounts menu
-     * @param view
+     * @param view The View object being clicked on
      */
     public void viewFlaggedAccounts(View view) {
         Intent intent = new Intent(this, FlaggedAccountsMenu.class);
@@ -31,7 +31,7 @@ public class ManageFrozenAccount extends BundleActivity {
 
     /**
      * Goes to the unfreeze requests menus
-     * @param view
+     * @param view The View object being clicked on
      */
     public void viewUnfreezeRequests(View view){
         Intent intent = new Intent(this, RequestedUnfrozenMenu.class);
@@ -41,7 +41,7 @@ public class ManageFrozenAccount extends BundleActivity {
 
     /**
      * Shows the all traders menu
-     * @param view
+     * @param view The View object being clicked on
      */
     public void viewAllTraders(View view){
         Intent intent = new Intent (this, AllTradersMenu.class);

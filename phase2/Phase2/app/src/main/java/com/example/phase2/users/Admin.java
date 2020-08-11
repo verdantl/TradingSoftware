@@ -1,5 +1,6 @@
 package com.example.phase2.users;
 
+import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class Admin extends User implements Serializable {
@@ -46,6 +47,7 @@ public class Admin extends User implements Serializable {
      * Converts the admin to a string representation.
      * @return a string of the admin's username, password, and date created
      */
+    @NonNull
     @Override
     public String toString() {
         return "Admin{" +
