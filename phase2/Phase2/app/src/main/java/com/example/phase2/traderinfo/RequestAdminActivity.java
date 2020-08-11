@@ -35,7 +35,10 @@ public class RequestAdminActivity extends BundleActivity {
      * @param view A view
      */
     public void requestToDeactivateAccount(View view){
-        if(traderManager.isInactive(currentTrader)){
+        if(traderManager.getIsFrozen(currentTrader)){
+            Toast.makeText(this, R.string.cannot_deactivate_frozen, Toast.LENGTH_SHORT).show();
+        }
+        else if(traderManager.isInactive(currentTrader)){
             Toast.makeText(this, R.string.Account_already_deactivated, Toast.LENGTH_SHORT).show();
         }
         else{
@@ -50,7 +53,10 @@ public class RequestAdminActivity extends BundleActivity {
      * @param view A view
      */
     public void requestToActivateAccount(View view){
-        if(!traderManager.isInactive(currentTrader)){
+        if(traderManager.getIsFrozen(currentTrader)){
+            Toast.makeText(this, R.string.cannot_activate_frozen, Toast.LENGTH_SHORT).show();
+        }
+        else if(!traderManager.isInactive(currentTrader)){
             Toast.makeText(this, R.string.Account_already_activated, Toast.LENGTH_SHORT).show();
         }
         else{

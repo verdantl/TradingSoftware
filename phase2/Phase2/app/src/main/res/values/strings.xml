@@ -112,7 +112,7 @@
     <string name="cannotEdit">You cannot edit the meeting any more.</string>
     <string name="requestAdminPrompt">This page allows you to make the following requests to admins:</string>
     <string name="requestActivateAccount">Activate Account</string>
-    <string name="requestInactivateAccount">Inactivate Account</string>
+    <string name="requestInactivateAccount">Deactivate Account</string>
     <string name="Account_already_activated">Account already activated</string>
     <string name="Account_already_deactivated">Account already deactivated</string>
     <string name="Activation_request_sent">Your account is active again</string>
@@ -186,4 +186,8 @@
     <string name="tutorial">Tutorial</string>
     <string name="invalid_password">Invalid password.</string>
     <string name="cityExample">Example: Toronto</string>
+    <string name="cannot_propose_new_item_frozen">You cannot propose new item when your account is frozen</string>
+    <string name="cannot_propose_new_item_inactive">You cannot propose new item when your account is inactive</string>
+    <string name="cannot_deactivate_frozen">You cannot deactivate your account when it\'s frozen</string>
+    <string name="cannot_activate_frozen">You cannot activate your account when it\'s frozen</string>
 </resources>
