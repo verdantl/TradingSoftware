@@ -117,8 +117,7 @@ public class TraderActivity extends BundleActivity {
     public void requestAdmin(View view){
         Intent intent =  new Intent(this, RequestAdminActivity.class);
         putBundle(intent);
-        int REQ_ADMIN_REQ = 7;
-        startActivityForResult(intent, REQ_ADMIN_REQ);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
 
     /**
@@ -129,8 +128,7 @@ public class TraderActivity extends BundleActivity {
     public void changeTraderPassword(View view){
         Intent i =  new Intent(this, ChangeTraderPassword.class);
         putBundle(i);
-        int CHANGE_PASSWORD_REQ = 8;
-        startActivityForResult(i, CHANGE_PASSWORD_REQ);
+        startActivityForResult(i, RESULT_FIRST_USER);
     }
 
     /**
