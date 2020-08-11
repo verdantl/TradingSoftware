@@ -126,6 +126,10 @@ public abstract class BundleActivity extends AppCompatActivity {
         return bundle;
     }
 
+    /**
+     * Saves the bundle of use cases
+     * @throws IOException from the saveBundle method in ConfigGateway
+     */
     protected void saveBundle() throws IOException {
         ConfigGateway configGateway = new ConfigGateway(getApplicationContext().getFilesDir());
         configGateway.saveBundle(bundle);
