@@ -14,7 +14,7 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
 
     private Integer chosenItem;
     private boolean oneWay;
-    private boolean temporary;
+    private boolean permanent;
     private boolean online;
     private AppCompatDialogFragment dialogFragment;
 
@@ -44,7 +44,7 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
             intent = new Intent(this, SelectItemActivity.class);
         }
         intent.putExtra("ChosenItem", chosenItem);
-        intent.putExtra("Temporary", temporary);
+        intent.putExtra("Permanent", permanent);
         intent.putExtra("OneWay", oneWay);
         intent.putExtra("Online", online);
         putBundle(intent);
@@ -58,7 +58,7 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
     public void clickPositive() {
         assert dialogFragment.getArguments() != null;
         oneWay = dialogFragment.getArguments().getBoolean("isOneWay");
-        temporary = dialogFragment.getArguments().getBoolean("isTemporary");
+        permanent = dialogFragment.getArguments().getBoolean("isPermanent");
         online = dialogFragment.getArguments().getBoolean("isOnline");
         continuing();
     }

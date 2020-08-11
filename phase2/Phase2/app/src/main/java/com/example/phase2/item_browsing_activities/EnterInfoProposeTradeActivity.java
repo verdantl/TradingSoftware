@@ -3,6 +3,7 @@ package com.example.phase2.item_browsing_activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     private Integer chosenItem;
     private Integer myItem;
     private boolean oneWay;
-    private boolean temporary;
+    private boolean permanent;
     private boolean online;
     private String location = null;
     private LocalDate date = null;
@@ -47,9 +48,10 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         chosenItem = bundle.getInt("ChosenItem");
         myItem = bundle.getInt("MyItem");
         oneWay = bundle.getBoolean("OneWay");
-        temporary = bundle.getBoolean("Temporary");
+        permanent = bundle.getBoolean("Permanent");
         online = bundle.getBoolean("Online");
         viewStart();
+        checkOnline();
     }
 
     public void viewStart() { setContentView(R.layout.activity_enter_info_propose_trade); }
@@ -70,47 +72,30 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         }
     }
 
-    public void continuing(View view) {
-        if (location == null) {
-            Toast.makeText(this, "Please enter a location.", Toast.LENGTH_SHORT).show();
-        } else if (date == null) {
-            Toast.makeText(this, "Please enter a date.", Toast.LENGTH_SHORT).show();
-        } else {
+    public void continuing(View view){
+        if(checkNotNull()){
             String receiver = itemManager.getOwner(chosenItem);
             int i;
-
             List<Integer> items = new ArrayList<>();
             items.add(chosenItem);
-            if (oneWay) {
-                if (!temporary && online) {
-                    i = tradeManager.createTrade(currentTrader, receiver, "ONLINE-ONEWAY", temporary, items);
-                } else {
-                    i = tradeManager.createTrade(currentTrader, receiver, "ONEWAY", temporary, items);
-                }
-            }
-            else {
+            if(!oneWay){
                 items.add(myItem);
-                if (!temporary && online) {
-                    i = tradeManager.createTrade(currentTrader, receiver, "ONLINE-TWOWAY", temporary, items);
-                } else {
-                    i = tradeManager.createTrade(currentTrader, receiver, "TWOWAY", temporary, items);
-                }
             }
+            i = tradeManager.createTrade(currentTrader, receiver, tradeType(), permanent, items);
             traderManager.addNewTrade(currentTrader, i, LocalDate.now());
+            traderManager.increaseNumbIncomplete(currentTrader);
             traderManager.addNewTrade(receiver, i, LocalDate.now());
             for (Integer j: items) {
                 itemManager.changeStatusToUnavailable(j);
             }
-
-            meetingManager.createMeeting(i, currentTrader, receiver, temporary);
-            if (temporary){
-                // We determine the returnDate later, after the initial date is set.
+            meetingManager.createMeeting(i, currentTrader, receiver, permanent);
+            if(permanent){
+                meetingManager.setMeetingInfo(i, date, null, location, null);
+            }else{
                 LocalDate returnDate = date.plusMonths(1);
                 meetingManager.setMeetingInfo(i, date, returnDate, location, location);
             }
-            else {
-                meetingManager.setMeetingInfo(i, date, null, location, null);
-            }
+
             Toast.makeText(this, "Trade Created!", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, TraderActivity.class);
@@ -118,6 +103,46 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
             startActivity(intent);
             finish();
         }
+
+
+    }
+
+    private void checkOnline(){
+        if(online){
+            EditText locationEditText = findViewById(R.id.editTextLocation);
+            locationEditText.setVisibility(View.INVISIBLE);
+            Button setLocationButton = findViewById(R.id.setLocationButton);
+            setLocationButton.setVisibility(View.INVISIBLE);
+            location = "ONLINE";
+        }
+    }
+
+    private boolean checkNotNull(){
+        if (location == null) {
+            Toast.makeText(this, "Please enter a location.", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (date == null) {
+            Toast.makeText(this, "Please enter a date.", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    private String tradeType(){
+        StringBuilder builder = new StringBuilder();
+        if(online){
+            builder.append("ONLINE-");
+        }
+
+        if(oneWay){
+            builder.append("ONEWAY");
+        }else{
+            builder.append("TWOWAY");
+        }
+
+        return builder.toString();
     }
 
     @Override
