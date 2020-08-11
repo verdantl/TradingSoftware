@@ -85,11 +85,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         return temp;
     }
 
-    //TODO: unused method
-    public HashMap<String, Trader> getAllUsers(){
-        return users;
-    }
-
 
     public String getTraderInfo(String username){
         if (!checkUsername(username)){
@@ -99,8 +94,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
             return "";
         }
     }
-    //Instead of the two methods below, since we're just reading in by use case, we can just have
-    //the use case class add new users
     /**
      * Adds a new trader to the system
      * @param username The username of the trader
@@ -121,22 +114,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         }
         users.put(t.getUsername(), t);
         return true;
-    }
-
-    /**
-     * Adds a list of Trader objects to users
-     * @param traders The list of trader objects to add
-     * @return Return true iff all of the trader objects were added
-     */
-    //TODO: unused method
-    public boolean addAllTraders(List<Trader> traders){
-        boolean addAll = true;
-        for(Trader t: traders){
-            if(!addTrader(t)){
-                addAll = false;
-            }
-        }
-        return addAll;
     }
 
     /**
@@ -245,68 +222,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         users.get(username).setRequestToUnfreeze(setting);
     }
 
-    // for extension
-//    public List<String> getUsersWithSameLocation(String location){
-//        List<String> usernames = new ArrayList<>();
-//        for(User u: users){
-//            if(u.getHomeCity().equals(location)){
-//                usernames.add(u.getUsername());
-//            }
-//        }
-//        return usernames;
-//    }
-
-
-
-//    /**
-//     * Returns a list of the usernames of all traders that have items that need approving.
-//     * @return a list of strings representing the usernames of all traders with items needing approval
-//     */
-//    public List<String> getTradersNeedingItemApproval() {
-//        List<String> temp = new ArrayList<>();
-//        for (String username : users.keySet()) {
-//            if (!users.get(username).getProposedItems().isEmpty()) {
-//                temp.add(username);
-//            }
-//        }
-//        return temp;
-//    }
-
-    /**
-     * Deletes the item from all traders' lists.
-     * @param id the id of the item
-     */
-    //TODO: unused methods
-    public void deleteItem(Integer id){
-        for (Trader trader: users.values()){
-            trader.deleteItem(id);
-        }
-    }
-
-
-//    /**
-//     * Approves or rejects an item in a user's list.
-//     * @param username The account usernamecontaining the item to be approved
-//     * @param itemID The id of the item to be approved
-//     * @param approved A boolean representing if the item has been approved or not
-//     */
-//    public void approveItem(String username, int itemID, boolean approved){
-//        Trader trader = users.get(username);
-//        trader.removeFromProposedItems(itemID);
-//        if (approved) {
-//            trader.addToWishlist(itemID);
-//        }
-//    }
-
-//    /**
-//     * Approves or rejects all of the items in an account's proposed items list.
-//     * @param username The account containing the items to be approved
-//     * @param approved A boolean representing if the items are all approved or not
-//     */
-//    public void approveAllItems(String username, boolean approved){
-//        users.get(username).approveAllItems(approved);
-//    }
-
     /**check whether or not the user exceed weekly trade limit
      * @param user the user who wants to create a new trade
      * @param createDate the date that the user requests to create the trade
@@ -366,7 +281,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     /**Increase the number of incomplete trades
      * @param user the user
      */
-    //TODO: unused methods
     public void increaseNumbIncomplete(String user){
         users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() + 1);
     }
@@ -374,7 +288,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     /**Decrease the number of incomplete trades
      * @param user the user
      */
-    //TODO: unused methods
     public void decreaseNumIncomplete(String user){
         users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() - 1);
     }
@@ -441,17 +354,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     }
 
     /**
-     * Removes the trade with the given id from the respective users' trades.
-     * @param id The id of the trade.
-     */
-    //TODO: unused method
-    public void undoTradeProposal(int id){
-        for(Trader t: users.values()){
-            t.removeTrade(id);
-        }
-    }
-
-    /**
      * Changes the password of the Trader with the given username to new password
      * @param username Trader's username that is changing the password
      * @param newPassword New password
@@ -480,15 +382,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
          users.get(username).setHomeCity(newHomeCity);
     }
 
-    /**
-     * If the item is in username's wishlist, it removes the item.
-     * @param username The user's username
-     * @param itemID The item's id.
-     */
-    //TODO: unused methods
-    public void removeItemFromWishlist(String username, Integer itemID){
-        users.get(username).removeFromWishlist(itemID);
-    }
 
     /**
      * Adds the given item to username's borrowed items
@@ -500,15 +393,9 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     }
 
     /**
-     * Removes the given item from username's borrowed items
-     * @param username
-     * @param itemID
+     * Gets the identifier for this class.
+     * @return "TradeManager"
      */
-    //TODO: unused method
-    public void removeFromBorrowedItems(String username, Integer itemID){
-        users.get(username).removeFromBorrowedItems(itemID);
-    }
-
     @Override
     public String getIdentifier() {
         return "TraderManager";
@@ -533,17 +420,30 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         users.get(username).setFlagged(true);
     }
 
+    /**
+     * Unflags the given user
+     * @param username The username of the user
+     */
     public void unFlagUser(String username){
         users.get(username).setFlagged(false);
     }
 
+    /**
+     * Increases the user's numLent
+     * @param username The username of the user
+     */
+    public void increaseNumLent(String username){
+        users.get(username).setNumLent(users.get(username).getNumLent()+1);
+    }
 
-//    /**
-//     * Returns whether the user with the given id is inactive
-//     * @param id The id of the user
-//     * @return true if inactive, false otherwise
-//     */
-//    public boolean isInactive(String username){
-//        return users.get(username).isInactive();
-//    }
+    /**
+     * Increases the users numBorrowed.
+     * @param username The username of the user
+     */
+    public void increaseNumBorrowed(String username){
+        users.get(username).setNumBorrowed(users.get(username).getNumBorrowed()+1);
+    }
+
+
+
 }

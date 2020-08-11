@@ -12,10 +12,13 @@ public class Trader extends User implements Serializable {
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
     private HashMap<Integer, LocalDate> trades;
-    private String homeCity; //for the extension
+    private String homeCity;
 
-    //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
-    // for making a new trader
+    /**
+     * This is a constructor for a new trader.
+     * @param username The username of the trader
+     * @param password The password of the trader.
+     */
     public Trader(String username, String password){
         super(username, password);
         homeCity = "N/A";
@@ -73,7 +76,6 @@ public class Trader extends User implements Serializable {
      * Setter for user's numLent
      * @param numLent the number of items this user has lent
      */
-    //TODO: unused method
     public void setNumLent(int numLent) {
         this.numLent = numLent;
     }
@@ -90,7 +92,6 @@ public class Trader extends User implements Serializable {
      * Setter for user's numBorrowed
      * @param numBorrowed the number of items this user has borrowed
      */
-    //TODO: unused method
     public void setNumBorrowed(int numBorrowed) {
         this.numBorrowed = numBorrowed;
     }
@@ -111,45 +112,6 @@ public class Trader extends User implements Serializable {
         this.flagged = flagged;
     }
 
-//    public String getHomeCity(){
-//        return homeCity;
-//    }
-//
-//    public void setHomeCity(String homeCity){
-//        this.homeCity = homeCity;
-//    }
-
-
-
-//
-//    /**
-//     * @return Return the number of transactions that are incomplete
-//     */
-//    public int getNumIncompleteTransactions(){
-//        int numIncomplete = 0;
-//        for(Trade trade: trades){
-//            if (trade.getTradeDate().isBefore(LocalDate.now()) && !trade.getIsConfirmed(trade.getInitiator()) &&
-//                    !trade.getIsConfirmed(trade.getReceiver())){
-//                numIncomplete++;
-//            }
-//        }
-//
-//        return numIncomplete;
-//    }
-
-//    /**
-//     * @return Return the number of transactions in this week
-//     */
-//    public int getNumWeeklyTransactions(){
-//        int numTransactions = 0;
-//
-//        for(Trade trade: trades){
-//            //code goes here
-//        }
-//
-//        return numTransactions;
-//    }
-
     /**
      * Whether this user has requested to unfreeze or not.
      * @return true if they have requested to unfreeze, false otherwise.
@@ -166,7 +128,6 @@ public class Trader extends User implements Serializable {
         this.requestToUnfreeze = requestToUnfreeze;
     }
 
-
     /**
      *
      * @return Trader's wishlist
@@ -176,30 +137,11 @@ public class Trader extends User implements Serializable {
     }
 
     /**
-     *
-     * @return Trader's borrowed items
-     */
-    //TODO: unused method
-    public List<Integer> getBorrowedItems() {
-        return borrowedItems;
-    }
-
-
-    /**
      * Adds the item to borrowedItems
      * @param id the id of the item to be added
      */
     public void addToBorrowedItems(Integer id){
         this.borrowedItems.add(id);
-    }
-
-    /**
-     * Adds the item to wishlist
-     * @param id the id of the item to be added
-     */
-    //TODO: unused method
-    public void addToWishlist(Integer id){
-        this.wishlist.add(id);
     }
 
     /**

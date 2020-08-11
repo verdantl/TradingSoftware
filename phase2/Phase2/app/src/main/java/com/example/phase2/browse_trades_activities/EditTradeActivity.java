@@ -229,13 +229,26 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
 
     }
 
+    private void updateNumLentBorrowed(){
+        if(tradeManager.getTradeType(trade).contains("ONEWAY")){
+            if(itemManager.getItemOwner(tradeManager.getItems(trade).get(0)).equals(currentTrader)){
+                traderManager.increaseNumBorrowed(tradeManager.getOtherTrader(trade,currentTrader));
+                traderManager.increaseNumLent(currentTrader);
+            }
+            else{
+                traderManager.increaseNumBorrowed(currentTrader);
+                traderManager.increaseNumLent(tradeManager.getOtherTrader(trade,currentTrader));
+            }
+        }
+    }
+
     /**
      * Confirms and updates the trade once the confirm button is clicked.
      * @param view The confirm button's view
      */
     public void onConfirmMeetingClicked(View view){
         //Date for checking confirm time is set
-        //DO NOT DELETE THIS
+        //For Brandon's convenience I have commented this line out for easier testing.
 //        if(meetingManager.getReturnLocation(trade).equals("N/A")){
 //            //Toast.makeText(this, R.string.cannotConfirm, Toast.LENGTH_LONG).show();
 //            if(!meetingManager.dateIsAfterMeeting(trade, LocalDate.now())){
@@ -291,10 +304,12 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
                                 itemManager.changeStatusToAvailable(i);
                             }
                         }
+                        updateNumLentBorrowed();
                         completeTrade();
                     }
                 }
                 else{
+                    updateNumLentBorrowed();
                     updateItemOwnerAndStatus();
                     completeTrade();
                 }
@@ -335,11 +350,11 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
         for(Integer i: tradeManager.getItems(trade)){
             itemManager.changeStatusToUnavailable(i);
             if(itemManager.getOwner(i).equals(currentTrader)){
-                traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), i);
+                //traderManager.addToBorrowedItems(tradeManager.getOtherTrader(trade,currentTrader), i);
                 traderManager.removeFromWishlist(tradeManager.getOtherTrader(trade,currentTrader), i);
             }
             else{
-                traderManager.addToBorrowedItems(currentTrader, i);
+                //traderManager.addToBorrowedItems(currentTrader, i);
                 traderManager.removeFromWishlist(currentTrader, i);
             }
         }

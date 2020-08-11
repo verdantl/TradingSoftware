@@ -22,18 +22,6 @@ public class TradeManager extends Manager implements Serializable {
         }
     }
 
-    /**return the trade by the id
-     * @param id the id of the trade
-     * @return the trade with the trade's id
-     */
-    //TODO: unused method
-    public Trade getTrade(int id){
-        if(!tradeInventory.containsKey(id)){
-            return null;
-        }
-        return tradeInventory.get(id);
-    }
-
     /**
      * Returns a list of username's incomplete trades.
      * @param trades a list of trades that user has (represented in Ids)
@@ -88,28 +76,11 @@ public class TradeManager extends Manager implements Serializable {
         }
     }
 
-
-
     /**set the assigned trade with id to be completed
      * @param id the id of the trade
      */
     public void setTradeCompleted(int id){
         tradeInventory.get(id).setCompleted(true);
-    }
-
-
-    // You may not need this method for a trade having meeting, in the meetingManager,
-    // confirmMeeting return true iff both trader confirm the meeting
-    // which means that the meeting is completed
-    // I include this method here just in order to implement exceedMaxIncomplete
-    /**
-     * Checks whether the trade with the given id is completed.
-     * @param id The trade id
-     * @return True iff trade with ID id is completed.
-     */
-    //TODO: unused methods
-    public boolean isTradeCompleted(int id){
-        return tradeInventory.get(id).getCompleted();
     }
 
     /**
@@ -150,49 +121,6 @@ public class TradeManager extends Manager implements Serializable {
      */
     public List<Integer> getItems(int id){return tradeInventory.get(id).getItems();}
 
-
-    //Returns trade info in {Created trade date, Other trade username}
-
-    /**
-     * Returns a string representation of the trade
-     * @param username Username of use who's requesting the tradeInformation
-     * @param tradeId The id of the trade
-     * @return An arraylist of info about the trade.
-     */
-    //TODO: unused method
-    public List<String> getTradeInformation(String username, Integer tradeId){
-        List<String> temp = new ArrayList<>();
-        Trade tempTrade = tradeInventory.get(tradeId);
-        temp.add(tempTrade.getCreatedDate().toString());
-        if(tempTrade.getInitiator().equals(username)){
-            temp.add(tempTrade.getReceiver());
-        }
-        else{
-            temp.add(tempTrade.getInitiator());
-        }
-
-        return temp;
-    }
-
-    /**
-     * Returns a list of the items in the given trade
-     * @param tradeId the trade's item
-     * @return A list of item ids in the trade
-     */
-    //TODO: unused method
-    public List<Integer> getItemIds(int tradeId){
-        return tradeInventory.get(tradeId).getItems();
-    }
-
-    /**
-     * Removes the given trade with the given id from the system.
-     * @param id The id of the trade
-     */
-    //TODO: unused method
-    public void undoTradeProposal(int id){
-        tradeInventory.remove(id);
-    }
-
     /**
      * Method to check if the given trade id is permanent.
      * @param id The id of the trade
@@ -216,5 +144,4 @@ public class TradeManager extends Manager implements Serializable {
     public String getIdentifier() {
         return "TradeManager";
     }
-    //Do this and also check the right user can undo
 }
