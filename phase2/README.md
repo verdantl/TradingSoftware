@@ -10,5 +10,7 @@ are also several warnings that Android Studio picked up in Meeting/MeetingManage
 with regards to NullPointerExceptions and unboxing, but they could not be resolved. None of these 
 warnings (including the ObjectsRequireNonNull) were prevalent when we were writing this code in 
 IntelliJ.
-5.
+5.There is a functionality to make sure a meeting is only confirmed after the meeting has passed.
+For the TA's convenience we have commented out the code responsible for that in EditTradeActivity to
+make testing the program easier. If desired, the code can be un-commented so that it checks the date.
 
