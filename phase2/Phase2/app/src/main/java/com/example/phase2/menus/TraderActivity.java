@@ -20,10 +20,6 @@ import com.example.phase2.trader_activities.ViewMyUserInfoActivity;
 import com.example.phase2.highabstract.BundleActivity;
 
 public class TraderActivity extends BundleActivity {
-    private String currentTrader;
-
-    private final int REQ_ADMIN_REQ = 7;
-    private final int CHANGE_PASSWORD_REQ = 8;
 
     /**
      * create this activity
@@ -32,7 +28,7 @@ public class TraderActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentTrader = getUsername();
+        String currentTrader = getUsername();
         setContentView(R.layout.activity_trader);
         TextView textView = findViewById(R.id.textView15);
         textView.setText(currentTrader);
@@ -121,6 +117,7 @@ public class TraderActivity extends BundleActivity {
     public void requestAdmin(View view){
         Intent intent =  new Intent(this, RequestAdminActivity.class);
         putBundle(intent);
+        int REQ_ADMIN_REQ = 7;
         startActivityForResult(intent, REQ_ADMIN_REQ);
     }
 
@@ -132,6 +129,7 @@ public class TraderActivity extends BundleActivity {
     public void changeTraderPassword(View view){
         Intent i =  new Intent(this, ChangeTraderPassword.class);
         putBundle(i);
+        int CHANGE_PASSWORD_REQ = 8;
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 

@@ -1,6 +1,5 @@
 package com.example.phase2.trader_activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -12,7 +11,6 @@ import com.example.phase2.meetings.MeetingManager;
 import com.example.phase2.trades.TradeManager;
 import com.example.phase2.highabstract.BundleActivity;
 import com.example.phase2.highabstract.ClickableList;
-import com.example.phase2.browse_trades_activities.EditTradeActivity;
 import com.example.phase2.users.TraderManager;
 
 import java.util.ArrayList;
