@@ -66,12 +66,9 @@ public class MeetingManager extends Manager implements Serializable {
      * @param initiator the initiator of the trade
      * @param receiver the receiver of the trade offer
      * @param isPermanent a boolean representing if the trade is permanent
-     * @return a boolean representing if the meeting creation was successful
      */
-    public boolean createMeeting(int tradeId, String initiator, String receiver, boolean isPermanent){
-        if(meetings.containsKey(tradeId)){
-            return false;}
-        else{
+    public void createMeeting(int tradeId, String initiator, String receiver, boolean isPermanent){
+        if(!meetings.containsKey(tradeId)){
         Meeting m = new Meeting(tradeId);
 
         m.setAgree(initiator, false);
@@ -92,7 +89,6 @@ public class MeetingManager extends Manager implements Serializable {
 
 
         meetings.put(tradeId, m);
-        return true;
         }
     }
 
@@ -119,21 +115,18 @@ public class MeetingManager extends Manager implements Serializable {
      * @return the status of the meeting.
      */
     public String getMeetingStatus(Integer id){
-        return meetings.get(id).getTradeStatus();
+        return Objects.requireNonNull(meetings.get(id)).getTradeStatus();
     }
 
 
     /**
      * Removes the given meeting object from meetings
      * @param id The trade id
-     * @return Return true iff the meeting object was removed
      */
-    public boolean removeMeeting(int id){
+    public void removeMeeting(int id){
         if(containMeeting(id)){
             meetings.remove(id);
-            return true;
         }
-        return false;
     }
 
     /**edit the meeting based on the new location
@@ -191,9 +184,8 @@ public class MeetingManager extends Manager implements Serializable {
      * Confirms that the meeting happened
      * @param id Id of the trade
      * @param username Username of the Trader confirming that the meeting happened
-     * @return whether or not both trader confirm the meeting
      */
-    public boolean confirmMeeting(int id, String username){
+    public void confirmMeeting(int id, String username){
         getMeeting(id).setConfirm(username, true);
         if(checkAllConfirmed(id)){
             if(getMeeting(id).isPermanent()){
@@ -201,10 +193,8 @@ public class MeetingManager extends Manager implements Serializable {
             }else{
                 getMeeting(id).setTradeStatus("Waiting to be returned");
             }
-            return true;
         }else{
             getMeeting(id).setTradeStatus("Confirmed: waiting the other to confirm");
-            return false;
         }
     }
 
@@ -220,17 +210,14 @@ public class MeetingManager extends Manager implements Serializable {
      * Agrees on the meeting
      * @param id Id of the trade
      * @param username Username of the Trader agreeing on the meeting
-     * @return whether or not both trader agree with the meeting
      */
-    public boolean agreeOnTrade(int id, String username){
+    public void agreeOnTrade(int id, String username){
         getMeeting(id).setAgree(username, true);
         if(checkAllAgreed(id)){
             getMeeting(id).setTradeStatus("Both Agreed: waiting to be confirmed");
-            return true;
 
         }else{
             getMeeting(id).setTradeStatus("Agreed: waiting the other to agree");
-            return false;
         }
     }
 
@@ -288,6 +275,7 @@ public class MeetingManager extends Manager implements Serializable {
     public void undoEdit(int id, String user) {
         Meeting temp = meetings.get(id);
 
+        assert temp != null;
         temp.setLocation(temp.getLastLocation());
         temp.setTradeDate(temp.getLastTradeDate());
         temp.setReturnLocation(temp.getLastReturnLocation());
@@ -299,16 +287,6 @@ public class MeetingManager extends Manager implements Serializable {
     }
 
     /**
-     * Checks if the inputted meeting has an edit that can be undone.
-     * @param id
-     * @return
-     */
-    //TODO: unused method
-    public boolean canUndoEdit(int id) {
-        return meetings.get(id).getCanBeUndone();
-    }
-
-    /**
      * Undoes a user's decision to agree to the trade.
      * Precondition: The user is involved with the trade of trade ID 'id' and the only user that has
      * agreed to the trade is the inputted user.
@@ -317,7 +295,8 @@ public class MeetingManager extends Manager implements Serializable {
      */
     public void undoAgree(int id, String user) {
         Meeting temp = meetings.get(id);
-        HashMap tempMap = temp.getIsAgreed();
+        assert temp != null;
+        HashMap<String, Boolean> tempMap = temp.getIsAgreed();
         tempMap.replace(user, false);
         temp.setIsAgreed(tempMap);
     }
@@ -359,6 +338,7 @@ public class MeetingManager extends Manager implements Serializable {
      * */
     public boolean canUndoConfirm(int id, String username){
         Meeting temp = meetings.get(id);
+        assert temp != null;
         temp.getIsConfirmed().values().size();
         int counter = 0;
         for(boolean b: temp.getIsConfirmed().values()){
@@ -385,17 +365,13 @@ public class MeetingManager extends Manager implements Serializable {
      * @param user The username of the user in question.
      */
     public void undoConfirm(int id, String user) {
-        Meeting temp = meetings.get(id);
-        meetings.get(id).setConfirm(user,false);
-//        HashMap tempMap = temp.getIsConfirmed();
-//        tempMap.replace(user, false);
-//        temp.setIsConfirmed(tempMap);
+        Objects.requireNonNull(meetings.get(id)).setConfirm(user,false);
     }
 
     /**
      * Checks whether the meeting with the given id can be undone.
-     * @param id
-     * @return
+     * @param id The id of the trade
+     * @return A boolean representing if the meeting can be undone
      */
     public boolean meetingCanBeUndone(int id){
         return meetings.get(id).isEdited();
@@ -449,7 +425,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return The location
      */
     public String getMeetingLocation(int id){
-        return meetings.get(id).getLocation();
+        return Objects.requireNonNull(meetings.get(id)).getLocation();
     }
 
     /**
@@ -459,7 +435,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return number of edits the user has left
      */
     public Integer getEditsLeft(int id, String username){
-        return 3-meetings.get(id).getNumberOfEdits().get(username);
+        return 3- Objects.requireNonNull(meetings.get(id)).getNumberOfEdits().get(username);
     }
 
     /**
@@ -469,8 +445,8 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true iff the user has agreed to the meeting.
      */
     public boolean hasAgreed(int id, String username){
-        if(meetings.get(id).getIsAgreed().containsKey(username)){
-            return meetings.get(id).isAgreed(username);
+        if(Objects.requireNonNull(meetings.get(id)).getIsAgreed().containsKey(username)){
+            return Objects.requireNonNull(meetings.get(id)).isAgreed(username);
         }
         else{
             return false;
@@ -483,8 +459,8 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true iff both have agreed.
      */
     public boolean bothAgreed(int id){
-        if(meetings.get(id).getIsAgreed().values().size()==2){
-            for(boolean b: (meetings.get(id).getIsAgreed().values())){
+        if(Objects.requireNonNull(meetings.get(id)).getIsAgreed().values().size()==2){
+            for(boolean b: (Objects.requireNonNull(meetings.get(id)).getIsAgreed().values())){
                 if(!b){
                     return false;
                 }
@@ -501,7 +477,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true iff they have confirmed.
      */
     public boolean hasConfirmed(int id, String username){
-        return meetings.get(id).hasConfirmed(username);
+        return Objects.requireNonNull(meetings.get(id)).hasConfirmed(username);
     }
 
     /**
@@ -510,8 +486,8 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true iff they have both confirmed.
      */
     public boolean bothConfirmed(int id){
-        if(meetings.get(id).getIsConfirmed().values().size()==2){
-            for(boolean b: (meetings.get(id).getIsConfirmed().values())){
+        if(Objects.requireNonNull(meetings.get(id)).getIsConfirmed().values().size()==2){
+            for(boolean b: (Objects.requireNonNull(meetings.get(id)).getIsConfirmed().values())){
                 if(!b){
                     return false;
                 }
@@ -523,12 +499,14 @@ public class MeetingManager extends Manager implements Serializable {
 
     /**
      * Used to set up the second meeting for a temporary trade.
-     * @param id
+     * @param id The id of the meeting
      */
     public void setReturnInfo(int id){
-        meetings.get(id).setReturnLocation(meetings.get(id).getLocation());
-        meetings.get(id).setReturnDate(meetings.get(id).getTradeDate().plusMonths(1));
-        meetings.get(id).setBothConfirm(false);
+        Objects.requireNonNull(meetings.get(id)).setReturnLocation(
+                Objects.requireNonNull(meetings.get(id)).getLocation());
+        Objects.requireNonNull(meetings.get(id)).setReturnDate(
+                Objects.requireNonNull(meetings.get(id)).getTradeDate().plusMonths(1));
+        Objects.requireNonNull(meetings.get(id)).setBothConfirm(false);
     }
 
     /**
@@ -536,7 +514,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param id The id of the meeting.
      */
     public void setMeetingCompleted(int id){
-        meetings.get(id).setTradeStatus("Completed");
+        Objects.requireNonNull(meetings.get(id)).setTradeStatus("Completed");
     }
 
     /**
@@ -545,7 +523,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return The location of the meeting.
      */
     public String getReturnLocation(int id){
-        return meetings.get(id).getReturnLocation();
+        return Objects.requireNonNull(meetings.get(id)).getReturnLocation();
     }
 
     /**
@@ -554,7 +532,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return The date of the return.
      */
     public String getReturnDate(int id){
-        return meetings.get(id).getReturnDate().toString();
+        return Objects.requireNonNull(meetings.get(id)).getReturnDate().toString();
     }
 
     /**
@@ -562,7 +540,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param id The id of the meeting.
      */
     public void setBothDisagree(int id){
-        meetings.get(id).bothDisagree();
+        Objects.requireNonNull(meetings.get(id)).bothDisagree();
     }
 
     @Override
@@ -576,7 +554,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return Whether or not the max number of edits has been reached.
      */
     public boolean isMaxEditsReached(int id){
-        for(Integer i: meetings.get(id).getNumberOfEdits().values()){
+        for(Integer i: Objects.requireNonNull(meetings.get(id)).getNumberOfEdits().values()){
             if(i<3){
                 return false;
             }
@@ -591,12 +569,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return True if date is after, false otherwise
      */
     public boolean dateIsAfterReturnMeeting(int id, LocalDate date){
-        if(date.isBefore(meetings.get(id).getReturnDate().plusMonths(1))){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return !date.isBefore(Objects.requireNonNull(meetings.get(id)).getReturnDate().plusMonths(1));
 
     }
 }

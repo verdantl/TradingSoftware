@@ -1,5 +1,7 @@
 package com.example.phase2.meetings;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -47,6 +49,8 @@ public class Meeting implements Serializable {
      * String representation of this meeting
      * @return a string representation of this meeting's details
      */
+    @Override
+    @NonNull
     public String toString(){
         StringBuilder s = new StringBuilder("-TradeID: " + getTradeId() +
                 "\n" +
@@ -106,7 +110,7 @@ public class Meeting implements Serializable {
 
     /**
      * Getter for the last set location of the meeting
-     * @return
+     * @return A string representing the last set location of the meeting
      */
     public String getLastLocation() {
         return lastLocation;
