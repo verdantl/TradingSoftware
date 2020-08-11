@@ -27,7 +27,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param id Id of the trade
      * @return Return Meeting object iff it exists. Otherwise return null
      */
-    public Meeting getMeeting(int id){
+    public Meeting getMeeting(Integer id){
         if (!containMeeting(id)){
             return null;
         }
@@ -103,6 +103,7 @@ public class MeetingManager extends Manager implements Serializable {
     public void setMeetingInfo(int id, LocalDate tradeDate, LocalDate returnDate,
                                String location, String returnLocation){
         Meeting meeting = meetings.get(id);
+        assert meeting != null;
         meeting.setTradeDate(tradeDate);
         meeting.setReturnDate(returnDate);
         meeting.setLocation(location);
@@ -145,24 +146,6 @@ public class MeetingManager extends Manager implements Serializable {
         getMeeting(id).setTradeDate(date);
     }
 
-    /**edit the return location for the meeting
-     * @param id the id of the trade
-     * @param location the new return location
-     */
-    //TODO: unused method
-    public void editReturnLocation(int id, String location){
-        getMeeting(id).setReturnLocation(location);
-    }
-
-    /**edit the return date for the meeting
-     * @param id the id of the trade
-     * @param date the return date of the meeting
-     */
-    //TODO: unused method
-    public void editReturnDate(int id, LocalDate date){
-        getMeeting(id).setReturnDate(date);
-    }
-
     /**increase the number of edit times
      * @param user the user who wants to edit the meeting
      * @param id the id of the trade
@@ -177,7 +160,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return whether or not the user is valid to edit the trade
      */
     public boolean isValid(String user, int id){
-        return meetings.get(id).getNumberOfEdits().get(user) < 3;
+        return Objects.requireNonNull(meetings.get(id)).getNumberOfEdits().get(user) < 3;
     }
 
     /**Return true iff both traders confirm the meeting
@@ -248,7 +231,7 @@ public class MeetingManager extends Manager implements Serializable {
 
     }
 
-    private boolean checkAllReturned(int id){
+    private boolean checkAllReturned(Integer id){
         Meeting meeting = getMeeting(id);
         for(String user: meeting.getIsReturned().keySet()){
             if(!meeting.getIsReturned().get(user)){
@@ -322,10 +305,7 @@ public class MeetingManager extends Manager implements Serializable {
             return false;
         }
         else{
-            if(temp.getIsAgreed().get(username)){
-                return true;
-            }
-            return false;
+            return temp.getIsAgreed().get(username);
         }
     }
 
@@ -336,7 +316,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return true, iff the user was the last one to confirm a meeting meeting happened and both
      * traders involved haven't mutually confirmed.
      * */
-    public boolean canUndoConfirm(int id, String username){
+    public boolean canUndoConfirm(Integer id, String username){
         Meeting temp = meetings.get(id);
         assert temp != null;
         temp.getIsConfirmed().values().size();
@@ -350,10 +330,7 @@ public class MeetingManager extends Manager implements Serializable {
             return false;
         }
         else{
-            if(temp.getIsConfirmed().get(username)){
-                return true;
-            }
-            return false;
+            return temp.getIsConfirmed().get(username);
         }
     }
 
@@ -374,34 +351,11 @@ public class MeetingManager extends Manager implements Serializable {
      * @return A boolean representing if the meeting can be undone
      */
     public boolean meetingCanBeUndone(int id){
-        if(meetings.get(id).isEdited()){
-            if(bothAgreed(id)){
-                return false;
-            }
-            else{
-                return true;
-            }
+        if(Objects.requireNonNull(meetings.get(id)).isEdited()){
+            return !bothAgreed(id);
         }
         return false;
     }
-
-
-
-    /**
-     * Undoes the given meeting, effectively deleting it from the system.
-     * @param id The id of the meeting
-     */
-    //TODO: unused method
-    public void undoMeetingProposal(int id){
-        meetings.remove(id);
-    }
-
-    /**
-     * Returns the edits made to the given meeting.
-     * @param id The id of the meeting
-     * @return A hashmap representing the edits made to the meeting
-     */
-    public HashMap<String, Integer> getEdits(int id) { return meetings.get(id).getNumberOfEdits(); }
 
     /**
      * Returns the meeting's date in string format
@@ -409,23 +363,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @return The date in yyyy-mm-dd format
      */
     public String getMeetingDate(int id){
-        return meetings.get(id).getTradeDate().toString();
-    }
-
-    /**
-     * Returns if the given date is after the date of the meeting with the given id
-     * @param id The id of the meeting
-     * @param date The date to compare to
-     * @return true if date is after the meeting date, false otherwise
-     */
-    //TODO: unused method
-    public boolean dateIsAfterMeeting(int id, LocalDate date){
-        if(date.isBefore(meetings.get(id).getTradeDate())){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return Objects.requireNonNull(meetings.get(id)).getTradeDate().toString();
     }
 
     /**
@@ -571,14 +509,4 @@ public class MeetingManager extends Manager implements Serializable {
         return true;
     }
 
-    /**
-     * Checks whether the given date is after the return date of meeting with given id
-     * @param id The id of the meeting
-     * @param date The date to check
-     * @return True if date is after, false otherwise
-     */
-    public boolean dateIsAfterReturnMeeting(int id, LocalDate date){
-        return !date.isBefore(Objects.requireNonNull(meetings.get(id)).getReturnDate().plusMonths(1));
-
-    }
 }

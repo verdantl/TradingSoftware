@@ -1,7 +1,4 @@
 package com.example.phase2.menus;
-
-import androidx.annotation.Nullable;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -152,20 +149,6 @@ public class TraderActivity extends BundleActivity {
         putBundle(intent);
         startActivity(intent);
         finish();
-    }
-
-
-    /**
-     * Called when this activity exits, sending data back to its caller.
-     * @param requestCode The integer request code originally supplied to startActivityForResult(),
-     *                    allowing you to identify who this result came from.
-     * @param resultCode  The integer result code returned by the child activity through its
-     *                    setResult().
-     * @param data        An Intent, which can return result data to the caller (various data can be
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
