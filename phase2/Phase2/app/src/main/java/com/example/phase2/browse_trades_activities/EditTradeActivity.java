@@ -250,10 +250,10 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
 //            }
 //        }
             if(meetingManager.hasConfirmed(trade,tradeManager.getOtherTrader(trade,currentTrader) )){
-                if(traderManager.exceedMaxIncomplete(tradeManager.getOtherTrader(trade,currentTrader))){
+                if(traderManager.exceedMaxIncomplete(currentTrader)){
                     traderManager.decreaseNumIncomplete(currentTrader);
-                    if(!traderManager.exceedMaxIncomplete(tradeManager.getOtherTrader(trade,currentTrader))){
-                        traderManager.unFlagUser(tradeManager.getOtherTrader(trade,currentTrader));
+                    if(!traderManager.exceedMaxIncomplete(currentTrader)){
+                        traderManager.unFlagUser(currentTrader);
                     }
                 }
                 else{
@@ -262,7 +262,6 @@ public class EditTradeActivity extends UpdatableBundleActivity implements Dialog
 
             }
             meetingManager.confirmMeeting(trade, currentTrader);
-
             Button button = findViewById(R.id.confirmButton);
             button.setVisibility(View.GONE);
             updateCurTraderMeetingStatus();
