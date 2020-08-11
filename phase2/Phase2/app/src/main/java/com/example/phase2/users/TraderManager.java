@@ -85,12 +85,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         return temp;
     }
 
-    //TODO: unused method
-    public HashMap<String, Trader> getAllUsers(){
-        return users;
-    }
-
-
     public String getTraderInfo(String username){
         if (!checkUsername(username)){
             return Objects.requireNonNull(users.get(username)).toString();
@@ -113,30 +107,12 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     /**
      * Adds a Trader object to users
      * @param t The trader object to add
-     * @return Return true iff the trader object was added
      */
-    public boolean addTrader(Trader t){
+    public void addTrader(Trader t){
         if(containTrader(t.getUsername())){
-            return false;
+            return;
         }
         users.put(t.getUsername(), t);
-        return true;
-    }
-
-    /**
-     * Adds a list of Trader objects to users
-     * @param traders The list of trader objects to add
-     * @return Return true iff all of the trader objects were added
-     */
-    //TODO: unused method
-    public boolean addAllTraders(List<Trader> traders){
-        boolean addAll = true;
-        for(Trader t: traders){
-            if(!addTrader(t)){
-                addAll = false;
-            }
-        }
-        return addAll;
     }
 
     /**
@@ -149,16 +125,6 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     }
 
     /**
-     * Removes a trader object
-     * @param t The Trader object
-     * @return True iff the Trader object was removed
-     */
-    //TODO: unused method
-    public boolean removeTrader(Trader t){
-        return users.remove(t.getUsername(), t);
-    }
-
-    /**
      * Freezes a given account
      * @param username The account username that has to be frozen
      * @return Return true iff the account is successfully frozen. Return false
@@ -166,6 +132,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      */
     public boolean freezeAccount(String username){
         Trader trader = users.get(username);
+        assert trader != null;
         if (trader.isFrozen()){
             return false;
         }

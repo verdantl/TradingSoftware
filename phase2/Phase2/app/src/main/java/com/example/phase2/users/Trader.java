@@ -1,5 +1,7 @@
 package com.example.phase2.users;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,10 +14,8 @@ public class Trader extends User implements Serializable {
     private final List<Integer> wishlist;
     private final List<Integer> borrowedItems;
     private HashMap<Integer, LocalDate> trades;
-    private String homeCity; //for the extension
+    private String homeCity;
 
-    //IF WE SWITCH TO .SER WE DON'T NEED THAT LARGE OF A CONSTRUCTOR ANYMORE, we only need a constructor
-    // for making a new trader
     public Trader(String username, String password){
         super(username, password);
         homeCity = "N/A";
@@ -35,6 +35,7 @@ public class Trader extends User implements Serializable {
      * Converts the trader to a string representation.
      * @return a string of the admin's username, password, and date created
      */
+    @NonNull
     @Override
     public String toString(){
         String s = "Trader: "+ super.getUsername()+"\n";
@@ -110,45 +111,6 @@ public class Trader extends User implements Serializable {
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
     }
-
-//    public String getHomeCity(){
-//        return homeCity;
-//    }
-//
-//    public void setHomeCity(String homeCity){
-//        this.homeCity = homeCity;
-//    }
-
-
-
-//
-//    /**
-//     * @return Return the number of transactions that are incomplete
-//     */
-//    public int getNumIncompleteTransactions(){
-//        int numIncomplete = 0;
-//        for(Trade trade: trades){
-//            if (trade.getTradeDate().isBefore(LocalDate.now()) && !trade.getIsConfirmed(trade.getInitiator()) &&
-//                    !trade.getIsConfirmed(trade.getReceiver())){
-//                numIncomplete++;
-//            }
-//        }
-//
-//        return numIncomplete;
-//    }
-
-//    /**
-//     * @return Return the number of transactions in this week
-//     */
-//    public int getNumWeeklyTransactions(){
-//        int numTransactions = 0;
-//
-//        for(Trade trade: trades){
-//            //code goes here
-//        }
-//
-//        return numTransactions;
-//    }
 
     /**
      * Whether this user has requested to unfreeze or not.
@@ -263,7 +225,7 @@ public class Trader extends User implements Serializable {
 
     /**
      * Removes the given trade from the user.
-     * @param id
+     * @param id the id of the trade
      */
     public void removeTrade(int id){
         trades.remove(id);
@@ -271,7 +233,7 @@ public class Trader extends User implements Serializable {
 
     /**
      * Setter for Trader's inactive.
-     * @param inactive
+     * @param inactive a boolean representing if the Trader is inactive
      */
     public void setInactive(boolean inactive){
         this.inactive = inactive;
@@ -296,6 +258,4 @@ public class Trader extends User implements Serializable {
      * @param newHomeCity the string representing the new home city
      */
     public void setHomeCity(String newHomeCity){homeCity = newHomeCity;}
-
-
 }
