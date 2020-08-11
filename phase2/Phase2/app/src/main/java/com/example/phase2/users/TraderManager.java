@@ -66,9 +66,9 @@ public class TraderManager extends Manager implements Serializable, Loginable {
     }
 
     /**
-     * Returns true if the username is not taken, returns false if the username is taken.
-     * @param username The username to be checked
-     * @return true if username is taken, false otherwise
+     * Check whether the username is valid or not
+     * @param username the username that needs to be checked
+     * @return Return true iff the username is valid
      */
     public boolean checkUsername(String username){
         return !users.containsKey(username);
@@ -85,6 +85,11 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         return temp;
     }
 
+    /**
+     * Gets the trader's string representation if the user is in the system.
+     * @param username The username of the trader
+     * @return a string of the trader's username, password, and date created or an empty string if the user does not exist with the program
+     */
     public String getTraderInfo(String username){
         if (!checkUsername(username)){
             return Objects.requireNonNull(users.get(username)).toString();

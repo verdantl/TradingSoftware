@@ -48,6 +48,10 @@ public class UndoAgreeTrade extends BundleActivity implements Dialogable {
         super.onBackPressed();
     }
 
+    /**
+     * This is a method that displays list of trade that the chosenTrader has agreed to. When the user
+     * clicks on an item, the user can undo the chosenTrader's agreement.
+     */
     public void viewList(){
         List<Integer> incompleteTrades = meetingManager
                 .getOnGoingMeetings(traderManager.getTrades(chosenTrader));

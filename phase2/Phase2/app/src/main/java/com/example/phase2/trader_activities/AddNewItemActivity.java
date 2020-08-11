@@ -52,7 +52,10 @@ public class AddNewItemActivity extends BundleActivity {
         {
             Toast.makeText(this, "Please fill in all sections.",
                     Toast.LENGTH_LONG).show();
-        }else{
+        } else if (Integer.parseInt(rating) < 1 || Integer.parseInt(rating) > 10) {
+            Toast.makeText(this, "Please enter a rating between 1 and 10.",
+                    Toast.LENGTH_LONG).show();
+        } else{
             int ratingNumber = Integer.parseInt(rating);
             int itemID = itemManager.addItem(name, currentTrader);
             itemManager.addItemDetails(itemID, category, description, ratingNumber);

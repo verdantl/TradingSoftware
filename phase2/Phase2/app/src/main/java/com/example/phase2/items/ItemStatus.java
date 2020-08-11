@@ -8,7 +8,6 @@ public enum ItemStatus implements Serializable {
     UNAVAILABLE,
     INACTIVE_REQ,
     INACTIVE_AVA,
-    INACTIVE,
     REMOVED,
     FROZEN,
     FROZEN_REQ

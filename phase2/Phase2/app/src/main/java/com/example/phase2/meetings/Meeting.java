@@ -119,7 +119,6 @@ public class Meeting implements Serializable {
     /**
      * Resets all the last recorded information for the meeting. Only to be used after undoing
      * changes to a meeting.
-     * TODO: See if reseting all of the 'last' variables is necessary.
      */
     public void resetLastInfo() {
         lastTradeDate = null;
