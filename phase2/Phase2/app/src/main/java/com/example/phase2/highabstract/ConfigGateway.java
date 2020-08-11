@@ -122,9 +122,9 @@ public class ConfigGateway {
     public void saveBundle(Bundle bundle) throws IOException {
         saveInfo(contextFilesDir + ADMINPATH, bundle.getSerializable("AdminActions"));
         saveInfo(contextFilesDir + MEETINGPATH, bundle.getSerializable("MeetingManager"));
-        saveInfo(contextFilesDir + ITEMPATH, bundle.getSerializable("MeetingManager"));
-        saveInfo(contextFilesDir + TRADEPATH, bundle.getSerializable("MeetingManager"));
-        saveInfo(contextFilesDir + TRADERPATH, bundle.getSerializable("MeetingManager"));
+        saveInfo(contextFilesDir + ITEMPATH, bundle.getSerializable("ItemManager"));
+        saveInfo(contextFilesDir + TRADEPATH, bundle.getSerializable("TradeManager"));
+        saveInfo(contextFilesDir + TRADERPATH, bundle.getSerializable("TraderManager"));
     }
 
     private void downloadUsers(){

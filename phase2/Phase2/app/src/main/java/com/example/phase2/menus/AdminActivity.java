@@ -18,10 +18,6 @@ import com.example.phase2.undo_activities.UndoActivity;
 import com.example.phase2.users.TraderManager;
 
 public class AdminActivity extends BundleActivity {
-    private String currentAdmin;
-
-    private final int CHANGE_LIMIT_REQ = 5;
-    private final int CHANGE_PASSWORD_REQ = 6;
 
     /**
      * Called when the activity is starting.
@@ -31,7 +27,7 @@ public class AdminActivity extends BundleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentAdmin = getUsername();
+        String currentAdmin = getUsername();
         setContentView(R.layout.activity_admin);
 
         TextView textView = findViewById(R.id.textView14);
@@ -102,6 +98,7 @@ public class AdminActivity extends BundleActivity {
     public void changeLimits(View view){
         Intent i = new Intent(this, ChangeLimitActivity.class);
         putBundle(i);
+        int CHANGE_LIMIT_REQ = 5;
         startActivityForResult(i, CHANGE_LIMIT_REQ);
     }
 
@@ -113,6 +110,7 @@ public class AdminActivity extends BundleActivity {
     public void changePassword(View view){
         Intent i =  new Intent(this, ChangePasswordActivity.class);
         putBundle(i);
+        int CHANGE_PASSWORD_REQ = 6;
         startActivityForResult(i, CHANGE_PASSWORD_REQ);
     }
 

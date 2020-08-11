@@ -34,7 +34,6 @@ public abstract class BundleActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = filterExtras();
-
     }
 
     /**
