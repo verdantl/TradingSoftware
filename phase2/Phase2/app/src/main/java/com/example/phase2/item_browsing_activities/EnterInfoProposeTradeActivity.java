@@ -71,6 +71,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
     public void setLocation(View view) {
         EditText locationEditText = findViewById(R.id.editTextLocation);
         location =  locationEditText.getText().toString();
+        Toast.makeText(this, "Location set!", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -85,6 +86,9 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         catch (DateTimeParseException e) {
             Toast.makeText(this, "Please enter your location in the format DD-MM-YYYY",
                     Toast.LENGTH_LONG).show();
+        }
+        finally {
+            Toast.makeText(this, "Date set!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,8 +126,6 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
             startActivity(intent);
             finish();
         }
-
-
     }
 
     private void checkOnline(){
@@ -181,6 +183,7 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
      * @param view the context the button was pressed in.
      */
     public void cancel(View view){
+        Toast.makeText(this, "Action cancelled.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,TraderActivity.class);
         putBundle(intent);
         startActivityForResult(intent, RESULT_FIRST_USER);
