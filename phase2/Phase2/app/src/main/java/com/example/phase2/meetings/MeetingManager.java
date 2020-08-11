@@ -235,8 +235,8 @@ public class MeetingManager extends Manager implements Serializable {
      */
     public void undoEdit(int id, String user) {
         Meeting temp = meetings.get(id);
-
         assert temp != null;
+
         temp.setLocation(temp.getLastLocation());
         temp.setTradeDate(temp.getLastTradeDate());
         temp.setReturnLocation(temp.getLastReturnLocation());
@@ -331,8 +331,10 @@ public class MeetingManager extends Manager implements Serializable {
      * @return A boolean representing if the meeting can be undone
      */
     public boolean meetingCanBeUndone(int id){
-        if(Objects.requireNonNull(meetings.get(id)).isEdited()){
-            return !bothAgreed(id);
+        if(Objects.requireNonNull(meetings.get(id)).isEdited()) {
+            if(Objects.requireNonNull(meetings.get(id)).getCanBeUndone()){
+                return !bothAgreed(id);
+            }
         }
         return false;
     }

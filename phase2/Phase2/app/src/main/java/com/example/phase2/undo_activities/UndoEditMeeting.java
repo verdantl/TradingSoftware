@@ -79,6 +79,7 @@ public class UndoEditMeeting extends BundleActivity implements Dialogable {
      */
     @Override
     public void clickPositive() {
+
         meetingManager.undoEdit(chosenTrade, chosenTrader);
         Toast.makeText(this, "Successfully undo edit", Toast.LENGTH_SHORT).show();
         viewList();
