@@ -1,5 +1,7 @@
 package com.example.phase2.users;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -35,6 +37,7 @@ public abstract class User implements Serializable {
      * Converts this User into String representation.
      * @return this User's String representation.
      */
+    @NonNull
     @Override
     public abstract String toString();
 

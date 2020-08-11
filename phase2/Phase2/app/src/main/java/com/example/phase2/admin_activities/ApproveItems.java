@@ -23,6 +23,11 @@ public class ApproveItems extends BundleActivity implements ClickableList, Dialo
     private ItemManager itemManager;
     private Integer processedItem;
 
+    /**
+     * Called when the activity is starting.
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +35,18 @@ public class ApproveItems extends BundleActivity implements ClickableList, Dialo
         viewList();
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed() {
         replaceUseCase(itemManager);
         super.onBackPressed();
     }
 
+    /**
+     * Updates the ListView object in this Activity
+     */
     public void viewList(){
         final List<Integer> itemIds = itemManager.getItemsNeedingApproval();
         List<String> items = itemManager.getListOfItemsInString(itemIds);
@@ -45,6 +56,13 @@ public class ApproveItems extends BundleActivity implements ClickableList, Dialo
                 android.R.layout.simple_list_item_1, items);
         listView.setAdapter(itemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            /**
+             * Callback method to be invoked when an item in this AdapterView has been clicked.
+             * @param adapterView The AdapterView where the click happened
+             * @param view The view within the AdapterView that was clicked (this will be a view provided by the adapter)
+             * @param i The position of the view in the adapter.
+             * @param l The row id of the item that was clicked.
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openDialog();
@@ -53,6 +71,9 @@ public class ApproveItems extends BundleActivity implements ClickableList, Dialo
         });
     }
 
+    /**
+     * Called when the positive button is clicked
+     */
     @Override
     public void clickPositive() {
         if(itemManager.getItemStatus(processedItem) == REMOVED){
@@ -67,6 +88,9 @@ public class ApproveItems extends BundleActivity implements ClickableList, Dialo
 
     }
 
+    /**
+     * Called when the negative button is clicked
+     */
     @Override
     public void clickNegative() {
         if(itemManager.getItemStatus(processedItem) == AVAILABLE){
@@ -81,6 +105,9 @@ public class ApproveItems extends BundleActivity implements ClickableList, Dialo
 
     }
 
+    /**
+     * Opens the Dialog
+     */
     @Override
     public void openDialog() {
         DialogFactory dialogFactory = new DialogFactory();

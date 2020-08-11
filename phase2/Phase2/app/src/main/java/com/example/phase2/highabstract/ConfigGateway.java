@@ -1,7 +1,5 @@
 package com.example.phase2.highabstract;
-
 import android.os.Bundle;
-
 
 import com.example.phase2.items.Item;
 import com.example.phase2.items.ItemManager;

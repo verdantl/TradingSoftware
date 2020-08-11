@@ -21,6 +21,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
     private TraderManager traderManager;
     private ItemManager itemManager;
     private String unfreezeRequest;
+
     /**
      * Called when the activity is starting.
      * @param savedInstanceState If the activity is being re-initialized after previously being
@@ -34,6 +35,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
 
         viewList();
     }
+
     /**
      * Called when the activity has detected the user's press of the back key.
      */
@@ -42,6 +44,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
         replaceUseCase(traderManager);
         super.onBackPressed();
     }
+
     /**
      * Updates the ListView object in the XML file
      */
@@ -60,6 +63,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
             }
         });
     }
+
     /**
      * Called when the positive button is clicked.
      */
@@ -76,6 +80,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
         viewList();
 
     }
+
     /**
      * Called when the negative button is clicked
      */
@@ -85,6 +90,7 @@ public class RequestedUnfrozenMenu extends BundleActivity implements ClickableLi
         viewList();
 
     }
+
     /**
      * Opens the itemsDialog.
      */

@@ -14,7 +14,6 @@ import com.example.phase2.users.TraderManager;
  * This activity class displays the screen that allows admin users to type in new limit.
  */
 public class DisplayChangeLimitActivity extends BundleActivity {
-
     private TraderManager tm;
     private int currLimit;
     private TextView displayLimit;
@@ -27,12 +26,11 @@ public class DisplayChangeLimitActivity extends BundleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_change_limit);
-        displayLimit = (TextView) findViewById(R.id.textView7);
+        displayLimit = findViewById(R.id.textView7);
         LimitType limitToChange = getLimitToChange();
 
         tm = (TraderManager) getUseCase(TRADERKEY);
 
-        //getting the current limit
         switch (limitToChange){
             case WEEKLY_LIMIT:
                 currLimit = tm.getWeeklyLimit();
@@ -53,10 +51,10 @@ public class DisplayChangeLimitActivity extends BundleActivity {
      * This method is called when the user clicks the enter. The method gets the new limit
      * from the EditText and updates it. If the user doesn't type in anything, then it will
      * notify the user that it is invalid.
-     * @param view
+     * @param view The View object being clicked
      */
     public void enterNewLimit(View view){
-        EditText editText = (EditText) findViewById(R.id.editNewLimit);
+        EditText editText = findViewById(R.id.editNewLimit);
 
         if(editText.getText().toString().equals("")){
             Toast.makeText(this, "Invalid value.", Toast.LENGTH_SHORT).show();
@@ -78,9 +76,7 @@ public class DisplayChangeLimitActivity extends BundleActivity {
                     tm.setMaxInComplete(newLimit);
 
             }
-
             editText.setText("");
-            //updates the text view that is displaying the current limit
             updateCurrLimit(displayLimit, currLimit);
             Toast.makeText(this, R.string.successfully_changed_limit, Toast.LENGTH_SHORT).show();
         }
