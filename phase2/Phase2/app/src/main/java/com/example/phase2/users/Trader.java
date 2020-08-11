@@ -72,6 +72,7 @@ public class Trader extends User implements Serializable {
      * Setter for user's numLent
      * @param numLent the number of items this user has lent
      */
+    //TODO: unused method
     public void setNumLent(int numLent) {
         this.numLent = numLent;
     }
@@ -88,6 +89,7 @@ public class Trader extends User implements Serializable {
      * Setter for user's numBorrowed
      * @param numBorrowed the number of items this user has borrowed
      */
+    //TODO: unused method
     public void setNumBorrowed(int numBorrowed) {
         this.numBorrowed = numBorrowed;
     }
@@ -292,7 +294,6 @@ public class Trader extends User implements Serializable {
      * Setter for Trader's home city.
      * @param newHomeCity the string representing the new home city
      */
-    //TODO: unused method
     public void setHomeCity(String newHomeCity){homeCity = newHomeCity;}
 
 

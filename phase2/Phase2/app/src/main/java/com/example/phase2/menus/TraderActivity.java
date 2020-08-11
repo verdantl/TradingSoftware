@@ -110,7 +110,8 @@ public class TraderActivity extends BundleActivity {
         Intent intent = new Intent(this, ViewMyUserInfoActivity.class);
         putBundle(intent);
         //????
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
     }
     /**
      * This method is called when the user presses the Request Admin button. Starts the Request
@@ -142,7 +143,7 @@ public class TraderActivity extends BundleActivity {
     public void changeHomecity(View view){
         Intent i =  new Intent(this, ChangeHomecity.class);
         putBundle(i);
-        startActivityForResult(i, CHANGE_PASSWORD_REQ);
+        startActivityForResult(i, RESULT_FIRST_USER);
     }
 
     /**

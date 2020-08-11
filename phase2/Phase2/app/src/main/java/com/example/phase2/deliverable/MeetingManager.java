@@ -128,7 +128,6 @@ public class MeetingManager extends Manager implements Serializable {
      * @param id The trade id
      * @return Return true iff the meeting object was removed
      */
-    //TODO: unused method
     public boolean removeMeeting(int id){
         if(containMeeting(id)){
             meetings.remove(id);
@@ -304,6 +303,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param id
      * @return
      */
+    //TODO: unused method
     public boolean canUndoEdit(int id) {
         return meetings.get(id).getCanBeUndone();
     }
@@ -406,6 +406,7 @@ public class MeetingManager extends Manager implements Serializable {
      * Undoes the given meeting, effectively deleting it from the system.
      * @param id The id of the meeting
      */
+    //TODO: unused method
     public void undoMeetingProposal(int id){
         meetings.remove(id);
     }
@@ -432,6 +433,7 @@ public class MeetingManager extends Manager implements Serializable {
      * @param date The date to compare to
      * @return true if date is after the meeting date, false otherwise
      */
+    //TODO: unused method
     public boolean dateIsAfterMeeting(int id, LocalDate date){
         if(date.isBefore(meetings.get(id).getTradeDate())){
             return false;
@@ -450,6 +452,12 @@ public class MeetingManager extends Manager implements Serializable {
         return meetings.get(id).getLocation();
     }
 
+    /**
+     * Returns the number of edits the meeting has left for a given user
+     * @param id The id of the meeting
+     * @param username The username of the user
+     * @return number of edits the user has left
+     */
     public Integer getEditsLeft(int id, String username){
         return 3-meetings.get(id).getNumberOfEdits().get(username);
     }
