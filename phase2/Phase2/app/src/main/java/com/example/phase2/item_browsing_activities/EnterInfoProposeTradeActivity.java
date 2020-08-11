@@ -157,5 +157,9 @@ public class EnterInfoProposeTradeActivity extends BundleActivity {
         super.putBundle(intent);
     }
 
-    public void cancel(View view){ onBackPressed(); }
+    public void cancel(View view){
+        Intent intent = new Intent(this,TraderActivity.class);
+        putBundle(intent);
+        startActivityForResult(intent, RESULT_FIRST_USER);
+    }
 }
