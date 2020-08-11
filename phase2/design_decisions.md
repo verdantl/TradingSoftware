@@ -102,3 +102,7 @@ Undo confirming a trade - This is a reasonable thing to allow users to undo so w
                           However this is not possible to do once both users confirm as the trade is completed and no further
                           edits should be made, as edits past this date can be used to abuse the system (making a trade incomplete
                           and thus potentially flagging a user).
+
+##Online meetings:
+Because there it is very hard to oversee "item security" with online meetings we made it so that a
+trader cannot have a temporary online meeting- All online trades are permanent.

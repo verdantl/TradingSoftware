@@ -38,7 +38,7 @@ public class Trader extends User implements Serializable {
 
     /**
      * Converts the trader to a string representation.
-     * @return a string of the admin's username, password, and date created
+     * @return a string of the trader's username, password, and date created
      */
     @NonNull
     @Override
@@ -132,7 +132,7 @@ public class Trader extends User implements Serializable {
     }
 
     /**
-     *
+     * Getter for user's wishlist
      * @return Trader's wishlist
      */
     public List<Integer> getWishlist() {

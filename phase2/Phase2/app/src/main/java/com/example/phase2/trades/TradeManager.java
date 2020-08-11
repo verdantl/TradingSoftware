@@ -119,6 +119,10 @@ public class TradeManager extends Manager implements Serializable {
         return Objects.requireNonNull(tradeInventory.get(id)).getOtherTrader(username);
     }
 
+    /**
+     * Getter for the identifier of TradeManager
+     * @return a String representing the identifier
+     */
     @Override
     public String getIdentifier() {
         return "TradeManager";
