@@ -89,6 +89,10 @@ public class AdminActions extends Manager implements Serializable, Loginable {
         return requestedAdmins;
     }
 
+    /**
+     * Getter for the identifier of AdminActions
+     * @return a String representing the identifier
+     */
     @Override
     public String getIdentifier() {
         return "AdminActions";

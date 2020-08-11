@@ -471,6 +471,10 @@ public class MeetingManager extends Manager implements Serializable {
         Objects.requireNonNull(meetings.get(id)).bothDisagree();
     }
 
+    /**
+     * Getter for the identifier of MeetingManager
+     * @return a String representing the identifier
+     */
     @Override
     public String getIdentifier() {
         return "MeetingManager";

@@ -26,12 +26,9 @@ public class LocationChoiceDialog extends AppCompatDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
             dialogable = (Dialogable) context;
         } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(context.toString()
                     + " must implement Dialogable");
         }

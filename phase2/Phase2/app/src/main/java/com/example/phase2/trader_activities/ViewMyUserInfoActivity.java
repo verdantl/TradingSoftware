@@ -55,7 +55,6 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
         else{
             changeText((TextView) findViewById(R.id.textView6), "Status: Trading Available");
         }
-
         List<Integer> trades = traderManager.getTrades(currentTrader);
         TreeSet<String> traders = findsTopTraders(trades);
         if(traders.size() >= 1) {
@@ -67,7 +66,7 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
                         }
                 }
         }
-        viewList();        //setContentView(R.layout.activity_view_my_user_info);
+        viewList();
     }
 
     /**
@@ -75,22 +74,10 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
      */
     public void viewList(){
         final List<String> recentTrades = findRecentTrades();
-        //setContentView(R.layout.activity_view_my_user_info);
         ListView listView = findViewById(R.id.recent_trades);
-        //unsure about this line
         ArrayAdapter<String> allTradesAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, recentTrades);
         listView.setAdapter(allTradesAdapter);
-/*
-        //if the code below doesn't work just delete and add the "}"'s
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                trade = recentTrades.get(i);
-                displayEditTrade();
-            }
-        });
- */
     }
 
     private void changeText(TextView textView, String message){
@@ -98,15 +85,11 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
     }
 
     private TreeSet<String> findsTopTraders(List<Integer> trades){
-        //copy and pasted from TraderSystem finds top traders
         TreeMap<String, Integer> tradingPartners = new TreeMap<>();
         String traderToAdd;
-        // iterating over the user's trades
         for(Integer i: trades){
             if (!tradeManager.getIncompleteTrades(trades).contains(i)) {
                  traderToAdd = tradeManager.getOtherTrader(i, currentTrader);
-
-                // putting the other trader into the hashmap
                 if (tradingPartners.containsKey(traderToAdd)) {
                     tradingPartners.put(traderToAdd, tradingPartners.get(traderToAdd) + 1);
                 } else {
@@ -121,7 +104,6 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
         List<Integer> trades = traderManager.getTrades(currentTrader);
         List<String> items = new ArrayList<>();
 
-        //this was copy and pasted from trader system
         int n = trades.size();
         for (int j = 1; j < n; j++) {
             Integer bruh = trades.get(j);
@@ -133,17 +115,10 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
             }
             trades.set(i+1, bruh);
         }
-        // This is an ugly, ugly piece of code but I'm too tired to do better.
-        // iterating over the list of this user's trades from front to back
         for (int j = trades.size() - 1; j >= 0; j--) {
-            // if the trade is completed, then we'll consider it
             if (meetingManager.getMeetingStatus(trades.get(j)).equals("Completed")) {
-                // iterating over the 1-2 items involved with the trade
                 for (Integer i: tradeManager.getItems(trades.get(j))) {
-                    // if the item is now owned by the appropriate trader
-                    //if (itemManager.getOwner(i).equals(currentTrader)){
                         items.add(itemManager.getItemName(i));
-                    //}
                 }
             }
         }

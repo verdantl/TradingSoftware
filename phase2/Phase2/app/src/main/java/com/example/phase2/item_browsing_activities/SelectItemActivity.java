@@ -61,11 +61,9 @@ public class SelectItemActivity extends BundleActivity implements Dialogable, Cl
                 return receiverIDs;
             }
         }
-        //the max should be 10
         int ratingDifference = 11;
         int helper;
         int currentItem = -1;
-        //the suggested item is the one that is closest in quality
         for(Integer i : itemManager.getApprovedItemsIDs(currentTrader)){
             helper = Math.abs(Integer.parseInt(itemManager.getItemQuality(i)) -
                     Integer.parseInt(itemManager.getItemQuality(chosenItem)));
