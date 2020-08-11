@@ -149,7 +149,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      */
     public boolean unfreezeAccount(String username){
         Trader trader = users.get(username);
-
+        assert trader != null;
         trader.setRequestToUnfreeze(false);
         if (!trader.isFrozen()){
             return false;
@@ -164,7 +164,9 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param username the username of the Trader in question
      * @return a list of the IDs of the items in the inputted user's wishlist.
      */
-    public List<Integer> getWishlistIds(String username) {return users.get(username).getWishlist();}
+    public List<Integer> getWishlistIds(String username) {
+        return Objects.requireNonNull(users.get(username)).getWishlist();
+    }
 
     /**
      * Removes an item from a Traders's wishlist.
@@ -172,7 +174,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param id the ID of the item in question
      */
     public void removeFromWishlist(String username, Integer id){
-        users.get(username).getWishlist().remove(id);
+        Objects.requireNonNull(users.get(username)).getWishlist().remove(id);
     }
 
     /**
@@ -181,7 +183,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param id the ID of the item in question
      */
     public void addToWishlist(String username, Integer id){
-        users.get(username).getWishlist().add(id);
+        Objects.requireNonNull(users.get(username)).getWishlist().add(id);
     }
 
     /**
@@ -190,7 +192,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return true, iff the Trader with the given username's account is frozen.
      */
     public boolean getIsFrozen(String username){
-        return users.get(username).isFrozen();
+        return Objects.requireNonNull(users.get(username)).isFrozen();
     }
 
     /**
@@ -200,7 +202,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return a boolean representing if the trader has an unfreeze request
      */
     public boolean getRequestToUnfreeze(String username){
-        return users.get(username).isRequestToUnfreeze();
+        return Objects.requireNonNull(users.get(username)).isRequestToUnfreeze();
     }
 
     /**
@@ -209,70 +211,8 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param setting the new state of the Trader's requestToUnfreeze variable.
      */
     public void setRequestToUnfreeze(String username, boolean setting){
-        users.get(username).setRequestToUnfreeze(setting);
+        Objects.requireNonNull(users.get(username)).setRequestToUnfreeze(setting);
     }
-
-    // for extension
-//    public List<String> getUsersWithSameLocation(String location){
-//        List<String> usernames = new ArrayList<>();
-//        for(User u: users){
-//            if(u.getHomeCity().equals(location)){
-//                usernames.add(u.getUsername());
-//            }
-//        }
-//        return usernames;
-//    }
-
-
-
-//    /**
-//     * Returns a list of the usernames of all traders that have items that need approving.
-//     * @return a list of strings representing the usernames of all traders with items needing approval
-//     */
-//    public List<String> getTradersNeedingItemApproval() {
-//        List<String> temp = new ArrayList<>();
-//        for (String username : users.keySet()) {
-//            if (!users.get(username).getProposedItems().isEmpty()) {
-//                temp.add(username);
-//            }
-//        }
-//        return temp;
-//    }
-
-    /**
-     * Deletes the item from all traders' lists.
-     * @param id the id of the item
-     */
-    //TODO: unused methods
-    public void deleteItem(Integer id){
-        for (Trader trader: users.values()){
-            trader.deleteItem(id);
-        }
-    }
-
-
-//    /**
-//     * Approves or rejects an item in a user's list.
-//     * @param username The account usernamecontaining the item to be approved
-//     * @param itemID The id of the item to be approved
-//     * @param approved A boolean representing if the item has been approved or not
-//     */
-//    public void approveItem(String username, int itemID, boolean approved){
-//        Trader trader = users.get(username);
-//        trader.removeFromProposedItems(itemID);
-//        if (approved) {
-//            trader.addToWishlist(itemID);
-//        }
-//    }
-
-//    /**
-//     * Approves or rejects all of the items in an account's proposed items list.
-//     * @param username The account containing the items to be approved
-//     * @param approved A boolean representing if the items are all approved or not
-//     */
-//    public void approveAllItems(String username, boolean approved){
-//        users.get(username).approveAllItems(approved);
-//    }
 
     /**check whether or not the user exceed weekly trade limit
      * @param user the user who wants to create a new trade
@@ -283,7 +223,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int weekNumber = createDate.get(weekFields.weekOfWeekBasedYear());
         int n = 0;
-        for(LocalDate date: users.get(user).getTrades().values()){
+        for(LocalDate date: Objects.requireNonNull(users.get(user)).getTrades().values()){
             if(date.getYear() == createDate.getYear()
                     && date.get(weekFields.weekOfWeekBasedYear()) == weekNumber){
                 n++;
@@ -425,7 +365,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      */
     public void changePassword(String username, String newPassword){
         if(users.containsKey(username)) {
-            users.get(username).setPassword(newPassword);
+            Objects.requireNonNull(users.get(username)).setPassword(newPassword);
         }
     }
 
