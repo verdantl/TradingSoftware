@@ -65,15 +65,19 @@ public class DisplayTradeOptionsActivity extends BundleActivity implements Dialo
     @Override
     public void clickPositive() {
         assert dialogFragment.getArguments() != null;
-        if (itemManager.getApprovedItemsIDs(currentTrader).size() == 0) {
+        oneWay = dialogFragment.getArguments().getBoolean("isOneWay");
+        if (itemManager.getApprovedItemsIDs(currentTrader).size() == 0 && !oneWay) {
             Toast.makeText(this, "You have no items, so you " +
-                    "must commence a one-way trade.", Toast.LENGTH_SHORT).show();
+                    "must commence a one-way trade.", Toast.LENGTH_LONG).show();
             onBackPressed();
         } else {
-            oneWay = dialogFragment.getArguments().getBoolean("isOneWay");
             permanent = dialogFragment.getArguments().getBoolean("isPermanent");
             online = dialogFragment.getArguments().getBoolean("isOnline");
-            continuing();
+            if (!permanent && online) {
+                Toast.makeText(this, "All online trades must " +
+                        "be permanent.", Toast.LENGTH_LONG).show();
+                onBackPressed();
+            } else { continuing(); }
         }
     }
 
