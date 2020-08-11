@@ -5,7 +5,7 @@ import com.example.phase2.highabstract.Manager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Objects;
 
 public class AdminActions extends Manager implements Serializable, Loginable {
     private final HashMap<String, Admin> admins;
@@ -16,24 +16,6 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      */
     public AdminActions(HashMap<String, Admin> admins){
         this.admins = admins;
-    }
-
-    /**
-     * A getter for a string version of all the admin requests for approval.
-     * @return a string version of adminRequests
-     */
-    //TODO: unused method
-    public StringBuilder getAdminRequests(){
-        int LINE_LIMIT = 80;
-        StringBuilder requests = new StringBuilder();
-        List<String> adminRequests = getRequestedAdmins();
-        for (String admin: adminRequests){
-            if (requests.length() > LINE_LIMIT){
-                requests.append("\n");
-            }
-            requests.append(admin);
-        }
-        return requests;
     }
 
     /**
@@ -51,21 +33,9 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      * @param approved a boolean representing whether or not the admin is approved
      */
     public void approveAdmin(String username, boolean approved){
-        admins.get(username).setApproved(approved);
-        if (!admins.get(username).isApproved()){
+        Objects.requireNonNull(admins.get(username)).setApproved(approved);
+        if (!Objects.requireNonNull(admins.get(username)).isApproved()){
             admins.remove(username);
-        }
-    }
-
-    /**
-     * Adds admins to the list of admins
-     * @param approved boolean representing whether or not the admins are approved
-     * @param usernames List of usernames
-     */
-    //TODO: unused method
-    public void approveAllAdmins(List<String> usernames, boolean approved){
-        for(String username: usernames){
-            admins.get(username).setApproved(approved);
         }
     }
 
@@ -87,24 +57,10 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      */
     public boolean login(String username, String password) {
         if (admins.containsKey(username)) {
-            System.out.println(admins.get(username).getPassword());
-            return admins.get(username).isApproved() && admins.get(username).getPassword().equals(password);
+            return Objects.requireNonNull(admins.get(username)).isApproved()
+                    && Objects.requireNonNull(admins.get(username)).getPassword().equals(password);
         } else {
             return false;
-        }
-    }
-
-    /**
-     * Changes the username for this admin user's account
-     * @param username the username for the admin
-     * @param newUserName the new username for the admin
-     */
-    //TODO: unused method
-    public void changeUsername(String username, String newUserName){
-        if (admins.containsKey(username)) {
-            Admin admin = admins.get(username);
-            admins.remove(username);
-            admins.put(newUserName, admin);
         }
     }
 
@@ -115,7 +71,7 @@ public class AdminActions extends Manager implements Serializable, Loginable {
      */
     public void changePassword(String username, String password){
         if (admins.containsKey(username)){
-            admins.get(username).setPassword(password);
+            Objects.requireNonNull(admins.get(username)).setPassword(password);
         }
     }
 
@@ -126,7 +82,7 @@ public class AdminActions extends Manager implements Serializable, Loginable {
     public ArrayList<String> getRequestedAdmins(){
         ArrayList<String> requestedAdmins = new ArrayList<>();
         for(String username: admins.keySet()){
-            if(!admins.get(username).isApproved()){
+            if(!Objects.requireNonNull(admins.get(username)).isApproved()){
                 requestedAdmins.add(username);
             }
         }
