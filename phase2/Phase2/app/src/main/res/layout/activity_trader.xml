@@ -141,6 +141,7 @@
         android:textStyle="bold|italic"
         app:layout_constraintBaseline_toBaselineOf="@+id/welcomTraderTv"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/welcomTraderTv"
         app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent" />
 
