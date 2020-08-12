@@ -13,4 +13,7 @@ IntelliJ.
 5.There is a functionality to make sure a meeting is only confirmed after the meeting has passed.
 For the TA's convenience we have commented out the code responsible for that in EditTradeActivity to
 make testing the program easier. If desired, the code can be un-commented so that it checks the date.
+6. Please read the design_decisions.md file for an explanation on some of our key decisions,
+such as keeping controllers/presenters together, creating BundleActivity and UpdatableBundleActivity
+abstract classes, and what actions can reasonably be undone by an Admin.
 
