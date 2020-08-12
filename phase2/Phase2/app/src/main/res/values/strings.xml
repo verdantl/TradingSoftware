@@ -159,7 +159,7 @@
     <string name="addItem">Add Item</string>
     <string name="undo">UNDO</string>
     <string name="yourInventory">Your Inventory</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="ADMINKEY">AdminActions</string>
     <string name="TRADERKEY">TraderManager</string>
     <string name="TRADEKEY">TradeManager</string>
@@ -190,4 +190,5 @@
     <string name="cannot_propose_new_item_inactive">You cannot propose new item when your account is inactive</string>
     <string name="cannot_deactivate_frozen">You cannot deactivate your account when it\'s frozen</string>
     <string name="cannot_activate_frozen">You cannot activate your account when it\'s frozen</string>
+    <string name="most_recently_traded_items">Most Recently Traded Items:</string>
 </resources>
