@@ -135,7 +135,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      */
     public boolean freezeAccount(String username){
         Trader trader = users.get(username);
-        if (trader.isFrozen()){
+        if (Objects.requireNonNull(trader).isFrozen()){
             return false;
         }
         trader.setFrozen(true);
@@ -239,7 +239,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return whether or not the user exceed the max number of incomplete trades
      */
     public boolean exceedMaxIncomplete(String user){
-        return users.get(user).getNumIncomplete() > maxInComplete;
+        return Objects.requireNonNull(users.get(user)).getNumIncomplete() > maxInComplete;
     }
 
 
@@ -248,10 +248,10 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return whether or not the user need to lend more items
      */
     public boolean needMoreLend(String user){
-        if(users.get(user).getTrades().isEmpty()){
+        if(Objects.requireNonNull(users.get(user)).getTrades().isEmpty()){
             return false;
         }else{
-            return users.get(user).getNumLent() - users.get(user).getNumBorrowed() < moreLend;
+            return Objects.requireNonNull(users.get(user)).getNumLent() - Objects.requireNonNull(users.get(user)).getNumBorrowed() < moreLend;
         }
     }
 
@@ -260,7 +260,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return the list of trades belonged to that user
      */
     public List<Integer> getTrades(String user){
-        return new ArrayList<>(users.get(user).getTrades().keySet());
+        return new ArrayList<>(Objects.requireNonNull(users.get(user)).getTrades().keySet());
     }
 
     /**Add a new trade to the user's list of trades
@@ -269,21 +269,21 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param createDate the created date for the trade
      */
     public void addNewTrade(String user, int id, LocalDate createDate){
-        users.get(user).addTrades(id, createDate);
+        Objects.requireNonNull(users.get(user)).addTrades(id, createDate);
     }
 
     /**Increase the number of incomplete trades
      * @param user the user
      */
     public void increaseNumbIncomplete(String user){
-        users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() + 1);
+        Objects.requireNonNull(users.get(user)).setNumIncomplete(Objects.requireNonNull(users.get(user)).getNumIncomplete() + 1);
     }
 
     /**Decrease the number of incomplete trades
      * @param user the user
      */
     public void decreaseNumIncomplete(String user){
-        users.get(user).setNumIncomplete(users.get(user).getNumIncomplete() - 1);
+        Objects.requireNonNull(users.get(user)).setNumIncomplete(Objects.requireNonNull(users.get(user)).getNumIncomplete() - 1);
     }
 
 
@@ -335,7 +335,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param bool whether the trader will be active or inactive
      */
     public void setTraderInactive(String username, boolean bool){
-        users.get(username).setInactive(bool);
+        Objects.requireNonNull(users.get(username)).setInactive(bool);
     }
 
     /**
@@ -344,7 +344,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return true if username is inactive, false otherwise.
      */
     public boolean isInactive(String username){
-        return users.get(username).getInactive();
+        return Objects.requireNonNull(users.get(username)).getInactive();
     }
 
     /**
@@ -364,7 +364,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @return the string representing the trader's home city
      */
     public String getHomeCity(String username){
-        return users.get(username).getHomeCity();
+        return Objects.requireNonNull(users.get(username)).getHomeCity();
     }
 
     /**
@@ -373,7 +373,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param newHomeCity the string representing the trader's new home city
      */
     public void setHomeCity(String username, String newHomeCity){
-         users.get(username).setHomeCity(newHomeCity);
+         Objects.requireNonNull(users.get(username)).setHomeCity(newHomeCity);
     }
 
     /**
@@ -392,8 +392,8 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param secondUser The second trader
      */
     public void removeTradeFromTraders(int id, String firstUser,String secondUser){
-        users.get(firstUser).removeTrade(id);
-        users.get(secondUser).removeTrade(id);
+        Objects.requireNonNull(users.get(firstUser)).removeTrade(id);
+        Objects.requireNonNull(users.get(secondUser)).removeTrade(id);
     }
 
     /**
@@ -401,7 +401,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param username The username of the user
      */
     public void flagUser(String username){
-        users.get(username).setFlagged(true);
+        Objects.requireNonNull(users.get(username)).setFlagged(true);
     }
 
     /**
@@ -409,7 +409,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param username The username of the user
      */
     public void unFlagUser(String username){
-        users.get(username).setFlagged(false);
+        Objects.requireNonNull(users.get(username)).setFlagged(false);
     }
 
     /**
@@ -417,7 +417,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param username The username of the user
      */
     public void increaseNumLent(String username){
-        users.get(username).setNumLent(users.get(username).getNumLent()+1);
+        Objects.requireNonNull(users.get(username)).setNumLent(Objects.requireNonNull(users.get(username)).getNumLent()+1);
     }
 
     /**
@@ -425,7 +425,7 @@ public class TraderManager extends Manager implements Serializable, Loginable {
      * @param username The username of the user
      */
     public void increaseNumBorrowed(String username){
-        users.get(username).setNumBorrowed(users.get(username).getNumBorrowed()+1);
+        Objects.requireNonNull(users.get(username)).setNumBorrowed(Objects.requireNonNull(users.get(username)).getNumBorrowed()+1);
     }
 
 

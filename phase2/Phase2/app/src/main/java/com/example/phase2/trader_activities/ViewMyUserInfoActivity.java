@@ -87,6 +87,7 @@ public class ViewMyUserInfoActivity extends BundleActivity implements ClickableL
             textView.setText(message);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private TreeSet<String> findsTopTraders(List<Integer> trades){
         TreeMap<String, Integer> tradingPartners = new TreeMap<>();
         String traderToAdd;
